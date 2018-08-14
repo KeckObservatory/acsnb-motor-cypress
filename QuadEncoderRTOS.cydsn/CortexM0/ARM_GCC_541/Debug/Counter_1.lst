@@ -1,0 +1,2612 @@
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccVkEAVM.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m0
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"Counter_1.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.Counter_1_Enable,"ax",%progbits
+  20              		.align	2
+  21              		.global	Counter_1_Enable
+  22              		.code	16
+  23              		.thumb_func
+  24              		.type	Counter_1_Enable, %function
+  25              	Counter_1_Enable:
+  26              	.LFB1:
+  27              		.file 1 "Generated_Source\\PSoC4\\Counter_1.c"
+   1:Generated_Source\PSoC4/Counter_1.c **** /*******************************************************************************
+   2:Generated_Source\PSoC4/Counter_1.c **** * File Name: Counter_1.c  
+   3:Generated_Source\PSoC4/Counter_1.c **** * Version 3.0
+   4:Generated_Source\PSoC4/Counter_1.c **** *
+   5:Generated_Source\PSoC4/Counter_1.c **** *  Description:
+   6:Generated_Source\PSoC4/Counter_1.c **** *     The Counter component consists of a 8, 16, 24 or 32-bit counter with
+   7:Generated_Source\PSoC4/Counter_1.c **** *     a selectable period between 2 and 2^Width - 1.  
+   8:Generated_Source\PSoC4/Counter_1.c **** *
+   9:Generated_Source\PSoC4/Counter_1.c **** *   Note:
+  10:Generated_Source\PSoC4/Counter_1.c **** *     None
+  11:Generated_Source\PSoC4/Counter_1.c **** *
+  12:Generated_Source\PSoC4/Counter_1.c **** ********************************************************************************
+  13:Generated_Source\PSoC4/Counter_1.c **** * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+  14:Generated_Source\PSoC4/Counter_1.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  15:Generated_Source\PSoC4/Counter_1.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  16:Generated_Source\PSoC4/Counter_1.c **** * the software package with which this file was provided.
+  17:Generated_Source\PSoC4/Counter_1.c **** *******************************************************************************/
+  18:Generated_Source\PSoC4/Counter_1.c **** 
+  19:Generated_Source\PSoC4/Counter_1.c **** #include "Counter_1.h"
+  20:Generated_Source\PSoC4/Counter_1.c **** 
+  21:Generated_Source\PSoC4/Counter_1.c **** uint8 Counter_1_initVar = 0u;
+  22:Generated_Source\PSoC4/Counter_1.c **** 
+  23:Generated_Source\PSoC4/Counter_1.c **** 
+  24:Generated_Source\PSoC4/Counter_1.c **** /*******************************************************************************
+  25:Generated_Source\PSoC4/Counter_1.c **** * Function Name: Counter_1_Init
+  26:Generated_Source\PSoC4/Counter_1.c **** ********************************************************************************
+  27:Generated_Source\PSoC4/Counter_1.c **** * Summary:
+  28:Generated_Source\PSoC4/Counter_1.c **** *     Initialize to the schematic state
+  29:Generated_Source\PSoC4/Counter_1.c **** * 
+  30:Generated_Source\PSoC4/Counter_1.c **** * Parameters:  
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccVkEAVM.s 			page 2
+
+
+  31:Generated_Source\PSoC4/Counter_1.c **** *  void  
+  32:Generated_Source\PSoC4/Counter_1.c **** *
+  33:Generated_Source\PSoC4/Counter_1.c **** * Return: 
+  34:Generated_Source\PSoC4/Counter_1.c **** *  void
+  35:Generated_Source\PSoC4/Counter_1.c **** *
+  36:Generated_Source\PSoC4/Counter_1.c **** *******************************************************************************/
+  37:Generated_Source\PSoC4/Counter_1.c **** void Counter_1_Init(void) 
+  38:Generated_Source\PSoC4/Counter_1.c **** {
+  39:Generated_Source\PSoC4/Counter_1.c ****         #if (!Counter_1_UsingFixedFunction && !Counter_1_ControlRegRemoved)
+  40:Generated_Source\PSoC4/Counter_1.c ****             uint8 ctrl;
+  41:Generated_Source\PSoC4/Counter_1.c ****         #endif /* (!Counter_1_UsingFixedFunction && !Counter_1_ControlRegRemoved) */
+  42:Generated_Source\PSoC4/Counter_1.c ****         
+  43:Generated_Source\PSoC4/Counter_1.c ****         #if(!Counter_1_UsingFixedFunction) 
+  44:Generated_Source\PSoC4/Counter_1.c ****             /* Interrupt State Backup for Critical Region*/
+  45:Generated_Source\PSoC4/Counter_1.c ****             uint8 Counter_1_interruptState;
+  46:Generated_Source\PSoC4/Counter_1.c ****         #endif /* (!Counter_1_UsingFixedFunction) */
+  47:Generated_Source\PSoC4/Counter_1.c ****         
+  48:Generated_Source\PSoC4/Counter_1.c ****         #if (Counter_1_UsingFixedFunction)
+  49:Generated_Source\PSoC4/Counter_1.c ****             /* Clear all bits but the enable bit (if it's already set for Timer operation */
+  50:Generated_Source\PSoC4/Counter_1.c ****             Counter_1_CONTROL &= Counter_1_CTRL_ENABLE;
+  51:Generated_Source\PSoC4/Counter_1.c ****             
+  52:Generated_Source\PSoC4/Counter_1.c ****             /* Clear the mode bits for continuous run mode */
+  53:Generated_Source\PSoC4/Counter_1.c ****             #if (CY_PSOC5A)
+  54:Generated_Source\PSoC4/Counter_1.c ****                 Counter_1_CONTROL2 &= ((uint8)(~Counter_1_CTRL_MODE_MASK));
+  55:Generated_Source\PSoC4/Counter_1.c ****             #endif /* (CY_PSOC5A) */
+  56:Generated_Source\PSoC4/Counter_1.c ****             #if (CY_PSOC3 || CY_PSOC5LP)
+  57:Generated_Source\PSoC4/Counter_1.c ****                 Counter_1_CONTROL3 &= ((uint8)(~Counter_1_CTRL_MODE_MASK));                
+  58:Generated_Source\PSoC4/Counter_1.c ****             #endif /* (CY_PSOC3 || CY_PSOC5LP) */
+  59:Generated_Source\PSoC4/Counter_1.c ****             /* Check if One Shot mode is enabled i.e. RunMode !=0*/
+  60:Generated_Source\PSoC4/Counter_1.c ****             #if (Counter_1_RunModeUsed != 0x0u)
+  61:Generated_Source\PSoC4/Counter_1.c ****                 /* Set 3rd bit of Control register to enable one shot mode */
+  62:Generated_Source\PSoC4/Counter_1.c ****                 Counter_1_CONTROL |= Counter_1_ONESHOT;
+  63:Generated_Source\PSoC4/Counter_1.c ****             #endif /* (Counter_1_RunModeUsed != 0x0u) */
+  64:Generated_Source\PSoC4/Counter_1.c ****             
+  65:Generated_Source\PSoC4/Counter_1.c ****             /* Set the IRQ to use the status register interrupts */
+  66:Generated_Source\PSoC4/Counter_1.c ****             Counter_1_CONTROL2 |= Counter_1_CTRL2_IRQ_SEL;
+  67:Generated_Source\PSoC4/Counter_1.c ****             
+  68:Generated_Source\PSoC4/Counter_1.c ****             /* Clear and Set SYNCTC and SYNCCMP bits of RT1 register */
+  69:Generated_Source\PSoC4/Counter_1.c ****             Counter_1_RT1 &= ((uint8)(~Counter_1_RT1_MASK));
+  70:Generated_Source\PSoC4/Counter_1.c ****             Counter_1_RT1 |= Counter_1_SYNC;     
+  71:Generated_Source\PSoC4/Counter_1.c ****                     
+  72:Generated_Source\PSoC4/Counter_1.c ****             /*Enable DSI Sync all all inputs of the Timer*/
+  73:Generated_Source\PSoC4/Counter_1.c ****             Counter_1_RT1 &= ((uint8)(~Counter_1_SYNCDSI_MASK));
+  74:Generated_Source\PSoC4/Counter_1.c ****             Counter_1_RT1 |= Counter_1_SYNCDSI_EN;
+  75:Generated_Source\PSoC4/Counter_1.c **** 
+  76:Generated_Source\PSoC4/Counter_1.c ****         #else
+  77:Generated_Source\PSoC4/Counter_1.c ****             #if(!Counter_1_ControlRegRemoved)
+  78:Generated_Source\PSoC4/Counter_1.c ****             /* Set the default compare mode defined in the parameter */
+  79:Generated_Source\PSoC4/Counter_1.c ****             ctrl = Counter_1_CONTROL & ((uint8)(~Counter_1_CTRL_CMPMODE_MASK));
+  80:Generated_Source\PSoC4/Counter_1.c ****             Counter_1_CONTROL = ctrl | Counter_1_DEFAULT_COMPARE_MODE;
+  81:Generated_Source\PSoC4/Counter_1.c ****             
+  82:Generated_Source\PSoC4/Counter_1.c ****             /* Set the default capture mode defined in the parameter */
+  83:Generated_Source\PSoC4/Counter_1.c ****             ctrl = Counter_1_CONTROL & ((uint8)(~Counter_1_CTRL_CAPMODE_MASK));
+  84:Generated_Source\PSoC4/Counter_1.c ****             
+  85:Generated_Source\PSoC4/Counter_1.c ****             #if( 0 != Counter_1_CAPTURE_MODE_CONF)
+  86:Generated_Source\PSoC4/Counter_1.c ****                 Counter_1_CONTROL = ctrl | Counter_1_DEFAULT_CAPTURE_MODE;
+  87:Generated_Source\PSoC4/Counter_1.c ****             #else
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccVkEAVM.s 			page 3
+
+
+  88:Generated_Source\PSoC4/Counter_1.c ****                 Counter_1_CONTROL = ctrl;
+  89:Generated_Source\PSoC4/Counter_1.c ****             #endif /* 0 != Counter_1_CAPTURE_MODE */ 
+  90:Generated_Source\PSoC4/Counter_1.c ****             
+  91:Generated_Source\PSoC4/Counter_1.c ****             #endif /* (!Counter_1_ControlRegRemoved) */
+  92:Generated_Source\PSoC4/Counter_1.c ****         #endif /* (Counter_1_UsingFixedFunction) */
+  93:Generated_Source\PSoC4/Counter_1.c ****         
+  94:Generated_Source\PSoC4/Counter_1.c ****         /* Clear all data in the FIFO's */
+  95:Generated_Source\PSoC4/Counter_1.c ****         #if (!Counter_1_UsingFixedFunction)
+  96:Generated_Source\PSoC4/Counter_1.c ****             Counter_1_ClearFIFO();
+  97:Generated_Source\PSoC4/Counter_1.c ****         #endif /* (!Counter_1_UsingFixedFunction) */
+  98:Generated_Source\PSoC4/Counter_1.c ****         
+  99:Generated_Source\PSoC4/Counter_1.c ****         /* Set Initial values from Configuration */
+ 100:Generated_Source\PSoC4/Counter_1.c ****         Counter_1_WritePeriod(Counter_1_INIT_PERIOD_VALUE);
+ 101:Generated_Source\PSoC4/Counter_1.c ****         #if (!(Counter_1_UsingFixedFunction && (CY_PSOC5A)))
+ 102:Generated_Source\PSoC4/Counter_1.c ****             Counter_1_WriteCounter(Counter_1_INIT_COUNTER_VALUE);
+ 103:Generated_Source\PSoC4/Counter_1.c ****         #endif /* (!(Counter_1_UsingFixedFunction && (CY_PSOC5A))) */
+ 104:Generated_Source\PSoC4/Counter_1.c ****         Counter_1_SetInterruptMode(Counter_1_INIT_INTERRUPTS_MASK);
+ 105:Generated_Source\PSoC4/Counter_1.c ****         
+ 106:Generated_Source\PSoC4/Counter_1.c ****         #if (!Counter_1_UsingFixedFunction)
+ 107:Generated_Source\PSoC4/Counter_1.c ****             /* Read the status register to clear the unwanted interrupts */
+ 108:Generated_Source\PSoC4/Counter_1.c ****             (void)Counter_1_ReadStatusRegister();
+ 109:Generated_Source\PSoC4/Counter_1.c ****             /* Set the compare value (only available to non-fixed function implementation */
+ 110:Generated_Source\PSoC4/Counter_1.c ****             Counter_1_WriteCompare(Counter_1_INIT_COMPARE_VALUE);
+ 111:Generated_Source\PSoC4/Counter_1.c ****             /* Use the interrupt output of the status register for IRQ output */
+ 112:Generated_Source\PSoC4/Counter_1.c ****             
+ 113:Generated_Source\PSoC4/Counter_1.c ****             /* CyEnterCriticalRegion and CyExitCriticalRegion are used to mark following region cri
+ 114:Generated_Source\PSoC4/Counter_1.c ****             /* Enter Critical Region*/
+ 115:Generated_Source\PSoC4/Counter_1.c ****             Counter_1_interruptState = CyEnterCriticalSection();
+ 116:Generated_Source\PSoC4/Counter_1.c ****             
+ 117:Generated_Source\PSoC4/Counter_1.c ****             Counter_1_STATUS_AUX_CTRL |= Counter_1_STATUS_ACTL_INT_EN_MASK;
+ 118:Generated_Source\PSoC4/Counter_1.c ****             
+ 119:Generated_Source\PSoC4/Counter_1.c ****             /* Exit Critical Region*/
+ 120:Generated_Source\PSoC4/Counter_1.c ****             CyExitCriticalSection(Counter_1_interruptState);
+ 121:Generated_Source\PSoC4/Counter_1.c ****             
+ 122:Generated_Source\PSoC4/Counter_1.c ****         #endif /* (!Counter_1_UsingFixedFunction) */
+ 123:Generated_Source\PSoC4/Counter_1.c **** }
+ 124:Generated_Source\PSoC4/Counter_1.c **** 
+ 125:Generated_Source\PSoC4/Counter_1.c **** 
+ 126:Generated_Source\PSoC4/Counter_1.c **** /*******************************************************************************
+ 127:Generated_Source\PSoC4/Counter_1.c **** * Function Name: Counter_1_Enable
+ 128:Generated_Source\PSoC4/Counter_1.c **** ********************************************************************************
+ 129:Generated_Source\PSoC4/Counter_1.c **** * Summary:
+ 130:Generated_Source\PSoC4/Counter_1.c **** *     Enable the Counter
+ 131:Generated_Source\PSoC4/Counter_1.c **** * 
+ 132:Generated_Source\PSoC4/Counter_1.c **** * Parameters:  
+ 133:Generated_Source\PSoC4/Counter_1.c **** *  void  
+ 134:Generated_Source\PSoC4/Counter_1.c **** *
+ 135:Generated_Source\PSoC4/Counter_1.c **** * Return: 
+ 136:Generated_Source\PSoC4/Counter_1.c **** *  void
+ 137:Generated_Source\PSoC4/Counter_1.c **** *
+ 138:Generated_Source\PSoC4/Counter_1.c **** * Side Effects: 
+ 139:Generated_Source\PSoC4/Counter_1.c **** *   If the Enable mode is set to Hardware only then this function has no effect 
+ 140:Generated_Source\PSoC4/Counter_1.c **** *   on the operation of the counter.
+ 141:Generated_Source\PSoC4/Counter_1.c **** *
+ 142:Generated_Source\PSoC4/Counter_1.c **** *******************************************************************************/
+ 143:Generated_Source\PSoC4/Counter_1.c **** void Counter_1_Enable(void) 
+ 144:Generated_Source\PSoC4/Counter_1.c **** {
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccVkEAVM.s 			page 4
+
+
+  28              		.loc 1 144 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+ 145:Generated_Source\PSoC4/Counter_1.c ****     /* Globally Enable the Fixed Function Block chosen */
+ 146:Generated_Source\PSoC4/Counter_1.c ****     #if (Counter_1_UsingFixedFunction)
+ 147:Generated_Source\PSoC4/Counter_1.c ****         Counter_1_GLOBAL_ENABLE |= Counter_1_BLOCK_EN_MASK;
+ 148:Generated_Source\PSoC4/Counter_1.c ****         Counter_1_GLOBAL_STBY_ENABLE |= Counter_1_BLOCK_STBY_EN_MASK;
+ 149:Generated_Source\PSoC4/Counter_1.c ****     #endif /* (Counter_1_UsingFixedFunction) */  
+ 150:Generated_Source\PSoC4/Counter_1.c ****         
+ 151:Generated_Source\PSoC4/Counter_1.c ****     /* Enable the counter from the control register  */
+ 152:Generated_Source\PSoC4/Counter_1.c ****     /* If Fixed Function then make sure Mode is set correctly */
+ 153:Generated_Source\PSoC4/Counter_1.c ****     /* else make sure reset is clear */
+ 154:Generated_Source\PSoC4/Counter_1.c ****     #if(!Counter_1_ControlRegRemoved || Counter_1_UsingFixedFunction)
+ 155:Generated_Source\PSoC4/Counter_1.c ****         Counter_1_CONTROL |= Counter_1_CTRL_ENABLE;                
+  33              		.loc 1 155 0
+  34 0000 034A     		ldr	r2, .L2
+  35 0002 1178     		ldrb	r1, [r2]
+  36 0004 8023     		movs	r3, #128
+  37 0006 5B42     		rsbs	r3, r3, #0
+  38 0008 0B43     		orrs	r3, r1
+  39 000a DBB2     		uxtb	r3, r3
+  40 000c 1370     		strb	r3, [r2]
+ 156:Generated_Source\PSoC4/Counter_1.c ****     #endif /* (!Counter_1_ControlRegRemoved || Counter_1_UsingFixedFunction) */
+ 157:Generated_Source\PSoC4/Counter_1.c ****     
+ 158:Generated_Source\PSoC4/Counter_1.c **** }
+  41              		.loc 1 158 0
+  42              		@ sp needed
+  43 000e 7047     		bx	lr
+  44              	.L3:
+  45              		.align	2
+  46              	.L2:
+  47 0010 71000F40 		.word	1074724977
+  48              		.cfi_endproc
+  49              	.LFE1:
+  50              		.size	Counter_1_Enable, .-Counter_1_Enable
+  51              		.section	.text.Counter_1_Stop,"ax",%progbits
+  52              		.align	2
+  53              		.global	Counter_1_Stop
+  54              		.code	16
+  55              		.thumb_func
+  56              		.type	Counter_1_Stop, %function
+  57              	Counter_1_Stop:
+  58              	.LFB3:
+ 159:Generated_Source\PSoC4/Counter_1.c **** 
+ 160:Generated_Source\PSoC4/Counter_1.c **** 
+ 161:Generated_Source\PSoC4/Counter_1.c **** /*******************************************************************************
+ 162:Generated_Source\PSoC4/Counter_1.c **** * Function Name: Counter_1_Start
+ 163:Generated_Source\PSoC4/Counter_1.c **** ********************************************************************************
+ 164:Generated_Source\PSoC4/Counter_1.c **** * Summary:
+ 165:Generated_Source\PSoC4/Counter_1.c **** *  Enables the counter for operation 
+ 166:Generated_Source\PSoC4/Counter_1.c **** *
+ 167:Generated_Source\PSoC4/Counter_1.c **** * Parameters:  
+ 168:Generated_Source\PSoC4/Counter_1.c **** *  void  
+ 169:Generated_Source\PSoC4/Counter_1.c **** *
+ 170:Generated_Source\PSoC4/Counter_1.c **** * Return: 
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccVkEAVM.s 			page 5
+
+
+ 171:Generated_Source\PSoC4/Counter_1.c **** *  void
+ 172:Generated_Source\PSoC4/Counter_1.c **** *
+ 173:Generated_Source\PSoC4/Counter_1.c **** * Global variables:
+ 174:Generated_Source\PSoC4/Counter_1.c **** *  Counter_1_initVar: Is modified when this function is called for the  
+ 175:Generated_Source\PSoC4/Counter_1.c **** *   first time. Is used to ensure that initialization happens only once.
+ 176:Generated_Source\PSoC4/Counter_1.c **** *
+ 177:Generated_Source\PSoC4/Counter_1.c **** *******************************************************************************/
+ 178:Generated_Source\PSoC4/Counter_1.c **** void Counter_1_Start(void) 
+ 179:Generated_Source\PSoC4/Counter_1.c **** {
+ 180:Generated_Source\PSoC4/Counter_1.c ****     if(Counter_1_initVar == 0u)
+ 181:Generated_Source\PSoC4/Counter_1.c ****     {
+ 182:Generated_Source\PSoC4/Counter_1.c ****         Counter_1_Init();
+ 183:Generated_Source\PSoC4/Counter_1.c ****         
+ 184:Generated_Source\PSoC4/Counter_1.c ****         Counter_1_initVar = 1u; /* Clear this bit for Initialization */        
+ 185:Generated_Source\PSoC4/Counter_1.c ****     }
+ 186:Generated_Source\PSoC4/Counter_1.c ****     
+ 187:Generated_Source\PSoC4/Counter_1.c ****     /* Enable the Counter */
+ 188:Generated_Source\PSoC4/Counter_1.c ****     Counter_1_Enable();        
+ 189:Generated_Source\PSoC4/Counter_1.c **** }
+ 190:Generated_Source\PSoC4/Counter_1.c **** 
+ 191:Generated_Source\PSoC4/Counter_1.c **** 
+ 192:Generated_Source\PSoC4/Counter_1.c **** /*******************************************************************************
+ 193:Generated_Source\PSoC4/Counter_1.c **** * Function Name: Counter_1_Stop
+ 194:Generated_Source\PSoC4/Counter_1.c **** ********************************************************************************
+ 195:Generated_Source\PSoC4/Counter_1.c **** * Summary:
+ 196:Generated_Source\PSoC4/Counter_1.c **** * Halts the counter, but does not change any modes or disable interrupts.
+ 197:Generated_Source\PSoC4/Counter_1.c **** *
+ 198:Generated_Source\PSoC4/Counter_1.c **** * Parameters:  
+ 199:Generated_Source\PSoC4/Counter_1.c **** *  void  
+ 200:Generated_Source\PSoC4/Counter_1.c **** *
+ 201:Generated_Source\PSoC4/Counter_1.c **** * Return: 
+ 202:Generated_Source\PSoC4/Counter_1.c **** *  void
+ 203:Generated_Source\PSoC4/Counter_1.c **** *
+ 204:Generated_Source\PSoC4/Counter_1.c **** * Side Effects: If the Enable mode is set to Hardware only then this function
+ 205:Generated_Source\PSoC4/Counter_1.c **** *               has no effect on the operation of the counter.
+ 206:Generated_Source\PSoC4/Counter_1.c **** *
+ 207:Generated_Source\PSoC4/Counter_1.c **** *******************************************************************************/
+ 208:Generated_Source\PSoC4/Counter_1.c **** void Counter_1_Stop(void) 
+ 209:Generated_Source\PSoC4/Counter_1.c **** {
+  59              		.loc 1 209 0
+  60              		.cfi_startproc
+  61              		@ args = 0, pretend = 0, frame = 0
+  62              		@ frame_needed = 0, uses_anonymous_args = 0
+  63              		@ link register save eliminated.
+ 210:Generated_Source\PSoC4/Counter_1.c ****     /* Disable Counter */
+ 211:Generated_Source\PSoC4/Counter_1.c ****     #if(!Counter_1_ControlRegRemoved || Counter_1_UsingFixedFunction)
+ 212:Generated_Source\PSoC4/Counter_1.c ****         Counter_1_CONTROL &= ((uint8)(~Counter_1_CTRL_ENABLE));        
+  64              		.loc 1 212 0
+  65 0000 024A     		ldr	r2, .L5
+  66 0002 1178     		ldrb	r1, [r2]
+  67 0004 7F23     		movs	r3, #127
+  68 0006 0B40     		ands	r3, r1
+  69 0008 1370     		strb	r3, [r2]
+ 213:Generated_Source\PSoC4/Counter_1.c ****     #endif /* (!Counter_1_ControlRegRemoved || Counter_1_UsingFixedFunction) */
+ 214:Generated_Source\PSoC4/Counter_1.c ****     
+ 215:Generated_Source\PSoC4/Counter_1.c ****     /* Globally disable the Fixed Function Block chosen */
+ 216:Generated_Source\PSoC4/Counter_1.c ****     #if (Counter_1_UsingFixedFunction)
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccVkEAVM.s 			page 6
+
+
+ 217:Generated_Source\PSoC4/Counter_1.c ****         Counter_1_GLOBAL_ENABLE &= ((uint8)(~Counter_1_BLOCK_EN_MASK));
+ 218:Generated_Source\PSoC4/Counter_1.c ****         Counter_1_GLOBAL_STBY_ENABLE &= ((uint8)(~Counter_1_BLOCK_STBY_EN_MASK));
+ 219:Generated_Source\PSoC4/Counter_1.c ****     #endif /* (Counter_1_UsingFixedFunction) */
+ 220:Generated_Source\PSoC4/Counter_1.c **** }
+  70              		.loc 1 220 0
+  71              		@ sp needed
+  72 000a 7047     		bx	lr
+  73              	.L6:
+  74              		.align	2
+  75              	.L5:
+  76 000c 71000F40 		.word	1074724977
+  77              		.cfi_endproc
+  78              	.LFE3:
+  79              		.size	Counter_1_Stop, .-Counter_1_Stop
+  80              		.section	.text.Counter_1_SetInterruptMode,"ax",%progbits
+  81              		.align	2
+  82              		.global	Counter_1_SetInterruptMode
+  83              		.code	16
+  84              		.thumb_func
+  85              		.type	Counter_1_SetInterruptMode, %function
+  86              	Counter_1_SetInterruptMode:
+  87              	.LFB4:
+ 221:Generated_Source\PSoC4/Counter_1.c **** 
+ 222:Generated_Source\PSoC4/Counter_1.c **** 
+ 223:Generated_Source\PSoC4/Counter_1.c **** /*******************************************************************************
+ 224:Generated_Source\PSoC4/Counter_1.c **** * Function Name: Counter_1_SetInterruptMode
+ 225:Generated_Source\PSoC4/Counter_1.c **** ********************************************************************************
+ 226:Generated_Source\PSoC4/Counter_1.c **** * Summary:
+ 227:Generated_Source\PSoC4/Counter_1.c **** * Configures which interrupt sources are enabled to generate the final interrupt
+ 228:Generated_Source\PSoC4/Counter_1.c **** *
+ 229:Generated_Source\PSoC4/Counter_1.c **** * Parameters:  
+ 230:Generated_Source\PSoC4/Counter_1.c **** *  InterruptsMask: This parameter is an or'd collection of the status bits
+ 231:Generated_Source\PSoC4/Counter_1.c **** *                   which will be allowed to generate the counters interrupt.   
+ 232:Generated_Source\PSoC4/Counter_1.c **** *
+ 233:Generated_Source\PSoC4/Counter_1.c **** * Return: 
+ 234:Generated_Source\PSoC4/Counter_1.c **** *  void
+ 235:Generated_Source\PSoC4/Counter_1.c **** *
+ 236:Generated_Source\PSoC4/Counter_1.c **** *******************************************************************************/
+ 237:Generated_Source\PSoC4/Counter_1.c **** void Counter_1_SetInterruptMode(uint8 interruptsMask) 
+ 238:Generated_Source\PSoC4/Counter_1.c **** {
+  88              		.loc 1 238 0
+  89              		.cfi_startproc
+  90              		@ args = 0, pretend = 0, frame = 0
+  91              		@ frame_needed = 0, uses_anonymous_args = 0
+  92              		@ link register save eliminated.
+  93              	.LVL0:
+ 239:Generated_Source\PSoC4/Counter_1.c ****     Counter_1_STATUS_MASK = interruptsMask;
+  94              		.loc 1 239 0
+  95 0000 014B     		ldr	r3, .L8
+  96 0002 1870     		strb	r0, [r3]
+ 240:Generated_Source\PSoC4/Counter_1.c **** }
+  97              		.loc 1 240 0
+  98              		@ sp needed
+  99 0004 7047     		bx	lr
+ 100              	.L9:
+ 101 0006 C046     		.align	2
+ 102              	.L8:
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccVkEAVM.s 			page 7
+
+
+ 103 0008 82000F40 		.word	1074724994
+ 104              		.cfi_endproc
+ 105              	.LFE4:
+ 106              		.size	Counter_1_SetInterruptMode, .-Counter_1_SetInterruptMode
+ 107              		.section	.text.Counter_1_ReadStatusRegister,"ax",%progbits
+ 108              		.align	2
+ 109              		.global	Counter_1_ReadStatusRegister
+ 110              		.code	16
+ 111              		.thumb_func
+ 112              		.type	Counter_1_ReadStatusRegister, %function
+ 113              	Counter_1_ReadStatusRegister:
+ 114              	.LFB5:
+ 241:Generated_Source\PSoC4/Counter_1.c **** 
+ 242:Generated_Source\PSoC4/Counter_1.c **** 
+ 243:Generated_Source\PSoC4/Counter_1.c **** /*******************************************************************************
+ 244:Generated_Source\PSoC4/Counter_1.c **** * Function Name: Counter_1_ReadStatusRegister
+ 245:Generated_Source\PSoC4/Counter_1.c **** ********************************************************************************
+ 246:Generated_Source\PSoC4/Counter_1.c **** * Summary:
+ 247:Generated_Source\PSoC4/Counter_1.c **** *   Reads the status register and returns it's state. This function should use
+ 248:Generated_Source\PSoC4/Counter_1.c **** *       defined types for the bit-field information as the bits in this
+ 249:Generated_Source\PSoC4/Counter_1.c **** *       register may be permuteable.
+ 250:Generated_Source\PSoC4/Counter_1.c **** *
+ 251:Generated_Source\PSoC4/Counter_1.c **** * Parameters:  
+ 252:Generated_Source\PSoC4/Counter_1.c **** *  void
+ 253:Generated_Source\PSoC4/Counter_1.c **** *
+ 254:Generated_Source\PSoC4/Counter_1.c **** * Return: 
+ 255:Generated_Source\PSoC4/Counter_1.c **** *  (uint8) The contents of the status register
+ 256:Generated_Source\PSoC4/Counter_1.c **** *
+ 257:Generated_Source\PSoC4/Counter_1.c **** * Side Effects:
+ 258:Generated_Source\PSoC4/Counter_1.c **** *   Status register bits may be clear on read. 
+ 259:Generated_Source\PSoC4/Counter_1.c **** *
+ 260:Generated_Source\PSoC4/Counter_1.c **** *******************************************************************************/
+ 261:Generated_Source\PSoC4/Counter_1.c **** uint8   Counter_1_ReadStatusRegister(void) 
+ 262:Generated_Source\PSoC4/Counter_1.c **** {
+ 115              		.loc 1 262 0
+ 116              		.cfi_startproc
+ 117              		@ args = 0, pretend = 0, frame = 0
+ 118              		@ frame_needed = 0, uses_anonymous_args = 0
+ 119              		@ link register save eliminated.
+ 263:Generated_Source\PSoC4/Counter_1.c ****     return Counter_1_STATUS;
+ 120              		.loc 1 263 0
+ 121 0000 014B     		ldr	r3, .L11
+ 122 0002 1878     		ldrb	r0, [r3]
+ 123 0004 C0B2     		uxtb	r0, r0
+ 264:Generated_Source\PSoC4/Counter_1.c **** }
+ 124              		.loc 1 264 0
+ 125              		@ sp needed
+ 126 0006 7047     		bx	lr
+ 127              	.L12:
+ 128              		.align	2
+ 129              	.L11:
+ 130 0008 62000F40 		.word	1074724962
+ 131              		.cfi_endproc
+ 132              	.LFE5:
+ 133              		.size	Counter_1_ReadStatusRegister, .-Counter_1_ReadStatusRegister
+ 134              		.section	.text.Counter_1_ReadControlRegister,"ax",%progbits
+ 135              		.align	2
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccVkEAVM.s 			page 8
+
+
+ 136              		.global	Counter_1_ReadControlRegister
+ 137              		.code	16
+ 138              		.thumb_func
+ 139              		.type	Counter_1_ReadControlRegister, %function
+ 140              	Counter_1_ReadControlRegister:
+ 141              	.LFB6:
+ 265:Generated_Source\PSoC4/Counter_1.c **** 
+ 266:Generated_Source\PSoC4/Counter_1.c **** 
+ 267:Generated_Source\PSoC4/Counter_1.c **** #if(!Counter_1_ControlRegRemoved)
+ 268:Generated_Source\PSoC4/Counter_1.c **** /*******************************************************************************
+ 269:Generated_Source\PSoC4/Counter_1.c **** * Function Name: Counter_1_ReadControlRegister
+ 270:Generated_Source\PSoC4/Counter_1.c **** ********************************************************************************
+ 271:Generated_Source\PSoC4/Counter_1.c **** * Summary:
+ 272:Generated_Source\PSoC4/Counter_1.c **** *   Reads the control register and returns it's state. This function should use
+ 273:Generated_Source\PSoC4/Counter_1.c **** *       defined types for the bit-field information as the bits in this
+ 274:Generated_Source\PSoC4/Counter_1.c **** *       register may be permuteable.
+ 275:Generated_Source\PSoC4/Counter_1.c **** *
+ 276:Generated_Source\PSoC4/Counter_1.c **** * Parameters:  
+ 277:Generated_Source\PSoC4/Counter_1.c **** *  void
+ 278:Generated_Source\PSoC4/Counter_1.c **** *
+ 279:Generated_Source\PSoC4/Counter_1.c **** * Return: 
+ 280:Generated_Source\PSoC4/Counter_1.c **** *  (uint8) The contents of the control register
+ 281:Generated_Source\PSoC4/Counter_1.c **** *
+ 282:Generated_Source\PSoC4/Counter_1.c **** *******************************************************************************/
+ 283:Generated_Source\PSoC4/Counter_1.c **** uint8   Counter_1_ReadControlRegister(void) 
+ 284:Generated_Source\PSoC4/Counter_1.c **** {
+ 142              		.loc 1 284 0
+ 143              		.cfi_startproc
+ 144              		@ args = 0, pretend = 0, frame = 0
+ 145              		@ frame_needed = 0, uses_anonymous_args = 0
+ 146              		@ link register save eliminated.
+ 285:Generated_Source\PSoC4/Counter_1.c ****     return Counter_1_CONTROL;
+ 147              		.loc 1 285 0
+ 148 0000 014B     		ldr	r3, .L14
+ 149 0002 1878     		ldrb	r0, [r3]
+ 150 0004 C0B2     		uxtb	r0, r0
+ 286:Generated_Source\PSoC4/Counter_1.c **** }
+ 151              		.loc 1 286 0
+ 152              		@ sp needed
+ 153 0006 7047     		bx	lr
+ 154              	.L15:
+ 155              		.align	2
+ 156              	.L14:
+ 157 0008 71000F40 		.word	1074724977
+ 158              		.cfi_endproc
+ 159              	.LFE6:
+ 160              		.size	Counter_1_ReadControlRegister, .-Counter_1_ReadControlRegister
+ 161              		.section	.text.Counter_1_WriteControlRegister,"ax",%progbits
+ 162              		.align	2
+ 163              		.global	Counter_1_WriteControlRegister
+ 164              		.code	16
+ 165              		.thumb_func
+ 166              		.type	Counter_1_WriteControlRegister, %function
+ 167              	Counter_1_WriteControlRegister:
+ 168              	.LFB7:
+ 287:Generated_Source\PSoC4/Counter_1.c **** 
+ 288:Generated_Source\PSoC4/Counter_1.c **** 
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccVkEAVM.s 			page 9
+
+
+ 289:Generated_Source\PSoC4/Counter_1.c **** /*******************************************************************************
+ 290:Generated_Source\PSoC4/Counter_1.c **** * Function Name: Counter_1_WriteControlRegister
+ 291:Generated_Source\PSoC4/Counter_1.c **** ********************************************************************************
+ 292:Generated_Source\PSoC4/Counter_1.c **** * Summary:
+ 293:Generated_Source\PSoC4/Counter_1.c **** *   Sets the bit-field of the control register.  This function should use
+ 294:Generated_Source\PSoC4/Counter_1.c **** *       defined types for the bit-field information as the bits in this
+ 295:Generated_Source\PSoC4/Counter_1.c **** *       register may be permuteable.
+ 296:Generated_Source\PSoC4/Counter_1.c **** *
+ 297:Generated_Source\PSoC4/Counter_1.c **** * Parameters:  
+ 298:Generated_Source\PSoC4/Counter_1.c **** *  void
+ 299:Generated_Source\PSoC4/Counter_1.c **** *
+ 300:Generated_Source\PSoC4/Counter_1.c **** * Return: 
+ 301:Generated_Source\PSoC4/Counter_1.c **** *  (uint8) The contents of the control register
+ 302:Generated_Source\PSoC4/Counter_1.c **** *
+ 303:Generated_Source\PSoC4/Counter_1.c **** *******************************************************************************/
+ 304:Generated_Source\PSoC4/Counter_1.c **** void    Counter_1_WriteControlRegister(uint8 control) 
+ 305:Generated_Source\PSoC4/Counter_1.c **** {
+ 169              		.loc 1 305 0
+ 170              		.cfi_startproc
+ 171              		@ args = 0, pretend = 0, frame = 0
+ 172              		@ frame_needed = 0, uses_anonymous_args = 0
+ 173              		@ link register save eliminated.
+ 174              	.LVL1:
+ 306:Generated_Source\PSoC4/Counter_1.c ****     Counter_1_CONTROL = control;
+ 175              		.loc 1 306 0
+ 176 0000 014B     		ldr	r3, .L17
+ 177 0002 1870     		strb	r0, [r3]
+ 307:Generated_Source\PSoC4/Counter_1.c **** }
+ 178              		.loc 1 307 0
+ 179              		@ sp needed
+ 180 0004 7047     		bx	lr
+ 181              	.L18:
+ 182 0006 C046     		.align	2
+ 183              	.L17:
+ 184 0008 71000F40 		.word	1074724977
+ 185              		.cfi_endproc
+ 186              	.LFE7:
+ 187              		.size	Counter_1_WriteControlRegister, .-Counter_1_WriteControlRegister
+ 188              		.section	.text.Counter_1_WriteCounter,"ax",%progbits
+ 189              		.align	2
+ 190              		.global	Counter_1_WriteCounter
+ 191              		.code	16
+ 192              		.thumb_func
+ 193              		.type	Counter_1_WriteCounter, %function
+ 194              	Counter_1_WriteCounter:
+ 195              	.LFB8:
+ 308:Generated_Source\PSoC4/Counter_1.c **** 
+ 309:Generated_Source\PSoC4/Counter_1.c **** #endif  /* (!Counter_1_ControlRegRemoved) */
+ 310:Generated_Source\PSoC4/Counter_1.c **** 
+ 311:Generated_Source\PSoC4/Counter_1.c **** 
+ 312:Generated_Source\PSoC4/Counter_1.c **** #if (!(Counter_1_UsingFixedFunction && (CY_PSOC5A)))
+ 313:Generated_Source\PSoC4/Counter_1.c **** /*******************************************************************************
+ 314:Generated_Source\PSoC4/Counter_1.c **** * Function Name: Counter_1_WriteCounter
+ 315:Generated_Source\PSoC4/Counter_1.c **** ********************************************************************************
+ 316:Generated_Source\PSoC4/Counter_1.c **** * Summary:
+ 317:Generated_Source\PSoC4/Counter_1.c **** *   This funtion is used to set the counter to a specific value
+ 318:Generated_Source\PSoC4/Counter_1.c **** *
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccVkEAVM.s 			page 10
+
+
+ 319:Generated_Source\PSoC4/Counter_1.c **** * Parameters:  
+ 320:Generated_Source\PSoC4/Counter_1.c **** *  counter:  New counter value. 
+ 321:Generated_Source\PSoC4/Counter_1.c **** *
+ 322:Generated_Source\PSoC4/Counter_1.c **** * Return: 
+ 323:Generated_Source\PSoC4/Counter_1.c **** *  void 
+ 324:Generated_Source\PSoC4/Counter_1.c **** *
+ 325:Generated_Source\PSoC4/Counter_1.c **** *******************************************************************************/
+ 326:Generated_Source\PSoC4/Counter_1.c **** void Counter_1_WriteCounter(uint32 counter) \
+ 327:Generated_Source\PSoC4/Counter_1.c ****                                    
+ 328:Generated_Source\PSoC4/Counter_1.c **** {
+ 196              		.loc 1 328 0
+ 197              		.cfi_startproc
+ 198              		@ args = 0, pretend = 0, frame = 0
+ 199              		@ frame_needed = 0, uses_anonymous_args = 0
+ 200              	.LVL2:
+ 201 0000 10B5     		push	{r4, lr}
+ 202              		.cfi_def_cfa_offset 8
+ 203              		.cfi_offset 4, -8
+ 204              		.cfi_offset 14, -4
+ 205 0002 0100     		movs	r1, r0
+ 329:Generated_Source\PSoC4/Counter_1.c ****     #if(Counter_1_UsingFixedFunction)
+ 330:Generated_Source\PSoC4/Counter_1.c ****         /* assert if block is already enabled */
+ 331:Generated_Source\PSoC4/Counter_1.c ****         CYASSERT (0u == (Counter_1_GLOBAL_ENABLE & Counter_1_BLOCK_EN_MASK));
+ 332:Generated_Source\PSoC4/Counter_1.c ****         /* If block is disabled, enable it and then write the counter */
+ 333:Generated_Source\PSoC4/Counter_1.c ****         Counter_1_GLOBAL_ENABLE |= Counter_1_BLOCK_EN_MASK;
+ 334:Generated_Source\PSoC4/Counter_1.c ****         CY_SET_REG16(Counter_1_COUNTER_LSB_PTR, (uint16)counter);
+ 335:Generated_Source\PSoC4/Counter_1.c ****         Counter_1_GLOBAL_ENABLE &= ((uint8)(~Counter_1_BLOCK_EN_MASK));
+ 336:Generated_Source\PSoC4/Counter_1.c ****     #else
+ 337:Generated_Source\PSoC4/Counter_1.c ****         CY_SET_REG24(Counter_1_COUNTER_LSB_PTR, counter);
+ 206              		.loc 1 337 0
+ 207 0004 0148     		ldr	r0, .L20
+ 208              	.LVL3:
+ 209 0006 FFF7FEFF 		bl	CySetReg24
+ 210              	.LVL4:
+ 338:Generated_Source\PSoC4/Counter_1.c ****     #endif /* (Counter_1_UsingFixedFunction) */
+ 339:Generated_Source\PSoC4/Counter_1.c **** }
+ 211              		.loc 1 339 0
+ 212              		@ sp needed
+ 213 000a 10BD     		pop	{r4, pc}
+ 214              	.L21:
+ 215              		.align	2
+ 216              	.L20:
+ 217 000c 00000F40 		.word	1074724864
+ 218              		.cfi_endproc
+ 219              	.LFE8:
+ 220              		.size	Counter_1_WriteCounter, .-Counter_1_WriteCounter
+ 221              		.section	.text.Counter_1_ReadCounter,"ax",%progbits
+ 222              		.align	2
+ 223              		.global	Counter_1_ReadCounter
+ 224              		.code	16
+ 225              		.thumb_func
+ 226              		.type	Counter_1_ReadCounter, %function
+ 227              	Counter_1_ReadCounter:
+ 228              	.LFB9:
+ 340:Generated_Source\PSoC4/Counter_1.c **** #endif /* (!(Counter_1_UsingFixedFunction && (CY_PSOC5A))) */
+ 341:Generated_Source\PSoC4/Counter_1.c **** 
+ 342:Generated_Source\PSoC4/Counter_1.c **** 
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccVkEAVM.s 			page 11
+
+
+ 343:Generated_Source\PSoC4/Counter_1.c **** /*******************************************************************************
+ 344:Generated_Source\PSoC4/Counter_1.c **** * Function Name: Counter_1_ReadCounter
+ 345:Generated_Source\PSoC4/Counter_1.c **** ********************************************************************************
+ 346:Generated_Source\PSoC4/Counter_1.c **** * Summary:
+ 347:Generated_Source\PSoC4/Counter_1.c **** * Returns the current value of the counter.  It doesn't matter
+ 348:Generated_Source\PSoC4/Counter_1.c **** * if the counter is enabled or running.
+ 349:Generated_Source\PSoC4/Counter_1.c **** *
+ 350:Generated_Source\PSoC4/Counter_1.c **** * Parameters:  
+ 351:Generated_Source\PSoC4/Counter_1.c **** *  void:  
+ 352:Generated_Source\PSoC4/Counter_1.c **** *
+ 353:Generated_Source\PSoC4/Counter_1.c **** * Return: 
+ 354:Generated_Source\PSoC4/Counter_1.c **** *  (uint32) The present value of the counter.
+ 355:Generated_Source\PSoC4/Counter_1.c **** *
+ 356:Generated_Source\PSoC4/Counter_1.c **** *******************************************************************************/
+ 357:Generated_Source\PSoC4/Counter_1.c **** uint32 Counter_1_ReadCounter(void) 
+ 358:Generated_Source\PSoC4/Counter_1.c **** {
+ 229              		.loc 1 358 0
+ 230              		.cfi_startproc
+ 231              		@ args = 0, pretend = 0, frame = 0
+ 232              		@ frame_needed = 0, uses_anonymous_args = 0
+ 233 0000 10B5     		push	{r4, lr}
+ 234              		.cfi_def_cfa_offset 8
+ 235              		.cfi_offset 4, -8
+ 236              		.cfi_offset 14, -4
+ 359:Generated_Source\PSoC4/Counter_1.c ****     /* Force capture by reading Accumulator */
+ 360:Generated_Source\PSoC4/Counter_1.c ****     /* Must first do a software capture to be able to read the counter */
+ 361:Generated_Source\PSoC4/Counter_1.c ****     /* It is up to the user code to make sure there isn't already captured data in the FIFO */
+ 362:Generated_Source\PSoC4/Counter_1.c ****     #if(Counter_1_UsingFixedFunction)
+ 363:Generated_Source\PSoC4/Counter_1.c **** 		(void)CY_GET_REG16(Counter_1_COUNTER_LSB_PTR);
+ 364:Generated_Source\PSoC4/Counter_1.c **** 	#else
+ 365:Generated_Source\PSoC4/Counter_1.c **** 		(void)CY_GET_REG8(Counter_1_COUNTER_LSB_PTR_8BIT);
+ 237              		.loc 1 365 0
+ 238 0002 034B     		ldr	r3, .L23
+ 239 0004 1B78     		ldrb	r3, [r3]
+ 366:Generated_Source\PSoC4/Counter_1.c **** 	#endif/* (Counter_1_UsingFixedFunction) */
+ 367:Generated_Source\PSoC4/Counter_1.c ****     
+ 368:Generated_Source\PSoC4/Counter_1.c ****     /* Read the data from the FIFO (or capture register for Fixed Function)*/
+ 369:Generated_Source\PSoC4/Counter_1.c ****     #if(Counter_1_UsingFixedFunction)
+ 370:Generated_Source\PSoC4/Counter_1.c ****         return ((uint32)CY_GET_REG16(Counter_1_STATICCOUNT_LSB_PTR));
+ 371:Generated_Source\PSoC4/Counter_1.c ****     #else
+ 372:Generated_Source\PSoC4/Counter_1.c ****         return (CY_GET_REG24(Counter_1_STATICCOUNT_LSB_PTR));
+ 240              		.loc 1 372 0
+ 241 0006 0348     		ldr	r0, .L23+4
+ 242 0008 FFF7FEFF 		bl	CyGetReg24
+ 243              	.LVL5:
+ 373:Generated_Source\PSoC4/Counter_1.c ****     #endif /* (Counter_1_UsingFixedFunction) */
+ 374:Generated_Source\PSoC4/Counter_1.c **** }
+ 244              		.loc 1 374 0
+ 245              		@ sp needed
+ 246 000c 10BD     		pop	{r4, pc}
+ 247              	.L24:
+ 248 000e C046     		.align	2
+ 249              	.L23:
+ 250 0010 00000F40 		.word	1074724864
+ 251 0014 40000F40 		.word	1074724928
+ 252              		.cfi_endproc
+ 253              	.LFE9:
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccVkEAVM.s 			page 12
+
+
+ 254              		.size	Counter_1_ReadCounter, .-Counter_1_ReadCounter
+ 255              		.section	.text.Counter_1_ReadCapture,"ax",%progbits
+ 256              		.align	2
+ 257              		.global	Counter_1_ReadCapture
+ 258              		.code	16
+ 259              		.thumb_func
+ 260              		.type	Counter_1_ReadCapture, %function
+ 261              	Counter_1_ReadCapture:
+ 262              	.LFB10:
+ 375:Generated_Source\PSoC4/Counter_1.c **** 
+ 376:Generated_Source\PSoC4/Counter_1.c **** 
+ 377:Generated_Source\PSoC4/Counter_1.c **** /*******************************************************************************
+ 378:Generated_Source\PSoC4/Counter_1.c **** * Function Name: Counter_1_ReadCapture
+ 379:Generated_Source\PSoC4/Counter_1.c **** ********************************************************************************
+ 380:Generated_Source\PSoC4/Counter_1.c **** * Summary:
+ 381:Generated_Source\PSoC4/Counter_1.c **** *   This function returns the last value captured.
+ 382:Generated_Source\PSoC4/Counter_1.c **** *
+ 383:Generated_Source\PSoC4/Counter_1.c **** * Parameters:  
+ 384:Generated_Source\PSoC4/Counter_1.c **** *  void
+ 385:Generated_Source\PSoC4/Counter_1.c **** *
+ 386:Generated_Source\PSoC4/Counter_1.c **** * Return: 
+ 387:Generated_Source\PSoC4/Counter_1.c **** *  (uint32) Present Capture value.
+ 388:Generated_Source\PSoC4/Counter_1.c **** *
+ 389:Generated_Source\PSoC4/Counter_1.c **** *******************************************************************************/
+ 390:Generated_Source\PSoC4/Counter_1.c **** uint32 Counter_1_ReadCapture(void) 
+ 391:Generated_Source\PSoC4/Counter_1.c **** {
+ 263              		.loc 1 391 0
+ 264              		.cfi_startproc
+ 265              		@ args = 0, pretend = 0, frame = 0
+ 266              		@ frame_needed = 0, uses_anonymous_args = 0
+ 267 0000 10B5     		push	{r4, lr}
+ 268              		.cfi_def_cfa_offset 8
+ 269              		.cfi_offset 4, -8
+ 270              		.cfi_offset 14, -4
+ 392:Generated_Source\PSoC4/Counter_1.c ****     #if(Counter_1_UsingFixedFunction)
+ 393:Generated_Source\PSoC4/Counter_1.c ****         return ((uint32)CY_GET_REG16(Counter_1_STATICCOUNT_LSB_PTR));
+ 394:Generated_Source\PSoC4/Counter_1.c ****     #else
+ 395:Generated_Source\PSoC4/Counter_1.c ****         return (CY_GET_REG24(Counter_1_STATICCOUNT_LSB_PTR));
+ 271              		.loc 1 395 0
+ 272 0002 0248     		ldr	r0, .L26
+ 273 0004 FFF7FEFF 		bl	CyGetReg24
+ 274              	.LVL6:
+ 396:Generated_Source\PSoC4/Counter_1.c ****     #endif /* (Counter_1_UsingFixedFunction) */
+ 397:Generated_Source\PSoC4/Counter_1.c **** }
+ 275              		.loc 1 397 0
+ 276              		@ sp needed
+ 277 0008 10BD     		pop	{r4, pc}
+ 278              	.L27:
+ 279 000a C046     		.align	2
+ 280              	.L26:
+ 281 000c 40000F40 		.word	1074724928
+ 282              		.cfi_endproc
+ 283              	.LFE10:
+ 284              		.size	Counter_1_ReadCapture, .-Counter_1_ReadCapture
+ 285              		.section	.text.Counter_1_WritePeriod,"ax",%progbits
+ 286              		.align	2
+ 287              		.global	Counter_1_WritePeriod
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccVkEAVM.s 			page 13
+
+
+ 288              		.code	16
+ 289              		.thumb_func
+ 290              		.type	Counter_1_WritePeriod, %function
+ 291              	Counter_1_WritePeriod:
+ 292              	.LFB11:
+ 398:Generated_Source\PSoC4/Counter_1.c **** 
+ 399:Generated_Source\PSoC4/Counter_1.c **** 
+ 400:Generated_Source\PSoC4/Counter_1.c **** /*******************************************************************************
+ 401:Generated_Source\PSoC4/Counter_1.c **** * Function Name: Counter_1_WritePeriod
+ 402:Generated_Source\PSoC4/Counter_1.c **** ********************************************************************************
+ 403:Generated_Source\PSoC4/Counter_1.c **** * Summary:
+ 404:Generated_Source\PSoC4/Counter_1.c **** * Changes the period of the counter.  The new period 
+ 405:Generated_Source\PSoC4/Counter_1.c **** * will be loaded the next time terminal count is detected.
+ 406:Generated_Source\PSoC4/Counter_1.c **** *
+ 407:Generated_Source\PSoC4/Counter_1.c **** * Parameters:  
+ 408:Generated_Source\PSoC4/Counter_1.c **** *  period: (uint32) A value of 0 will result in
+ 409:Generated_Source\PSoC4/Counter_1.c **** *         the counter remaining at zero.  
+ 410:Generated_Source\PSoC4/Counter_1.c **** *
+ 411:Generated_Source\PSoC4/Counter_1.c **** * Return: 
+ 412:Generated_Source\PSoC4/Counter_1.c **** *  void
+ 413:Generated_Source\PSoC4/Counter_1.c **** *
+ 414:Generated_Source\PSoC4/Counter_1.c **** *******************************************************************************/
+ 415:Generated_Source\PSoC4/Counter_1.c **** void Counter_1_WritePeriod(uint32 period) 
+ 416:Generated_Source\PSoC4/Counter_1.c **** {
+ 293              		.loc 1 416 0
+ 294              		.cfi_startproc
+ 295              		@ args = 0, pretend = 0, frame = 0
+ 296              		@ frame_needed = 0, uses_anonymous_args = 0
+ 297              	.LVL7:
+ 298 0000 10B5     		push	{r4, lr}
+ 299              		.cfi_def_cfa_offset 8
+ 300              		.cfi_offset 4, -8
+ 301              		.cfi_offset 14, -4
+ 302 0002 0100     		movs	r1, r0
+ 417:Generated_Source\PSoC4/Counter_1.c ****     #if(Counter_1_UsingFixedFunction)
+ 418:Generated_Source\PSoC4/Counter_1.c ****         CY_SET_REG16(Counter_1_PERIOD_LSB_PTR,(uint16)period);
+ 419:Generated_Source\PSoC4/Counter_1.c ****     #else
+ 420:Generated_Source\PSoC4/Counter_1.c ****         CY_SET_REG24(Counter_1_PERIOD_LSB_PTR, period);
+ 303              		.loc 1 420 0
+ 304 0004 0148     		ldr	r0, .L29
+ 305              	.LVL8:
+ 306 0006 FFF7FEFF 		bl	CySetReg24
+ 307              	.LVL9:
+ 421:Generated_Source\PSoC4/Counter_1.c ****     #endif /* (Counter_1_UsingFixedFunction) */
+ 422:Generated_Source\PSoC4/Counter_1.c **** }
+ 308              		.loc 1 422 0
+ 309              		@ sp needed
+ 310 000a 10BD     		pop	{r4, pc}
+ 311              	.L30:
+ 312              		.align	2
+ 313              	.L29:
+ 314 000c 20000F40 		.word	1074724896
+ 315              		.cfi_endproc
+ 316              	.LFE11:
+ 317              		.size	Counter_1_WritePeriod, .-Counter_1_WritePeriod
+ 318              		.section	.text.Counter_1_ReadPeriod,"ax",%progbits
+ 319              		.align	2
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccVkEAVM.s 			page 14
+
+
+ 320              		.global	Counter_1_ReadPeriod
+ 321              		.code	16
+ 322              		.thumb_func
+ 323              		.type	Counter_1_ReadPeriod, %function
+ 324              	Counter_1_ReadPeriod:
+ 325              	.LFB12:
+ 423:Generated_Source\PSoC4/Counter_1.c **** 
+ 424:Generated_Source\PSoC4/Counter_1.c **** 
+ 425:Generated_Source\PSoC4/Counter_1.c **** /*******************************************************************************
+ 426:Generated_Source\PSoC4/Counter_1.c **** * Function Name: Counter_1_ReadPeriod
+ 427:Generated_Source\PSoC4/Counter_1.c **** ********************************************************************************
+ 428:Generated_Source\PSoC4/Counter_1.c **** * Summary:
+ 429:Generated_Source\PSoC4/Counter_1.c **** * Reads the current period value without affecting counter operation.
+ 430:Generated_Source\PSoC4/Counter_1.c **** *
+ 431:Generated_Source\PSoC4/Counter_1.c **** * Parameters:  
+ 432:Generated_Source\PSoC4/Counter_1.c **** *  void:  
+ 433:Generated_Source\PSoC4/Counter_1.c **** *
+ 434:Generated_Source\PSoC4/Counter_1.c **** * Return: 
+ 435:Generated_Source\PSoC4/Counter_1.c **** *  (uint32) Present period value.
+ 436:Generated_Source\PSoC4/Counter_1.c **** *
+ 437:Generated_Source\PSoC4/Counter_1.c **** *******************************************************************************/
+ 438:Generated_Source\PSoC4/Counter_1.c **** uint32 Counter_1_ReadPeriod(void) 
+ 439:Generated_Source\PSoC4/Counter_1.c **** {
+ 326              		.loc 1 439 0
+ 327              		.cfi_startproc
+ 328              		@ args = 0, pretend = 0, frame = 0
+ 329              		@ frame_needed = 0, uses_anonymous_args = 0
+ 330 0000 10B5     		push	{r4, lr}
+ 331              		.cfi_def_cfa_offset 8
+ 332              		.cfi_offset 4, -8
+ 333              		.cfi_offset 14, -4
+ 440:Generated_Source\PSoC4/Counter_1.c ****     #if(Counter_1_UsingFixedFunction)
+ 441:Generated_Source\PSoC4/Counter_1.c ****         return ((uint32)CY_GET_REG16(Counter_1_PERIOD_LSB_PTR));
+ 442:Generated_Source\PSoC4/Counter_1.c ****     #else
+ 443:Generated_Source\PSoC4/Counter_1.c ****         return (CY_GET_REG24(Counter_1_PERIOD_LSB_PTR));
+ 334              		.loc 1 443 0
+ 335 0002 0248     		ldr	r0, .L32
+ 336 0004 FFF7FEFF 		bl	CyGetReg24
+ 337              	.LVL10:
+ 444:Generated_Source\PSoC4/Counter_1.c ****     #endif /* (Counter_1_UsingFixedFunction) */
+ 445:Generated_Source\PSoC4/Counter_1.c **** }
+ 338              		.loc 1 445 0
+ 339              		@ sp needed
+ 340 0008 10BD     		pop	{r4, pc}
+ 341              	.L33:
+ 342 000a C046     		.align	2
+ 343              	.L32:
+ 344 000c 20000F40 		.word	1074724896
+ 345              		.cfi_endproc
+ 346              	.LFE12:
+ 347              		.size	Counter_1_ReadPeriod, .-Counter_1_ReadPeriod
+ 348              		.section	.text.Counter_1_WriteCompare,"ax",%progbits
+ 349              		.align	2
+ 350              		.global	Counter_1_WriteCompare
+ 351              		.code	16
+ 352              		.thumb_func
+ 353              		.type	Counter_1_WriteCompare, %function
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccVkEAVM.s 			page 15
+
+
+ 354              	Counter_1_WriteCompare:
+ 355              	.LFB13:
+ 446:Generated_Source\PSoC4/Counter_1.c **** 
+ 447:Generated_Source\PSoC4/Counter_1.c **** 
+ 448:Generated_Source\PSoC4/Counter_1.c **** #if (!Counter_1_UsingFixedFunction)
+ 449:Generated_Source\PSoC4/Counter_1.c **** /*******************************************************************************
+ 450:Generated_Source\PSoC4/Counter_1.c **** * Function Name: Counter_1_WriteCompare
+ 451:Generated_Source\PSoC4/Counter_1.c **** ********************************************************************************
+ 452:Generated_Source\PSoC4/Counter_1.c **** * Summary:
+ 453:Generated_Source\PSoC4/Counter_1.c **** * Changes the compare value.  The compare output will 
+ 454:Generated_Source\PSoC4/Counter_1.c **** * reflect the new value on the next UDB clock.  The compare output will be 
+ 455:Generated_Source\PSoC4/Counter_1.c **** * driven high when the present counter value compares true based on the 
+ 456:Generated_Source\PSoC4/Counter_1.c **** * configured compare mode setting. 
+ 457:Generated_Source\PSoC4/Counter_1.c **** *
+ 458:Generated_Source\PSoC4/Counter_1.c **** * Parameters:  
+ 459:Generated_Source\PSoC4/Counter_1.c **** *  Compare:  New compare value. 
+ 460:Generated_Source\PSoC4/Counter_1.c **** *
+ 461:Generated_Source\PSoC4/Counter_1.c **** * Return: 
+ 462:Generated_Source\PSoC4/Counter_1.c **** *  void
+ 463:Generated_Source\PSoC4/Counter_1.c **** *
+ 464:Generated_Source\PSoC4/Counter_1.c **** *******************************************************************************/
+ 465:Generated_Source\PSoC4/Counter_1.c **** void Counter_1_WriteCompare(uint32 compare) \
+ 466:Generated_Source\PSoC4/Counter_1.c ****                                    
+ 467:Generated_Source\PSoC4/Counter_1.c **** {
+ 356              		.loc 1 467 0
+ 357              		.cfi_startproc
+ 358              		@ args = 0, pretend = 0, frame = 0
+ 359              		@ frame_needed = 0, uses_anonymous_args = 0
+ 360              	.LVL11:
+ 361 0000 10B5     		push	{r4, lr}
+ 362              		.cfi_def_cfa_offset 8
+ 363              		.cfi_offset 4, -8
+ 364              		.cfi_offset 14, -4
+ 365 0002 0100     		movs	r1, r0
+ 468:Generated_Source\PSoC4/Counter_1.c ****     #if(Counter_1_UsingFixedFunction)
+ 469:Generated_Source\PSoC4/Counter_1.c ****         CY_SET_REG16(Counter_1_COMPARE_LSB_PTR, (uint16)compare);
+ 470:Generated_Source\PSoC4/Counter_1.c ****     #else
+ 471:Generated_Source\PSoC4/Counter_1.c ****         CY_SET_REG24(Counter_1_COMPARE_LSB_PTR, compare);
+ 366              		.loc 1 471 0
+ 367 0004 0148     		ldr	r0, .L35
+ 368              	.LVL12:
+ 369 0006 FFF7FEFF 		bl	CySetReg24
+ 370              	.LVL13:
+ 472:Generated_Source\PSoC4/Counter_1.c ****     #endif /* (Counter_1_UsingFixedFunction) */
+ 473:Generated_Source\PSoC4/Counter_1.c **** }
+ 371              		.loc 1 473 0
+ 372              		@ sp needed
+ 373 000a 10BD     		pop	{r4, pc}
+ 374              	.L36:
+ 375              		.align	2
+ 376              	.L35:
+ 377 000c 30000F40 		.word	1074724912
+ 378              		.cfi_endproc
+ 379              	.LFE13:
+ 380              		.size	Counter_1_WriteCompare, .-Counter_1_WriteCompare
+ 381              		.section	.text.Counter_1_ReadCompare,"ax",%progbits
+ 382              		.align	2
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccVkEAVM.s 			page 16
+
+
+ 383              		.global	Counter_1_ReadCompare
+ 384              		.code	16
+ 385              		.thumb_func
+ 386              		.type	Counter_1_ReadCompare, %function
+ 387              	Counter_1_ReadCompare:
+ 388              	.LFB14:
+ 474:Generated_Source\PSoC4/Counter_1.c **** 
+ 475:Generated_Source\PSoC4/Counter_1.c **** 
+ 476:Generated_Source\PSoC4/Counter_1.c **** /*******************************************************************************
+ 477:Generated_Source\PSoC4/Counter_1.c **** * Function Name: Counter_1_ReadCompare
+ 478:Generated_Source\PSoC4/Counter_1.c **** ********************************************************************************
+ 479:Generated_Source\PSoC4/Counter_1.c **** * Summary:
+ 480:Generated_Source\PSoC4/Counter_1.c **** * Returns the compare value.
+ 481:Generated_Source\PSoC4/Counter_1.c **** *
+ 482:Generated_Source\PSoC4/Counter_1.c **** * Parameters:  
+ 483:Generated_Source\PSoC4/Counter_1.c **** *  void:
+ 484:Generated_Source\PSoC4/Counter_1.c **** *
+ 485:Generated_Source\PSoC4/Counter_1.c **** * Return: 
+ 486:Generated_Source\PSoC4/Counter_1.c **** *  (uint32) Present compare value.
+ 487:Generated_Source\PSoC4/Counter_1.c **** *
+ 488:Generated_Source\PSoC4/Counter_1.c **** *******************************************************************************/
+ 489:Generated_Source\PSoC4/Counter_1.c **** uint32 Counter_1_ReadCompare(void) 
+ 490:Generated_Source\PSoC4/Counter_1.c **** {
+ 389              		.loc 1 490 0
+ 390              		.cfi_startproc
+ 391              		@ args = 0, pretend = 0, frame = 0
+ 392              		@ frame_needed = 0, uses_anonymous_args = 0
+ 393 0000 10B5     		push	{r4, lr}
+ 394              		.cfi_def_cfa_offset 8
+ 395              		.cfi_offset 4, -8
+ 396              		.cfi_offset 14, -4
+ 491:Generated_Source\PSoC4/Counter_1.c ****     return (CY_GET_REG24(Counter_1_COMPARE_LSB_PTR));
+ 397              		.loc 1 491 0
+ 398 0002 0248     		ldr	r0, .L38
+ 399 0004 FFF7FEFF 		bl	CyGetReg24
+ 400              	.LVL14:
+ 492:Generated_Source\PSoC4/Counter_1.c **** }
+ 401              		.loc 1 492 0
+ 402              		@ sp needed
+ 403 0008 10BD     		pop	{r4, pc}
+ 404              	.L39:
+ 405 000a C046     		.align	2
+ 406              	.L38:
+ 407 000c 30000F40 		.word	1074724912
+ 408              		.cfi_endproc
+ 409              	.LFE14:
+ 410              		.size	Counter_1_ReadCompare, .-Counter_1_ReadCompare
+ 411              		.section	.text.Counter_1_SetCompareMode,"ax",%progbits
+ 412              		.align	2
+ 413              		.global	Counter_1_SetCompareMode
+ 414              		.code	16
+ 415              		.thumb_func
+ 416              		.type	Counter_1_SetCompareMode, %function
+ 417              	Counter_1_SetCompareMode:
+ 418              	.LFB15:
+ 493:Generated_Source\PSoC4/Counter_1.c **** 
+ 494:Generated_Source\PSoC4/Counter_1.c **** 
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccVkEAVM.s 			page 17
+
+
+ 495:Generated_Source\PSoC4/Counter_1.c **** #if (Counter_1_COMPARE_MODE_SOFTWARE)
+ 496:Generated_Source\PSoC4/Counter_1.c **** /*******************************************************************************
+ 497:Generated_Source\PSoC4/Counter_1.c **** * Function Name: Counter_1_SetCompareMode
+ 498:Generated_Source\PSoC4/Counter_1.c **** ********************************************************************************
+ 499:Generated_Source\PSoC4/Counter_1.c **** * Summary:
+ 500:Generated_Source\PSoC4/Counter_1.c **** *  Sets the software controlled Compare Mode.
+ 501:Generated_Source\PSoC4/Counter_1.c **** *
+ 502:Generated_Source\PSoC4/Counter_1.c **** * Parameters:
+ 503:Generated_Source\PSoC4/Counter_1.c **** *  compareMode:  Compare Mode Enumerated Type.
+ 504:Generated_Source\PSoC4/Counter_1.c **** *
+ 505:Generated_Source\PSoC4/Counter_1.c **** * Return:
+ 506:Generated_Source\PSoC4/Counter_1.c **** *  void
+ 507:Generated_Source\PSoC4/Counter_1.c **** *
+ 508:Generated_Source\PSoC4/Counter_1.c **** *******************************************************************************/
+ 509:Generated_Source\PSoC4/Counter_1.c **** void Counter_1_SetCompareMode(uint8 compareMode) 
+ 510:Generated_Source\PSoC4/Counter_1.c **** {
+ 419              		.loc 1 510 0
+ 420              		.cfi_startproc
+ 421              		@ args = 0, pretend = 0, frame = 0
+ 422              		@ frame_needed = 0, uses_anonymous_args = 0
+ 423              		@ link register save eliminated.
+ 424              	.LVL15:
+ 511:Generated_Source\PSoC4/Counter_1.c ****     /* Clear the compare mode bits in the control register */
+ 512:Generated_Source\PSoC4/Counter_1.c ****     Counter_1_CONTROL &= ((uint8)(~Counter_1_CTRL_CMPMODE_MASK));
+ 425              		.loc 1 512 0
+ 426 0000 044B     		ldr	r3, .L41
+ 427 0002 1A78     		ldrb	r2, [r3]
+ 428 0004 0721     		movs	r1, #7
+ 429 0006 8A43     		bics	r2, r1
+ 430 0008 1A70     		strb	r2, [r3]
+ 513:Generated_Source\PSoC4/Counter_1.c ****     
+ 514:Generated_Source\PSoC4/Counter_1.c ****     /* Write the new setting */
+ 515:Generated_Source\PSoC4/Counter_1.c ****     Counter_1_CONTROL |= compareMode;
+ 431              		.loc 1 515 0
+ 432 000a 1A78     		ldrb	r2, [r3]
+ 433 000c 1043     		orrs	r0, r2
+ 434              	.LVL16:
+ 435 000e 1870     		strb	r0, [r3]
+ 516:Generated_Source\PSoC4/Counter_1.c **** }
+ 436              		.loc 1 516 0
+ 437              		@ sp needed
+ 438 0010 7047     		bx	lr
+ 439              	.L42:
+ 440 0012 C046     		.align	2
+ 441              	.L41:
+ 442 0014 71000F40 		.word	1074724977
+ 443              		.cfi_endproc
+ 444              	.LFE15:
+ 445              		.size	Counter_1_SetCompareMode, .-Counter_1_SetCompareMode
+ 446              		.section	.text.Counter_1_ClearFIFO,"ax",%progbits
+ 447              		.align	2
+ 448              		.global	Counter_1_ClearFIFO
+ 449              		.code	16
+ 450              		.thumb_func
+ 451              		.type	Counter_1_ClearFIFO, %function
+ 452              	Counter_1_ClearFIFO:
+ 453              	.LFB16:
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccVkEAVM.s 			page 18
+
+
+ 517:Generated_Source\PSoC4/Counter_1.c **** #endif  /* (Counter_1_COMPARE_MODE_SOFTWARE) */
+ 518:Generated_Source\PSoC4/Counter_1.c **** 
+ 519:Generated_Source\PSoC4/Counter_1.c **** 
+ 520:Generated_Source\PSoC4/Counter_1.c **** #if (Counter_1_CAPTURE_MODE_SOFTWARE)
+ 521:Generated_Source\PSoC4/Counter_1.c **** /*******************************************************************************
+ 522:Generated_Source\PSoC4/Counter_1.c **** * Function Name: Counter_1_SetCaptureMode
+ 523:Generated_Source\PSoC4/Counter_1.c **** ********************************************************************************
+ 524:Generated_Source\PSoC4/Counter_1.c **** * Summary:
+ 525:Generated_Source\PSoC4/Counter_1.c **** *  Sets the software controlled Capture Mode.
+ 526:Generated_Source\PSoC4/Counter_1.c **** *
+ 527:Generated_Source\PSoC4/Counter_1.c **** * Parameters:
+ 528:Generated_Source\PSoC4/Counter_1.c **** *  captureMode:  Capture Mode Enumerated Type.
+ 529:Generated_Source\PSoC4/Counter_1.c **** *
+ 530:Generated_Source\PSoC4/Counter_1.c **** * Return:
+ 531:Generated_Source\PSoC4/Counter_1.c **** *  void
+ 532:Generated_Source\PSoC4/Counter_1.c **** *
+ 533:Generated_Source\PSoC4/Counter_1.c **** *******************************************************************************/
+ 534:Generated_Source\PSoC4/Counter_1.c **** void Counter_1_SetCaptureMode(uint8 captureMode) 
+ 535:Generated_Source\PSoC4/Counter_1.c **** {
+ 536:Generated_Source\PSoC4/Counter_1.c ****     /* Clear the capture mode bits in the control register */
+ 537:Generated_Source\PSoC4/Counter_1.c ****     Counter_1_CONTROL &= ((uint8)(~Counter_1_CTRL_CAPMODE_MASK));
+ 538:Generated_Source\PSoC4/Counter_1.c ****     
+ 539:Generated_Source\PSoC4/Counter_1.c ****     /* Write the new setting */
+ 540:Generated_Source\PSoC4/Counter_1.c ****     Counter_1_CONTROL |= ((uint8)((uint8)captureMode << Counter_1_CTRL_CAPMODE0_SHIFT));
+ 541:Generated_Source\PSoC4/Counter_1.c **** }
+ 542:Generated_Source\PSoC4/Counter_1.c **** #endif  /* (Counter_1_CAPTURE_MODE_SOFTWARE) */
+ 543:Generated_Source\PSoC4/Counter_1.c **** 
+ 544:Generated_Source\PSoC4/Counter_1.c **** 
+ 545:Generated_Source\PSoC4/Counter_1.c **** /*******************************************************************************
+ 546:Generated_Source\PSoC4/Counter_1.c **** * Function Name: Counter_1_ClearFIFO
+ 547:Generated_Source\PSoC4/Counter_1.c **** ********************************************************************************
+ 548:Generated_Source\PSoC4/Counter_1.c **** * Summary:
+ 549:Generated_Source\PSoC4/Counter_1.c **** *   This function clears all capture data from the capture FIFO
+ 550:Generated_Source\PSoC4/Counter_1.c **** *
+ 551:Generated_Source\PSoC4/Counter_1.c **** * Parameters:  
+ 552:Generated_Source\PSoC4/Counter_1.c **** *  void:
+ 553:Generated_Source\PSoC4/Counter_1.c **** *
+ 554:Generated_Source\PSoC4/Counter_1.c **** * Return: 
+ 555:Generated_Source\PSoC4/Counter_1.c **** *  None
+ 556:Generated_Source\PSoC4/Counter_1.c **** *
+ 557:Generated_Source\PSoC4/Counter_1.c **** *******************************************************************************/
+ 558:Generated_Source\PSoC4/Counter_1.c **** void Counter_1_ClearFIFO(void) 
+ 559:Generated_Source\PSoC4/Counter_1.c **** {
+ 454              		.loc 1 559 0
+ 455              		.cfi_startproc
+ 456              		@ args = 0, pretend = 0, frame = 0
+ 457              		@ frame_needed = 0, uses_anonymous_args = 0
+ 458 0000 10B5     		push	{r4, lr}
+ 459              		.cfi_def_cfa_offset 8
+ 460              		.cfi_offset 4, -8
+ 461              		.cfi_offset 14, -4
+ 560:Generated_Source\PSoC4/Counter_1.c **** 
+ 561:Generated_Source\PSoC4/Counter_1.c ****     while(0u != (Counter_1_ReadStatusRegister() & Counter_1_STATUS_FIFONEMP))
+ 462              		.loc 1 561 0
+ 463 0002 01E0     		b	.L44
+ 464              	.L45:
+ 562:Generated_Source\PSoC4/Counter_1.c ****     {
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccVkEAVM.s 			page 19
+
+
+ 563:Generated_Source\PSoC4/Counter_1.c ****         (void)Counter_1_ReadCapture();
+ 465              		.loc 1 563 0
+ 466 0004 FFF7FEFF 		bl	Counter_1_ReadCapture
+ 467              	.LVL17:
+ 468              	.L44:
+ 561:Generated_Source\PSoC4/Counter_1.c ****     {
+ 469              		.loc 1 561 0
+ 470 0008 FFF7FEFF 		bl	Counter_1_ReadStatusRegister
+ 471              	.LVL18:
+ 472 000c 4306     		lsls	r3, r0, #25
+ 473 000e F9D4     		bmi	.L45
+ 564:Generated_Source\PSoC4/Counter_1.c ****     }
+ 565:Generated_Source\PSoC4/Counter_1.c **** 
+ 566:Generated_Source\PSoC4/Counter_1.c **** }
+ 474              		.loc 1 566 0
+ 475              		@ sp needed
+ 476 0010 10BD     		pop	{r4, pc}
+ 477              		.cfi_endproc
+ 478              	.LFE16:
+ 479              		.size	Counter_1_ClearFIFO, .-Counter_1_ClearFIFO
+ 480 0012 C046     		.section	.text.Counter_1_Init,"ax",%progbits
+ 481              		.align	2
+ 482              		.global	Counter_1_Init
+ 483              		.code	16
+ 484              		.thumb_func
+ 485              		.type	Counter_1_Init, %function
+ 486              	Counter_1_Init:
+ 487              	.LFB0:
+  38:Generated_Source\PSoC4/Counter_1.c ****         #if (!Counter_1_UsingFixedFunction && !Counter_1_ControlRegRemoved)
+ 488              		.loc 1 38 0
+ 489              		.cfi_startproc
+ 490              		@ args = 0, pretend = 0, frame = 0
+ 491              		@ frame_needed = 0, uses_anonymous_args = 0
+ 492 0000 10B5     		push	{r4, lr}
+ 493              		.cfi_def_cfa_offset 8
+ 494              		.cfi_offset 4, -8
+ 495              		.cfi_offset 14, -4
+  79:Generated_Source\PSoC4/Counter_1.c ****             Counter_1_CONTROL = ctrl | Counter_1_DEFAULT_COMPARE_MODE;
+ 496              		.loc 1 79 0
+ 497 0002 1449     		ldr	r1, .L47
+ 498 0004 0B78     		ldrb	r3, [r1]
+ 499 0006 0722     		movs	r2, #7
+ 500 0008 9343     		bics	r3, r2
+ 501              	.LVL19:
+  80:Generated_Source\PSoC4/Counter_1.c ****             
+ 502              		.loc 1 80 0
+ 503 000a 0522     		movs	r2, #5
+ 504 000c 1343     		orrs	r3, r2
+ 505              	.LVL20:
+ 506 000e DBB2     		uxtb	r3, r3
+ 507 0010 0B70     		strb	r3, [r1]
+  83:Generated_Source\PSoC4/Counter_1.c ****             
+ 508              		.loc 1 83 0
+ 509 0012 0B78     		ldrb	r3, [r1]
+ 510 0014 0322     		movs	r2, #3
+ 511 0016 9343     		bics	r3, r2
+ 512              	.LVL21:
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccVkEAVM.s 			page 20
+
+
+  88:Generated_Source\PSoC4/Counter_1.c ****             #endif /* 0 != Counter_1_CAPTURE_MODE */ 
+ 513              		.loc 1 88 0
+ 514 0018 0B70     		strb	r3, [r1]
+  96:Generated_Source\PSoC4/Counter_1.c ****         #endif /* (!Counter_1_UsingFixedFunction) */
+ 515              		.loc 1 96 0
+ 516 001a FFF7FEFF 		bl	Counter_1_ClearFIFO
+ 517              	.LVL22:
+ 100:Generated_Source\PSoC4/Counter_1.c ****         #if (!(Counter_1_UsingFixedFunction && (CY_PSOC5A)))
+ 518              		.loc 1 100 0
+ 519 001e 0E4C     		ldr	r4, .L47+4
+ 520 0020 2000     		movs	r0, r4
+ 521 0022 FFF7FEFF 		bl	Counter_1_WritePeriod
+ 522              	.LVL23:
+ 102:Generated_Source\PSoC4/Counter_1.c ****         #endif /* (!(Counter_1_UsingFixedFunction && (CY_PSOC5A))) */
+ 523              		.loc 1 102 0
+ 524 0026 2000     		movs	r0, r4
+ 525 0028 FFF7FEFF 		bl	Counter_1_WriteCounter
+ 526              	.LVL24:
+ 104:Generated_Source\PSoC4/Counter_1.c ****         
+ 527              		.loc 1 104 0
+ 528 002c 0020     		movs	r0, #0
+ 529 002e FFF7FEFF 		bl	Counter_1_SetInterruptMode
+ 530              	.LVL25:
+ 108:Generated_Source\PSoC4/Counter_1.c ****             /* Set the compare value (only available to non-fixed function implementation */
+ 531              		.loc 1 108 0
+ 532 0032 FFF7FEFF 		bl	Counter_1_ReadStatusRegister
+ 533              	.LVL26:
+ 110:Generated_Source\PSoC4/Counter_1.c ****             /* Use the interrupt output of the status register for IRQ output */
+ 534              		.loc 1 110 0
+ 535 0036 0948     		ldr	r0, .L47+8
+ 536 0038 FFF7FEFF 		bl	Counter_1_WriteCompare
+ 537              	.LVL27:
+ 115:Generated_Source\PSoC4/Counter_1.c ****             
+ 538              		.loc 1 115 0
+ 539 003c FFF7FEFF 		bl	CyEnterCriticalSection
+ 540              	.LVL28:
+ 117:Generated_Source\PSoC4/Counter_1.c ****             
+ 541              		.loc 1 117 0
+ 542 0040 074A     		ldr	r2, .L47+12
+ 543 0042 1178     		ldrb	r1, [r2]
+ 544 0044 1023     		movs	r3, #16
+ 545 0046 0B43     		orrs	r3, r1
+ 546 0048 DBB2     		uxtb	r3, r3
+ 547 004a 1370     		strb	r3, [r2]
+ 120:Generated_Source\PSoC4/Counter_1.c ****             
+ 548              		.loc 1 120 0
+ 549 004c FFF7FEFF 		bl	CyExitCriticalSection
+ 550              	.LVL29:
+ 123:Generated_Source\PSoC4/Counter_1.c **** 
+ 551              		.loc 1 123 0
+ 552              		@ sp needed
+ 553 0050 10BD     		pop	{r4, pc}
+ 554              	.L48:
+ 555 0052 C046     		.align	2
+ 556              	.L47:
+ 557 0054 71000F40 		.word	1074724977
+ 558 0058 FEFFFF00 		.word	16777214
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccVkEAVM.s 			page 21
+
+
+ 559 005c FFFFFF00 		.word	16777215
+ 560 0060 92000F40 		.word	1074725010
+ 561              		.cfi_endproc
+ 562              	.LFE0:
+ 563              		.size	Counter_1_Init, .-Counter_1_Init
+ 564              		.section	.text.Counter_1_Start,"ax",%progbits
+ 565              		.align	2
+ 566              		.global	Counter_1_Start
+ 567              		.code	16
+ 568              		.thumb_func
+ 569              		.type	Counter_1_Start, %function
+ 570              	Counter_1_Start:
+ 571              	.LFB2:
+ 179:Generated_Source\PSoC4/Counter_1.c ****     if(Counter_1_initVar == 0u)
+ 572              		.loc 1 179 0
+ 573              		.cfi_startproc
+ 574              		@ args = 0, pretend = 0, frame = 0
+ 575              		@ frame_needed = 0, uses_anonymous_args = 0
+ 576 0000 10B5     		push	{r4, lr}
+ 577              		.cfi_def_cfa_offset 8
+ 578              		.cfi_offset 4, -8
+ 579              		.cfi_offset 14, -4
+ 180:Generated_Source\PSoC4/Counter_1.c ****     {
+ 580              		.loc 1 180 0
+ 581 0002 064B     		ldr	r3, .L51
+ 582 0004 1B78     		ldrb	r3, [r3]
+ 583 0006 002B     		cmp	r3, #0
+ 584 0008 04D1     		bne	.L50
+ 182:Generated_Source\PSoC4/Counter_1.c ****         
+ 585              		.loc 1 182 0
+ 586 000a FFF7FEFF 		bl	Counter_1_Init
+ 587              	.LVL30:
+ 184:Generated_Source\PSoC4/Counter_1.c ****     }
+ 588              		.loc 1 184 0
+ 589 000e 0122     		movs	r2, #1
+ 590 0010 024B     		ldr	r3, .L51
+ 591 0012 1A70     		strb	r2, [r3]
+ 592              	.L50:
+ 188:Generated_Source\PSoC4/Counter_1.c **** }
+ 593              		.loc 1 188 0
+ 594 0014 FFF7FEFF 		bl	Counter_1_Enable
+ 595              	.LVL31:
+ 189:Generated_Source\PSoC4/Counter_1.c **** 
+ 596              		.loc 1 189 0
+ 597              		@ sp needed
+ 598 0018 10BD     		pop	{r4, pc}
+ 599              	.L52:
+ 600 001a C046     		.align	2
+ 601              	.L51:
+ 602 001c 00000000 		.word	.LANCHOR0
+ 603              		.cfi_endproc
+ 604              	.LFE2:
+ 605              		.size	Counter_1_Start, .-Counter_1_Start
+ 606              		.global	Counter_1_initVar
+ 607              		.bss
+ 608              		.set	.LANCHOR0,. + 0
+ 609              		.type	Counter_1_initVar, %object
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccVkEAVM.s 			page 22
+
+
+ 610              		.size	Counter_1_initVar, 1
+ 611              	Counter_1_initVar:
+ 612 0000 00       		.space	1
+ 613              		.text
+ 614              	.Letext0:
+ 615              		.file 2 "Generated_Source\\PSoC4\\cytypes.h"
+ 616              		.file 3 "Generated_Source\\PSoC4\\CyLib.h"
+ 617              		.section	.debug_info,"",%progbits
+ 618              	.Ldebug_info0:
+ 619 0000 37040000 		.4byte	0x437
+ 620 0004 0400     		.2byte	0x4
+ 621 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 622 000a 04       		.byte	0x4
+ 623 000b 01       		.uleb128 0x1
+ 624 000c 3B020000 		.4byte	.LASF47
+ 625 0010 0C       		.byte	0xc
+ 626 0011 28000000 		.4byte	.LASF48
+ 627 0015 84000000 		.4byte	.LASF49
+ 628 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 629 001d 00000000 		.4byte	0
+ 630 0021 00000000 		.4byte	.Ldebug_line0
+ 631 0025 02       		.uleb128 0x2
+ 632 0026 01       		.byte	0x1
+ 633 0027 06       		.byte	0x6
+ 634 0028 88030000 		.4byte	.LASF0
+ 635 002c 02       		.uleb128 0x2
+ 636 002d 01       		.byte	0x1
+ 637 002e 08       		.byte	0x8
+ 638 002f F9000000 		.4byte	.LASF1
+ 639 0033 02       		.uleb128 0x2
+ 640 0034 02       		.byte	0x2
+ 641 0035 05       		.byte	0x5
+ 642 0036 32030000 		.4byte	.LASF2
+ 643 003a 02       		.uleb128 0x2
+ 644 003b 02       		.byte	0x2
+ 645 003c 07       		.byte	0x7
+ 646 003d 52000000 		.4byte	.LASF3
+ 647 0041 02       		.uleb128 0x2
+ 648 0042 04       		.byte	0x4
+ 649 0043 05       		.byte	0x5
+ 650 0044 52030000 		.4byte	.LASF4
+ 651 0048 02       		.uleb128 0x2
+ 652 0049 04       		.byte	0x4
+ 653 004a 07       		.byte	0x7
+ 654 004b 37010000 		.4byte	.LASF5
+ 655 004f 02       		.uleb128 0x2
+ 656 0050 08       		.byte	0x8
+ 657 0051 05       		.byte	0x5
+ 658 0052 07030000 		.4byte	.LASF6
+ 659 0056 02       		.uleb128 0x2
+ 660 0057 08       		.byte	0x8
+ 661 0058 07       		.byte	0x7
+ 662 0059 E2000000 		.4byte	.LASF7
+ 663 005d 03       		.uleb128 0x3
+ 664 005e 04       		.byte	0x4
+ 665 005f 05       		.byte	0x5
+ 666 0060 696E7400 		.ascii	"int\000"
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccVkEAVM.s 			page 23
+
+
+ 667 0064 02       		.uleb128 0x2
+ 668 0065 04       		.byte	0x4
+ 669 0066 07       		.byte	0x7
+ 670 0067 1A030000 		.4byte	.LASF8
+ 671 006b 04       		.uleb128 0x4
+ 672 006c 64010000 		.4byte	.LASF9
+ 673 0070 02       		.byte	0x2
+ 674 0071 E401     		.2byte	0x1e4
+ 675 0073 2C000000 		.4byte	0x2c
+ 676 0077 04       		.uleb128 0x4
+ 677 0078 E3010000 		.4byte	.LASF10
+ 678 007c 02       		.byte	0x2
+ 679 007d E601     		.2byte	0x1e6
+ 680 007f 48000000 		.4byte	0x48
+ 681 0083 02       		.uleb128 0x2
+ 682 0084 04       		.byte	0x4
+ 683 0085 04       		.byte	0x4
+ 684 0086 D4000000 		.4byte	.LASF11
+ 685 008a 02       		.uleb128 0x2
+ 686 008b 08       		.byte	0x8
+ 687 008c 04       		.byte	0x4
+ 688 008d B0010000 		.4byte	.LASF12
+ 689 0091 02       		.uleb128 0x2
+ 690 0092 01       		.byte	0x1
+ 691 0093 08       		.byte	0x8
+ 692 0094 15030000 		.4byte	.LASF13
+ 693 0098 04       		.uleb128 0x4
+ 694 0099 1B010000 		.4byte	.LASF14
+ 695 009d 02       		.byte	0x2
+ 696 009e 8E02     		.2byte	0x28e
+ 697 00a0 A4000000 		.4byte	0xa4
+ 698 00a4 05       		.uleb128 0x5
+ 699 00a5 6B000000 		.4byte	0x6b
+ 700 00a9 04       		.uleb128 0x4
+ 701 00aa 00000000 		.4byte	.LASF15
+ 702 00ae 02       		.byte	0x2
+ 703 00af 9002     		.2byte	0x290
+ 704 00b1 B5000000 		.4byte	0xb5
+ 705 00b5 05       		.uleb128 0x5
+ 706 00b6 77000000 		.4byte	0x77
+ 707 00ba 02       		.uleb128 0x2
+ 708 00bb 08       		.byte	0x8
+ 709 00bc 04       		.byte	0x4
+ 710 00bd 7C030000 		.4byte	.LASF16
+ 711 00c1 02       		.uleb128 0x2
+ 712 00c2 04       		.byte	0x4
+ 713 00c3 07       		.byte	0x7
+ 714 00c4 CE020000 		.4byte	.LASF17
+ 715 00c8 06       		.uleb128 0x6
+ 716 00c9 6B030000 		.4byte	.LASF18
+ 717 00cd 01       		.byte	0x1
+ 718 00ce 8F       		.byte	0x8f
+ 719 00cf 00000000 		.4byte	.LFB1
+ 720 00d3 14000000 		.4byte	.LFE1-.LFB1
+ 721 00d7 01       		.uleb128 0x1
+ 722 00d8 9C       		.byte	0x9c
+ 723 00d9 06       		.uleb128 0x6
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccVkEAVM.s 			page 24
+
+
+ 724 00da 9C030000 		.4byte	.LASF19
+ 725 00de 01       		.byte	0x1
+ 726 00df D0       		.byte	0xd0
+ 727 00e0 00000000 		.4byte	.LFB3
+ 728 00e4 10000000 		.4byte	.LFE3-.LFB3
+ 729 00e8 01       		.uleb128 0x1
+ 730 00e9 9C       		.byte	0x9c
+ 731 00ea 07       		.uleb128 0x7
+ 732 00eb 49010000 		.4byte	.LASF22
+ 733 00ef 01       		.byte	0x1
+ 734 00f0 ED       		.byte	0xed
+ 735 00f1 00000000 		.4byte	.LFB4
+ 736 00f5 0C000000 		.4byte	.LFE4-.LFB4
+ 737 00f9 01       		.uleb128 0x1
+ 738 00fa 9C       		.byte	0x9c
+ 739 00fb 0D010000 		.4byte	0x10d
+ 740 00ff 08       		.uleb128 0x8
+ 741 0100 72010000 		.4byte	.LASF24
+ 742 0104 01       		.byte	0x1
+ 743 0105 ED       		.byte	0xed
+ 744 0106 6B000000 		.4byte	0x6b
+ 745 010a 01       		.uleb128 0x1
+ 746 010b 50       		.byte	0x50
+ 747 010c 00       		.byte	0
+ 748 010d 09       		.uleb128 0x9
+ 749 010e 93010000 		.4byte	.LASF20
+ 750 0112 01       		.byte	0x1
+ 751 0113 0501     		.2byte	0x105
+ 752 0115 6B000000 		.4byte	0x6b
+ 753 0119 00000000 		.4byte	.LFB5
+ 754 011d 0C000000 		.4byte	.LFE5-.LFB5
+ 755 0121 01       		.uleb128 0x1
+ 756 0122 9C       		.byte	0x9c
+ 757 0123 09       		.uleb128 0x9
+ 758 0124 AB030000 		.4byte	.LASF21
+ 759 0128 01       		.byte	0x1
+ 760 0129 1B01     		.2byte	0x11b
+ 761 012b 6B000000 		.4byte	0x6b
+ 762 012f 00000000 		.4byte	.LFB6
+ 763 0133 0C000000 		.4byte	.LFE6-.LFB6
+ 764 0137 01       		.uleb128 0x1
+ 765 0138 9C       		.byte	0x9c
+ 766 0139 0A       		.uleb128 0xa
+ 767 013a 65000000 		.4byte	.LASF23
+ 768 013e 01       		.byte	0x1
+ 769 013f 3001     		.2byte	0x130
+ 770 0141 00000000 		.4byte	.LFB7
+ 771 0145 0C000000 		.4byte	.LFE7-.LFB7
+ 772 0149 01       		.uleb128 0x1
+ 773 014a 9C       		.byte	0x9c
+ 774 014b 5E010000 		.4byte	0x15e
+ 775 014f 0B       		.uleb128 0xb
+ 776 0150 6A010000 		.4byte	.LASF25
+ 777 0154 01       		.byte	0x1
+ 778 0155 3001     		.2byte	0x130
+ 779 0157 6B000000 		.4byte	0x6b
+ 780 015b 01       		.uleb128 0x1
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccVkEAVM.s 			page 25
+
+
+ 781 015c 50       		.byte	0x50
+ 782 015d 00       		.byte	0
+ 783 015e 0A       		.uleb128 0xa
+ 784 015f D7020000 		.4byte	.LASF26
+ 785 0163 01       		.byte	0x1
+ 786 0164 4601     		.2byte	0x146
+ 787 0166 00000000 		.4byte	.LFB8
+ 788 016a 10000000 		.4byte	.LFE8-.LFB8
+ 789 016e 01       		.uleb128 0x1
+ 790 016f 9C       		.byte	0x9c
+ 791 0170 9F010000 		.4byte	0x19f
+ 792 0174 0C       		.uleb128 0xc
+ 793 0175 DA000000 		.4byte	.LASF27
+ 794 0179 01       		.byte	0x1
+ 795 017a 4601     		.2byte	0x146
+ 796 017c 77000000 		.4byte	0x77
+ 797 0180 00000000 		.4byte	.LLST0
+ 798 0184 0D       		.uleb128 0xd
+ 799 0185 0A000000 		.4byte	.LVL4
+ 800 0189 0C040000 		.4byte	0x40c
+ 801 018d 0E       		.uleb128 0xe
+ 802 018e 01       		.uleb128 0x1
+ 803 018f 50       		.byte	0x50
+ 804 0190 05       		.uleb128 0x5
+ 805 0191 0C       		.byte	0xc
+ 806 0192 00000F40 		.4byte	0x400f0000
+ 807 0196 0E       		.uleb128 0xe
+ 808 0197 01       		.uleb128 0x1
+ 809 0198 51       		.byte	0x51
+ 810 0199 03       		.uleb128 0x3
+ 811 019a F3       		.byte	0xf3
+ 812 019b 01       		.uleb128 0x1
+ 813 019c 50       		.byte	0x50
+ 814 019d 00       		.byte	0
+ 815 019e 00       		.byte	0
+ 816 019f 0F       		.uleb128 0xf
+ 817 01a0 B7010000 		.4byte	.LASF28
+ 818 01a4 01       		.byte	0x1
+ 819 01a5 6501     		.2byte	0x165
+ 820 01a7 77000000 		.4byte	0x77
+ 821 01ab 00000000 		.4byte	.LFB9
+ 822 01af 18000000 		.4byte	.LFE9-.LFB9
+ 823 01b3 01       		.uleb128 0x1
+ 824 01b4 9C       		.byte	0x9c
+ 825 01b5 CD010000 		.4byte	0x1cd
+ 826 01b9 0D       		.uleb128 0xd
+ 827 01ba 0C000000 		.4byte	.LVL5
+ 828 01be 18040000 		.4byte	0x418
+ 829 01c2 0E       		.uleb128 0xe
+ 830 01c3 01       		.uleb128 0x1
+ 831 01c4 50       		.byte	0x50
+ 832 01c5 05       		.uleb128 0x5
+ 833 01c6 0C       		.byte	0xc
+ 834 01c7 40000F40 		.4byte	0x400f0040
+ 835 01cb 00       		.byte	0
+ 836 01cc 00       		.byte	0
+ 837 01cd 0F       		.uleb128 0xf
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccVkEAVM.s 			page 26
+
+
+ 838 01ce 06000000 		.4byte	.LASF29
+ 839 01d2 01       		.byte	0x1
+ 840 01d3 8601     		.2byte	0x186
+ 841 01d5 77000000 		.4byte	0x77
+ 842 01d9 00000000 		.4byte	.LFB10
+ 843 01dd 10000000 		.4byte	.LFE10-.LFB10
+ 844 01e1 01       		.uleb128 0x1
+ 845 01e2 9C       		.byte	0x9c
+ 846 01e3 FB010000 		.4byte	0x1fb
+ 847 01e7 0D       		.uleb128 0xd
+ 848 01e8 08000000 		.4byte	.LVL6
+ 849 01ec 18040000 		.4byte	0x418
+ 850 01f0 0E       		.uleb128 0xe
+ 851 01f1 01       		.uleb128 0x1
+ 852 01f2 50       		.byte	0x50
+ 853 01f3 05       		.uleb128 0x5
+ 854 01f4 0C       		.byte	0xc
+ 855 01f5 40000F40 		.4byte	0x400f0040
+ 856 01f9 00       		.byte	0
+ 857 01fa 00       		.byte	0
+ 858 01fb 0A       		.uleb128 0xa
+ 859 01fc CD010000 		.4byte	.LASF30
+ 860 0200 01       		.byte	0x1
+ 861 0201 9F01     		.2byte	0x19f
+ 862 0203 00000000 		.4byte	.LFB11
+ 863 0207 10000000 		.4byte	.LFE11-.LFB11
+ 864 020b 01       		.uleb128 0x1
+ 865 020c 9C       		.byte	0x9c
+ 866 020d 3C020000 		.4byte	0x23c
+ 867 0211 0C       		.uleb128 0xc
+ 868 0212 4B000000 		.4byte	.LASF31
+ 869 0216 01       		.byte	0x1
+ 870 0217 9F01     		.2byte	0x19f
+ 871 0219 77000000 		.4byte	0x77
+ 872 021d 2C000000 		.4byte	.LLST1
+ 873 0221 0D       		.uleb128 0xd
+ 874 0222 0A000000 		.4byte	.LVL9
+ 875 0226 0C040000 		.4byte	0x40c
+ 876 022a 0E       		.uleb128 0xe
+ 877 022b 01       		.uleb128 0x1
+ 878 022c 50       		.byte	0x50
+ 879 022d 05       		.uleb128 0x5
+ 880 022e 0C       		.byte	0xc
+ 881 022f 20000F40 		.4byte	0x400f0020
+ 882 0233 0E       		.uleb128 0xe
+ 883 0234 01       		.uleb128 0x1
+ 884 0235 51       		.byte	0x51
+ 885 0236 03       		.uleb128 0x3
+ 886 0237 F3       		.byte	0xf3
+ 887 0238 01       		.uleb128 0x1
+ 888 0239 50       		.byte	0x50
+ 889 023a 00       		.byte	0
+ 890 023b 00       		.byte	0
+ 891 023c 0F       		.uleb128 0xf
+ 892 023d 01020000 		.4byte	.LASF32
+ 893 0241 01       		.byte	0x1
+ 894 0242 B601     		.2byte	0x1b6
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccVkEAVM.s 			page 27
+
+
+ 895 0244 77000000 		.4byte	0x77
+ 896 0248 00000000 		.4byte	.LFB12
+ 897 024c 10000000 		.4byte	.LFE12-.LFB12
+ 898 0250 01       		.uleb128 0x1
+ 899 0251 9C       		.byte	0x9c
+ 900 0252 6A020000 		.4byte	0x26a
+ 901 0256 0D       		.uleb128 0xd
+ 902 0257 08000000 		.4byte	.LVL10
+ 903 025b 18040000 		.4byte	0x418
+ 904 025f 0E       		.uleb128 0xe
+ 905 0260 01       		.uleb128 0x1
+ 906 0261 50       		.byte	0x50
+ 907 0262 05       		.uleb128 0x5
+ 908 0263 0C       		.byte	0xc
+ 909 0264 20000F40 		.4byte	0x400f0020
+ 910 0268 00       		.byte	0
+ 911 0269 00       		.byte	0
+ 912 026a 0A       		.uleb128 0xa
+ 913 026b 20010000 		.4byte	.LASF33
+ 914 026f 01       		.byte	0x1
+ 915 0270 D101     		.2byte	0x1d1
+ 916 0272 00000000 		.4byte	.LFB13
+ 917 0276 10000000 		.4byte	.LFE13-.LFB13
+ 918 027a 01       		.uleb128 0x1
+ 919 027b 9C       		.byte	0x9c
+ 920 027c AB020000 		.4byte	0x2ab
+ 921 0280 0C       		.uleb128 0xc
+ 922 0281 94030000 		.4byte	.LASF34
+ 923 0285 01       		.byte	0x1
+ 924 0286 D101     		.2byte	0x1d1
+ 925 0288 77000000 		.4byte	0x77
+ 926 028c 58000000 		.4byte	.LLST2
+ 927 0290 0D       		.uleb128 0xd
+ 928 0291 0A000000 		.4byte	.LVL13
+ 929 0295 0C040000 		.4byte	0x40c
+ 930 0299 0E       		.uleb128 0xe
+ 931 029a 01       		.uleb128 0x1
+ 932 029b 50       		.byte	0x50
+ 933 029c 05       		.uleb128 0x5
+ 934 029d 0C       		.byte	0xc
+ 935 029e 30000F40 		.4byte	0x400f0030
+ 936 02a2 0E       		.uleb128 0xe
+ 937 02a3 01       		.uleb128 0x1
+ 938 02a4 51       		.byte	0x51
+ 939 02a5 03       		.uleb128 0x3
+ 940 02a6 F3       		.byte	0xf3
+ 941 02a7 01       		.uleb128 0x1
+ 942 02a8 50       		.byte	0x50
+ 943 02a9 00       		.byte	0
+ 944 02aa 00       		.byte	0
+ 945 02ab 0F       		.uleb128 0xf
+ 946 02ac 3C030000 		.4byte	.LASF35
+ 947 02b0 01       		.byte	0x1
+ 948 02b1 E901     		.2byte	0x1e9
+ 949 02b3 77000000 		.4byte	0x77
+ 950 02b7 00000000 		.4byte	.LFB14
+ 951 02bb 10000000 		.4byte	.LFE14-.LFB14
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccVkEAVM.s 			page 28
+
+
+ 952 02bf 01       		.uleb128 0x1
+ 953 02c0 9C       		.byte	0x9c
+ 954 02c1 D9020000 		.4byte	0x2d9
+ 955 02c5 0D       		.uleb128 0xd
+ 956 02c6 08000000 		.4byte	.LVL14
+ 957 02ca 18040000 		.4byte	0x418
+ 958 02ce 0E       		.uleb128 0xe
+ 959 02cf 01       		.uleb128 0x1
+ 960 02d0 50       		.byte	0x50
+ 961 02d1 05       		.uleb128 0x5
+ 962 02d2 0C       		.byte	0xc
+ 963 02d3 30000F40 		.4byte	0x400f0030
+ 964 02d7 00       		.byte	0
+ 965 02d8 00       		.byte	0
+ 966 02d9 0A       		.uleb128 0xa
+ 967 02da B0000000 		.4byte	.LASF36
+ 968 02de 01       		.byte	0x1
+ 969 02df FD01     		.2byte	0x1fd
+ 970 02e1 00000000 		.4byte	.LFB15
+ 971 02e5 18000000 		.4byte	.LFE15-.LFB15
+ 972 02e9 01       		.uleb128 0x1
+ 973 02ea 9C       		.byte	0x9c
+ 974 02eb 00030000 		.4byte	0x300
+ 975 02ef 0C       		.uleb128 0xc
+ 976 02f0 1C000000 		.4byte	.LASF37
+ 977 02f4 01       		.byte	0x1
+ 978 02f5 FD01     		.2byte	0x1fd
+ 979 02f7 6B000000 		.4byte	0x6b
+ 980 02fb 84000000 		.4byte	.LLST3
+ 981 02ff 00       		.byte	0
+ 982 0300 0A       		.uleb128 0xa
+ 983 0301 07010000 		.4byte	.LASF38
+ 984 0305 01       		.byte	0x1
+ 985 0306 2E02     		.2byte	0x22e
+ 986 0308 00000000 		.4byte	.LFB16
+ 987 030c 12000000 		.4byte	.LFE16-.LFB16
+ 988 0310 01       		.uleb128 0x1
+ 989 0311 9C       		.byte	0x9c
+ 990 0312 29030000 		.4byte	0x329
+ 991 0316 10       		.uleb128 0x10
+ 992 0317 08000000 		.4byte	.LVL17
+ 993 031b CD010000 		.4byte	0x1cd
+ 994 031f 10       		.uleb128 0x10
+ 995 0320 0C000000 		.4byte	.LVL18
+ 996 0324 0D010000 		.4byte	0x10d
+ 997 0328 00       		.byte	0
+ 998 0329 07       		.uleb128 0x7
+ 999 032a 2C020000 		.4byte	.LASF39
+ 1000 032e 01       		.byte	0x1
+ 1001 032f 25       		.byte	0x25
+ 1002 0330 00000000 		.4byte	.LFB0
+ 1003 0334 64000000 		.4byte	.LFE0-.LFB0
+ 1004 0338 01       		.uleb128 0x1
+ 1005 0339 9C       		.byte	0x9c
+ 1006 033a D3030000 		.4byte	0x3d3
+ 1007 033e 11       		.uleb128 0x11
+ 1008 033f C9020000 		.4byte	.LASF40
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccVkEAVM.s 			page 29
+
+
+ 1009 0343 01       		.byte	0x1
+ 1010 0344 28       		.byte	0x28
+ 1011 0345 6B000000 		.4byte	0x6b
+ 1012 0349 A5000000 		.4byte	.LLST4
+ 1013 034d 11       		.uleb128 0x11
+ 1014 034e EE020000 		.4byte	.LASF41
+ 1015 0352 01       		.byte	0x1
+ 1016 0353 2D       		.byte	0x2d
+ 1017 0354 6B000000 		.4byte	0x6b
+ 1018 0358 C3000000 		.4byte	.LLST5
+ 1019 035c 10       		.uleb128 0x10
+ 1020 035d 1E000000 		.4byte	.LVL22
+ 1021 0361 00030000 		.4byte	0x300
+ 1022 0365 12       		.uleb128 0x12
+ 1023 0366 26000000 		.4byte	.LVL23
+ 1024 036a FB010000 		.4byte	0x1fb
+ 1025 036e 79030000 		.4byte	0x379
+ 1026 0372 0E       		.uleb128 0xe
+ 1027 0373 01       		.uleb128 0x1
+ 1028 0374 50       		.byte	0x50
+ 1029 0375 02       		.uleb128 0x2
+ 1030 0376 74       		.byte	0x74
+ 1031 0377 00       		.sleb128 0
+ 1032 0378 00       		.byte	0
+ 1033 0379 12       		.uleb128 0x12
+ 1034 037a 2C000000 		.4byte	.LVL24
+ 1035 037e 5E010000 		.4byte	0x15e
+ 1036 0382 8D030000 		.4byte	0x38d
+ 1037 0386 0E       		.uleb128 0xe
+ 1038 0387 01       		.uleb128 0x1
+ 1039 0388 50       		.byte	0x50
+ 1040 0389 02       		.uleb128 0x2
+ 1041 038a 74       		.byte	0x74
+ 1042 038b 00       		.sleb128 0
+ 1043 038c 00       		.byte	0
+ 1044 038d 12       		.uleb128 0x12
+ 1045 038e 32000000 		.4byte	.LVL25
+ 1046 0392 EA000000 		.4byte	0xea
+ 1047 0396 A0030000 		.4byte	0x3a0
+ 1048 039a 0E       		.uleb128 0xe
+ 1049 039b 01       		.uleb128 0x1
+ 1050 039c 50       		.byte	0x50
+ 1051 039d 01       		.uleb128 0x1
+ 1052 039e 30       		.byte	0x30
+ 1053 039f 00       		.byte	0
+ 1054 03a0 10       		.uleb128 0x10
+ 1055 03a1 36000000 		.4byte	.LVL26
+ 1056 03a5 0D010000 		.4byte	0x10d
+ 1057 03a9 12       		.uleb128 0x12
+ 1058 03aa 3C000000 		.4byte	.LVL27
+ 1059 03ae 6A020000 		.4byte	0x26a
+ 1060 03b2 C0030000 		.4byte	0x3c0
+ 1061 03b6 0E       		.uleb128 0xe
+ 1062 03b7 01       		.uleb128 0x1
+ 1063 03b8 50       		.byte	0x50
+ 1064 03b9 05       		.uleb128 0x5
+ 1065 03ba 0C       		.byte	0xc
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccVkEAVM.s 			page 30
+
+
+ 1066 03bb FFFFFF00 		.4byte	0xffffff
+ 1067 03bf 00       		.byte	0
+ 1068 03c0 10       		.uleb128 0x10
+ 1069 03c1 40000000 		.4byte	.LVL28
+ 1070 03c5 24040000 		.4byte	0x424
+ 1071 03c9 10       		.uleb128 0x10
+ 1072 03ca 50000000 		.4byte	.LVL29
+ 1073 03ce 2F040000 		.4byte	0x42f
+ 1074 03d2 00       		.byte	0
+ 1075 03d3 07       		.uleb128 0x7
+ 1076 03d4 5B030000 		.4byte	.LASF42
+ 1077 03d8 01       		.byte	0x1
+ 1078 03d9 B2       		.byte	0xb2
+ 1079 03da 00000000 		.4byte	.LFB2
+ 1080 03de 20000000 		.4byte	.LFE2-.LFB2
+ 1081 03e2 01       		.uleb128 0x1
+ 1082 03e3 9C       		.byte	0x9c
+ 1083 03e4 FB030000 		.4byte	0x3fb
+ 1084 03e8 10       		.uleb128 0x10
+ 1085 03e9 0E000000 		.4byte	.LVL30
+ 1086 03ed 29030000 		.4byte	0x329
+ 1087 03f1 10       		.uleb128 0x10
+ 1088 03f2 18000000 		.4byte	.LVL31
+ 1089 03f6 C8000000 		.4byte	0xc8
+ 1090 03fa 00       		.byte	0
+ 1091 03fb 13       		.uleb128 0x13
+ 1092 03fc 81010000 		.4byte	.LASF50
+ 1093 0400 01       		.byte	0x1
+ 1094 0401 15       		.byte	0x15
+ 1095 0402 6B000000 		.4byte	0x6b
+ 1096 0406 05       		.uleb128 0x5
+ 1097 0407 03       		.byte	0x3
+ 1098 0408 00000000 		.4byte	Counter_1_initVar
+ 1099 040c 14       		.uleb128 0x14
+ 1100 040d 27030000 		.4byte	.LASF43
+ 1101 0411 27030000 		.4byte	.LASF43
+ 1102 0415 02       		.byte	0x2
+ 1103 0416 2702     		.2byte	0x227
+ 1104 0418 14       		.uleb128 0x14
+ 1105 0419 C9000000 		.4byte	.LASF44
+ 1106 041d C9000000 		.4byte	.LASF44
+ 1107 0421 02       		.byte	0x2
+ 1108 0422 2B02     		.2byte	0x22b
+ 1109 0424 15       		.uleb128 0x15
+ 1110 0425 EA010000 		.4byte	.LASF45
+ 1111 0429 EA010000 		.4byte	.LASF45
+ 1112 042d 03       		.byte	0x3
+ 1113 042e E5       		.byte	0xe5
+ 1114 042f 15       		.uleb128 0x15
+ 1115 0430 16020000 		.4byte	.LASF46
+ 1116 0434 16020000 		.4byte	.LASF46
+ 1117 0438 03       		.byte	0x3
+ 1118 0439 E6       		.byte	0xe6
+ 1119 043a 00       		.byte	0
+ 1120              		.section	.debug_abbrev,"",%progbits
+ 1121              	.Ldebug_abbrev0:
+ 1122 0000 01       		.uleb128 0x1
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccVkEAVM.s 			page 31
+
+
+ 1123 0001 11       		.uleb128 0x11
+ 1124 0002 01       		.byte	0x1
+ 1125 0003 25       		.uleb128 0x25
+ 1126 0004 0E       		.uleb128 0xe
+ 1127 0005 13       		.uleb128 0x13
+ 1128 0006 0B       		.uleb128 0xb
+ 1129 0007 03       		.uleb128 0x3
+ 1130 0008 0E       		.uleb128 0xe
+ 1131 0009 1B       		.uleb128 0x1b
+ 1132 000a 0E       		.uleb128 0xe
+ 1133 000b 55       		.uleb128 0x55
+ 1134 000c 17       		.uleb128 0x17
+ 1135 000d 11       		.uleb128 0x11
+ 1136 000e 01       		.uleb128 0x1
+ 1137 000f 10       		.uleb128 0x10
+ 1138 0010 17       		.uleb128 0x17
+ 1139 0011 00       		.byte	0
+ 1140 0012 00       		.byte	0
+ 1141 0013 02       		.uleb128 0x2
+ 1142 0014 24       		.uleb128 0x24
+ 1143 0015 00       		.byte	0
+ 1144 0016 0B       		.uleb128 0xb
+ 1145 0017 0B       		.uleb128 0xb
+ 1146 0018 3E       		.uleb128 0x3e
+ 1147 0019 0B       		.uleb128 0xb
+ 1148 001a 03       		.uleb128 0x3
+ 1149 001b 0E       		.uleb128 0xe
+ 1150 001c 00       		.byte	0
+ 1151 001d 00       		.byte	0
+ 1152 001e 03       		.uleb128 0x3
+ 1153 001f 24       		.uleb128 0x24
+ 1154 0020 00       		.byte	0
+ 1155 0021 0B       		.uleb128 0xb
+ 1156 0022 0B       		.uleb128 0xb
+ 1157 0023 3E       		.uleb128 0x3e
+ 1158 0024 0B       		.uleb128 0xb
+ 1159 0025 03       		.uleb128 0x3
+ 1160 0026 08       		.uleb128 0x8
+ 1161 0027 00       		.byte	0
+ 1162 0028 00       		.byte	0
+ 1163 0029 04       		.uleb128 0x4
+ 1164 002a 16       		.uleb128 0x16
+ 1165 002b 00       		.byte	0
+ 1166 002c 03       		.uleb128 0x3
+ 1167 002d 0E       		.uleb128 0xe
+ 1168 002e 3A       		.uleb128 0x3a
+ 1169 002f 0B       		.uleb128 0xb
+ 1170 0030 3B       		.uleb128 0x3b
+ 1171 0031 05       		.uleb128 0x5
+ 1172 0032 49       		.uleb128 0x49
+ 1173 0033 13       		.uleb128 0x13
+ 1174 0034 00       		.byte	0
+ 1175 0035 00       		.byte	0
+ 1176 0036 05       		.uleb128 0x5
+ 1177 0037 35       		.uleb128 0x35
+ 1178 0038 00       		.byte	0
+ 1179 0039 49       		.uleb128 0x49
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccVkEAVM.s 			page 32
+
+
+ 1180 003a 13       		.uleb128 0x13
+ 1181 003b 00       		.byte	0
+ 1182 003c 00       		.byte	0
+ 1183 003d 06       		.uleb128 0x6
+ 1184 003e 2E       		.uleb128 0x2e
+ 1185 003f 00       		.byte	0
+ 1186 0040 3F       		.uleb128 0x3f
+ 1187 0041 19       		.uleb128 0x19
+ 1188 0042 03       		.uleb128 0x3
+ 1189 0043 0E       		.uleb128 0xe
+ 1190 0044 3A       		.uleb128 0x3a
+ 1191 0045 0B       		.uleb128 0xb
+ 1192 0046 3B       		.uleb128 0x3b
+ 1193 0047 0B       		.uleb128 0xb
+ 1194 0048 27       		.uleb128 0x27
+ 1195 0049 19       		.uleb128 0x19
+ 1196 004a 11       		.uleb128 0x11
+ 1197 004b 01       		.uleb128 0x1
+ 1198 004c 12       		.uleb128 0x12
+ 1199 004d 06       		.uleb128 0x6
+ 1200 004e 40       		.uleb128 0x40
+ 1201 004f 18       		.uleb128 0x18
+ 1202 0050 9742     		.uleb128 0x2117
+ 1203 0052 19       		.uleb128 0x19
+ 1204 0053 00       		.byte	0
+ 1205 0054 00       		.byte	0
+ 1206 0055 07       		.uleb128 0x7
+ 1207 0056 2E       		.uleb128 0x2e
+ 1208 0057 01       		.byte	0x1
+ 1209 0058 3F       		.uleb128 0x3f
+ 1210 0059 19       		.uleb128 0x19
+ 1211 005a 03       		.uleb128 0x3
+ 1212 005b 0E       		.uleb128 0xe
+ 1213 005c 3A       		.uleb128 0x3a
+ 1214 005d 0B       		.uleb128 0xb
+ 1215 005e 3B       		.uleb128 0x3b
+ 1216 005f 0B       		.uleb128 0xb
+ 1217 0060 27       		.uleb128 0x27
+ 1218 0061 19       		.uleb128 0x19
+ 1219 0062 11       		.uleb128 0x11
+ 1220 0063 01       		.uleb128 0x1
+ 1221 0064 12       		.uleb128 0x12
+ 1222 0065 06       		.uleb128 0x6
+ 1223 0066 40       		.uleb128 0x40
+ 1224 0067 18       		.uleb128 0x18
+ 1225 0068 9742     		.uleb128 0x2117
+ 1226 006a 19       		.uleb128 0x19
+ 1227 006b 01       		.uleb128 0x1
+ 1228 006c 13       		.uleb128 0x13
+ 1229 006d 00       		.byte	0
+ 1230 006e 00       		.byte	0
+ 1231 006f 08       		.uleb128 0x8
+ 1232 0070 05       		.uleb128 0x5
+ 1233 0071 00       		.byte	0
+ 1234 0072 03       		.uleb128 0x3
+ 1235 0073 0E       		.uleb128 0xe
+ 1236 0074 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccVkEAVM.s 			page 33
+
+
+ 1237 0075 0B       		.uleb128 0xb
+ 1238 0076 3B       		.uleb128 0x3b
+ 1239 0077 0B       		.uleb128 0xb
+ 1240 0078 49       		.uleb128 0x49
+ 1241 0079 13       		.uleb128 0x13
+ 1242 007a 02       		.uleb128 0x2
+ 1243 007b 18       		.uleb128 0x18
+ 1244 007c 00       		.byte	0
+ 1245 007d 00       		.byte	0
+ 1246 007e 09       		.uleb128 0x9
+ 1247 007f 2E       		.uleb128 0x2e
+ 1248 0080 00       		.byte	0
+ 1249 0081 3F       		.uleb128 0x3f
+ 1250 0082 19       		.uleb128 0x19
+ 1251 0083 03       		.uleb128 0x3
+ 1252 0084 0E       		.uleb128 0xe
+ 1253 0085 3A       		.uleb128 0x3a
+ 1254 0086 0B       		.uleb128 0xb
+ 1255 0087 3B       		.uleb128 0x3b
+ 1256 0088 05       		.uleb128 0x5
+ 1257 0089 27       		.uleb128 0x27
+ 1258 008a 19       		.uleb128 0x19
+ 1259 008b 49       		.uleb128 0x49
+ 1260 008c 13       		.uleb128 0x13
+ 1261 008d 11       		.uleb128 0x11
+ 1262 008e 01       		.uleb128 0x1
+ 1263 008f 12       		.uleb128 0x12
+ 1264 0090 06       		.uleb128 0x6
+ 1265 0091 40       		.uleb128 0x40
+ 1266 0092 18       		.uleb128 0x18
+ 1267 0093 9742     		.uleb128 0x2117
+ 1268 0095 19       		.uleb128 0x19
+ 1269 0096 00       		.byte	0
+ 1270 0097 00       		.byte	0
+ 1271 0098 0A       		.uleb128 0xa
+ 1272 0099 2E       		.uleb128 0x2e
+ 1273 009a 01       		.byte	0x1
+ 1274 009b 3F       		.uleb128 0x3f
+ 1275 009c 19       		.uleb128 0x19
+ 1276 009d 03       		.uleb128 0x3
+ 1277 009e 0E       		.uleb128 0xe
+ 1278 009f 3A       		.uleb128 0x3a
+ 1279 00a0 0B       		.uleb128 0xb
+ 1280 00a1 3B       		.uleb128 0x3b
+ 1281 00a2 05       		.uleb128 0x5
+ 1282 00a3 27       		.uleb128 0x27
+ 1283 00a4 19       		.uleb128 0x19
+ 1284 00a5 11       		.uleb128 0x11
+ 1285 00a6 01       		.uleb128 0x1
+ 1286 00a7 12       		.uleb128 0x12
+ 1287 00a8 06       		.uleb128 0x6
+ 1288 00a9 40       		.uleb128 0x40
+ 1289 00aa 18       		.uleb128 0x18
+ 1290 00ab 9742     		.uleb128 0x2117
+ 1291 00ad 19       		.uleb128 0x19
+ 1292 00ae 01       		.uleb128 0x1
+ 1293 00af 13       		.uleb128 0x13
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccVkEAVM.s 			page 34
+
+
+ 1294 00b0 00       		.byte	0
+ 1295 00b1 00       		.byte	0
+ 1296 00b2 0B       		.uleb128 0xb
+ 1297 00b3 05       		.uleb128 0x5
+ 1298 00b4 00       		.byte	0
+ 1299 00b5 03       		.uleb128 0x3
+ 1300 00b6 0E       		.uleb128 0xe
+ 1301 00b7 3A       		.uleb128 0x3a
+ 1302 00b8 0B       		.uleb128 0xb
+ 1303 00b9 3B       		.uleb128 0x3b
+ 1304 00ba 05       		.uleb128 0x5
+ 1305 00bb 49       		.uleb128 0x49
+ 1306 00bc 13       		.uleb128 0x13
+ 1307 00bd 02       		.uleb128 0x2
+ 1308 00be 18       		.uleb128 0x18
+ 1309 00bf 00       		.byte	0
+ 1310 00c0 00       		.byte	0
+ 1311 00c1 0C       		.uleb128 0xc
+ 1312 00c2 05       		.uleb128 0x5
+ 1313 00c3 00       		.byte	0
+ 1314 00c4 03       		.uleb128 0x3
+ 1315 00c5 0E       		.uleb128 0xe
+ 1316 00c6 3A       		.uleb128 0x3a
+ 1317 00c7 0B       		.uleb128 0xb
+ 1318 00c8 3B       		.uleb128 0x3b
+ 1319 00c9 05       		.uleb128 0x5
+ 1320 00ca 49       		.uleb128 0x49
+ 1321 00cb 13       		.uleb128 0x13
+ 1322 00cc 02       		.uleb128 0x2
+ 1323 00cd 17       		.uleb128 0x17
+ 1324 00ce 00       		.byte	0
+ 1325 00cf 00       		.byte	0
+ 1326 00d0 0D       		.uleb128 0xd
+ 1327 00d1 898201   		.uleb128 0x4109
+ 1328 00d4 01       		.byte	0x1
+ 1329 00d5 11       		.uleb128 0x11
+ 1330 00d6 01       		.uleb128 0x1
+ 1331 00d7 31       		.uleb128 0x31
+ 1332 00d8 13       		.uleb128 0x13
+ 1333 00d9 00       		.byte	0
+ 1334 00da 00       		.byte	0
+ 1335 00db 0E       		.uleb128 0xe
+ 1336 00dc 8A8201   		.uleb128 0x410a
+ 1337 00df 00       		.byte	0
+ 1338 00e0 02       		.uleb128 0x2
+ 1339 00e1 18       		.uleb128 0x18
+ 1340 00e2 9142     		.uleb128 0x2111
+ 1341 00e4 18       		.uleb128 0x18
+ 1342 00e5 00       		.byte	0
+ 1343 00e6 00       		.byte	0
+ 1344 00e7 0F       		.uleb128 0xf
+ 1345 00e8 2E       		.uleb128 0x2e
+ 1346 00e9 01       		.byte	0x1
+ 1347 00ea 3F       		.uleb128 0x3f
+ 1348 00eb 19       		.uleb128 0x19
+ 1349 00ec 03       		.uleb128 0x3
+ 1350 00ed 0E       		.uleb128 0xe
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccVkEAVM.s 			page 35
+
+
+ 1351 00ee 3A       		.uleb128 0x3a
+ 1352 00ef 0B       		.uleb128 0xb
+ 1353 00f0 3B       		.uleb128 0x3b
+ 1354 00f1 05       		.uleb128 0x5
+ 1355 00f2 27       		.uleb128 0x27
+ 1356 00f3 19       		.uleb128 0x19
+ 1357 00f4 49       		.uleb128 0x49
+ 1358 00f5 13       		.uleb128 0x13
+ 1359 00f6 11       		.uleb128 0x11
+ 1360 00f7 01       		.uleb128 0x1
+ 1361 00f8 12       		.uleb128 0x12
+ 1362 00f9 06       		.uleb128 0x6
+ 1363 00fa 40       		.uleb128 0x40
+ 1364 00fb 18       		.uleb128 0x18
+ 1365 00fc 9742     		.uleb128 0x2117
+ 1366 00fe 19       		.uleb128 0x19
+ 1367 00ff 01       		.uleb128 0x1
+ 1368 0100 13       		.uleb128 0x13
+ 1369 0101 00       		.byte	0
+ 1370 0102 00       		.byte	0
+ 1371 0103 10       		.uleb128 0x10
+ 1372 0104 898201   		.uleb128 0x4109
+ 1373 0107 00       		.byte	0
+ 1374 0108 11       		.uleb128 0x11
+ 1375 0109 01       		.uleb128 0x1
+ 1376 010a 31       		.uleb128 0x31
+ 1377 010b 13       		.uleb128 0x13
+ 1378 010c 00       		.byte	0
+ 1379 010d 00       		.byte	0
+ 1380 010e 11       		.uleb128 0x11
+ 1381 010f 34       		.uleb128 0x34
+ 1382 0110 00       		.byte	0
+ 1383 0111 03       		.uleb128 0x3
+ 1384 0112 0E       		.uleb128 0xe
+ 1385 0113 3A       		.uleb128 0x3a
+ 1386 0114 0B       		.uleb128 0xb
+ 1387 0115 3B       		.uleb128 0x3b
+ 1388 0116 0B       		.uleb128 0xb
+ 1389 0117 49       		.uleb128 0x49
+ 1390 0118 13       		.uleb128 0x13
+ 1391 0119 02       		.uleb128 0x2
+ 1392 011a 17       		.uleb128 0x17
+ 1393 011b 00       		.byte	0
+ 1394 011c 00       		.byte	0
+ 1395 011d 12       		.uleb128 0x12
+ 1396 011e 898201   		.uleb128 0x4109
+ 1397 0121 01       		.byte	0x1
+ 1398 0122 11       		.uleb128 0x11
+ 1399 0123 01       		.uleb128 0x1
+ 1400 0124 31       		.uleb128 0x31
+ 1401 0125 13       		.uleb128 0x13
+ 1402 0126 01       		.uleb128 0x1
+ 1403 0127 13       		.uleb128 0x13
+ 1404 0128 00       		.byte	0
+ 1405 0129 00       		.byte	0
+ 1406 012a 13       		.uleb128 0x13
+ 1407 012b 34       		.uleb128 0x34
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccVkEAVM.s 			page 36
+
+
+ 1408 012c 00       		.byte	0
+ 1409 012d 03       		.uleb128 0x3
+ 1410 012e 0E       		.uleb128 0xe
+ 1411 012f 3A       		.uleb128 0x3a
+ 1412 0130 0B       		.uleb128 0xb
+ 1413 0131 3B       		.uleb128 0x3b
+ 1414 0132 0B       		.uleb128 0xb
+ 1415 0133 49       		.uleb128 0x49
+ 1416 0134 13       		.uleb128 0x13
+ 1417 0135 3F       		.uleb128 0x3f
+ 1418 0136 19       		.uleb128 0x19
+ 1419 0137 02       		.uleb128 0x2
+ 1420 0138 18       		.uleb128 0x18
+ 1421 0139 00       		.byte	0
+ 1422 013a 00       		.byte	0
+ 1423 013b 14       		.uleb128 0x14
+ 1424 013c 2E       		.uleb128 0x2e
+ 1425 013d 00       		.byte	0
+ 1426 013e 3F       		.uleb128 0x3f
+ 1427 013f 19       		.uleb128 0x19
+ 1428 0140 3C       		.uleb128 0x3c
+ 1429 0141 19       		.uleb128 0x19
+ 1430 0142 6E       		.uleb128 0x6e
+ 1431 0143 0E       		.uleb128 0xe
+ 1432 0144 03       		.uleb128 0x3
+ 1433 0145 0E       		.uleb128 0xe
+ 1434 0146 3A       		.uleb128 0x3a
+ 1435 0147 0B       		.uleb128 0xb
+ 1436 0148 3B       		.uleb128 0x3b
+ 1437 0149 05       		.uleb128 0x5
+ 1438 014a 00       		.byte	0
+ 1439 014b 00       		.byte	0
+ 1440 014c 15       		.uleb128 0x15
+ 1441 014d 2E       		.uleb128 0x2e
+ 1442 014e 00       		.byte	0
+ 1443 014f 3F       		.uleb128 0x3f
+ 1444 0150 19       		.uleb128 0x19
+ 1445 0151 3C       		.uleb128 0x3c
+ 1446 0152 19       		.uleb128 0x19
+ 1447 0153 6E       		.uleb128 0x6e
+ 1448 0154 0E       		.uleb128 0xe
+ 1449 0155 03       		.uleb128 0x3
+ 1450 0156 0E       		.uleb128 0xe
+ 1451 0157 3A       		.uleb128 0x3a
+ 1452 0158 0B       		.uleb128 0xb
+ 1453 0159 3B       		.uleb128 0x3b
+ 1454 015a 0B       		.uleb128 0xb
+ 1455 015b 00       		.byte	0
+ 1456 015c 00       		.byte	0
+ 1457 015d 00       		.byte	0
+ 1458              		.section	.debug_loc,"",%progbits
+ 1459              	.Ldebug_loc0:
+ 1460              	.LLST0:
+ 1461 0000 00000000 		.4byte	.LVL2
+ 1462 0004 06000000 		.4byte	.LVL3
+ 1463 0008 0100     		.2byte	0x1
+ 1464 000a 50       		.byte	0x50
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccVkEAVM.s 			page 37
+
+
+ 1465 000b 06000000 		.4byte	.LVL3
+ 1466 000f 09000000 		.4byte	.LVL4-1
+ 1467 0013 0100     		.2byte	0x1
+ 1468 0015 51       		.byte	0x51
+ 1469 0016 09000000 		.4byte	.LVL4-1
+ 1470 001a 10000000 		.4byte	.LFE8
+ 1471 001e 0400     		.2byte	0x4
+ 1472 0020 F3       		.byte	0xf3
+ 1473 0021 01       		.uleb128 0x1
+ 1474 0022 50       		.byte	0x50
+ 1475 0023 9F       		.byte	0x9f
+ 1476 0024 00000000 		.4byte	0
+ 1477 0028 00000000 		.4byte	0
+ 1478              	.LLST1:
+ 1479 002c 00000000 		.4byte	.LVL7
+ 1480 0030 06000000 		.4byte	.LVL8
+ 1481 0034 0100     		.2byte	0x1
+ 1482 0036 50       		.byte	0x50
+ 1483 0037 06000000 		.4byte	.LVL8
+ 1484 003b 09000000 		.4byte	.LVL9-1
+ 1485 003f 0100     		.2byte	0x1
+ 1486 0041 51       		.byte	0x51
+ 1487 0042 09000000 		.4byte	.LVL9-1
+ 1488 0046 10000000 		.4byte	.LFE11
+ 1489 004a 0400     		.2byte	0x4
+ 1490 004c F3       		.byte	0xf3
+ 1491 004d 01       		.uleb128 0x1
+ 1492 004e 50       		.byte	0x50
+ 1493 004f 9F       		.byte	0x9f
+ 1494 0050 00000000 		.4byte	0
+ 1495 0054 00000000 		.4byte	0
+ 1496              	.LLST2:
+ 1497 0058 00000000 		.4byte	.LVL11
+ 1498 005c 06000000 		.4byte	.LVL12
+ 1499 0060 0100     		.2byte	0x1
+ 1500 0062 50       		.byte	0x50
+ 1501 0063 06000000 		.4byte	.LVL12
+ 1502 0067 09000000 		.4byte	.LVL13-1
+ 1503 006b 0100     		.2byte	0x1
+ 1504 006d 51       		.byte	0x51
+ 1505 006e 09000000 		.4byte	.LVL13-1
+ 1506 0072 10000000 		.4byte	.LFE13
+ 1507 0076 0400     		.2byte	0x4
+ 1508 0078 F3       		.byte	0xf3
+ 1509 0079 01       		.uleb128 0x1
+ 1510 007a 50       		.byte	0x50
+ 1511 007b 9F       		.byte	0x9f
+ 1512 007c 00000000 		.4byte	0
+ 1513 0080 00000000 		.4byte	0
+ 1514              	.LLST3:
+ 1515 0084 00000000 		.4byte	.LVL15
+ 1516 0088 0E000000 		.4byte	.LVL16
+ 1517 008c 0100     		.2byte	0x1
+ 1518 008e 50       		.byte	0x50
+ 1519 008f 0E000000 		.4byte	.LVL16
+ 1520 0093 18000000 		.4byte	.LFE15
+ 1521 0097 0400     		.2byte	0x4
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccVkEAVM.s 			page 38
+
+
+ 1522 0099 F3       		.byte	0xf3
+ 1523 009a 01       		.uleb128 0x1
+ 1524 009b 50       		.byte	0x50
+ 1525 009c 9F       		.byte	0x9f
+ 1526 009d 00000000 		.4byte	0
+ 1527 00a1 00000000 		.4byte	0
+ 1528              	.LLST4:
+ 1529 00a5 0A000000 		.4byte	.LVL19
+ 1530 00a9 0E000000 		.4byte	.LVL20
+ 1531 00ad 0100     		.2byte	0x1
+ 1532 00af 53       		.byte	0x53
+ 1533 00b0 18000000 		.4byte	.LVL21
+ 1534 00b4 1D000000 		.4byte	.LVL22-1
+ 1535 00b8 0100     		.2byte	0x1
+ 1536 00ba 53       		.byte	0x53
+ 1537 00bb 00000000 		.4byte	0
+ 1538 00bf 00000000 		.4byte	0
+ 1539              	.LLST5:
+ 1540 00c3 40000000 		.4byte	.LVL28
+ 1541 00c7 4F000000 		.4byte	.LVL29-1
+ 1542 00cb 0100     		.2byte	0x1
+ 1543 00cd 50       		.byte	0x50
+ 1544 00ce 00000000 		.4byte	0
+ 1545 00d2 00000000 		.4byte	0
+ 1546              		.section	.debug_aranges,"",%progbits
+ 1547 0000 9C000000 		.4byte	0x9c
+ 1548 0004 0200     		.2byte	0x2
+ 1549 0006 00000000 		.4byte	.Ldebug_info0
+ 1550 000a 04       		.byte	0x4
+ 1551 000b 00       		.byte	0
+ 1552 000c 0000     		.2byte	0
+ 1553 000e 0000     		.2byte	0
+ 1554 0010 00000000 		.4byte	.LFB1
+ 1555 0014 14000000 		.4byte	.LFE1-.LFB1
+ 1556 0018 00000000 		.4byte	.LFB3
+ 1557 001c 10000000 		.4byte	.LFE3-.LFB3
+ 1558 0020 00000000 		.4byte	.LFB4
+ 1559 0024 0C000000 		.4byte	.LFE4-.LFB4
+ 1560 0028 00000000 		.4byte	.LFB5
+ 1561 002c 0C000000 		.4byte	.LFE5-.LFB5
+ 1562 0030 00000000 		.4byte	.LFB6
+ 1563 0034 0C000000 		.4byte	.LFE6-.LFB6
+ 1564 0038 00000000 		.4byte	.LFB7
+ 1565 003c 0C000000 		.4byte	.LFE7-.LFB7
+ 1566 0040 00000000 		.4byte	.LFB8
+ 1567 0044 10000000 		.4byte	.LFE8-.LFB8
+ 1568 0048 00000000 		.4byte	.LFB9
+ 1569 004c 18000000 		.4byte	.LFE9-.LFB9
+ 1570 0050 00000000 		.4byte	.LFB10
+ 1571 0054 10000000 		.4byte	.LFE10-.LFB10
+ 1572 0058 00000000 		.4byte	.LFB11
+ 1573 005c 10000000 		.4byte	.LFE11-.LFB11
+ 1574 0060 00000000 		.4byte	.LFB12
+ 1575 0064 10000000 		.4byte	.LFE12-.LFB12
+ 1576 0068 00000000 		.4byte	.LFB13
+ 1577 006c 10000000 		.4byte	.LFE13-.LFB13
+ 1578 0070 00000000 		.4byte	.LFB14
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccVkEAVM.s 			page 39
+
+
+ 1579 0074 10000000 		.4byte	.LFE14-.LFB14
+ 1580 0078 00000000 		.4byte	.LFB15
+ 1581 007c 18000000 		.4byte	.LFE15-.LFB15
+ 1582 0080 00000000 		.4byte	.LFB16
+ 1583 0084 12000000 		.4byte	.LFE16-.LFB16
+ 1584 0088 00000000 		.4byte	.LFB0
+ 1585 008c 64000000 		.4byte	.LFE0-.LFB0
+ 1586 0090 00000000 		.4byte	.LFB2
+ 1587 0094 20000000 		.4byte	.LFE2-.LFB2
+ 1588 0098 00000000 		.4byte	0
+ 1589 009c 00000000 		.4byte	0
+ 1590              		.section	.debug_ranges,"",%progbits
+ 1591              	.Ldebug_ranges0:
+ 1592 0000 00000000 		.4byte	.LFB1
+ 1593 0004 14000000 		.4byte	.LFE1
+ 1594 0008 00000000 		.4byte	.LFB3
+ 1595 000c 10000000 		.4byte	.LFE3
+ 1596 0010 00000000 		.4byte	.LFB4
+ 1597 0014 0C000000 		.4byte	.LFE4
+ 1598 0018 00000000 		.4byte	.LFB5
+ 1599 001c 0C000000 		.4byte	.LFE5
+ 1600 0020 00000000 		.4byte	.LFB6
+ 1601 0024 0C000000 		.4byte	.LFE6
+ 1602 0028 00000000 		.4byte	.LFB7
+ 1603 002c 0C000000 		.4byte	.LFE7
+ 1604 0030 00000000 		.4byte	.LFB8
+ 1605 0034 10000000 		.4byte	.LFE8
+ 1606 0038 00000000 		.4byte	.LFB9
+ 1607 003c 18000000 		.4byte	.LFE9
+ 1608 0040 00000000 		.4byte	.LFB10
+ 1609 0044 10000000 		.4byte	.LFE10
+ 1610 0048 00000000 		.4byte	.LFB11
+ 1611 004c 10000000 		.4byte	.LFE11
+ 1612 0050 00000000 		.4byte	.LFB12
+ 1613 0054 10000000 		.4byte	.LFE12
+ 1614 0058 00000000 		.4byte	.LFB13
+ 1615 005c 10000000 		.4byte	.LFE13
+ 1616 0060 00000000 		.4byte	.LFB14
+ 1617 0064 10000000 		.4byte	.LFE14
+ 1618 0068 00000000 		.4byte	.LFB15
+ 1619 006c 18000000 		.4byte	.LFE15
+ 1620 0070 00000000 		.4byte	.LFB16
+ 1621 0074 12000000 		.4byte	.LFE16
+ 1622 0078 00000000 		.4byte	.LFB0
+ 1623 007c 64000000 		.4byte	.LFE0
+ 1624 0080 00000000 		.4byte	.LFB2
+ 1625 0084 20000000 		.4byte	.LFE2
+ 1626 0088 00000000 		.4byte	0
+ 1627 008c 00000000 		.4byte	0
+ 1628              		.section	.debug_line,"",%progbits
+ 1629              	.Ldebug_line0:
+ 1630 0000 A1010000 		.section	.debug_str,"MS",%progbits,1
+ 1630      02005100 
+ 1630      00000201 
+ 1630      FB0E0D00 
+ 1630      01010101 
+ 1631              	.LASF15:
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccVkEAVM.s 			page 40
+
+
+ 1632 0000 72656733 		.ascii	"reg32\000"
+ 1632      3200
+ 1633              	.LASF29:
+ 1634 0006 436F756E 		.ascii	"Counter_1_ReadCapture\000"
+ 1634      7465725F 
+ 1634      315F5265 
+ 1634      61644361 
+ 1634      70747572 
+ 1635              	.LASF37:
+ 1636 001c 636F6D70 		.ascii	"compareMode\000"
+ 1636      6172654D 
+ 1636      6F646500 
+ 1637              	.LASF48:
+ 1638 0028 47656E65 		.ascii	"Generated_Source\\PSoC4\\Counter_1.c\000"
+ 1638      72617465 
+ 1638      645F536F 
+ 1638      75726365 
+ 1638      5C50536F 
+ 1639              	.LASF31:
+ 1640 004b 70657269 		.ascii	"period\000"
+ 1640      6F6400
+ 1641              	.LASF3:
+ 1642 0052 73686F72 		.ascii	"short unsigned int\000"
+ 1642      7420756E 
+ 1642      7369676E 
+ 1642      65642069 
+ 1642      6E7400
+ 1643              	.LASF23:
+ 1644 0065 436F756E 		.ascii	"Counter_1_WriteControlRegister\000"
+ 1644      7465725F 
+ 1644      315F5772 
+ 1644      69746543 
+ 1644      6F6E7472 
+ 1645              	.LASF49:
+ 1646 0084 433A5C70 		.ascii	"C:\\proj\\QEncRT\\QEncRT\\QuadEncoderRTOS.cydsn\000"
+ 1646      726F6A5C 
+ 1646      51456E63 
+ 1646      52545C51 
+ 1646      456E6352 
+ 1647              	.LASF36:
+ 1648 00b0 436F756E 		.ascii	"Counter_1_SetCompareMode\000"
+ 1648      7465725F 
+ 1648      315F5365 
+ 1648      74436F6D 
+ 1648      70617265 
+ 1649              	.LASF44:
+ 1650 00c9 43794765 		.ascii	"CyGetReg24\000"
+ 1650      74526567 
+ 1650      323400
+ 1651              	.LASF11:
+ 1652 00d4 666C6F61 		.ascii	"float\000"
+ 1652      7400
+ 1653              	.LASF27:
+ 1654 00da 636F756E 		.ascii	"counter\000"
+ 1654      74657200 
+ 1655              	.LASF7:
+ 1656 00e2 6C6F6E67 		.ascii	"long long unsigned int\000"
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccVkEAVM.s 			page 41
+
+
+ 1656      206C6F6E 
+ 1656      6720756E 
+ 1656      7369676E 
+ 1656      65642069 
+ 1657              	.LASF1:
+ 1658 00f9 756E7369 		.ascii	"unsigned char\000"
+ 1658      676E6564 
+ 1658      20636861 
+ 1658      7200
+ 1659              	.LASF38:
+ 1660 0107 436F756E 		.ascii	"Counter_1_ClearFIFO\000"
+ 1660      7465725F 
+ 1660      315F436C 
+ 1660      65617246 
+ 1660      49464F00 
+ 1661              	.LASF14:
+ 1662 011b 72656738 		.ascii	"reg8\000"
+ 1662      00
+ 1663              	.LASF33:
+ 1664 0120 436F756E 		.ascii	"Counter_1_WriteCompare\000"
+ 1664      7465725F 
+ 1664      315F5772 
+ 1664      69746543 
+ 1664      6F6D7061 
+ 1665              	.LASF5:
+ 1666 0137 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1666      20756E73 
+ 1666      69676E65 
+ 1666      6420696E 
+ 1666      7400
+ 1667              	.LASF22:
+ 1668 0149 436F756E 		.ascii	"Counter_1_SetInterruptMode\000"
+ 1668      7465725F 
+ 1668      315F5365 
+ 1668      74496E74 
+ 1668      65727275 
+ 1669              	.LASF9:
+ 1670 0164 75696E74 		.ascii	"uint8\000"
+ 1670      3800
+ 1671              	.LASF25:
+ 1672 016a 636F6E74 		.ascii	"control\000"
+ 1672      726F6C00 
+ 1673              	.LASF24:
+ 1674 0172 696E7465 		.ascii	"interruptsMask\000"
+ 1674      72727570 
+ 1674      74734D61 
+ 1674      736B00
+ 1675              	.LASF50:
+ 1676 0181 436F756E 		.ascii	"Counter_1_initVar\000"
+ 1676      7465725F 
+ 1676      315F696E 
+ 1676      69745661 
+ 1676      7200
+ 1677              	.LASF20:
+ 1678 0193 436F756E 		.ascii	"Counter_1_ReadStatusRegister\000"
+ 1678      7465725F 
+ 1678      315F5265 
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccVkEAVM.s 			page 42
+
+
+ 1678      61645374 
+ 1678      61747573 
+ 1679              	.LASF12:
+ 1680 01b0 646F7562 		.ascii	"double\000"
+ 1680      6C6500
+ 1681              	.LASF28:
+ 1682 01b7 436F756E 		.ascii	"Counter_1_ReadCounter\000"
+ 1682      7465725F 
+ 1682      315F5265 
+ 1682      6164436F 
+ 1682      756E7465 
+ 1683              	.LASF30:
+ 1684 01cd 436F756E 		.ascii	"Counter_1_WritePeriod\000"
+ 1684      7465725F 
+ 1684      315F5772 
+ 1684      69746550 
+ 1684      6572696F 
+ 1685              	.LASF10:
+ 1686 01e3 75696E74 		.ascii	"uint32\000"
+ 1686      333200
+ 1687              	.LASF45:
+ 1688 01ea 4379456E 		.ascii	"CyEnterCriticalSection\000"
+ 1688      74657243 
+ 1688      72697469 
+ 1688      63616C53 
+ 1688      65637469 
+ 1689              	.LASF32:
+ 1690 0201 436F756E 		.ascii	"Counter_1_ReadPeriod\000"
+ 1690      7465725F 
+ 1690      315F5265 
+ 1690      61645065 
+ 1690      72696F64 
+ 1691              	.LASF46:
+ 1692 0216 43794578 		.ascii	"CyExitCriticalSection\000"
+ 1692      69744372 
+ 1692      69746963 
+ 1692      616C5365 
+ 1692      6374696F 
+ 1693              	.LASF39:
+ 1694 022c 436F756E 		.ascii	"Counter_1_Init\000"
+ 1694      7465725F 
+ 1694      315F496E 
+ 1694      697400
+ 1695              	.LASF47:
+ 1696 023b 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1696      43313120 
+ 1696      352E342E 
+ 1696      31203230 
+ 1696      31363036 
+ 1697 026e 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
+ 1697      20726576 
+ 1697      6973696F 
+ 1697      6E203233 
+ 1697      37373135 
+ 1698 02a1 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 1698      66756E63 
+ 1698      74696F6E 
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccVkEAVM.s 			page 43
+
+
+ 1698      2D736563 
+ 1698      74696F6E 
+ 1699              	.LASF40:
+ 1700 02c9 6374726C 		.ascii	"ctrl\000"
+ 1700      00
+ 1701              	.LASF17:
+ 1702 02ce 73697A65 		.ascii	"sizetype\000"
+ 1702      74797065 
+ 1702      00
+ 1703              	.LASF26:
+ 1704 02d7 436F756E 		.ascii	"Counter_1_WriteCounter\000"
+ 1704      7465725F 
+ 1704      315F5772 
+ 1704      69746543 
+ 1704      6F756E74 
+ 1705              	.LASF41:
+ 1706 02ee 436F756E 		.ascii	"Counter_1_interruptState\000"
+ 1706      7465725F 
+ 1706      315F696E 
+ 1706      74657272 
+ 1706      75707453 
+ 1707              	.LASF6:
+ 1708 0307 6C6F6E67 		.ascii	"long long int\000"
+ 1708      206C6F6E 
+ 1708      6720696E 
+ 1708      7400
+ 1709              	.LASF13:
+ 1710 0315 63686172 		.ascii	"char\000"
+ 1710      00
+ 1711              	.LASF8:
+ 1712 031a 756E7369 		.ascii	"unsigned int\000"
+ 1712      676E6564 
+ 1712      20696E74 
+ 1712      00
+ 1713              	.LASF43:
+ 1714 0327 43795365 		.ascii	"CySetReg24\000"
+ 1714      74526567 
+ 1714      323400
+ 1715              	.LASF2:
+ 1716 0332 73686F72 		.ascii	"short int\000"
+ 1716      7420696E 
+ 1716      7400
+ 1717              	.LASF35:
+ 1718 033c 436F756E 		.ascii	"Counter_1_ReadCompare\000"
+ 1718      7465725F 
+ 1718      315F5265 
+ 1718      6164436F 
+ 1718      6D706172 
+ 1719              	.LASF4:
+ 1720 0352 6C6F6E67 		.ascii	"long int\000"
+ 1720      20696E74 
+ 1720      00
+ 1721              	.LASF42:
+ 1722 035b 436F756E 		.ascii	"Counter_1_Start\000"
+ 1722      7465725F 
+ 1722      315F5374 
+ 1722      61727400 
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccVkEAVM.s 			page 44
+
+
+ 1723              	.LASF18:
+ 1724 036b 436F756E 		.ascii	"Counter_1_Enable\000"
+ 1724      7465725F 
+ 1724      315F456E 
+ 1724      61626C65 
+ 1724      00
+ 1725              	.LASF16:
+ 1726 037c 6C6F6E67 		.ascii	"long double\000"
+ 1726      20646F75 
+ 1726      626C6500 
+ 1727              	.LASF0:
+ 1728 0388 7369676E 		.ascii	"signed char\000"
+ 1728      65642063 
+ 1728      68617200 
+ 1729              	.LASF34:
+ 1730 0394 636F6D70 		.ascii	"compare\000"
+ 1730      61726500 
+ 1731              	.LASF19:
+ 1732 039c 436F756E 		.ascii	"Counter_1_Stop\000"
+ 1732      7465725F 
+ 1732      315F5374 
+ 1732      6F7000
+ 1733              	.LASF21:
+ 1734 03ab 436F756E 		.ascii	"Counter_1_ReadControlRegister\000"
+ 1734      7465725F 
+ 1734      315F5265 
+ 1734      6164436F 
+ 1734      6E74726F 
+ 1735              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

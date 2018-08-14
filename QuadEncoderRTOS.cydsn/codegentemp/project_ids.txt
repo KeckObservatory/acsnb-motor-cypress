@@ -1,0 +1,6 @@
+C:\proj\QEncRT\QEncRT\QuadEncoderRTOS.cydsn\QuadEncoderRTOS.cyprj|cb832838-a20e-4fef-9d92-9ecb070d3fe6
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|9faf2e6b-ae86-4e11-9a60-526fe3cc0a3f
+C:\Users\prichards\Documents\PSoC Creator\4.2\Downloads ( 4.2).cylib\Downloads ( 4.2).cyprj|4fdd46a2-6eb1-4138-8abc-c522102e37f7
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|78448980-0ee6-454c-88d1-9075eb6850dc
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|26d8ba9c-bb22-41be-80a7-b52c5d854603
+C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|56eaf506-1f04-4e8e-b8a6-3cc136b3e438

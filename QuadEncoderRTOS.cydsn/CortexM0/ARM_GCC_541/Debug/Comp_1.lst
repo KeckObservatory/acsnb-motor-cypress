@@ -1,0 +1,2728 @@
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccq0l6x5.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m0
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"Comp_1.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.Comp_1_Init,"ax",%progbits
+  20              		.align	2
+  21              		.global	Comp_1_Init
+  22              		.code	16
+  23              		.thumb_func
+  24              		.type	Comp_1_Init, %function
+  25              	Comp_1_Init:
+  26              	.LFB1:
+  27              		.file 1 "Generated_Source\\PSoC4\\Comp_1.c"
+   1:Generated_Source\PSoC4/Comp_1.c **** /*******************************************************************************
+   2:Generated_Source\PSoC4/Comp_1.c **** * File Name: Comp_1.c
+   3:Generated_Source\PSoC4/Comp_1.c **** * Version 2.20
+   4:Generated_Source\PSoC4/Comp_1.c **** *
+   5:Generated_Source\PSoC4/Comp_1.c **** * Description:
+   6:Generated_Source\PSoC4/Comp_1.c **** *  This file provides the source code to the API for the Low Power Comparator
+   7:Generated_Source\PSoC4/Comp_1.c **** *  component.
+   8:Generated_Source\PSoC4/Comp_1.c **** *
+   9:Generated_Source\PSoC4/Comp_1.c **** * Note:
+  10:Generated_Source\PSoC4/Comp_1.c **** *  None
+  11:Generated_Source\PSoC4/Comp_1.c **** *
+  12:Generated_Source\PSoC4/Comp_1.c **** ********************************************************************************
+  13:Generated_Source\PSoC4/Comp_1.c **** * Copyright 2013-2016, Cypress Semiconductor Corporation.  All rights reserved.
+  14:Generated_Source\PSoC4/Comp_1.c **** * You may use this file only in accordance with the license, terms, conditions,
+  15:Generated_Source\PSoC4/Comp_1.c **** * disclaimers, and limitations in the end user license agreement accompanying
+  16:Generated_Source\PSoC4/Comp_1.c **** * the software package with which this file was provided.
+  17:Generated_Source\PSoC4/Comp_1.c **** *******************************************************************************/
+  18:Generated_Source\PSoC4/Comp_1.c **** 
+  19:Generated_Source\PSoC4/Comp_1.c **** #include "Comp_1.h"
+  20:Generated_Source\PSoC4/Comp_1.c **** #include "CyLib.h"
+  21:Generated_Source\PSoC4/Comp_1.c **** #include "cyPm.h"
+  22:Generated_Source\PSoC4/Comp_1.c **** 
+  23:Generated_Source\PSoC4/Comp_1.c **** uint8 Comp_1_initVar = 0u;
+  24:Generated_Source\PSoC4/Comp_1.c **** static uint32 Comp_1_internalIntr = 0u;
+  25:Generated_Source\PSoC4/Comp_1.c **** #if(Comp_1_CY_LPCOMP_V2)
+  26:Generated_Source\PSoC4/Comp_1.c ****     #if(CY_IP_SRSSV2)
+  27:Generated_Source\PSoC4/Comp_1.c ****         /* This variable saves INTR_MASK register since it get reset after wakeup 
+  28:Generated_Source\PSoC4/Comp_1.c ****         * from Hibernate. Attribute CY_NOINIT puts SRAM variable in memory section 
+  29:Generated_Source\PSoC4/Comp_1.c ****         * which is retained in low power modes 
+  30:Generated_Source\PSoC4/Comp_1.c ****         */
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccq0l6x5.s 			page 2
+
+
+  31:Generated_Source\PSoC4/Comp_1.c ****         CY_NOINIT static uint32 Comp_1_intrMaskRegState;
+  32:Generated_Source\PSoC4/Comp_1.c ****     #endif /* (CY_IP_SRSSV2) */
+  33:Generated_Source\PSoC4/Comp_1.c **** #endif /* (Comp_1_CY_LPCOMP_V2) */
+  34:Generated_Source\PSoC4/Comp_1.c **** 
+  35:Generated_Source\PSoC4/Comp_1.c **** 
+  36:Generated_Source\PSoC4/Comp_1.c **** /*******************************************************************************
+  37:Generated_Source\PSoC4/Comp_1.c **** * Function Name: Comp_1_Start
+  38:Generated_Source\PSoC4/Comp_1.c **** ********************************************************************************
+  39:Generated_Source\PSoC4/Comp_1.c **** *
+  40:Generated_Source\PSoC4/Comp_1.c **** * Summary:
+  41:Generated_Source\PSoC4/Comp_1.c **** *  Performs all of the required initialization for the component and enables
+  42:Generated_Source\PSoC4/Comp_1.c **** *  power to the block. The first time the routine is executed, the component is
+  43:Generated_Source\PSoC4/Comp_1.c **** *  initialized to the configuration from the customizer. When called to restart
+  44:Generated_Source\PSoC4/Comp_1.c **** *  the comparator following a Comp_1_Stop() call, the current
+  45:Generated_Source\PSoC4/Comp_1.c **** *  component parameter settings are retained.
+  46:Generated_Source\PSoC4/Comp_1.c **** *
+  47:Generated_Source\PSoC4/Comp_1.c **** * Parameters:
+  48:Generated_Source\PSoC4/Comp_1.c **** *   None
+  49:Generated_Source\PSoC4/Comp_1.c **** *
+  50:Generated_Source\PSoC4/Comp_1.c **** * Return:
+  51:Generated_Source\PSoC4/Comp_1.c **** *  None
+  52:Generated_Source\PSoC4/Comp_1.c **** *
+  53:Generated_Source\PSoC4/Comp_1.c **** * Global variables:
+  54:Generated_Source\PSoC4/Comp_1.c **** *  Comp_1_initVar: Is modified when this function is called for the
+  55:Generated_Source\PSoC4/Comp_1.c **** *   first time. Is used to ensure that initialization happens only once.
+  56:Generated_Source\PSoC4/Comp_1.c **** *
+  57:Generated_Source\PSoC4/Comp_1.c **** *******************************************************************************/
+  58:Generated_Source\PSoC4/Comp_1.c **** void Comp_1_Start(void)
+  59:Generated_Source\PSoC4/Comp_1.c **** {
+  60:Generated_Source\PSoC4/Comp_1.c ****     if(0u == Comp_1_initVar)
+  61:Generated_Source\PSoC4/Comp_1.c ****     {
+  62:Generated_Source\PSoC4/Comp_1.c ****         Comp_1_Init();
+  63:Generated_Source\PSoC4/Comp_1.c ****         Comp_1_initVar = 1u;
+  64:Generated_Source\PSoC4/Comp_1.c ****     }
+  65:Generated_Source\PSoC4/Comp_1.c ****     Comp_1_Enable();
+  66:Generated_Source\PSoC4/Comp_1.c **** }
+  67:Generated_Source\PSoC4/Comp_1.c **** 
+  68:Generated_Source\PSoC4/Comp_1.c **** 
+  69:Generated_Source\PSoC4/Comp_1.c **** /*******************************************************************************
+  70:Generated_Source\PSoC4/Comp_1.c **** * Function Name: Comp_1_Init
+  71:Generated_Source\PSoC4/Comp_1.c **** ********************************************************************************
+  72:Generated_Source\PSoC4/Comp_1.c **** *
+  73:Generated_Source\PSoC4/Comp_1.c **** * Summary:
+  74:Generated_Source\PSoC4/Comp_1.c **** *  Initializes or restores the component according to the customizer settings.
+  75:Generated_Source\PSoC4/Comp_1.c **** *  It is not necessary to call Comp_1_Init() because the
+  76:Generated_Source\PSoC4/Comp_1.c **** *  Comp_1_Start() API calls this function and is the preferred method
+  77:Generated_Source\PSoC4/Comp_1.c **** *  to begin component operation.
+  78:Generated_Source\PSoC4/Comp_1.c **** *
+  79:Generated_Source\PSoC4/Comp_1.c **** * Parameters:
+  80:Generated_Source\PSoC4/Comp_1.c **** *  None
+  81:Generated_Source\PSoC4/Comp_1.c **** *
+  82:Generated_Source\PSoC4/Comp_1.c **** * Return:
+  83:Generated_Source\PSoC4/Comp_1.c **** *  None
+  84:Generated_Source\PSoC4/Comp_1.c **** *
+  85:Generated_Source\PSoC4/Comp_1.c **** *******************************************************************************/
+  86:Generated_Source\PSoC4/Comp_1.c **** void Comp_1_Init(void)
+  87:Generated_Source\PSoC4/Comp_1.c **** {
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccq0l6x5.s 			page 3
+
+
+  28              		.loc 1 87 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32 0000 10B5     		push	{r4, lr}
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 4, -8
+  35              		.cfi_offset 14, -4
+  88:Generated_Source\PSoC4/Comp_1.c ****     uint8 enableInterrupts;
+  89:Generated_Source\PSoC4/Comp_1.c **** 
+  90:Generated_Source\PSoC4/Comp_1.c ****     enableInterrupts = CyEnterCriticalSection();
+  36              		.loc 1 90 0
+  37 0002 FFF7FEFF 		bl	CyEnterCriticalSection
+  38              	.LVL0:
+  91:Generated_Source\PSoC4/Comp_1.c ****     Comp_1_CONFIG_REG |= Comp_1_CONFIG_REG_DEFAULT;
+  39              		.loc 1 91 0
+  40 0006 064A     		ldr	r2, .L2
+  41 0008 1368     		ldr	r3, [r2]
+  42 000a A021     		movs	r1, #160
+  43 000c C900     		lsls	r1, r1, #3
+  44 000e 0B43     		orrs	r3, r1
+  45 0010 1360     		str	r3, [r2]
+  92:Generated_Source\PSoC4/Comp_1.c ****     Comp_1_internalIntr = Comp_1_GET_CONFIG_INTR(Comp_1_INTERRUPT);
+  46              		.loc 1 92 0
+  47 0012 C022     		movs	r2, #192
+  48 0014 9201     		lsls	r2, r2, #6
+  49 0016 034B     		ldr	r3, .L2+4
+  50 0018 1A60     		str	r2, [r3]
+  93:Generated_Source\PSoC4/Comp_1.c ****     
+  94:Generated_Source\PSoC4/Comp_1.c ****     #if (Comp_1_CY_LPCOMP_V2)
+  95:Generated_Source\PSoC4/Comp_1.c ****         #if(CY_IP_SRSSV2)
+  96:Generated_Source\PSoC4/Comp_1.c ****             if (CySysPmGetResetReason() == CY_PM_RESET_REASON_WAKEUP_HIB)
+  97:Generated_Source\PSoC4/Comp_1.c ****             {
+  98:Generated_Source\PSoC4/Comp_1.c ****                 /* Restore the INTR_MASK register state since it get reset after 
+  99:Generated_Source\PSoC4/Comp_1.c ****                 * wakeup from Hibernate.  
+ 100:Generated_Source\PSoC4/Comp_1.c ****                 */
+ 101:Generated_Source\PSoC4/Comp_1.c ****                 Comp_1_INTR_MASK_REG |= Comp_1_intrMaskRegState;  
+ 102:Generated_Source\PSoC4/Comp_1.c ****             }
+ 103:Generated_Source\PSoC4/Comp_1.c ****             else
+ 104:Generated_Source\PSoC4/Comp_1.c ****             {
+ 105:Generated_Source\PSoC4/Comp_1.c ****                 Comp_1_INTR_MASK_REG |= Comp_1_INTR_MASK_REG_DEFAULT;    
+ 106:Generated_Source\PSoC4/Comp_1.c ****                 Comp_1_intrMaskRegState = Comp_1_INTR_MASK_REG;
+ 107:Generated_Source\PSoC4/Comp_1.c ****             }
+ 108:Generated_Source\PSoC4/Comp_1.c ****         #else
+ 109:Generated_Source\PSoC4/Comp_1.c ****             Comp_1_INTR_MASK_REG |= Comp_1_INTR_MASK_REG_DEFAULT;
+ 110:Generated_Source\PSoC4/Comp_1.c ****         #endif /* (Comp_1_CY_LPCOMP_V2) */
+ 111:Generated_Source\PSoC4/Comp_1.c ****     #endif /* (Comp_1_CY_LPCOMP_V2) */
+ 112:Generated_Source\PSoC4/Comp_1.c ****     
+ 113:Generated_Source\PSoC4/Comp_1.c ****     CyExitCriticalSection(enableInterrupts);
+  51              		.loc 1 113 0
+  52 001a FFF7FEFF 		bl	CyExitCriticalSection
+  53              	.LVL1:
+ 114:Generated_Source\PSoC4/Comp_1.c **** }
+  54              		.loc 1 114 0
+  55              		@ sp needed
+  56 001e 10BD     		pop	{r4, pc}
+  57              	.L3:
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccq0l6x5.s 			page 4
+
+
+  58              		.align	2
+  59              	.L2:
+  60 0020 04000A40 		.word	1074397188
+  61 0024 00000000 		.word	.LANCHOR0
+  62              		.cfi_endproc
+  63              	.LFE1:
+  64              		.size	Comp_1_Init, .-Comp_1_Init
+  65              		.section	.text.Comp_1_Enable,"ax",%progbits
+  66              		.align	2
+  67              		.global	Comp_1_Enable
+  68              		.code	16
+  69              		.thumb_func
+  70              		.type	Comp_1_Enable, %function
+  71              	Comp_1_Enable:
+  72              	.LFB2:
+ 115:Generated_Source\PSoC4/Comp_1.c **** 
+ 116:Generated_Source\PSoC4/Comp_1.c **** 
+ 117:Generated_Source\PSoC4/Comp_1.c **** /*******************************************************************************
+ 118:Generated_Source\PSoC4/Comp_1.c **** * Function Name: Comp_1_Enable
+ 119:Generated_Source\PSoC4/Comp_1.c **** ********************************************************************************
+ 120:Generated_Source\PSoC4/Comp_1.c **** *
+ 121:Generated_Source\PSoC4/Comp_1.c **** * Summary:
+ 122:Generated_Source\PSoC4/Comp_1.c **** *  Activates the hardware and begins component operation. It is not necessary
+ 123:Generated_Source\PSoC4/Comp_1.c **** *  to call Comp_1_Enable() because the Comp_1_Start() API
+ 124:Generated_Source\PSoC4/Comp_1.c **** *  calls this function, which is the preferred method to begin component
+ 125:Generated_Source\PSoC4/Comp_1.c **** *  operation.
+ 126:Generated_Source\PSoC4/Comp_1.c **** *
+ 127:Generated_Source\PSoC4/Comp_1.c **** * Parameters:
+ 128:Generated_Source\PSoC4/Comp_1.c **** *  None
+ 129:Generated_Source\PSoC4/Comp_1.c **** *
+ 130:Generated_Source\PSoC4/Comp_1.c **** * Return:
+ 131:Generated_Source\PSoC4/Comp_1.c **** *  None
+ 132:Generated_Source\PSoC4/Comp_1.c **** *
+ 133:Generated_Source\PSoC4/Comp_1.c **** *******************************************************************************/
+ 134:Generated_Source\PSoC4/Comp_1.c **** void Comp_1_Enable(void)
+ 135:Generated_Source\PSoC4/Comp_1.c **** {
+  73              		.loc 1 135 0
+  74              		.cfi_startproc
+  75              		@ args = 0, pretend = 0, frame = 0
+  76              		@ frame_needed = 0, uses_anonymous_args = 0
+  77 0000 10B5     		push	{r4, lr}
+  78              		.cfi_def_cfa_offset 8
+  79              		.cfi_offset 4, -8
+  80              		.cfi_offset 14, -4
+ 136:Generated_Source\PSoC4/Comp_1.c ****     uint8 enableInterrupts;
+ 137:Generated_Source\PSoC4/Comp_1.c ****     
+ 138:Generated_Source\PSoC4/Comp_1.c ****     enableInterrupts = CyEnterCriticalSection();
+  81              		.loc 1 138 0
+  82 0002 FFF7FEFF 		bl	CyEnterCriticalSection
+  83              	.LVL2:
+ 139:Generated_Source\PSoC4/Comp_1.c ****     Comp_1_CONFIG_REG |= Comp_1_CONFIG_EN;
+  84              		.loc 1 139 0
+  85 0006 074B     		ldr	r3, .L5
+  86 0008 1A68     		ldr	r2, [r3]
+  87 000a 8021     		movs	r1, #128
+  88 000c 0902     		lsls	r1, r1, #8
+  89 000e 0A43     		orrs	r2, r1
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccq0l6x5.s 			page 5
+
+
+  90 0010 1A60     		str	r2, [r3]
+ 140:Generated_Source\PSoC4/Comp_1.c ****     
+ 141:Generated_Source\PSoC4/Comp_1.c ****     /*******************************************************
+ 142:Generated_Source\PSoC4/Comp_1.c ****     * When the Enable() API is called the CONFIG_EN bit is set. 
+ 143:Generated_Source\PSoC4/Comp_1.c ****     * This can cause fake interrupt because of the output delay 
+ 144:Generated_Source\PSoC4/Comp_1.c ****     * of the analog. This requires setting the CONFIG_INTR bits 
+ 145:Generated_Source\PSoC4/Comp_1.c ****     * after the CONFIG_EN bit is set.
+ 146:Generated_Source\PSoC4/Comp_1.c ****     *******************************************************/
+ 147:Generated_Source\PSoC4/Comp_1.c ****     Comp_1_CONFIG_REG |= Comp_1_internalIntr;
+  91              		.loc 1 147 0
+  92 0012 1968     		ldr	r1, [r3]
+  93 0014 044A     		ldr	r2, .L5+4
+  94 0016 1268     		ldr	r2, [r2]
+  95 0018 0A43     		orrs	r2, r1
+  96 001a 1A60     		str	r2, [r3]
+ 148:Generated_Source\PSoC4/Comp_1.c ****     CyExitCriticalSection(enableInterrupts);
+  97              		.loc 1 148 0
+  98 001c FFF7FEFF 		bl	CyExitCriticalSection
+  99              	.LVL3:
+ 149:Generated_Source\PSoC4/Comp_1.c **** }
+ 100              		.loc 1 149 0
+ 101              		@ sp needed
+ 102 0020 10BD     		pop	{r4, pc}
+ 103              	.L6:
+ 104 0022 C046     		.align	2
+ 105              	.L5:
+ 106 0024 04000A40 		.word	1074397188
+ 107 0028 00000000 		.word	.LANCHOR0
+ 108              		.cfi_endproc
+ 109              	.LFE2:
+ 110              		.size	Comp_1_Enable, .-Comp_1_Enable
+ 111              		.section	.text.Comp_1_Start,"ax",%progbits
+ 112              		.align	2
+ 113              		.global	Comp_1_Start
+ 114              		.code	16
+ 115              		.thumb_func
+ 116              		.type	Comp_1_Start, %function
+ 117              	Comp_1_Start:
+ 118              	.LFB0:
+  59:Generated_Source\PSoC4/Comp_1.c ****     if(0u == Comp_1_initVar)
+ 119              		.loc 1 59 0
+ 120              		.cfi_startproc
+ 121              		@ args = 0, pretend = 0, frame = 0
+ 122              		@ frame_needed = 0, uses_anonymous_args = 0
+ 123 0000 10B5     		push	{r4, lr}
+ 124              		.cfi_def_cfa_offset 8
+ 125              		.cfi_offset 4, -8
+ 126              		.cfi_offset 14, -4
+  60:Generated_Source\PSoC4/Comp_1.c ****     {
+ 127              		.loc 1 60 0
+ 128 0002 064B     		ldr	r3, .L9
+ 129 0004 1B79     		ldrb	r3, [r3, #4]
+ 130 0006 002B     		cmp	r3, #0
+ 131 0008 04D1     		bne	.L8
+  62:Generated_Source\PSoC4/Comp_1.c ****         Comp_1_initVar = 1u;
+ 132              		.loc 1 62 0
+ 133 000a FFF7FEFF 		bl	Comp_1_Init
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccq0l6x5.s 			page 6
+
+
+ 134              	.LVL4:
+  63:Generated_Source\PSoC4/Comp_1.c ****     }
+ 135              		.loc 1 63 0
+ 136 000e 0122     		movs	r2, #1
+ 137 0010 024B     		ldr	r3, .L9
+ 138 0012 1A71     		strb	r2, [r3, #4]
+ 139              	.L8:
+  65:Generated_Source\PSoC4/Comp_1.c **** }
+ 140              		.loc 1 65 0
+ 141 0014 FFF7FEFF 		bl	Comp_1_Enable
+ 142              	.LVL5:
+  66:Generated_Source\PSoC4/Comp_1.c **** 
+ 143              		.loc 1 66 0
+ 144              		@ sp needed
+ 145 0018 10BD     		pop	{r4, pc}
+ 146              	.L10:
+ 147 001a C046     		.align	2
+ 148              	.L9:
+ 149 001c 00000000 		.word	.LANCHOR0
+ 150              		.cfi_endproc
+ 151              	.LFE0:
+ 152              		.size	Comp_1_Start, .-Comp_1_Start
+ 153              		.section	.text.Comp_1_Stop,"ax",%progbits
+ 154              		.align	2
+ 155              		.global	Comp_1_Stop
+ 156              		.code	16
+ 157              		.thumb_func
+ 158              		.type	Comp_1_Stop, %function
+ 159              	Comp_1_Stop:
+ 160              	.LFB3:
+ 150:Generated_Source\PSoC4/Comp_1.c **** 
+ 151:Generated_Source\PSoC4/Comp_1.c **** 
+ 152:Generated_Source\PSoC4/Comp_1.c **** /*******************************************************************************
+ 153:Generated_Source\PSoC4/Comp_1.c **** * Function Name: Comp_1_Stop
+ 154:Generated_Source\PSoC4/Comp_1.c **** ********************************************************************************
+ 155:Generated_Source\PSoC4/Comp_1.c **** *
+ 156:Generated_Source\PSoC4/Comp_1.c **** * Summary:
+ 157:Generated_Source\PSoC4/Comp_1.c **** *  Turns off the LP Comparator.
+ 158:Generated_Source\PSoC4/Comp_1.c **** *
+ 159:Generated_Source\PSoC4/Comp_1.c **** * Parameters:
+ 160:Generated_Source\PSoC4/Comp_1.c **** *  None
+ 161:Generated_Source\PSoC4/Comp_1.c **** *
+ 162:Generated_Source\PSoC4/Comp_1.c **** * Return:
+ 163:Generated_Source\PSoC4/Comp_1.c **** *  None
+ 164:Generated_Source\PSoC4/Comp_1.c **** *
+ 165:Generated_Source\PSoC4/Comp_1.c **** * Side Effects:
+ 166:Generated_Source\PSoC4/Comp_1.c **** *  The function doesn't change component Speed settings.
+ 167:Generated_Source\PSoC4/Comp_1.c **** *
+ 168:Generated_Source\PSoC4/Comp_1.c **** *******************************************************************************/
+ 169:Generated_Source\PSoC4/Comp_1.c **** void Comp_1_Stop(void)
+ 170:Generated_Source\PSoC4/Comp_1.c **** {
+ 161              		.loc 1 170 0
+ 162              		.cfi_startproc
+ 163              		@ args = 0, pretend = 0, frame = 0
+ 164              		@ frame_needed = 0, uses_anonymous_args = 0
+ 165 0000 10B5     		push	{r4, lr}
+ 166              		.cfi_def_cfa_offset 8
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccq0l6x5.s 			page 7
+
+
+ 167              		.cfi_offset 4, -8
+ 168              		.cfi_offset 14, -4
+ 171:Generated_Source\PSoC4/Comp_1.c ****     uint8 enableInterrupts;
+ 172:Generated_Source\PSoC4/Comp_1.c ****     
+ 173:Generated_Source\PSoC4/Comp_1.c ****     enableInterrupts = CyEnterCriticalSection();
+ 169              		.loc 1 173 0
+ 170 0002 FFF7FEFF 		bl	CyEnterCriticalSection
+ 171              	.LVL6:
+ 174:Generated_Source\PSoC4/Comp_1.c ****     #if (Comp_1_CY_LPCOMP_V0)
+ 175:Generated_Source\PSoC4/Comp_1.c ****         /*******************************************************
+ 176:Generated_Source\PSoC4/Comp_1.c ****         * When the Stop() API is called the CONFIG_EN bit is 
+ 177:Generated_Source\PSoC4/Comp_1.c ****         * cleared. This causes the output of the comparator to go 
+ 178:Generated_Source\PSoC4/Comp_1.c ****         * low. If the comparator output was high and the Interrupt 
+ 179:Generated_Source\PSoC4/Comp_1.c ****         * Configuration is set for Falling edge disabling the 
+ 180:Generated_Source\PSoC4/Comp_1.c ****         * comparator will cause an fake interrupt. This requires 
+ 181:Generated_Source\PSoC4/Comp_1.c ****         * to clear the CONFIG_INTR bits before the CONFIG_EN bit 
+ 182:Generated_Source\PSoC4/Comp_1.c ****         * is cleared.
+ 183:Generated_Source\PSoC4/Comp_1.c ****         *******************************************************/
+ 184:Generated_Source\PSoC4/Comp_1.c ****         Comp_1_CONFIG_REG &= (uint32)~Comp_1_CONFIG_INTR_MASK;
+ 172              		.loc 1 184 0
+ 173 0006 064B     		ldr	r3, .L12
+ 174 0008 1968     		ldr	r1, [r3]
+ 175 000a 064A     		ldr	r2, .L12+4
+ 176 000c 0A40     		ands	r2, r1
+ 177 000e 1A60     		str	r2, [r3]
+ 185:Generated_Source\PSoC4/Comp_1.c ****     #endif /* (Comp_1_CY_LPCOMP_V0) */
+ 186:Generated_Source\PSoC4/Comp_1.c **** 
+ 187:Generated_Source\PSoC4/Comp_1.c ****     Comp_1_CONFIG_REG &= (uint32)~Comp_1_CONFIG_EN;
+ 178              		.loc 1 187 0
+ 179 0010 1968     		ldr	r1, [r3]
+ 180 0012 054A     		ldr	r2, .L12+8
+ 181 0014 0A40     		ands	r2, r1
+ 182 0016 1A60     		str	r2, [r3]
+ 188:Generated_Source\PSoC4/Comp_1.c ****     CyExitCriticalSection(enableInterrupts);
+ 183              		.loc 1 188 0
+ 184 0018 FFF7FEFF 		bl	CyExitCriticalSection
+ 185              	.LVL7:
+ 189:Generated_Source\PSoC4/Comp_1.c **** }
+ 186              		.loc 1 189 0
+ 187              		@ sp needed
+ 188 001c 10BD     		pop	{r4, pc}
+ 189              	.L13:
+ 190 001e C046     		.align	2
+ 191              	.L12:
+ 192 0020 04000A40 		.word	1074397188
+ 193 0024 FFCFFFFF 		.word	-12289
+ 194 0028 FF7FFFFF 		.word	-32769
+ 195              		.cfi_endproc
+ 196              	.LFE3:
+ 197              		.size	Comp_1_Stop, .-Comp_1_Stop
+ 198              		.section	.text.Comp_1_SetSpeed,"ax",%progbits
+ 199              		.align	2
+ 200              		.global	Comp_1_SetSpeed
+ 201              		.code	16
+ 202              		.thumb_func
+ 203              		.type	Comp_1_SetSpeed, %function
+ 204              	Comp_1_SetSpeed:
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccq0l6x5.s 			page 8
+
+
+ 205              	.LFB4:
+ 190:Generated_Source\PSoC4/Comp_1.c **** 
+ 191:Generated_Source\PSoC4/Comp_1.c **** 
+ 192:Generated_Source\PSoC4/Comp_1.c **** /*******************************************************************************
+ 193:Generated_Source\PSoC4/Comp_1.c **** * Function Name: Comp_1_SetSpeed
+ 194:Generated_Source\PSoC4/Comp_1.c **** *
+ 195:Generated_Source\PSoC4/Comp_1.c **** * Summary:
+ 196:Generated_Source\PSoC4/Comp_1.c **** *  Sets the drive power and speed to one of three settings.
+ 197:Generated_Source\PSoC4/Comp_1.c **** *
+ 198:Generated_Source\PSoC4/Comp_1.c **** * Parameters:
+ 199:Generated_Source\PSoC4/Comp_1.c **** *  uint32 speed: Sets operation mode of the component:
+ 200:Generated_Source\PSoC4/Comp_1.c **** *   Comp_1_LOW_SPEED  - Slow/ultra low 
+ 201:Generated_Source\PSoC4/Comp_1.c **** *   Comp_1_MED_SPEED  - Medium/low 
+ 202:Generated_Source\PSoC4/Comp_1.c **** *   Comp_1_HIGH_SPEED - Fast/normal 
+ 203:Generated_Source\PSoC4/Comp_1.c **** *
+ 204:Generated_Source\PSoC4/Comp_1.c **** * Return:
+ 205:Generated_Source\PSoC4/Comp_1.c **** *  None
+ 206:Generated_Source\PSoC4/Comp_1.c **** *
+ 207:Generated_Source\PSoC4/Comp_1.c **** *******************************************************************************/
+ 208:Generated_Source\PSoC4/Comp_1.c **** void Comp_1_SetSpeed(uint32 speed)
+ 209:Generated_Source\PSoC4/Comp_1.c **** {
+ 206              		.loc 1 209 0
+ 207              		.cfi_startproc
+ 208              		@ args = 0, pretend = 0, frame = 0
+ 209              		@ frame_needed = 0, uses_anonymous_args = 0
+ 210              	.LVL8:
+ 211 0000 70B5     		push	{r4, r5, r6, lr}
+ 212              		.cfi_def_cfa_offset 16
+ 213              		.cfi_offset 4, -16
+ 214              		.cfi_offset 5, -12
+ 215              		.cfi_offset 6, -8
+ 216              		.cfi_offset 14, -4
+ 217 0002 0400     		movs	r4, r0
+ 210:Generated_Source\PSoC4/Comp_1.c ****     uint32 config;
+ 211:Generated_Source\PSoC4/Comp_1.c ****     uint8 enableInterrupts;
+ 212:Generated_Source\PSoC4/Comp_1.c ****     
+ 213:Generated_Source\PSoC4/Comp_1.c ****     enableInterrupts = CyEnterCriticalSection();
+ 218              		.loc 1 213 0
+ 219 0004 FFF7FEFF 		bl	CyEnterCriticalSection
+ 220              	.LVL9:
+ 214:Generated_Source\PSoC4/Comp_1.c ****     config = Comp_1_CONFIG_REG & (uint32)~Comp_1_CONFIG_SPEED_MODE_MASK;
+ 221              		.loc 1 214 0
+ 222 0008 064D     		ldr	r5, .L15
+ 223 000a 2B68     		ldr	r3, [r5]
+ 224 000c 064A     		ldr	r2, .L15+4
+ 225 000e 1340     		ands	r3, r2
+ 226 0010 1900     		movs	r1, r3
+ 227              	.LVL10:
+ 215:Generated_Source\PSoC4/Comp_1.c ****     Comp_1_CONFIG_REG = config | Comp_1_GET_CONFIG_SPEED_MODE(speed);
+ 228              		.loc 1 215 0
+ 229 0012 2302     		lsls	r3, r4, #8
+ 230 0014 C022     		movs	r2, #192
+ 231 0016 9200     		lsls	r2, r2, #2
+ 232 0018 1340     		ands	r3, r2
+ 233 001a 0B43     		orrs	r3, r1
+ 234 001c 2B60     		str	r3, [r5]
+ 216:Generated_Source\PSoC4/Comp_1.c ****     CyExitCriticalSection(enableInterrupts);
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccq0l6x5.s 			page 9
+
+
+ 235              		.loc 1 216 0
+ 236 001e FFF7FEFF 		bl	CyExitCriticalSection
+ 237              	.LVL11:
+ 217:Generated_Source\PSoC4/Comp_1.c **** }
+ 238              		.loc 1 217 0
+ 239              		@ sp needed
+ 240              	.LVL12:
+ 241 0022 70BD     		pop	{r4, r5, r6, pc}
+ 242              	.L16:
+ 243              		.align	2
+ 244              	.L15:
+ 245 0024 04000A40 		.word	1074397188
+ 246 0028 FFFCFFFF 		.word	-769
+ 247              		.cfi_endproc
+ 248              	.LFE4:
+ 249              		.size	Comp_1_SetSpeed, .-Comp_1_SetSpeed
+ 250              		.section	.text.Comp_1_SetInterruptMode,"ax",%progbits
+ 251              		.align	2
+ 252              		.global	Comp_1_SetInterruptMode
+ 253              		.code	16
+ 254              		.thumb_func
+ 255              		.type	Comp_1_SetInterruptMode, %function
+ 256              	Comp_1_SetInterruptMode:
+ 257              	.LFB5:
+ 218:Generated_Source\PSoC4/Comp_1.c **** 
+ 219:Generated_Source\PSoC4/Comp_1.c **** 
+ 220:Generated_Source\PSoC4/Comp_1.c **** /*******************************************************************************
+ 221:Generated_Source\PSoC4/Comp_1.c **** * Function Name: Comp_1_SetInterruptMode
+ 222:Generated_Source\PSoC4/Comp_1.c **** ********************************************************************************
+ 223:Generated_Source\PSoC4/Comp_1.c **** *
+ 224:Generated_Source\PSoC4/Comp_1.c **** * Summary:
+ 225:Generated_Source\PSoC4/Comp_1.c **** *  Sets the interrupt edge detect mode. This also controls the value provided
+ 226:Generated_Source\PSoC4/Comp_1.c **** *  on the output.
+ 227:Generated_Source\PSoC4/Comp_1.c **** *
+ 228:Generated_Source\PSoC4/Comp_1.c **** * Parameters:
+ 229:Generated_Source\PSoC4/Comp_1.c **** *  uint32 mode: Enumerated edge detect mode value:
+ 230:Generated_Source\PSoC4/Comp_1.c **** *  Comp_1_INTR_DISABLE - Disable
+ 231:Generated_Source\PSoC4/Comp_1.c **** *  Comp_1_INTR_RISING  - Rising edge detect
+ 232:Generated_Source\PSoC4/Comp_1.c **** *  Comp_1_INTR_FALLING - Falling edge detect
+ 233:Generated_Source\PSoC4/Comp_1.c **** *  Comp_1_INTR_BOTH    - Detect both edges
+ 234:Generated_Source\PSoC4/Comp_1.c **** *
+ 235:Generated_Source\PSoC4/Comp_1.c **** * Return:
+ 236:Generated_Source\PSoC4/Comp_1.c **** *  None
+ 237:Generated_Source\PSoC4/Comp_1.c **** *
+ 238:Generated_Source\PSoC4/Comp_1.c **** *******************************************************************************/
+ 239:Generated_Source\PSoC4/Comp_1.c **** void Comp_1_SetInterruptMode(uint32 mode)
+ 240:Generated_Source\PSoC4/Comp_1.c **** {
+ 258              		.loc 1 240 0
+ 259              		.cfi_startproc
+ 260              		@ args = 0, pretend = 0, frame = 0
+ 261              		@ frame_needed = 0, uses_anonymous_args = 0
+ 262              	.LVL13:
+ 263 0000 10B5     		push	{r4, lr}
+ 264              		.cfi_def_cfa_offset 8
+ 265              		.cfi_offset 4, -8
+ 266              		.cfi_offset 14, -4
+ 241:Generated_Source\PSoC4/Comp_1.c ****     uint32 config;
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccq0l6x5.s 			page 10
+
+
+ 242:Generated_Source\PSoC4/Comp_1.c ****     uint8 enableInterrupts;
+ 243:Generated_Source\PSoC4/Comp_1.c ****     
+ 244:Generated_Source\PSoC4/Comp_1.c ****     Comp_1_internalIntr = Comp_1_GET_CONFIG_INTR(mode);
+ 267              		.loc 1 244 0
+ 268 0002 0003     		lsls	r0, r0, #12
+ 269              	.LVL14:
+ 270 0004 C023     		movs	r3, #192
+ 271 0006 9B01     		lsls	r3, r3, #6
+ 272 0008 1840     		ands	r0, r3
+ 273 000a 074C     		ldr	r4, .L18
+ 274 000c 2060     		str	r0, [r4]
+ 245:Generated_Source\PSoC4/Comp_1.c **** 
+ 246:Generated_Source\PSoC4/Comp_1.c ****     enableInterrupts = CyEnterCriticalSection();
+ 275              		.loc 1 246 0
+ 276 000e FFF7FEFF 		bl	CyEnterCriticalSection
+ 277              	.LVL15:
+ 247:Generated_Source\PSoC4/Comp_1.c ****     config = Comp_1_CONFIG_REG & (uint32)~Comp_1_CONFIG_INTR_MASK;
+ 278              		.loc 1 247 0
+ 279 0012 0649     		ldr	r1, .L18+4
+ 280 0014 0A68     		ldr	r2, [r1]
+ 281 0016 064B     		ldr	r3, .L18+8
+ 282 0018 1340     		ands	r3, r2
+ 283              	.LVL16:
+ 248:Generated_Source\PSoC4/Comp_1.c ****     Comp_1_CONFIG_REG = config | Comp_1_internalIntr;
+ 284              		.loc 1 248 0
+ 285 001a 2268     		ldr	r2, [r4]
+ 286 001c 1343     		orrs	r3, r2
+ 287              	.LVL17:
+ 288 001e 0B60     		str	r3, [r1]
+ 249:Generated_Source\PSoC4/Comp_1.c ****     CyExitCriticalSection(enableInterrupts);
+ 289              		.loc 1 249 0
+ 290 0020 FFF7FEFF 		bl	CyExitCriticalSection
+ 291              	.LVL18:
+ 250:Generated_Source\PSoC4/Comp_1.c **** }
+ 292              		.loc 1 250 0
+ 293              		@ sp needed
+ 294 0024 10BD     		pop	{r4, pc}
+ 295              	.L19:
+ 296 0026 C046     		.align	2
+ 297              	.L18:
+ 298 0028 00000000 		.word	.LANCHOR0
+ 299 002c 04000A40 		.word	1074397188
+ 300 0030 FFCFFFFF 		.word	-12289
+ 301              		.cfi_endproc
+ 302              	.LFE5:
+ 303              		.size	Comp_1_SetInterruptMode, .-Comp_1_SetInterruptMode
+ 304              		.section	.text.Comp_1_GetInterruptSource,"ax",%progbits
+ 305              		.align	2
+ 306              		.global	Comp_1_GetInterruptSource
+ 307              		.code	16
+ 308              		.thumb_func
+ 309              		.type	Comp_1_GetInterruptSource, %function
+ 310              	Comp_1_GetInterruptSource:
+ 311              	.LFB6:
+ 251:Generated_Source\PSoC4/Comp_1.c **** 
+ 252:Generated_Source\PSoC4/Comp_1.c **** 
+ 253:Generated_Source\PSoC4/Comp_1.c **** /*******************************************************************************
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccq0l6x5.s 			page 11
+
+
+ 254:Generated_Source\PSoC4/Comp_1.c **** * Function Name: Comp_1_GetInterruptSource
+ 255:Generated_Source\PSoC4/Comp_1.c **** ********************************************************************************
+ 256:Generated_Source\PSoC4/Comp_1.c **** *
+ 257:Generated_Source\PSoC4/Comp_1.c **** * Summary:
+ 258:Generated_Source\PSoC4/Comp_1.c **** *  Gets the interrupt requests. This function is for use when using the combined
+ 259:Generated_Source\PSoC4/Comp_1.c **** *  interrupt signal from the global signal reference. This function from either
+ 260:Generated_Source\PSoC4/Comp_1.c **** *  component instance can be used to determine the interrupt source for both the
+ 261:Generated_Source\PSoC4/Comp_1.c **** *  interrupts combined.
+ 262:Generated_Source\PSoC4/Comp_1.c **** *
+ 263:Generated_Source\PSoC4/Comp_1.c **** * Parameters:
+ 264:Generated_Source\PSoC4/Comp_1.c **** *  None
+ 265:Generated_Source\PSoC4/Comp_1.c **** *
+ 266:Generated_Source\PSoC4/Comp_1.c **** * Return:
+ 267:Generated_Source\PSoC4/Comp_1.c **** *  uint32: Interrupt source. Each component instance has a mask value:
+ 268:Generated_Source\PSoC4/Comp_1.c **** *  Comp_1_INTR.
+ 269:Generated_Source\PSoC4/Comp_1.c **** *
+ 270:Generated_Source\PSoC4/Comp_1.c **** *******************************************************************************/
+ 271:Generated_Source\PSoC4/Comp_1.c **** uint32 Comp_1_GetInterruptSource(void)
+ 272:Generated_Source\PSoC4/Comp_1.c **** {
+ 312              		.loc 1 272 0
+ 313              		.cfi_startproc
+ 314              		@ args = 0, pretend = 0, frame = 0
+ 315              		@ frame_needed = 0, uses_anonymous_args = 0
+ 316              		@ link register save eliminated.
+ 273:Generated_Source\PSoC4/Comp_1.c ****     return (Comp_1_INTR_REG); 
+ 317              		.loc 1 273 0
+ 318 0000 014B     		ldr	r3, .L21
+ 319 0002 1868     		ldr	r0, [r3]
+ 274:Generated_Source\PSoC4/Comp_1.c **** }
+ 320              		.loc 1 274 0
+ 321              		@ sp needed
+ 322 0004 7047     		bx	lr
+ 323              	.L22:
+ 324 0006 C046     		.align	2
+ 325              	.L21:
+ 326 0008 0C000A40 		.word	1074397196
+ 327              		.cfi_endproc
+ 328              	.LFE6:
+ 329              		.size	Comp_1_GetInterruptSource, .-Comp_1_GetInterruptSource
+ 330              		.section	.text.Comp_1_ClearInterrupt,"ax",%progbits
+ 331              		.align	2
+ 332              		.global	Comp_1_ClearInterrupt
+ 333              		.code	16
+ 334              		.thumb_func
+ 335              		.type	Comp_1_ClearInterrupt, %function
+ 336              	Comp_1_ClearInterrupt:
+ 337              	.LFB7:
+ 275:Generated_Source\PSoC4/Comp_1.c **** 
+ 276:Generated_Source\PSoC4/Comp_1.c **** 
+ 277:Generated_Source\PSoC4/Comp_1.c **** /*******************************************************************************
+ 278:Generated_Source\PSoC4/Comp_1.c **** * Function Name: Comp_1_ClearInterrupt
+ 279:Generated_Source\PSoC4/Comp_1.c **** ********************************************************************************
+ 280:Generated_Source\PSoC4/Comp_1.c **** *
+ 281:Generated_Source\PSoC4/Comp_1.c **** * Summary:
+ 282:Generated_Source\PSoC4/Comp_1.c **** *  Clears the interrupt request. This function is for use when using the
+ 283:Generated_Source\PSoC4/Comp_1.c **** *  combined interrupt signal from the global signal reference. This function
+ 284:Generated_Source\PSoC4/Comp_1.c **** *  from either component instance can be used to clear either or both
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccq0l6x5.s 			page 12
+
+
+ 285:Generated_Source\PSoC4/Comp_1.c **** *  interrupts.
+ 286:Generated_Source\PSoC4/Comp_1.c **** *
+ 287:Generated_Source\PSoC4/Comp_1.c **** * Parameters:
+ 288:Generated_Source\PSoC4/Comp_1.c **** *  uint32 interruptMask: Mask of interrupts to clear. Each component instance
+ 289:Generated_Source\PSoC4/Comp_1.c **** *  has a mask value: Comp_1_INTR.
+ 290:Generated_Source\PSoC4/Comp_1.c **** *
+ 291:Generated_Source\PSoC4/Comp_1.c **** * Return:
+ 292:Generated_Source\PSoC4/Comp_1.c **** *  None
+ 293:Generated_Source\PSoC4/Comp_1.c **** *
+ 294:Generated_Source\PSoC4/Comp_1.c **** *******************************************************************************/
+ 295:Generated_Source\PSoC4/Comp_1.c **** void Comp_1_ClearInterrupt(uint32 interruptMask)
+ 296:Generated_Source\PSoC4/Comp_1.c **** {   
+ 338              		.loc 1 296 0
+ 339              		.cfi_startproc
+ 340              		@ args = 0, pretend = 0, frame = 0
+ 341              		@ frame_needed = 0, uses_anonymous_args = 0
+ 342              		@ link register save eliminated.
+ 343              	.LVL19:
+ 297:Generated_Source\PSoC4/Comp_1.c ****     Comp_1_INTR_REG = interruptMask;
+ 344              		.loc 1 297 0
+ 345 0000 014B     		ldr	r3, .L24
+ 346 0002 1860     		str	r0, [r3]
+ 298:Generated_Source\PSoC4/Comp_1.c **** }
+ 347              		.loc 1 298 0
+ 348              		@ sp needed
+ 349 0004 7047     		bx	lr
+ 350              	.L25:
+ 351 0006 C046     		.align	2
+ 352              	.L24:
+ 353 0008 0C000A40 		.word	1074397196
+ 354              		.cfi_endproc
+ 355              	.LFE7:
+ 356              		.size	Comp_1_ClearInterrupt, .-Comp_1_ClearInterrupt
+ 357              		.section	.text.Comp_1_SetInterrupt,"ax",%progbits
+ 358              		.align	2
+ 359              		.global	Comp_1_SetInterrupt
+ 360              		.code	16
+ 361              		.thumb_func
+ 362              		.type	Comp_1_SetInterrupt, %function
+ 363              	Comp_1_SetInterrupt:
+ 364              	.LFB8:
+ 299:Generated_Source\PSoC4/Comp_1.c **** 
+ 300:Generated_Source\PSoC4/Comp_1.c **** 
+ 301:Generated_Source\PSoC4/Comp_1.c **** /*******************************************************************************
+ 302:Generated_Source\PSoC4/Comp_1.c **** * Function Name: Comp_1_SetInterrupt
+ 303:Generated_Source\PSoC4/Comp_1.c **** ********************************************************************************
+ 304:Generated_Source\PSoC4/Comp_1.c **** *
+ 305:Generated_Source\PSoC4/Comp_1.c **** * Summary:
+ 306:Generated_Source\PSoC4/Comp_1.c **** *  Sets a software interrupt request. This function is for use when using the
+ 307:Generated_Source\PSoC4/Comp_1.c **** *  combined interrupt signal from the global signal reference. This function
+ 308:Generated_Source\PSoC4/Comp_1.c **** *  from either component instance can be used to trigger either or both software
+ 309:Generated_Source\PSoC4/Comp_1.c **** *  interrupts.
+ 310:Generated_Source\PSoC4/Comp_1.c **** *
+ 311:Generated_Source\PSoC4/Comp_1.c **** * Parameters:
+ 312:Generated_Source\PSoC4/Comp_1.c **** *  uint32 interruptMask: Mask of interrupts to set. Each component instance has
+ 313:Generated_Source\PSoC4/Comp_1.c **** *  a mask value: Comp_1_INTR_SET.
+ 314:Generated_Source\PSoC4/Comp_1.c **** *
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccq0l6x5.s 			page 13
+
+
+ 315:Generated_Source\PSoC4/Comp_1.c **** * Return:
+ 316:Generated_Source\PSoC4/Comp_1.c **** *  None
+ 317:Generated_Source\PSoC4/Comp_1.c **** *
+ 318:Generated_Source\PSoC4/Comp_1.c **** *******************************************************************************/
+ 319:Generated_Source\PSoC4/Comp_1.c **** void Comp_1_SetInterrupt(uint32 interruptMask)
+ 320:Generated_Source\PSoC4/Comp_1.c **** {
+ 365              		.loc 1 320 0
+ 366              		.cfi_startproc
+ 367              		@ args = 0, pretend = 0, frame = 0
+ 368              		@ frame_needed = 0, uses_anonymous_args = 0
+ 369              	.LVL20:
+ 370 0000 10B5     		push	{r4, lr}
+ 371              		.cfi_def_cfa_offset 8
+ 372              		.cfi_offset 4, -8
+ 373              		.cfi_offset 14, -4
+ 374 0002 0400     		movs	r4, r0
+ 321:Generated_Source\PSoC4/Comp_1.c ****     uint8 enableInterrupts;
+ 322:Generated_Source\PSoC4/Comp_1.c ****     
+ 323:Generated_Source\PSoC4/Comp_1.c ****     enableInterrupts = CyEnterCriticalSection();
+ 375              		.loc 1 323 0
+ 376 0004 FFF7FEFF 		bl	CyEnterCriticalSection
+ 377              	.LVL21:
+ 324:Generated_Source\PSoC4/Comp_1.c ****     Comp_1_INTR_SET_REG |= interruptMask;
+ 378              		.loc 1 324 0
+ 379 0008 034B     		ldr	r3, .L27
+ 380 000a 1A68     		ldr	r2, [r3]
+ 381 000c 1443     		orrs	r4, r2
+ 382              	.LVL22:
+ 383 000e 1C60     		str	r4, [r3]
+ 325:Generated_Source\PSoC4/Comp_1.c ****     CyExitCriticalSection(enableInterrupts);
+ 384              		.loc 1 325 0
+ 385 0010 FFF7FEFF 		bl	CyExitCriticalSection
+ 386              	.LVL23:
+ 326:Generated_Source\PSoC4/Comp_1.c **** }
+ 387              		.loc 1 326 0
+ 388              		@ sp needed
+ 389 0014 10BD     		pop	{r4, pc}
+ 390              	.L28:
+ 391 0016 C046     		.align	2
+ 392              	.L27:
+ 393 0018 10000A40 		.word	1074397200
+ 394              		.cfi_endproc
+ 395              	.LFE8:
+ 396              		.size	Comp_1_SetInterrupt, .-Comp_1_SetInterrupt
+ 397              		.section	.text.Comp_1_SetHysteresis,"ax",%progbits
+ 398              		.align	2
+ 399              		.global	Comp_1_SetHysteresis
+ 400              		.code	16
+ 401              		.thumb_func
+ 402              		.type	Comp_1_SetHysteresis, %function
+ 403              	Comp_1_SetHysteresis:
+ 404              	.LFB9:
+ 327:Generated_Source\PSoC4/Comp_1.c **** 
+ 328:Generated_Source\PSoC4/Comp_1.c **** 
+ 329:Generated_Source\PSoC4/Comp_1.c **** /*******************************************************************************
+ 330:Generated_Source\PSoC4/Comp_1.c **** * Function Name: Comp_1_SetHysteresis
+ 331:Generated_Source\PSoC4/Comp_1.c **** ********************************************************************************
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccq0l6x5.s 			page 14
+
+
+ 332:Generated_Source\PSoC4/Comp_1.c **** *
+ 333:Generated_Source\PSoC4/Comp_1.c **** * Summary:
+ 334:Generated_Source\PSoC4/Comp_1.c **** *  Enables or disables the hysteresis.
+ 335:Generated_Source\PSoC4/Comp_1.c **** *
+ 336:Generated_Source\PSoC4/Comp_1.c **** * Parameters:
+ 337:Generated_Source\PSoC4/Comp_1.c **** *  hysteresis: (uint32) Enables or disables the hysteresis setting.
+ 338:Generated_Source\PSoC4/Comp_1.c **** *  Comp_1_HYST_ENABLE     - Enable hysteresis
+ 339:Generated_Source\PSoC4/Comp_1.c **** *  Comp_1_HYST_DISABLE    - Disable hysteresis
+ 340:Generated_Source\PSoC4/Comp_1.c **** *
+ 341:Generated_Source\PSoC4/Comp_1.c **** * Return:
+ 342:Generated_Source\PSoC4/Comp_1.c **** *  None
+ 343:Generated_Source\PSoC4/Comp_1.c **** *
+ 344:Generated_Source\PSoC4/Comp_1.c **** *******************************************************************************/
+ 345:Generated_Source\PSoC4/Comp_1.c **** void Comp_1_SetHysteresis(uint32 hysteresis)
+ 346:Generated_Source\PSoC4/Comp_1.c **** {
+ 405              		.loc 1 346 0
+ 406              		.cfi_startproc
+ 407              		@ args = 0, pretend = 0, frame = 0
+ 408              		@ frame_needed = 0, uses_anonymous_args = 0
+ 409              	.LVL24:
+ 410 0000 10B5     		push	{r4, lr}
+ 411              		.cfi_def_cfa_offset 8
+ 412              		.cfi_offset 4, -8
+ 413              		.cfi_offset 14, -4
+ 414 0002 0400     		movs	r4, r0
+ 347:Generated_Source\PSoC4/Comp_1.c ****     uint8 enableInterrupts;
+ 348:Generated_Source\PSoC4/Comp_1.c ****     
+ 349:Generated_Source\PSoC4/Comp_1.c ****     enableInterrupts = CyEnterCriticalSection();
+ 415              		.loc 1 349 0
+ 416 0004 FFF7FEFF 		bl	CyEnterCriticalSection
+ 417              	.LVL25:
+ 350:Generated_Source\PSoC4/Comp_1.c ****     if(0u != hysteresis)
+ 418              		.loc 1 350 0
+ 419 0008 002C     		cmp	r4, #0
+ 420 000a 06D0     		beq	.L30
+ 351:Generated_Source\PSoC4/Comp_1.c ****     {
+ 352:Generated_Source\PSoC4/Comp_1.c ****         Comp_1_CONFIG_REG |= Comp_1_CONFIG_HYST;
+ 421              		.loc 1 352 0
+ 422 000c 074A     		ldr	r2, .L32
+ 423 000e 1368     		ldr	r3, [r2]
+ 424 0010 8021     		movs	r1, #128
+ 425 0012 C900     		lsls	r1, r1, #3
+ 426 0014 0B43     		orrs	r3, r1
+ 427 0016 1360     		str	r3, [r2]
+ 428 0018 04E0     		b	.L31
+ 429              	.L30:
+ 353:Generated_Source\PSoC4/Comp_1.c ****     }
+ 354:Generated_Source\PSoC4/Comp_1.c ****     else
+ 355:Generated_Source\PSoC4/Comp_1.c ****     {
+ 356:Generated_Source\PSoC4/Comp_1.c ****         Comp_1_CONFIG_REG &= (uint32)~Comp_1_CONFIG_HYST;
+ 430              		.loc 1 356 0
+ 431 001a 044A     		ldr	r2, .L32
+ 432 001c 1168     		ldr	r1, [r2]
+ 433 001e 044B     		ldr	r3, .L32+4
+ 434 0020 0B40     		ands	r3, r1
+ 435 0022 1360     		str	r3, [r2]
+ 436              	.L31:
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccq0l6x5.s 			page 15
+
+
+ 357:Generated_Source\PSoC4/Comp_1.c ****     }
+ 358:Generated_Source\PSoC4/Comp_1.c ****     CyExitCriticalSection(enableInterrupts);
+ 437              		.loc 1 358 0
+ 438 0024 FFF7FEFF 		bl	CyExitCriticalSection
+ 439              	.LVL26:
+ 359:Generated_Source\PSoC4/Comp_1.c **** }
+ 440              		.loc 1 359 0
+ 441              		@ sp needed
+ 442              	.LVL27:
+ 443 0028 10BD     		pop	{r4, pc}
+ 444              	.L33:
+ 445 002a C046     		.align	2
+ 446              	.L32:
+ 447 002c 04000A40 		.word	1074397188
+ 448 0030 FFFBFFFF 		.word	-1025
+ 449              		.cfi_endproc
+ 450              	.LFE9:
+ 451              		.size	Comp_1_SetHysteresis, .-Comp_1_SetHysteresis
+ 452              		.section	.text.Comp_1_SetFilter,"ax",%progbits
+ 453              		.align	2
+ 454              		.global	Comp_1_SetFilter
+ 455              		.code	16
+ 456              		.thumb_func
+ 457              		.type	Comp_1_SetFilter, %function
+ 458              	Comp_1_SetFilter:
+ 459              	.LFB10:
+ 360:Generated_Source\PSoC4/Comp_1.c **** 
+ 361:Generated_Source\PSoC4/Comp_1.c **** 
+ 362:Generated_Source\PSoC4/Comp_1.c **** /*******************************************************************************
+ 363:Generated_Source\PSoC4/Comp_1.c **** * Function Name: Comp_1_SetFilter
+ 364:Generated_Source\PSoC4/Comp_1.c **** ********************************************************************************
+ 365:Generated_Source\PSoC4/Comp_1.c **** *
+ 366:Generated_Source\PSoC4/Comp_1.c **** * Summary:
+ 367:Generated_Source\PSoC4/Comp_1.c **** *  Enables or disables the digital filter. This still exists for saving backward 
+ 368:Generated_Source\PSoC4/Comp_1.c **** *  compatibility, but not recommended for using.
+ 369:Generated_Source\PSoC4/Comp_1.c **** *  This API is DEPRECATED and should not be used in new projects.
+ 370:Generated_Source\PSoC4/Comp_1.c **** *
+ 371:Generated_Source\PSoC4/Comp_1.c **** * Parameters:
+ 372:Generated_Source\PSoC4/Comp_1.c **** *  uint32 filter: filter enable.
+ 373:Generated_Source\PSoC4/Comp_1.c **** *  Comp_1_FILT_ENABLE  - Enable filter
+ 374:Generated_Source\PSoC4/Comp_1.c **** *  Comp_1_FILT_DISABLE - Disable filter
+ 375:Generated_Source\PSoC4/Comp_1.c **** *
+ 376:Generated_Source\PSoC4/Comp_1.c **** * Return:
+ 377:Generated_Source\PSoC4/Comp_1.c **** *  None
+ 378:Generated_Source\PSoC4/Comp_1.c **** *
+ 379:Generated_Source\PSoC4/Comp_1.c **** *******************************************************************************/
+ 380:Generated_Source\PSoC4/Comp_1.c **** void Comp_1_SetFilter(uint32 filter)
+ 381:Generated_Source\PSoC4/Comp_1.c **** {
+ 460              		.loc 1 381 0
+ 461              		.cfi_startproc
+ 462              		@ args = 0, pretend = 0, frame = 0
+ 463              		@ frame_needed = 0, uses_anonymous_args = 0
+ 464              	.LVL28:
+ 465 0000 10B5     		push	{r4, lr}
+ 466              		.cfi_def_cfa_offset 8
+ 467              		.cfi_offset 4, -8
+ 468              		.cfi_offset 14, -4
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccq0l6x5.s 			page 16
+
+
+ 469 0002 0400     		movs	r4, r0
+ 382:Generated_Source\PSoC4/Comp_1.c ****     uint8 enableInterrupts;
+ 383:Generated_Source\PSoC4/Comp_1.c ****     
+ 384:Generated_Source\PSoC4/Comp_1.c ****     enableInterrupts = CyEnterCriticalSection();
+ 470              		.loc 1 384 0
+ 471 0004 FFF7FEFF 		bl	CyEnterCriticalSection
+ 472              	.LVL29:
+ 385:Generated_Source\PSoC4/Comp_1.c ****     if( 0u != filter)
+ 473              		.loc 1 385 0
+ 474 0008 002C     		cmp	r4, #0
+ 475 000a 06D0     		beq	.L35
+ 386:Generated_Source\PSoC4/Comp_1.c ****     {
+ 387:Generated_Source\PSoC4/Comp_1.c ****         Comp_1_CONFIG_REG |= Comp_1_CONFIG_FILT;
+ 476              		.loc 1 387 0
+ 477 000c 074A     		ldr	r2, .L37
+ 478 000e 1368     		ldr	r3, [r2]
+ 479 0010 8021     		movs	r1, #128
+ 480 0012 0901     		lsls	r1, r1, #4
+ 481 0014 0B43     		orrs	r3, r1
+ 482 0016 1360     		str	r3, [r2]
+ 483 0018 04E0     		b	.L36
+ 484              	.L35:
+ 388:Generated_Source\PSoC4/Comp_1.c ****     }
+ 389:Generated_Source\PSoC4/Comp_1.c ****     else
+ 390:Generated_Source\PSoC4/Comp_1.c ****     {
+ 391:Generated_Source\PSoC4/Comp_1.c ****         Comp_1_CONFIG_REG &= (uint32)~Comp_1_CONFIG_FILT;
+ 485              		.loc 1 391 0
+ 486 001a 044A     		ldr	r2, .L37
+ 487 001c 1168     		ldr	r1, [r2]
+ 488 001e 044B     		ldr	r3, .L37+4
+ 489 0020 0B40     		ands	r3, r1
+ 490 0022 1360     		str	r3, [r2]
+ 491              	.L36:
+ 392:Generated_Source\PSoC4/Comp_1.c ****     }
+ 393:Generated_Source\PSoC4/Comp_1.c ****     CyExitCriticalSection(enableInterrupts);
+ 492              		.loc 1 393 0
+ 493 0024 FFF7FEFF 		bl	CyExitCriticalSection
+ 494              	.LVL30:
+ 394:Generated_Source\PSoC4/Comp_1.c **** }
+ 495              		.loc 1 394 0
+ 496              		@ sp needed
+ 497              	.LVL31:
+ 498 0028 10BD     		pop	{r4, pc}
+ 499              	.L38:
+ 500 002a C046     		.align	2
+ 501              	.L37:
+ 502 002c 04000A40 		.word	1074397188
+ 503 0030 FFF7FFFF 		.word	-2049
+ 504              		.cfi_endproc
+ 505              	.LFE10:
+ 506              		.size	Comp_1_SetFilter, .-Comp_1_SetFilter
+ 507              		.section	.text.Comp_1_GetCompare,"ax",%progbits
+ 508              		.align	2
+ 509              		.global	Comp_1_GetCompare
+ 510              		.code	16
+ 511              		.thumb_func
+ 512              		.type	Comp_1_GetCompare, %function
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccq0l6x5.s 			page 17
+
+
+ 513              	Comp_1_GetCompare:
+ 514              	.LFB11:
+ 395:Generated_Source\PSoC4/Comp_1.c **** 
+ 396:Generated_Source\PSoC4/Comp_1.c **** 
+ 397:Generated_Source\PSoC4/Comp_1.c **** /*******************************************************************************
+ 398:Generated_Source\PSoC4/Comp_1.c **** * Function Name: Comp_1_GetCompare
+ 399:Generated_Source\PSoC4/Comp_1.c **** ********************************************************************************
+ 400:Generated_Source\PSoC4/Comp_1.c **** *
+ 401:Generated_Source\PSoC4/Comp_1.c **** * Summary:
+ 402:Generated_Source\PSoC4/Comp_1.c **** *  This function returns a nonzero value when the voltage connected to the
+ 403:Generated_Source\PSoC4/Comp_1.c **** *  positive input is greater than the negative input voltage.
+ 404:Generated_Source\PSoC4/Comp_1.c **** *  This function reads the direct (unflopped) comparator output which can also be 
+ 405:Generated_Source\PSoC4/Comp_1.c **** *  metastable (since it may result in incorrect data).
+ 406:Generated_Source\PSoC4/Comp_1.c **** *
+ 407:Generated_Source\PSoC4/Comp_1.c **** * Parameters:
+ 408:Generated_Source\PSoC4/Comp_1.c **** *  None
+ 409:Generated_Source\PSoC4/Comp_1.c **** *
+ 410:Generated_Source\PSoC4/Comp_1.c **** * Return:
+ 411:Generated_Source\PSoC4/Comp_1.c **** *  (uint32) Comparator output state. This value is not impacted by the interrupt
+ 412:Generated_Source\PSoC4/Comp_1.c **** *  edge detect setting:
+ 413:Generated_Source\PSoC4/Comp_1.c **** *   0 - if positive input is less than negative one.
+ 414:Generated_Source\PSoC4/Comp_1.c **** *   1 - if positive input greater than negative one.
+ 415:Generated_Source\PSoC4/Comp_1.c **** *
+ 416:Generated_Source\PSoC4/Comp_1.c **** *******************************************************************************/
+ 417:Generated_Source\PSoC4/Comp_1.c **** uint32 Comp_1_GetCompare(void)
+ 418:Generated_Source\PSoC4/Comp_1.c **** {
+ 515              		.loc 1 418 0
+ 516              		.cfi_startproc
+ 517              		@ args = 0, pretend = 0, frame = 0
+ 518              		@ frame_needed = 0, uses_anonymous_args = 0
+ 519              		@ link register save eliminated.
+ 419:Generated_Source\PSoC4/Comp_1.c ****     return((uint32)((0u == (Comp_1_CONFIG_REG & Comp_1_CONFIG_OUT)) ? 0u : 1u));
+ 520              		.loc 1 419 0
+ 521 0000 044B     		ldr	r3, .L40
+ 522 0002 1868     		ldr	r0, [r3]
+ 523 0004 8023     		movs	r3, #128
+ 524 0006 DB01     		lsls	r3, r3, #7
+ 525 0008 1840     		ands	r0, r3
+ 526 000a 431E     		subs	r3, r0, #1
+ 527 000c 9841     		sbcs	r0, r0, r3
+ 528 000e C0B2     		uxtb	r0, r0
+ 420:Generated_Source\PSoC4/Comp_1.c **** }
+ 529              		.loc 1 420 0
+ 530              		@ sp needed
+ 531 0010 7047     		bx	lr
+ 532              	.L41:
+ 533 0012 C046     		.align	2
+ 534              	.L40:
+ 535 0014 04000A40 		.word	1074397188
+ 536              		.cfi_endproc
+ 537              	.LFE11:
+ 538              		.size	Comp_1_GetCompare, .-Comp_1_GetCompare
+ 539              		.section	.text.Comp_1_ZeroCal,"ax",%progbits
+ 540              		.align	2
+ 541              		.global	Comp_1_ZeroCal
+ 542              		.code	16
+ 543              		.thumb_func
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccq0l6x5.s 			page 18
+
+
+ 544              		.type	Comp_1_ZeroCal, %function
+ 545              	Comp_1_ZeroCal:
+ 546              	.LFB12:
+ 421:Generated_Source\PSoC4/Comp_1.c **** 
+ 422:Generated_Source\PSoC4/Comp_1.c **** 
+ 423:Generated_Source\PSoC4/Comp_1.c **** /*******************************************************************************
+ 424:Generated_Source\PSoC4/Comp_1.c **** * Function Name: Comp_1_ZeroCal
+ 425:Generated_Source\PSoC4/Comp_1.c **** ********************************************************************************
+ 426:Generated_Source\PSoC4/Comp_1.c **** *
+ 427:Generated_Source\PSoC4/Comp_1.c **** * Summary:
+ 428:Generated_Source\PSoC4/Comp_1.c **** *  Performs custom calibration of the input offset to minimize error for a
+ 429:Generated_Source\PSoC4/Comp_1.c **** *  specific set of conditions: comparator reference voltage, supply voltage,
+ 430:Generated_Source\PSoC4/Comp_1.c **** *  and operating temperature. A reference voltage in the range at which the
+ 431:Generated_Source\PSoC4/Comp_1.c **** *  comparator will be used must be applied to one of the inputs. The two inputs
+ 432:Generated_Source\PSoC4/Comp_1.c **** *  will be shorted internally to perform the offset calibration.
+ 433:Generated_Source\PSoC4/Comp_1.c **** *
+ 434:Generated_Source\PSoC4/Comp_1.c **** * Parameters:
+ 435:Generated_Source\PSoC4/Comp_1.c **** *  None
+ 436:Generated_Source\PSoC4/Comp_1.c **** *
+ 437:Generated_Source\PSoC4/Comp_1.c **** * Return:
+ 438:Generated_Source\PSoC4/Comp_1.c **** *  The value from the comparator trim register after the offset calibration is
+ 439:Generated_Source\PSoC4/Comp_1.c **** *  complete. This value has the same format as the input parameter for the
+ 440:Generated_Source\PSoC4/Comp_1.c **** *  Comp_1_LoadTrim() API routine.
+ 441:Generated_Source\PSoC4/Comp_1.c **** *
+ 442:Generated_Source\PSoC4/Comp_1.c **** *******************************************************************************/
+ 443:Generated_Source\PSoC4/Comp_1.c **** uint32 Comp_1_ZeroCal(void)
+ 444:Generated_Source\PSoC4/Comp_1.c **** {
+ 547              		.loc 1 444 0
+ 548              		.cfi_startproc
+ 549              		@ args = 0, pretend = 0, frame = 0
+ 550              		@ frame_needed = 0, uses_anonymous_args = 0
+ 551 0000 70B5     		push	{r4, r5, r6, lr}
+ 552              		.cfi_def_cfa_offset 16
+ 553              		.cfi_offset 4, -16
+ 554              		.cfi_offset 5, -12
+ 555              		.cfi_offset 6, -8
+ 556              		.cfi_offset 14, -4
+ 445:Generated_Source\PSoC4/Comp_1.c ****     uint32 cmpOut;
+ 446:Generated_Source\PSoC4/Comp_1.c ****     uint32 i;
+ 447:Generated_Source\PSoC4/Comp_1.c **** 
+ 448:Generated_Source\PSoC4/Comp_1.c ****     Comp_1_DFT_REG |= Comp_1_DFT_CAL_EN;
+ 557              		.loc 1 448 0
+ 558 0002 264A     		ldr	r2, .L51
+ 559 0004 1168     		ldr	r1, [r2]
+ 560 0006 0123     		movs	r3, #1
+ 561 0008 0B43     		orrs	r3, r1
+ 562 000a 1360     		str	r3, [r2]
+ 449:Generated_Source\PSoC4/Comp_1.c ****     Comp_1_TRIMA_REG = 0u;
+ 563              		.loc 1 449 0
+ 564 000c 0023     		movs	r3, #0
+ 565 000e 244A     		ldr	r2, .L51+4
+ 566 0010 1360     		str	r3, [r2]
+ 450:Generated_Source\PSoC4/Comp_1.c ****     Comp_1_TRIMB_REG = 0u;
+ 567              		.loc 1 450 0
+ 568 0012 244A     		ldr	r2, .L51+8
+ 569 0014 1360     		str	r3, [r2]
+ 451:Generated_Source\PSoC4/Comp_1.c **** 
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccq0l6x5.s 			page 19
+
+
+ 452:Generated_Source\PSoC4/Comp_1.c ****     CyDelayUs(1u);
+ 570              		.loc 1 452 0
+ 571 0016 0120     		movs	r0, #1
+ 572 0018 FFF7FEFF 		bl	CyDelayUs
+ 573              	.LVL32:
+ 453:Generated_Source\PSoC4/Comp_1.c **** 
+ 454:Generated_Source\PSoC4/Comp_1.c ****     cmpOut = Comp_1_GetCompare();
+ 574              		.loc 1 454 0
+ 575 001c FFF7FEFF 		bl	Comp_1_GetCompare
+ 576              	.LVL33:
+ 577 0020 051E     		subs	r5, r0, #0
+ 578              	.LVL34:
+ 455:Generated_Source\PSoC4/Comp_1.c **** 
+ 456:Generated_Source\PSoC4/Comp_1.c ****     if(0u != cmpOut)
+ 579              		.loc 1 456 0
+ 580 0022 02D0     		beq	.L43
+ 457:Generated_Source\PSoC4/Comp_1.c ****     {
+ 458:Generated_Source\PSoC4/Comp_1.c ****         Comp_1_TRIMA_REG = ((uint32) 0x01u << Comp_1_TRIMA_SIGNBIT);
+ 581              		.loc 1 458 0
+ 582 0024 1022     		movs	r2, #16
+ 583 0026 1E4B     		ldr	r3, .L51+4
+ 584 0028 1A60     		str	r2, [r3]
+ 585              	.L43:
+ 444:Generated_Source\PSoC4/Comp_1.c ****     uint32 cmpOut;
+ 586              		.loc 1 444 0 discriminator 1
+ 587 002a 1024     		movs	r4, #16
+ 588 002c 0BE0     		b	.L44
+ 589              	.LVL35:
+ 590              	.L46:
+ 459:Generated_Source\PSoC4/Comp_1.c ****     }
+ 460:Generated_Source\PSoC4/Comp_1.c **** 
+ 461:Generated_Source\PSoC4/Comp_1.c ****     for(i = (Comp_1_TRIMA_MAX_VALUE +1u ); i != 0u; i--)
+ 462:Generated_Source\PSoC4/Comp_1.c ****     {
+ 463:Generated_Source\PSoC4/Comp_1.c ****         Comp_1_TRIMA_REG++;
+ 591              		.loc 1 463 0
+ 592 002e 1C4A     		ldr	r2, .L51+4
+ 593 0030 1368     		ldr	r3, [r2]
+ 594 0032 0133     		adds	r3, r3, #1
+ 595 0034 1360     		str	r3, [r2]
+ 464:Generated_Source\PSoC4/Comp_1.c ****         CyDelayUs(1u);
+ 596              		.loc 1 464 0
+ 597 0036 0120     		movs	r0, #1
+ 598 0038 FFF7FEFF 		bl	CyDelayUs
+ 599              	.LVL36:
+ 465:Generated_Source\PSoC4/Comp_1.c ****         if(cmpOut != Comp_1_GetCompare())
+ 600              		.loc 1 465 0
+ 601 003c FFF7FEFF 		bl	Comp_1_GetCompare
+ 602              	.LVL37:
+ 603 0040 8542     		cmp	r5, r0
+ 604 0042 02D1     		bne	.L45
+ 461:Generated_Source\PSoC4/Comp_1.c ****     {
+ 605              		.loc 1 461 0 discriminator 2
+ 606 0044 013C     		subs	r4, r4, #1
+ 607              	.LVL38:
+ 608              	.L44:
+ 461:Generated_Source\PSoC4/Comp_1.c ****     {
+ 609              		.loc 1 461 0 is_stmt 0 discriminator 1
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccq0l6x5.s 			page 20
+
+
+ 610 0046 002C     		cmp	r4, #0
+ 611 0048 F1D1     		bne	.L46
+ 612              	.L45:
+ 466:Generated_Source\PSoC4/Comp_1.c ****         {
+ 467:Generated_Source\PSoC4/Comp_1.c ****             break;
+ 468:Generated_Source\PSoC4/Comp_1.c ****         }
+ 469:Generated_Source\PSoC4/Comp_1.c ****     }
+ 470:Generated_Source\PSoC4/Comp_1.c **** 
+ 471:Generated_Source\PSoC4/Comp_1.c ****     if(((uint32)(Comp_1_CONFIG_REG >> Comp_1_CONFIG_REG_SHIFT) &
+ 613              		.loc 1 471 0 is_stmt 1
+ 614 004a 174B     		ldr	r3, .L51+12
+ 615 004c 1B68     		ldr	r3, [r3]
+ 616 004e 1B0A     		lsrs	r3, r3, #8
+ 617 0050 9B07     		lsls	r3, r3, #30
+ 618 0052 16D1     		bne	.L47
+ 472:Generated_Source\PSoC4/Comp_1.c ****         Comp_1_SPEED_PARAM_MASK) == Comp_1_MED_SPEED)
+ 473:Generated_Source\PSoC4/Comp_1.c ****     {
+ 474:Generated_Source\PSoC4/Comp_1.c ****         cmpOut = Comp_1_GetCompare();
+ 619              		.loc 1 474 0
+ 620 0054 FFF7FEFF 		bl	Comp_1_GetCompare
+ 621              	.LVL39:
+ 622 0058 051E     		subs	r5, r0, #0
+ 623              	.LVL40:
+ 475:Generated_Source\PSoC4/Comp_1.c **** 
+ 476:Generated_Source\PSoC4/Comp_1.c ****         if(0u == cmpOut)
+ 624              		.loc 1 476 0
+ 625 005a 02D1     		bne	.L48
+ 477:Generated_Source\PSoC4/Comp_1.c ****         {
+ 478:Generated_Source\PSoC4/Comp_1.c ****             Comp_1_TRIMB_REG = ((uint32)1u << Comp_1_TRIMB_SIGNBIT);
+ 626              		.loc 1 478 0
+ 627 005c 1022     		movs	r2, #16
+ 628 005e 114B     		ldr	r3, .L51+8
+ 629 0060 1A60     		str	r2, [r3]
+ 630              	.L48:
+ 444:Generated_Source\PSoC4/Comp_1.c ****     uint32 cmpOut;
+ 631              		.loc 1 444 0 discriminator 1
+ 632 0062 1024     		movs	r4, #16
+ 633              	.LVL41:
+ 634 0064 0BE0     		b	.L49
+ 635              	.LVL42:
+ 636              	.L50:
+ 479:Generated_Source\PSoC4/Comp_1.c ****         }
+ 480:Generated_Source\PSoC4/Comp_1.c **** 
+ 481:Generated_Source\PSoC4/Comp_1.c ****         for(i = (Comp_1_TRIMB_MAX_VALUE +1u ); i != 0u; i--)
+ 482:Generated_Source\PSoC4/Comp_1.c ****         {
+ 483:Generated_Source\PSoC4/Comp_1.c ****             Comp_1_TRIMB_REG++;
+ 637              		.loc 1 483 0
+ 638 0066 0F4A     		ldr	r2, .L51+8
+ 639 0068 1368     		ldr	r3, [r2]
+ 640 006a 0133     		adds	r3, r3, #1
+ 641 006c 1360     		str	r3, [r2]
+ 484:Generated_Source\PSoC4/Comp_1.c ****             CyDelayUs(1u);
+ 642              		.loc 1 484 0
+ 643 006e 0120     		movs	r0, #1
+ 644 0070 FFF7FEFF 		bl	CyDelayUs
+ 645              	.LVL43:
+ 485:Generated_Source\PSoC4/Comp_1.c ****             if(cmpOut != Comp_1_GetCompare())
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccq0l6x5.s 			page 21
+
+
+ 646              		.loc 1 485 0
+ 647 0074 FFF7FEFF 		bl	Comp_1_GetCompare
+ 648              	.LVL44:
+ 649 0078 8542     		cmp	r5, r0
+ 650 007a 02D1     		bne	.L47
+ 481:Generated_Source\PSoC4/Comp_1.c ****         {
+ 651              		.loc 1 481 0 discriminator 2
+ 652 007c 013C     		subs	r4, r4, #1
+ 653              	.LVL45:
+ 654              	.L49:
+ 481:Generated_Source\PSoC4/Comp_1.c ****         {
+ 655              		.loc 1 481 0 is_stmt 0 discriminator 1
+ 656 007e 002C     		cmp	r4, #0
+ 657 0080 F1D1     		bne	.L50
+ 658              	.L47:
+ 486:Generated_Source\PSoC4/Comp_1.c ****             {
+ 487:Generated_Source\PSoC4/Comp_1.c ****                 break;
+ 488:Generated_Source\PSoC4/Comp_1.c ****             }
+ 489:Generated_Source\PSoC4/Comp_1.c ****         }
+ 490:Generated_Source\PSoC4/Comp_1.c ****     }
+ 491:Generated_Source\PSoC4/Comp_1.c **** 
+ 492:Generated_Source\PSoC4/Comp_1.c ****     Comp_1_DFT_REG &= ((uint32)~Comp_1_DFT_CAL_EN);
+ 659              		.loc 1 492 0 is_stmt 1
+ 660 0082 064A     		ldr	r2, .L51
+ 661 0084 1368     		ldr	r3, [r2]
+ 662 0086 0121     		movs	r1, #1
+ 663 0088 8B43     		bics	r3, r1
+ 664 008a 1360     		str	r3, [r2]
+ 493:Generated_Source\PSoC4/Comp_1.c **** 
+ 494:Generated_Source\PSoC4/Comp_1.c ****     return (Comp_1_TRIMA_REG | ((uint32)Comp_1_TRIMB_REG << Comp_1_TRIMB_SHIFT));
+ 665              		.loc 1 494 0
+ 666 008c 044B     		ldr	r3, .L51+4
+ 667 008e 1B68     		ldr	r3, [r3]
+ 668 0090 044A     		ldr	r2, .L51+8
+ 669 0092 1068     		ldr	r0, [r2]
+ 670 0094 0002     		lsls	r0, r0, #8
+ 671 0096 1843     		orrs	r0, r3
+ 495:Generated_Source\PSoC4/Comp_1.c **** }
+ 672              		.loc 1 495 0
+ 673              		@ sp needed
+ 674              	.LVL46:
+ 675              	.LVL47:
+ 676 0098 70BD     		pop	{r4, r5, r6, pc}
+ 677              	.L52:
+ 678 009a C046     		.align	2
+ 679              	.L51:
+ 680 009c 08000A40 		.word	1074397192
+ 681 00a0 08FF0A40 		.word	1074462472
+ 682 00a4 0CFF0A40 		.word	1074462476
+ 683 00a8 04000A40 		.word	1074397188
+ 684              		.cfi_endproc
+ 685              	.LFE12:
+ 686              		.size	Comp_1_ZeroCal, .-Comp_1_ZeroCal
+ 687              		.section	.text.Comp_1_LoadTrim,"ax",%progbits
+ 688              		.align	2
+ 689              		.global	Comp_1_LoadTrim
+ 690              		.code	16
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccq0l6x5.s 			page 22
+
+
+ 691              		.thumb_func
+ 692              		.type	Comp_1_LoadTrim, %function
+ 693              	Comp_1_LoadTrim:
+ 694              	.LFB13:
+ 496:Generated_Source\PSoC4/Comp_1.c **** 
+ 497:Generated_Source\PSoC4/Comp_1.c **** 
+ 498:Generated_Source\PSoC4/Comp_1.c **** /*******************************************************************************
+ 499:Generated_Source\PSoC4/Comp_1.c **** * Function Name: Comp_1_LoadTrim
+ 500:Generated_Source\PSoC4/Comp_1.c **** ********************************************************************************
+ 501:Generated_Source\PSoC4/Comp_1.c **** *
+ 502:Generated_Source\PSoC4/Comp_1.c **** * Summary:
+ 503:Generated_Source\PSoC4/Comp_1.c **** *  This function writes a value into the comparator offset trim register.
+ 504:Generated_Source\PSoC4/Comp_1.c **** *
+ 505:Generated_Source\PSoC4/Comp_1.c **** * Parameters:
+ 506:Generated_Source\PSoC4/Comp_1.c **** *  trimVal: Value to be stored in the comparator offset trim register. This
+ 507:Generated_Source\PSoC4/Comp_1.c **** *  value has the same format as the parameter returned by the
+ 508:Generated_Source\PSoC4/Comp_1.c **** *  Comp_1_ZeroCal() API routine.
+ 509:Generated_Source\PSoC4/Comp_1.c **** *
+ 510:Generated_Source\PSoC4/Comp_1.c **** * Return:
+ 511:Generated_Source\PSoC4/Comp_1.c **** *  None
+ 512:Generated_Source\PSoC4/Comp_1.c **** *
+ 513:Generated_Source\PSoC4/Comp_1.c **** *******************************************************************************/
+ 514:Generated_Source\PSoC4/Comp_1.c **** void Comp_1_LoadTrim(uint32 trimVal)
+ 515:Generated_Source\PSoC4/Comp_1.c **** {
+ 695              		.loc 1 515 0
+ 696              		.cfi_startproc
+ 697              		@ args = 0, pretend = 0, frame = 0
+ 698              		@ frame_needed = 0, uses_anonymous_args = 0
+ 699              		@ link register save eliminated.
+ 700              	.LVL48:
+ 516:Generated_Source\PSoC4/Comp_1.c ****     Comp_1_TRIMA_REG = (trimVal & Comp_1_TRIMA_MASK);
+ 701              		.loc 1 516 0
+ 702 0000 1F23     		movs	r3, #31
+ 703 0002 1900     		movs	r1, r3
+ 704 0004 0140     		ands	r1, r0
+ 705 0006 034A     		ldr	r2, .L54
+ 706 0008 1160     		str	r1, [r2]
+ 517:Generated_Source\PSoC4/Comp_1.c ****     Comp_1_TRIMB_REG = ((trimVal >> Comp_1_TRIMB_SHIFT) & Comp_1_TRIMB_MASK);
+ 707              		.loc 1 517 0
+ 708 000a 000A     		lsrs	r0, r0, #8
+ 709              	.LVL49:
+ 710 000c 1840     		ands	r0, r3
+ 711 000e 024B     		ldr	r3, .L54+4
+ 712 0010 1860     		str	r0, [r3]
+ 518:Generated_Source\PSoC4/Comp_1.c **** }
+ 713              		.loc 1 518 0
+ 714              		@ sp needed
+ 715 0012 7047     		bx	lr
+ 716              	.L55:
+ 717              		.align	2
+ 718              	.L54:
+ 719 0014 08FF0A40 		.word	1074462472
+ 720 0018 0CFF0A40 		.word	1074462476
+ 721              		.cfi_endproc
+ 722              	.LFE13:
+ 723              		.size	Comp_1_LoadTrim, .-Comp_1_LoadTrim
+ 724              		.global	Comp_1_initVar
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccq0l6x5.s 			page 23
+
+
+ 725              		.bss
+ 726              		.align	2
+ 727              		.set	.LANCHOR0,. + 0
+ 728              		.type	Comp_1_internalIntr, %object
+ 729              		.size	Comp_1_internalIntr, 4
+ 730              	Comp_1_internalIntr:
+ 731 0000 00000000 		.space	4
+ 732              		.type	Comp_1_initVar, %object
+ 733              		.size	Comp_1_initVar, 1
+ 734              	Comp_1_initVar:
+ 735 0004 00       		.space	1
+ 736              		.text
+ 737              	.Letext0:
+ 738              		.file 2 "Generated_Source\\PSoC4\\cytypes.h"
+ 739              		.file 3 "Generated_Source\\PSoC4\\CyLib.h"
+ 740              		.section	.debug_info,"",%progbits
+ 741              	.Ldebug_info0:
+ 742 0000 57040000 		.4byte	0x457
+ 743 0004 0400     		.2byte	0x4
+ 744 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 745 000a 04       		.byte	0x4
+ 746 000b 01       		.uleb128 0x1
+ 747 000c E0010000 		.4byte	.LASF43
+ 748 0010 0C       		.byte	0xc
+ 749 0011 F9000000 		.4byte	.LASF44
+ 750 0015 5B000000 		.4byte	.LASF45
+ 751 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 752 001d 00000000 		.4byte	0
+ 753 0021 00000000 		.4byte	.Ldebug_line0
+ 754 0025 02       		.uleb128 0x2
+ 755 0026 01       		.byte	0x1
+ 756 0027 06       		.byte	0x6
+ 757 0028 12030000 		.4byte	.LASF0
+ 758 002c 02       		.uleb128 0x2
+ 759 002d 01       		.byte	0x1
+ 760 002e 08       		.byte	0x8
+ 761 002f EB000000 		.4byte	.LASF1
+ 762 0033 02       		.uleb128 0x2
+ 763 0034 02       		.byte	0x2
+ 764 0035 05       		.byte	0x5
+ 765 0036 D0020000 		.4byte	.LASF2
+ 766 003a 02       		.uleb128 0x2
+ 767 003b 02       		.byte	0x2
+ 768 003c 07       		.byte	0x7
+ 769 003d 48000000 		.4byte	.LASF3
+ 770 0041 02       		.uleb128 0x2
+ 771 0042 04       		.byte	0x4
+ 772 0043 05       		.byte	0x5
+ 773 0044 EF020000 		.4byte	.LASF4
+ 774 0048 02       		.uleb128 0x2
+ 775 0049 04       		.byte	0x4
+ 776 004a 07       		.byte	0x7
+ 777 004b 19010000 		.4byte	.LASF5
+ 778 004f 02       		.uleb128 0x2
+ 779 0050 08       		.byte	0x8
+ 780 0051 05       		.byte	0x5
+ 781 0052 99020000 		.4byte	.LASF6
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccq0l6x5.s 			page 24
+
+
+ 782 0056 02       		.uleb128 0x2
+ 783 0057 08       		.byte	0x8
+ 784 0058 07       		.byte	0x7
+ 785 0059 AF000000 		.4byte	.LASF7
+ 786 005d 03       		.uleb128 0x3
+ 787 005e 04       		.byte	0x4
+ 788 005f 05       		.byte	0x5
+ 789 0060 696E7400 		.ascii	"int\000"
+ 790 0064 02       		.uleb128 0x2
+ 791 0065 04       		.byte	0x4
+ 792 0066 07       		.byte	0x7
+ 793 0067 6E010000 		.4byte	.LASF8
+ 794 006b 04       		.uleb128 0x4
+ 795 006c 2B010000 		.4byte	.LASF9
+ 796 0070 02       		.byte	0x2
+ 797 0071 E401     		.2byte	0x1e4
+ 798 0073 2C000000 		.4byte	0x2c
+ 799 0077 04       		.uleb128 0x4
+ 800 0078 50010000 		.4byte	.LASF10
+ 801 007c 02       		.byte	0x2
+ 802 007d E601     		.2byte	0x1e6
+ 803 007f 48000000 		.4byte	0x48
+ 804 0083 02       		.uleb128 0x2
+ 805 0084 04       		.byte	0x4
+ 806 0085 04       		.byte	0x4
+ 807 0086 2A000000 		.4byte	.LASF11
+ 808 008a 02       		.uleb128 0x2
+ 809 008b 08       		.byte	0x8
+ 810 008c 04       		.byte	0x4
+ 811 008d 3F010000 		.4byte	.LASF12
+ 812 0091 02       		.uleb128 0x2
+ 813 0092 01       		.byte	0x1
+ 814 0093 08       		.byte	0x8
+ 815 0094 BC020000 		.4byte	.LASF13
+ 816 0098 04       		.uleb128 0x4
+ 817 0099 18000000 		.4byte	.LASF14
+ 818 009d 02       		.byte	0x2
+ 819 009e 9002     		.2byte	0x290
+ 820 00a0 A4000000 		.4byte	0xa4
+ 821 00a4 05       		.uleb128 0x5
+ 822 00a5 77000000 		.4byte	0x77
+ 823 00a9 02       		.uleb128 0x2
+ 824 00aa 08       		.byte	0x8
+ 825 00ab 04       		.byte	0x4
+ 826 00ac 06030000 		.4byte	.LASF15
+ 827 00b0 02       		.uleb128 0x2
+ 828 00b1 04       		.byte	0x4
+ 829 00b2 07       		.byte	0x7
+ 830 00b3 7F020000 		.4byte	.LASF16
+ 831 00b7 06       		.uleb128 0x6
+ 832 00b8 1E000000 		.4byte	.LASF17
+ 833 00bc 01       		.byte	0x1
+ 834 00bd 56       		.byte	0x56
+ 835 00be 00000000 		.4byte	.LFB1
+ 836 00c2 28000000 		.4byte	.LFE1-.LFB1
+ 837 00c6 01       		.uleb128 0x1
+ 838 00c7 9C       		.byte	0x9c
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccq0l6x5.s 			page 25
+
+
+ 839 00c8 EE000000 		.4byte	0xee
+ 840 00cc 07       		.uleb128 0x7
+ 841 00cd C6000000 		.4byte	.LASF19
+ 842 00d1 01       		.byte	0x1
+ 843 00d2 58       		.byte	0x58
+ 844 00d3 6B000000 		.4byte	0x6b
+ 845 00d7 00000000 		.4byte	.LLST0
+ 846 00db 08       		.uleb128 0x8
+ 847 00dc 06000000 		.4byte	.LVL0
+ 848 00e0 39040000 		.4byte	0x439
+ 849 00e4 08       		.uleb128 0x8
+ 850 00e5 1E000000 		.4byte	.LVL1
+ 851 00e9 44040000 		.4byte	0x444
+ 852 00ed 00       		.byte	0
+ 853 00ee 06       		.uleb128 0x6
+ 854 00ef F8020000 		.4byte	.LASF18
+ 855 00f3 01       		.byte	0x1
+ 856 00f4 86       		.byte	0x86
+ 857 00f5 00000000 		.4byte	.LFB2
+ 858 00f9 2C000000 		.4byte	.LFE2-.LFB2
+ 859 00fd 01       		.uleb128 0x1
+ 860 00fe 9C       		.byte	0x9c
+ 861 00ff 25010000 		.4byte	0x125
+ 862 0103 07       		.uleb128 0x7
+ 863 0104 C6000000 		.4byte	.LASF19
+ 864 0108 01       		.byte	0x1
+ 865 0109 88       		.byte	0x88
+ 866 010a 6B000000 		.4byte	0x6b
+ 867 010e 13000000 		.4byte	.LLST1
+ 868 0112 08       		.uleb128 0x8
+ 869 0113 06000000 		.4byte	.LVL2
+ 870 0117 39040000 		.4byte	0x439
+ 871 011b 08       		.uleb128 0x8
+ 872 011c 20000000 		.4byte	.LVL3
+ 873 0120 44040000 		.4byte	0x444
+ 874 0124 00       		.byte	0
+ 875 0125 06       		.uleb128 0x6
+ 876 0126 2D030000 		.4byte	.LASF20
+ 877 012a 01       		.byte	0x1
+ 878 012b 3A       		.byte	0x3a
+ 879 012c 00000000 		.4byte	.LFB0
+ 880 0130 20000000 		.4byte	.LFE0-.LFB0
+ 881 0134 01       		.uleb128 0x1
+ 882 0135 9C       		.byte	0x9c
+ 883 0136 4D010000 		.4byte	0x14d
+ 884 013a 08       		.uleb128 0x8
+ 885 013b 0E000000 		.4byte	.LVL4
+ 886 013f B7000000 		.4byte	0xb7
+ 887 0143 08       		.uleb128 0x8
+ 888 0144 18000000 		.4byte	.LVL5
+ 889 0148 EE000000 		.4byte	0xee
+ 890 014c 00       		.byte	0
+ 891 014d 06       		.uleb128 0x6
+ 892 014e A5010000 		.4byte	.LASF21
+ 893 0152 01       		.byte	0x1
+ 894 0153 A9       		.byte	0xa9
+ 895 0154 00000000 		.4byte	.LFB3
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccq0l6x5.s 			page 26
+
+
+ 896 0158 2C000000 		.4byte	.LFE3-.LFB3
+ 897 015c 01       		.uleb128 0x1
+ 898 015d 9C       		.byte	0x9c
+ 899 015e 84010000 		.4byte	0x184
+ 900 0162 07       		.uleb128 0x7
+ 901 0163 C6000000 		.4byte	.LASF19
+ 902 0167 01       		.byte	0x1
+ 903 0168 AB       		.byte	0xab
+ 904 0169 6B000000 		.4byte	0x6b
+ 905 016d 26000000 		.4byte	.LLST2
+ 906 0171 08       		.uleb128 0x8
+ 907 0172 06000000 		.4byte	.LVL6
+ 908 0176 39040000 		.4byte	0x439
+ 909 017a 08       		.uleb128 0x8
+ 910 017b 1C000000 		.4byte	.LVL7
+ 911 017f 44040000 		.4byte	0x444
+ 912 0183 00       		.byte	0
+ 913 0184 06       		.uleb128 0x6
+ 914 0185 08000000 		.4byte	.LASF22
+ 915 0189 01       		.byte	0x1
+ 916 018a D0       		.byte	0xd0
+ 917 018b 00000000 		.4byte	.LFB4
+ 918 018f 2C000000 		.4byte	.LFE4-.LFB4
+ 919 0193 01       		.uleb128 0x1
+ 920 0194 9C       		.byte	0x9c
+ 921 0195 D9010000 		.4byte	0x1d9
+ 922 0199 09       		.uleb128 0x9
+ 923 019a 79020000 		.4byte	.LASF25
+ 924 019e 01       		.byte	0x1
+ 925 019f D0       		.byte	0xd0
+ 926 01a0 77000000 		.4byte	0x77
+ 927 01a4 39000000 		.4byte	.LLST3
+ 928 01a8 07       		.uleb128 0x7
+ 929 01a9 38010000 		.4byte	.LASF23
+ 930 01ad 01       		.byte	0x1
+ 931 01ae D2       		.byte	0xd2
+ 932 01af 77000000 		.4byte	0x77
+ 933 01b3 65000000 		.4byte	.LLST4
+ 934 01b7 07       		.uleb128 0x7
+ 935 01b8 C6000000 		.4byte	.LASF19
+ 936 01bc 01       		.byte	0x1
+ 937 01bd D3       		.byte	0xd3
+ 938 01be 6B000000 		.4byte	0x6b
+ 939 01c2 78000000 		.4byte	.LLST5
+ 940 01c6 08       		.uleb128 0x8
+ 941 01c7 08000000 		.4byte	.LVL9
+ 942 01cb 39040000 		.4byte	0x439
+ 943 01cf 08       		.uleb128 0x8
+ 944 01d0 22000000 		.4byte	.LVL11
+ 945 01d4 44040000 		.4byte	0x444
+ 946 01d8 00       		.byte	0
+ 947 01d9 06       		.uleb128 0x6
+ 948 01da 30000000 		.4byte	.LASF24
+ 949 01de 01       		.byte	0x1
+ 950 01df EF       		.byte	0xef
+ 951 01e0 00000000 		.4byte	.LFB5
+ 952 01e4 34000000 		.4byte	.LFE5-.LFB5
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccq0l6x5.s 			page 27
+
+
+ 953 01e8 01       		.uleb128 0x1
+ 954 01e9 9C       		.byte	0x9c
+ 955 01ea 2E020000 		.4byte	0x22e
+ 956 01ee 09       		.uleb128 0x9
+ 957 01ef CB010000 		.4byte	.LASF26
+ 958 01f3 01       		.byte	0x1
+ 959 01f4 EF       		.byte	0xef
+ 960 01f5 77000000 		.4byte	0x77
+ 961 01f9 8B000000 		.4byte	.LLST6
+ 962 01fd 07       		.uleb128 0x7
+ 963 01fe 38010000 		.4byte	.LASF23
+ 964 0202 01       		.byte	0x1
+ 965 0203 F1       		.byte	0xf1
+ 966 0204 77000000 		.4byte	0x77
+ 967 0208 AC000000 		.4byte	.LLST7
+ 968 020c 07       		.uleb128 0x7
+ 969 020d C6000000 		.4byte	.LASF19
+ 970 0211 01       		.byte	0x1
+ 971 0212 F2       		.byte	0xf2
+ 972 0213 6B000000 		.4byte	0x6b
+ 973 0217 BF000000 		.4byte	.LLST8
+ 974 021b 08       		.uleb128 0x8
+ 975 021c 12000000 		.4byte	.LVL15
+ 976 0220 39040000 		.4byte	0x439
+ 977 0224 08       		.uleb128 0x8
+ 978 0225 24000000 		.4byte	.LVL18
+ 979 0229 44040000 		.4byte	0x444
+ 980 022d 00       		.byte	0
+ 981 022e 0A       		.uleb128 0xa
+ 982 022f B1010000 		.4byte	.LASF34
+ 983 0233 01       		.byte	0x1
+ 984 0234 0F01     		.2byte	0x10f
+ 985 0236 77000000 		.4byte	0x77
+ 986 023a 00000000 		.4byte	.LFB6
+ 987 023e 0C000000 		.4byte	.LFE6-.LFB6
+ 988 0242 01       		.uleb128 0x1
+ 989 0243 9C       		.byte	0x9c
+ 990 0244 0B       		.uleb128 0xb
+ 991 0245 87000000 		.4byte	.LASF27
+ 992 0249 01       		.byte	0x1
+ 993 024a 2701     		.2byte	0x127
+ 994 024c 00000000 		.4byte	.LFB7
+ 995 0250 0C000000 		.4byte	.LFE7-.LFB7
+ 996 0254 01       		.uleb128 0x1
+ 997 0255 9C       		.byte	0x9c
+ 998 0256 69020000 		.4byte	0x269
+ 999 025a 0C       		.uleb128 0xc
+ 1000 025b E1020000 		.4byte	.LASF28
+ 1001 025f 01       		.byte	0x1
+ 1002 0260 2701     		.2byte	0x127
+ 1003 0262 77000000 		.4byte	0x77
+ 1004 0266 01       		.uleb128 0x1
+ 1005 0267 50       		.byte	0x50
+ 1006 0268 00       		.byte	0
+ 1007 0269 0B       		.uleb128 0xb
+ 1008 026a D7000000 		.4byte	.LASF29
+ 1009 026e 01       		.byte	0x1
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccq0l6x5.s 			page 28
+
+
+ 1010 026f 3F01     		.2byte	0x13f
+ 1011 0271 00000000 		.4byte	.LFB8
+ 1012 0275 1C000000 		.4byte	.LFE8-.LFB8
+ 1013 0279 01       		.uleb128 0x1
+ 1014 027a 9C       		.byte	0x9c
+ 1015 027b B2020000 		.4byte	0x2b2
+ 1016 027f 0D       		.uleb128 0xd
+ 1017 0280 E1020000 		.4byte	.LASF28
+ 1018 0284 01       		.byte	0x1
+ 1019 0285 3F01     		.2byte	0x13f
+ 1020 0287 77000000 		.4byte	0x77
+ 1021 028b D2000000 		.4byte	.LLST9
+ 1022 028f 0E       		.uleb128 0xe
+ 1023 0290 C6000000 		.4byte	.LASF19
+ 1024 0294 01       		.byte	0x1
+ 1025 0295 4101     		.2byte	0x141
+ 1026 0297 6B000000 		.4byte	0x6b
+ 1027 029b FE000000 		.4byte	.LLST10
+ 1028 029f 08       		.uleb128 0x8
+ 1029 02a0 08000000 		.4byte	.LVL21
+ 1030 02a4 39040000 		.4byte	0x439
+ 1031 02a8 08       		.uleb128 0x8
+ 1032 02a9 14000000 		.4byte	.LVL23
+ 1033 02ad 44040000 		.4byte	0x444
+ 1034 02b1 00       		.byte	0
+ 1035 02b2 0B       		.uleb128 0xb
+ 1036 02b3 A7020000 		.4byte	.LASF30
+ 1037 02b7 01       		.byte	0x1
+ 1038 02b8 5901     		.2byte	0x159
+ 1039 02ba 00000000 		.4byte	.LFB9
+ 1040 02be 34000000 		.4byte	.LFE9-.LFB9
+ 1041 02c2 01       		.uleb128 0x1
+ 1042 02c3 9C       		.byte	0x9c
+ 1043 02c4 FB020000 		.4byte	0x2fb
+ 1044 02c8 0D       		.uleb128 0xd
+ 1045 02c9 6E020000 		.4byte	.LASF31
+ 1046 02cd 01       		.byte	0x1
+ 1047 02ce 5901     		.2byte	0x159
+ 1048 02d0 77000000 		.4byte	0x77
+ 1049 02d4 11010000 		.4byte	.LLST11
+ 1050 02d8 0E       		.uleb128 0xe
+ 1051 02d9 C6000000 		.4byte	.LASF19
+ 1052 02dd 01       		.byte	0x1
+ 1053 02de 5B01     		.2byte	0x15b
+ 1054 02e0 6B000000 		.4byte	0x6b
+ 1055 02e4 3D010000 		.4byte	.LLST12
+ 1056 02e8 08       		.uleb128 0x8
+ 1057 02e9 08000000 		.4byte	.LVL25
+ 1058 02ed 39040000 		.4byte	0x439
+ 1059 02f1 08       		.uleb128 0x8
+ 1060 02f2 28000000 		.4byte	.LVL26
+ 1061 02f6 44040000 		.4byte	0x444
+ 1062 02fa 00       		.byte	0
+ 1063 02fb 0B       		.uleb128 0xb
+ 1064 02fc 88020000 		.4byte	.LASF32
+ 1065 0300 01       		.byte	0x1
+ 1066 0301 7C01     		.2byte	0x17c
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccq0l6x5.s 			page 29
+
+
+ 1067 0303 00000000 		.4byte	.LFB10
+ 1068 0307 34000000 		.4byte	.LFE10-.LFB10
+ 1069 030b 01       		.uleb128 0x1
+ 1070 030c 9C       		.byte	0x9c
+ 1071 030d 44030000 		.4byte	0x344
+ 1072 0311 0D       		.uleb128 0xd
+ 1073 0312 31010000 		.4byte	.LASF33
+ 1074 0316 01       		.byte	0x1
+ 1075 0317 7C01     		.2byte	0x17c
+ 1076 0319 77000000 		.4byte	0x77
+ 1077 031d 50010000 		.4byte	.LLST13
+ 1078 0321 0E       		.uleb128 0xe
+ 1079 0322 C6000000 		.4byte	.LASF19
+ 1080 0326 01       		.byte	0x1
+ 1081 0327 7E01     		.2byte	0x17e
+ 1082 0329 6B000000 		.4byte	0x6b
+ 1083 032d 7C010000 		.4byte	.LLST14
+ 1084 0331 08       		.uleb128 0x8
+ 1085 0332 08000000 		.4byte	.LVL29
+ 1086 0336 39040000 		.4byte	0x439
+ 1087 033a 08       		.uleb128 0x8
+ 1088 033b 28000000 		.4byte	.LVL30
+ 1089 033f 44040000 		.4byte	0x444
+ 1090 0343 00       		.byte	0
+ 1091 0344 0A       		.uleb128 0xa
+ 1092 0345 9D000000 		.4byte	.LASF35
+ 1093 0349 01       		.byte	0x1
+ 1094 034a A101     		.2byte	0x1a1
+ 1095 034c 77000000 		.4byte	0x77
+ 1096 0350 00000000 		.4byte	.LFB11
+ 1097 0354 18000000 		.4byte	.LFE11-.LFB11
+ 1098 0358 01       		.uleb128 0x1
+ 1099 0359 9C       		.byte	0x9c
+ 1100 035a 0F       		.uleb128 0xf
+ 1101 035b C1020000 		.4byte	.LASF46
+ 1102 035f 01       		.byte	0x1
+ 1103 0360 BB01     		.2byte	0x1bb
+ 1104 0362 77000000 		.4byte	0x77
+ 1105 0366 00000000 		.4byte	.LFB12
+ 1106 036a AC000000 		.4byte	.LFE12-.LFB12
+ 1107 036e 01       		.uleb128 0x1
+ 1108 036f 9C       		.byte	0x9c
+ 1109 0370 F0030000 		.4byte	0x3f0
+ 1110 0374 0E       		.uleb128 0xe
+ 1111 0375 DA020000 		.4byte	.LASF36
+ 1112 0379 01       		.byte	0x1
+ 1113 037a BD01     		.2byte	0x1bd
+ 1114 037c 77000000 		.4byte	0x77
+ 1115 0380 8F010000 		.4byte	.LLST15
+ 1116 0384 10       		.uleb128 0x10
+ 1117 0385 6900     		.ascii	"i\000"
+ 1118 0387 01       		.byte	0x1
+ 1119 0388 BE01     		.2byte	0x1be
+ 1120 038a 77000000 		.4byte	0x77
+ 1121 038e C3010000 		.4byte	.LLST16
+ 1122 0392 11       		.uleb128 0x11
+ 1123 0393 1C000000 		.4byte	.LVL32
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccq0l6x5.s 			page 30
+
+
+ 1124 0397 4F040000 		.4byte	0x44f
+ 1125 039b A5030000 		.4byte	0x3a5
+ 1126 039f 12       		.uleb128 0x12
+ 1127 03a0 01       		.uleb128 0x1
+ 1128 03a1 50       		.byte	0x50
+ 1129 03a2 01       		.uleb128 0x1
+ 1130 03a3 31       		.byte	0x31
+ 1131 03a4 00       		.byte	0
+ 1132 03a5 08       		.uleb128 0x8
+ 1133 03a6 20000000 		.4byte	.LVL33
+ 1134 03aa 44030000 		.4byte	0x344
+ 1135 03ae 11       		.uleb128 0x11
+ 1136 03af 3C000000 		.4byte	.LVL36
+ 1137 03b3 4F040000 		.4byte	0x44f
+ 1138 03b7 C1030000 		.4byte	0x3c1
+ 1139 03bb 12       		.uleb128 0x12
+ 1140 03bc 01       		.uleb128 0x1
+ 1141 03bd 50       		.byte	0x50
+ 1142 03be 01       		.uleb128 0x1
+ 1143 03bf 31       		.byte	0x31
+ 1144 03c0 00       		.byte	0
+ 1145 03c1 08       		.uleb128 0x8
+ 1146 03c2 40000000 		.4byte	.LVL37
+ 1147 03c6 44030000 		.4byte	0x344
+ 1148 03ca 08       		.uleb128 0x8
+ 1149 03cb 58000000 		.4byte	.LVL39
+ 1150 03cf 44030000 		.4byte	0x344
+ 1151 03d3 11       		.uleb128 0x11
+ 1152 03d4 74000000 		.4byte	.LVL43
+ 1153 03d8 4F040000 		.4byte	0x44f
+ 1154 03dc E6030000 		.4byte	0x3e6
+ 1155 03e0 12       		.uleb128 0x12
+ 1156 03e1 01       		.uleb128 0x1
+ 1157 03e2 50       		.byte	0x50
+ 1158 03e3 01       		.uleb128 0x1
+ 1159 03e4 31       		.byte	0x31
+ 1160 03e5 00       		.byte	0
+ 1161 03e6 08       		.uleb128 0x8
+ 1162 03e7 78000000 		.4byte	.LVL44
+ 1163 03eb 44030000 		.4byte	0x344
+ 1164 03ef 00       		.byte	0
+ 1165 03f0 0B       		.uleb128 0xb
+ 1166 03f1 D0010000 		.4byte	.LASF37
+ 1167 03f5 01       		.byte	0x1
+ 1168 03f6 0202     		.2byte	0x202
+ 1169 03f8 00000000 		.4byte	.LFB13
+ 1170 03fc 1C000000 		.4byte	.LFE13-.LFB13
+ 1171 0400 01       		.uleb128 0x1
+ 1172 0401 9C       		.byte	0x9c
+ 1173 0402 17040000 		.4byte	0x417
+ 1174 0406 0D       		.uleb128 0xd
+ 1175 0407 00000000 		.4byte	.LASF38
+ 1176 040b 01       		.byte	0x1
+ 1177 040c 0202     		.2byte	0x202
+ 1178 040e 77000000 		.4byte	0x77
+ 1179 0412 E1010000 		.4byte	.LLST17
+ 1180 0416 00       		.byte	0
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccq0l6x5.s 			page 31
+
+
+ 1181 0417 13       		.uleb128 0x13
+ 1182 0418 7B010000 		.4byte	.LASF39
+ 1183 041c 01       		.byte	0x1
+ 1184 041d 18       		.byte	0x18
+ 1185 041e 77000000 		.4byte	0x77
+ 1186 0422 05       		.uleb128 0x5
+ 1187 0423 03       		.byte	0x3
+ 1188 0424 00000000 		.4byte	Comp_1_internalIntr
+ 1189 0428 14       		.uleb128 0x14
+ 1190 0429 1E030000 		.4byte	.LASF47
+ 1191 042d 01       		.byte	0x1
+ 1192 042e 17       		.byte	0x17
+ 1193 042f 6B000000 		.4byte	0x6b
+ 1194 0433 05       		.uleb128 0x5
+ 1195 0434 03       		.byte	0x3
+ 1196 0435 00000000 		.4byte	Comp_1_initVar
+ 1197 0439 15       		.uleb128 0x15
+ 1198 043a 57010000 		.4byte	.LASF40
+ 1199 043e 57010000 		.4byte	.LASF40
+ 1200 0442 03       		.byte	0x3
+ 1201 0443 E5       		.byte	0xe5
+ 1202 0444 15       		.uleb128 0x15
+ 1203 0445 8F010000 		.4byte	.LASF41
+ 1204 0449 8F010000 		.4byte	.LASF41
+ 1205 044d 03       		.byte	0x3
+ 1206 044e E6       		.byte	0xe6
+ 1207 044f 15       		.uleb128 0x15
+ 1208 0450 46010000 		.4byte	.LASF42
+ 1209 0454 46010000 		.4byte	.LASF42
+ 1210 0458 03       		.byte	0x3
+ 1211 0459 DA       		.byte	0xda
+ 1212 045a 00       		.byte	0
+ 1213              		.section	.debug_abbrev,"",%progbits
+ 1214              	.Ldebug_abbrev0:
+ 1215 0000 01       		.uleb128 0x1
+ 1216 0001 11       		.uleb128 0x11
+ 1217 0002 01       		.byte	0x1
+ 1218 0003 25       		.uleb128 0x25
+ 1219 0004 0E       		.uleb128 0xe
+ 1220 0005 13       		.uleb128 0x13
+ 1221 0006 0B       		.uleb128 0xb
+ 1222 0007 03       		.uleb128 0x3
+ 1223 0008 0E       		.uleb128 0xe
+ 1224 0009 1B       		.uleb128 0x1b
+ 1225 000a 0E       		.uleb128 0xe
+ 1226 000b 55       		.uleb128 0x55
+ 1227 000c 17       		.uleb128 0x17
+ 1228 000d 11       		.uleb128 0x11
+ 1229 000e 01       		.uleb128 0x1
+ 1230 000f 10       		.uleb128 0x10
+ 1231 0010 17       		.uleb128 0x17
+ 1232 0011 00       		.byte	0
+ 1233 0012 00       		.byte	0
+ 1234 0013 02       		.uleb128 0x2
+ 1235 0014 24       		.uleb128 0x24
+ 1236 0015 00       		.byte	0
+ 1237 0016 0B       		.uleb128 0xb
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccq0l6x5.s 			page 32
+
+
+ 1238 0017 0B       		.uleb128 0xb
+ 1239 0018 3E       		.uleb128 0x3e
+ 1240 0019 0B       		.uleb128 0xb
+ 1241 001a 03       		.uleb128 0x3
+ 1242 001b 0E       		.uleb128 0xe
+ 1243 001c 00       		.byte	0
+ 1244 001d 00       		.byte	0
+ 1245 001e 03       		.uleb128 0x3
+ 1246 001f 24       		.uleb128 0x24
+ 1247 0020 00       		.byte	0
+ 1248 0021 0B       		.uleb128 0xb
+ 1249 0022 0B       		.uleb128 0xb
+ 1250 0023 3E       		.uleb128 0x3e
+ 1251 0024 0B       		.uleb128 0xb
+ 1252 0025 03       		.uleb128 0x3
+ 1253 0026 08       		.uleb128 0x8
+ 1254 0027 00       		.byte	0
+ 1255 0028 00       		.byte	0
+ 1256 0029 04       		.uleb128 0x4
+ 1257 002a 16       		.uleb128 0x16
+ 1258 002b 00       		.byte	0
+ 1259 002c 03       		.uleb128 0x3
+ 1260 002d 0E       		.uleb128 0xe
+ 1261 002e 3A       		.uleb128 0x3a
+ 1262 002f 0B       		.uleb128 0xb
+ 1263 0030 3B       		.uleb128 0x3b
+ 1264 0031 05       		.uleb128 0x5
+ 1265 0032 49       		.uleb128 0x49
+ 1266 0033 13       		.uleb128 0x13
+ 1267 0034 00       		.byte	0
+ 1268 0035 00       		.byte	0
+ 1269 0036 05       		.uleb128 0x5
+ 1270 0037 35       		.uleb128 0x35
+ 1271 0038 00       		.byte	0
+ 1272 0039 49       		.uleb128 0x49
+ 1273 003a 13       		.uleb128 0x13
+ 1274 003b 00       		.byte	0
+ 1275 003c 00       		.byte	0
+ 1276 003d 06       		.uleb128 0x6
+ 1277 003e 2E       		.uleb128 0x2e
+ 1278 003f 01       		.byte	0x1
+ 1279 0040 3F       		.uleb128 0x3f
+ 1280 0041 19       		.uleb128 0x19
+ 1281 0042 03       		.uleb128 0x3
+ 1282 0043 0E       		.uleb128 0xe
+ 1283 0044 3A       		.uleb128 0x3a
+ 1284 0045 0B       		.uleb128 0xb
+ 1285 0046 3B       		.uleb128 0x3b
+ 1286 0047 0B       		.uleb128 0xb
+ 1287 0048 27       		.uleb128 0x27
+ 1288 0049 19       		.uleb128 0x19
+ 1289 004a 11       		.uleb128 0x11
+ 1290 004b 01       		.uleb128 0x1
+ 1291 004c 12       		.uleb128 0x12
+ 1292 004d 06       		.uleb128 0x6
+ 1293 004e 40       		.uleb128 0x40
+ 1294 004f 18       		.uleb128 0x18
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccq0l6x5.s 			page 33
+
+
+ 1295 0050 9742     		.uleb128 0x2117
+ 1296 0052 19       		.uleb128 0x19
+ 1297 0053 01       		.uleb128 0x1
+ 1298 0054 13       		.uleb128 0x13
+ 1299 0055 00       		.byte	0
+ 1300 0056 00       		.byte	0
+ 1301 0057 07       		.uleb128 0x7
+ 1302 0058 34       		.uleb128 0x34
+ 1303 0059 00       		.byte	0
+ 1304 005a 03       		.uleb128 0x3
+ 1305 005b 0E       		.uleb128 0xe
+ 1306 005c 3A       		.uleb128 0x3a
+ 1307 005d 0B       		.uleb128 0xb
+ 1308 005e 3B       		.uleb128 0x3b
+ 1309 005f 0B       		.uleb128 0xb
+ 1310 0060 49       		.uleb128 0x49
+ 1311 0061 13       		.uleb128 0x13
+ 1312 0062 02       		.uleb128 0x2
+ 1313 0063 17       		.uleb128 0x17
+ 1314 0064 00       		.byte	0
+ 1315 0065 00       		.byte	0
+ 1316 0066 08       		.uleb128 0x8
+ 1317 0067 898201   		.uleb128 0x4109
+ 1318 006a 00       		.byte	0
+ 1319 006b 11       		.uleb128 0x11
+ 1320 006c 01       		.uleb128 0x1
+ 1321 006d 31       		.uleb128 0x31
+ 1322 006e 13       		.uleb128 0x13
+ 1323 006f 00       		.byte	0
+ 1324 0070 00       		.byte	0
+ 1325 0071 09       		.uleb128 0x9
+ 1326 0072 05       		.uleb128 0x5
+ 1327 0073 00       		.byte	0
+ 1328 0074 03       		.uleb128 0x3
+ 1329 0075 0E       		.uleb128 0xe
+ 1330 0076 3A       		.uleb128 0x3a
+ 1331 0077 0B       		.uleb128 0xb
+ 1332 0078 3B       		.uleb128 0x3b
+ 1333 0079 0B       		.uleb128 0xb
+ 1334 007a 49       		.uleb128 0x49
+ 1335 007b 13       		.uleb128 0x13
+ 1336 007c 02       		.uleb128 0x2
+ 1337 007d 17       		.uleb128 0x17
+ 1338 007e 00       		.byte	0
+ 1339 007f 00       		.byte	0
+ 1340 0080 0A       		.uleb128 0xa
+ 1341 0081 2E       		.uleb128 0x2e
+ 1342 0082 00       		.byte	0
+ 1343 0083 3F       		.uleb128 0x3f
+ 1344 0084 19       		.uleb128 0x19
+ 1345 0085 03       		.uleb128 0x3
+ 1346 0086 0E       		.uleb128 0xe
+ 1347 0087 3A       		.uleb128 0x3a
+ 1348 0088 0B       		.uleb128 0xb
+ 1349 0089 3B       		.uleb128 0x3b
+ 1350 008a 05       		.uleb128 0x5
+ 1351 008b 27       		.uleb128 0x27
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccq0l6x5.s 			page 34
+
+
+ 1352 008c 19       		.uleb128 0x19
+ 1353 008d 49       		.uleb128 0x49
+ 1354 008e 13       		.uleb128 0x13
+ 1355 008f 11       		.uleb128 0x11
+ 1356 0090 01       		.uleb128 0x1
+ 1357 0091 12       		.uleb128 0x12
+ 1358 0092 06       		.uleb128 0x6
+ 1359 0093 40       		.uleb128 0x40
+ 1360 0094 18       		.uleb128 0x18
+ 1361 0095 9742     		.uleb128 0x2117
+ 1362 0097 19       		.uleb128 0x19
+ 1363 0098 00       		.byte	0
+ 1364 0099 00       		.byte	0
+ 1365 009a 0B       		.uleb128 0xb
+ 1366 009b 2E       		.uleb128 0x2e
+ 1367 009c 01       		.byte	0x1
+ 1368 009d 3F       		.uleb128 0x3f
+ 1369 009e 19       		.uleb128 0x19
+ 1370 009f 03       		.uleb128 0x3
+ 1371 00a0 0E       		.uleb128 0xe
+ 1372 00a1 3A       		.uleb128 0x3a
+ 1373 00a2 0B       		.uleb128 0xb
+ 1374 00a3 3B       		.uleb128 0x3b
+ 1375 00a4 05       		.uleb128 0x5
+ 1376 00a5 27       		.uleb128 0x27
+ 1377 00a6 19       		.uleb128 0x19
+ 1378 00a7 11       		.uleb128 0x11
+ 1379 00a8 01       		.uleb128 0x1
+ 1380 00a9 12       		.uleb128 0x12
+ 1381 00aa 06       		.uleb128 0x6
+ 1382 00ab 40       		.uleb128 0x40
+ 1383 00ac 18       		.uleb128 0x18
+ 1384 00ad 9742     		.uleb128 0x2117
+ 1385 00af 19       		.uleb128 0x19
+ 1386 00b0 01       		.uleb128 0x1
+ 1387 00b1 13       		.uleb128 0x13
+ 1388 00b2 00       		.byte	0
+ 1389 00b3 00       		.byte	0
+ 1390 00b4 0C       		.uleb128 0xc
+ 1391 00b5 05       		.uleb128 0x5
+ 1392 00b6 00       		.byte	0
+ 1393 00b7 03       		.uleb128 0x3
+ 1394 00b8 0E       		.uleb128 0xe
+ 1395 00b9 3A       		.uleb128 0x3a
+ 1396 00ba 0B       		.uleb128 0xb
+ 1397 00bb 3B       		.uleb128 0x3b
+ 1398 00bc 05       		.uleb128 0x5
+ 1399 00bd 49       		.uleb128 0x49
+ 1400 00be 13       		.uleb128 0x13
+ 1401 00bf 02       		.uleb128 0x2
+ 1402 00c0 18       		.uleb128 0x18
+ 1403 00c1 00       		.byte	0
+ 1404 00c2 00       		.byte	0
+ 1405 00c3 0D       		.uleb128 0xd
+ 1406 00c4 05       		.uleb128 0x5
+ 1407 00c5 00       		.byte	0
+ 1408 00c6 03       		.uleb128 0x3
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccq0l6x5.s 			page 35
+
+
+ 1409 00c7 0E       		.uleb128 0xe
+ 1410 00c8 3A       		.uleb128 0x3a
+ 1411 00c9 0B       		.uleb128 0xb
+ 1412 00ca 3B       		.uleb128 0x3b
+ 1413 00cb 05       		.uleb128 0x5
+ 1414 00cc 49       		.uleb128 0x49
+ 1415 00cd 13       		.uleb128 0x13
+ 1416 00ce 02       		.uleb128 0x2
+ 1417 00cf 17       		.uleb128 0x17
+ 1418 00d0 00       		.byte	0
+ 1419 00d1 00       		.byte	0
+ 1420 00d2 0E       		.uleb128 0xe
+ 1421 00d3 34       		.uleb128 0x34
+ 1422 00d4 00       		.byte	0
+ 1423 00d5 03       		.uleb128 0x3
+ 1424 00d6 0E       		.uleb128 0xe
+ 1425 00d7 3A       		.uleb128 0x3a
+ 1426 00d8 0B       		.uleb128 0xb
+ 1427 00d9 3B       		.uleb128 0x3b
+ 1428 00da 05       		.uleb128 0x5
+ 1429 00db 49       		.uleb128 0x49
+ 1430 00dc 13       		.uleb128 0x13
+ 1431 00dd 02       		.uleb128 0x2
+ 1432 00de 17       		.uleb128 0x17
+ 1433 00df 00       		.byte	0
+ 1434 00e0 00       		.byte	0
+ 1435 00e1 0F       		.uleb128 0xf
+ 1436 00e2 2E       		.uleb128 0x2e
+ 1437 00e3 01       		.byte	0x1
+ 1438 00e4 3F       		.uleb128 0x3f
+ 1439 00e5 19       		.uleb128 0x19
+ 1440 00e6 03       		.uleb128 0x3
+ 1441 00e7 0E       		.uleb128 0xe
+ 1442 00e8 3A       		.uleb128 0x3a
+ 1443 00e9 0B       		.uleb128 0xb
+ 1444 00ea 3B       		.uleb128 0x3b
+ 1445 00eb 05       		.uleb128 0x5
+ 1446 00ec 27       		.uleb128 0x27
+ 1447 00ed 19       		.uleb128 0x19
+ 1448 00ee 49       		.uleb128 0x49
+ 1449 00ef 13       		.uleb128 0x13
+ 1450 00f0 11       		.uleb128 0x11
+ 1451 00f1 01       		.uleb128 0x1
+ 1452 00f2 12       		.uleb128 0x12
+ 1453 00f3 06       		.uleb128 0x6
+ 1454 00f4 40       		.uleb128 0x40
+ 1455 00f5 18       		.uleb128 0x18
+ 1456 00f6 9742     		.uleb128 0x2117
+ 1457 00f8 19       		.uleb128 0x19
+ 1458 00f9 01       		.uleb128 0x1
+ 1459 00fa 13       		.uleb128 0x13
+ 1460 00fb 00       		.byte	0
+ 1461 00fc 00       		.byte	0
+ 1462 00fd 10       		.uleb128 0x10
+ 1463 00fe 34       		.uleb128 0x34
+ 1464 00ff 00       		.byte	0
+ 1465 0100 03       		.uleb128 0x3
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccq0l6x5.s 			page 36
+
+
+ 1466 0101 08       		.uleb128 0x8
+ 1467 0102 3A       		.uleb128 0x3a
+ 1468 0103 0B       		.uleb128 0xb
+ 1469 0104 3B       		.uleb128 0x3b
+ 1470 0105 05       		.uleb128 0x5
+ 1471 0106 49       		.uleb128 0x49
+ 1472 0107 13       		.uleb128 0x13
+ 1473 0108 02       		.uleb128 0x2
+ 1474 0109 17       		.uleb128 0x17
+ 1475 010a 00       		.byte	0
+ 1476 010b 00       		.byte	0
+ 1477 010c 11       		.uleb128 0x11
+ 1478 010d 898201   		.uleb128 0x4109
+ 1479 0110 01       		.byte	0x1
+ 1480 0111 11       		.uleb128 0x11
+ 1481 0112 01       		.uleb128 0x1
+ 1482 0113 31       		.uleb128 0x31
+ 1483 0114 13       		.uleb128 0x13
+ 1484 0115 01       		.uleb128 0x1
+ 1485 0116 13       		.uleb128 0x13
+ 1486 0117 00       		.byte	0
+ 1487 0118 00       		.byte	0
+ 1488 0119 12       		.uleb128 0x12
+ 1489 011a 8A8201   		.uleb128 0x410a
+ 1490 011d 00       		.byte	0
+ 1491 011e 02       		.uleb128 0x2
+ 1492 011f 18       		.uleb128 0x18
+ 1493 0120 9142     		.uleb128 0x2111
+ 1494 0122 18       		.uleb128 0x18
+ 1495 0123 00       		.byte	0
+ 1496 0124 00       		.byte	0
+ 1497 0125 13       		.uleb128 0x13
+ 1498 0126 34       		.uleb128 0x34
+ 1499 0127 00       		.byte	0
+ 1500 0128 03       		.uleb128 0x3
+ 1501 0129 0E       		.uleb128 0xe
+ 1502 012a 3A       		.uleb128 0x3a
+ 1503 012b 0B       		.uleb128 0xb
+ 1504 012c 3B       		.uleb128 0x3b
+ 1505 012d 0B       		.uleb128 0xb
+ 1506 012e 49       		.uleb128 0x49
+ 1507 012f 13       		.uleb128 0x13
+ 1508 0130 02       		.uleb128 0x2
+ 1509 0131 18       		.uleb128 0x18
+ 1510 0132 00       		.byte	0
+ 1511 0133 00       		.byte	0
+ 1512 0134 14       		.uleb128 0x14
+ 1513 0135 34       		.uleb128 0x34
+ 1514 0136 00       		.byte	0
+ 1515 0137 03       		.uleb128 0x3
+ 1516 0138 0E       		.uleb128 0xe
+ 1517 0139 3A       		.uleb128 0x3a
+ 1518 013a 0B       		.uleb128 0xb
+ 1519 013b 3B       		.uleb128 0x3b
+ 1520 013c 0B       		.uleb128 0xb
+ 1521 013d 49       		.uleb128 0x49
+ 1522 013e 13       		.uleb128 0x13
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccq0l6x5.s 			page 37
+
+
+ 1523 013f 3F       		.uleb128 0x3f
+ 1524 0140 19       		.uleb128 0x19
+ 1525 0141 02       		.uleb128 0x2
+ 1526 0142 18       		.uleb128 0x18
+ 1527 0143 00       		.byte	0
+ 1528 0144 00       		.byte	0
+ 1529 0145 15       		.uleb128 0x15
+ 1530 0146 2E       		.uleb128 0x2e
+ 1531 0147 00       		.byte	0
+ 1532 0148 3F       		.uleb128 0x3f
+ 1533 0149 19       		.uleb128 0x19
+ 1534 014a 3C       		.uleb128 0x3c
+ 1535 014b 19       		.uleb128 0x19
+ 1536 014c 6E       		.uleb128 0x6e
+ 1537 014d 0E       		.uleb128 0xe
+ 1538 014e 03       		.uleb128 0x3
+ 1539 014f 0E       		.uleb128 0xe
+ 1540 0150 3A       		.uleb128 0x3a
+ 1541 0151 0B       		.uleb128 0xb
+ 1542 0152 3B       		.uleb128 0x3b
+ 1543 0153 0B       		.uleb128 0xb
+ 1544 0154 00       		.byte	0
+ 1545 0155 00       		.byte	0
+ 1546 0156 00       		.byte	0
+ 1547              		.section	.debug_loc,"",%progbits
+ 1548              	.Ldebug_loc0:
+ 1549              	.LLST0:
+ 1550 0000 06000000 		.4byte	.LVL0
+ 1551 0004 1D000000 		.4byte	.LVL1-1
+ 1552 0008 0100     		.2byte	0x1
+ 1553 000a 50       		.byte	0x50
+ 1554 000b 00000000 		.4byte	0
+ 1555 000f 00000000 		.4byte	0
+ 1556              	.LLST1:
+ 1557 0013 06000000 		.4byte	.LVL2
+ 1558 0017 1F000000 		.4byte	.LVL3-1
+ 1559 001b 0100     		.2byte	0x1
+ 1560 001d 50       		.byte	0x50
+ 1561 001e 00000000 		.4byte	0
+ 1562 0022 00000000 		.4byte	0
+ 1563              	.LLST2:
+ 1564 0026 06000000 		.4byte	.LVL6
+ 1565 002a 1B000000 		.4byte	.LVL7-1
+ 1566 002e 0100     		.2byte	0x1
+ 1567 0030 50       		.byte	0x50
+ 1568 0031 00000000 		.4byte	0
+ 1569 0035 00000000 		.4byte	0
+ 1570              	.LLST3:
+ 1571 0039 00000000 		.4byte	.LVL8
+ 1572 003d 07000000 		.4byte	.LVL9-1
+ 1573 0041 0100     		.2byte	0x1
+ 1574 0043 50       		.byte	0x50
+ 1575 0044 07000000 		.4byte	.LVL9-1
+ 1576 0048 22000000 		.4byte	.LVL12
+ 1577 004c 0100     		.2byte	0x1
+ 1578 004e 54       		.byte	0x54
+ 1579 004f 22000000 		.4byte	.LVL12
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccq0l6x5.s 			page 38
+
+
+ 1580 0053 2C000000 		.4byte	.LFE4
+ 1581 0057 0400     		.2byte	0x4
+ 1582 0059 F3       		.byte	0xf3
+ 1583 005a 01       		.uleb128 0x1
+ 1584 005b 50       		.byte	0x50
+ 1585 005c 9F       		.byte	0x9f
+ 1586 005d 00000000 		.4byte	0
+ 1587 0061 00000000 		.4byte	0
+ 1588              	.LLST4:
+ 1589 0065 12000000 		.4byte	.LVL10
+ 1590 0069 21000000 		.4byte	.LVL11-1
+ 1591 006d 0100     		.2byte	0x1
+ 1592 006f 51       		.byte	0x51
+ 1593 0070 00000000 		.4byte	0
+ 1594 0074 00000000 		.4byte	0
+ 1595              	.LLST5:
+ 1596 0078 08000000 		.4byte	.LVL9
+ 1597 007c 21000000 		.4byte	.LVL11-1
+ 1598 0080 0100     		.2byte	0x1
+ 1599 0082 50       		.byte	0x50
+ 1600 0083 00000000 		.4byte	0
+ 1601 0087 00000000 		.4byte	0
+ 1602              	.LLST6:
+ 1603 008b 00000000 		.4byte	.LVL13
+ 1604 008f 04000000 		.4byte	.LVL14
+ 1605 0093 0100     		.2byte	0x1
+ 1606 0095 50       		.byte	0x50
+ 1607 0096 04000000 		.4byte	.LVL14
+ 1608 009a 34000000 		.4byte	.LFE5
+ 1609 009e 0400     		.2byte	0x4
+ 1610 00a0 F3       		.byte	0xf3
+ 1611 00a1 01       		.uleb128 0x1
+ 1612 00a2 50       		.byte	0x50
+ 1613 00a3 9F       		.byte	0x9f
+ 1614 00a4 00000000 		.4byte	0
+ 1615 00a8 00000000 		.4byte	0
+ 1616              	.LLST7:
+ 1617 00ac 1A000000 		.4byte	.LVL16
+ 1618 00b0 1E000000 		.4byte	.LVL17
+ 1619 00b4 0100     		.2byte	0x1
+ 1620 00b6 53       		.byte	0x53
+ 1621 00b7 00000000 		.4byte	0
+ 1622 00bb 00000000 		.4byte	0
+ 1623              	.LLST8:
+ 1624 00bf 12000000 		.4byte	.LVL15
+ 1625 00c3 23000000 		.4byte	.LVL18-1
+ 1626 00c7 0100     		.2byte	0x1
+ 1627 00c9 50       		.byte	0x50
+ 1628 00ca 00000000 		.4byte	0
+ 1629 00ce 00000000 		.4byte	0
+ 1630              	.LLST9:
+ 1631 00d2 00000000 		.4byte	.LVL20
+ 1632 00d6 07000000 		.4byte	.LVL21-1
+ 1633 00da 0100     		.2byte	0x1
+ 1634 00dc 50       		.byte	0x50
+ 1635 00dd 07000000 		.4byte	.LVL21-1
+ 1636 00e1 0E000000 		.4byte	.LVL22
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccq0l6x5.s 			page 39
+
+
+ 1637 00e5 0100     		.2byte	0x1
+ 1638 00e7 54       		.byte	0x54
+ 1639 00e8 0E000000 		.4byte	.LVL22
+ 1640 00ec 1C000000 		.4byte	.LFE8
+ 1641 00f0 0400     		.2byte	0x4
+ 1642 00f2 F3       		.byte	0xf3
+ 1643 00f3 01       		.uleb128 0x1
+ 1644 00f4 50       		.byte	0x50
+ 1645 00f5 9F       		.byte	0x9f
+ 1646 00f6 00000000 		.4byte	0
+ 1647 00fa 00000000 		.4byte	0
+ 1648              	.LLST10:
+ 1649 00fe 08000000 		.4byte	.LVL21
+ 1650 0102 13000000 		.4byte	.LVL23-1
+ 1651 0106 0100     		.2byte	0x1
+ 1652 0108 50       		.byte	0x50
+ 1653 0109 00000000 		.4byte	0
+ 1654 010d 00000000 		.4byte	0
+ 1655              	.LLST11:
+ 1656 0111 00000000 		.4byte	.LVL24
+ 1657 0115 07000000 		.4byte	.LVL25-1
+ 1658 0119 0100     		.2byte	0x1
+ 1659 011b 50       		.byte	0x50
+ 1660 011c 07000000 		.4byte	.LVL25-1
+ 1661 0120 28000000 		.4byte	.LVL27
+ 1662 0124 0100     		.2byte	0x1
+ 1663 0126 54       		.byte	0x54
+ 1664 0127 28000000 		.4byte	.LVL27
+ 1665 012b 34000000 		.4byte	.LFE9
+ 1666 012f 0400     		.2byte	0x4
+ 1667 0131 F3       		.byte	0xf3
+ 1668 0132 01       		.uleb128 0x1
+ 1669 0133 50       		.byte	0x50
+ 1670 0134 9F       		.byte	0x9f
+ 1671 0135 00000000 		.4byte	0
+ 1672 0139 00000000 		.4byte	0
+ 1673              	.LLST12:
+ 1674 013d 08000000 		.4byte	.LVL25
+ 1675 0141 27000000 		.4byte	.LVL26-1
+ 1676 0145 0100     		.2byte	0x1
+ 1677 0147 50       		.byte	0x50
+ 1678 0148 00000000 		.4byte	0
+ 1679 014c 00000000 		.4byte	0
+ 1680              	.LLST13:
+ 1681 0150 00000000 		.4byte	.LVL28
+ 1682 0154 07000000 		.4byte	.LVL29-1
+ 1683 0158 0100     		.2byte	0x1
+ 1684 015a 50       		.byte	0x50
+ 1685 015b 07000000 		.4byte	.LVL29-1
+ 1686 015f 28000000 		.4byte	.LVL31
+ 1687 0163 0100     		.2byte	0x1
+ 1688 0165 54       		.byte	0x54
+ 1689 0166 28000000 		.4byte	.LVL31
+ 1690 016a 34000000 		.4byte	.LFE10
+ 1691 016e 0400     		.2byte	0x4
+ 1692 0170 F3       		.byte	0xf3
+ 1693 0171 01       		.uleb128 0x1
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccq0l6x5.s 			page 40
+
+
+ 1694 0172 50       		.byte	0x50
+ 1695 0173 9F       		.byte	0x9f
+ 1696 0174 00000000 		.4byte	0
+ 1697 0178 00000000 		.4byte	0
+ 1698              	.LLST14:
+ 1699 017c 08000000 		.4byte	.LVL29
+ 1700 0180 27000000 		.4byte	.LVL30-1
+ 1701 0184 0100     		.2byte	0x1
+ 1702 0186 50       		.byte	0x50
+ 1703 0187 00000000 		.4byte	0
+ 1704 018b 00000000 		.4byte	0
+ 1705              	.LLST15:
+ 1706 018f 22000000 		.4byte	.LVL34
+ 1707 0193 2E000000 		.4byte	.LVL35
+ 1708 0197 0100     		.2byte	0x1
+ 1709 0199 50       		.byte	0x50
+ 1710 019a 2E000000 		.4byte	.LVL35
+ 1711 019e 5A000000 		.4byte	.LVL40
+ 1712 01a2 0100     		.2byte	0x1
+ 1713 01a4 55       		.byte	0x55
+ 1714 01a5 5A000000 		.4byte	.LVL40
+ 1715 01a9 66000000 		.4byte	.LVL42
+ 1716 01ad 0100     		.2byte	0x1
+ 1717 01af 50       		.byte	0x50
+ 1718 01b0 66000000 		.4byte	.LVL42
+ 1719 01b4 98000000 		.4byte	.LVL47
+ 1720 01b8 0100     		.2byte	0x1
+ 1721 01ba 55       		.byte	0x55
+ 1722 01bb 00000000 		.4byte	0
+ 1723 01bf 00000000 		.4byte	0
+ 1724              	.LLST16:
+ 1725 01c3 2E000000 		.4byte	.LVL35
+ 1726 01c7 64000000 		.4byte	.LVL41
+ 1727 01cb 0100     		.2byte	0x1
+ 1728 01cd 54       		.byte	0x54
+ 1729 01ce 66000000 		.4byte	.LVL42
+ 1730 01d2 98000000 		.4byte	.LVL46
+ 1731 01d6 0100     		.2byte	0x1
+ 1732 01d8 54       		.byte	0x54
+ 1733 01d9 00000000 		.4byte	0
+ 1734 01dd 00000000 		.4byte	0
+ 1735              	.LLST17:
+ 1736 01e1 00000000 		.4byte	.LVL48
+ 1737 01e5 0C000000 		.4byte	.LVL49
+ 1738 01e9 0100     		.2byte	0x1
+ 1739 01eb 50       		.byte	0x50
+ 1740 01ec 0C000000 		.4byte	.LVL49
+ 1741 01f0 1C000000 		.4byte	.LFE13
+ 1742 01f4 0400     		.2byte	0x4
+ 1743 01f6 F3       		.byte	0xf3
+ 1744 01f7 01       		.uleb128 0x1
+ 1745 01f8 50       		.byte	0x50
+ 1746 01f9 9F       		.byte	0x9f
+ 1747 01fa 00000000 		.4byte	0
+ 1748 01fe 00000000 		.4byte	0
+ 1749              		.section	.debug_aranges,"",%progbits
+ 1750 0000 84000000 		.4byte	0x84
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccq0l6x5.s 			page 41
+
+
+ 1751 0004 0200     		.2byte	0x2
+ 1752 0006 00000000 		.4byte	.Ldebug_info0
+ 1753 000a 04       		.byte	0x4
+ 1754 000b 00       		.byte	0
+ 1755 000c 0000     		.2byte	0
+ 1756 000e 0000     		.2byte	0
+ 1757 0010 00000000 		.4byte	.LFB1
+ 1758 0014 28000000 		.4byte	.LFE1-.LFB1
+ 1759 0018 00000000 		.4byte	.LFB2
+ 1760 001c 2C000000 		.4byte	.LFE2-.LFB2
+ 1761 0020 00000000 		.4byte	.LFB0
+ 1762 0024 20000000 		.4byte	.LFE0-.LFB0
+ 1763 0028 00000000 		.4byte	.LFB3
+ 1764 002c 2C000000 		.4byte	.LFE3-.LFB3
+ 1765 0030 00000000 		.4byte	.LFB4
+ 1766 0034 2C000000 		.4byte	.LFE4-.LFB4
+ 1767 0038 00000000 		.4byte	.LFB5
+ 1768 003c 34000000 		.4byte	.LFE5-.LFB5
+ 1769 0040 00000000 		.4byte	.LFB6
+ 1770 0044 0C000000 		.4byte	.LFE6-.LFB6
+ 1771 0048 00000000 		.4byte	.LFB7
+ 1772 004c 0C000000 		.4byte	.LFE7-.LFB7
+ 1773 0050 00000000 		.4byte	.LFB8
+ 1774 0054 1C000000 		.4byte	.LFE8-.LFB8
+ 1775 0058 00000000 		.4byte	.LFB9
+ 1776 005c 34000000 		.4byte	.LFE9-.LFB9
+ 1777 0060 00000000 		.4byte	.LFB10
+ 1778 0064 34000000 		.4byte	.LFE10-.LFB10
+ 1779 0068 00000000 		.4byte	.LFB11
+ 1780 006c 18000000 		.4byte	.LFE11-.LFB11
+ 1781 0070 00000000 		.4byte	.LFB12
+ 1782 0074 AC000000 		.4byte	.LFE12-.LFB12
+ 1783 0078 00000000 		.4byte	.LFB13
+ 1784 007c 1C000000 		.4byte	.LFE13-.LFB13
+ 1785 0080 00000000 		.4byte	0
+ 1786 0084 00000000 		.4byte	0
+ 1787              		.section	.debug_ranges,"",%progbits
+ 1788              	.Ldebug_ranges0:
+ 1789 0000 00000000 		.4byte	.LFB1
+ 1790 0004 28000000 		.4byte	.LFE1
+ 1791 0008 00000000 		.4byte	.LFB2
+ 1792 000c 2C000000 		.4byte	.LFE2
+ 1793 0010 00000000 		.4byte	.LFB0
+ 1794 0014 20000000 		.4byte	.LFE0
+ 1795 0018 00000000 		.4byte	.LFB3
+ 1796 001c 2C000000 		.4byte	.LFE3
+ 1797 0020 00000000 		.4byte	.LFB4
+ 1798 0024 2C000000 		.4byte	.LFE4
+ 1799 0028 00000000 		.4byte	.LFB5
+ 1800 002c 34000000 		.4byte	.LFE5
+ 1801 0030 00000000 		.4byte	.LFB6
+ 1802 0034 0C000000 		.4byte	.LFE6
+ 1803 0038 00000000 		.4byte	.LFB7
+ 1804 003c 0C000000 		.4byte	.LFE7
+ 1805 0040 00000000 		.4byte	.LFB8
+ 1806 0044 1C000000 		.4byte	.LFE8
+ 1807 0048 00000000 		.4byte	.LFB9
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccq0l6x5.s 			page 42
+
+
+ 1808 004c 34000000 		.4byte	.LFE9
+ 1809 0050 00000000 		.4byte	.LFB10
+ 1810 0054 34000000 		.4byte	.LFE10
+ 1811 0058 00000000 		.4byte	.LFB11
+ 1812 005c 18000000 		.4byte	.LFE11
+ 1813 0060 00000000 		.4byte	.LFB12
+ 1814 0064 AC000000 		.4byte	.LFE12
+ 1815 0068 00000000 		.4byte	.LFB13
+ 1816 006c 1C000000 		.4byte	.LFE13
+ 1817 0070 00000000 		.4byte	0
+ 1818 0074 00000000 		.4byte	0
+ 1819              		.section	.debug_line,"",%progbits
+ 1820              	.Ldebug_line0:
+ 1821 0000 B1010000 		.section	.debug_str,"MS",%progbits,1
+ 1821      02004E00 
+ 1821      00000201 
+ 1821      FB0E0D00 
+ 1821      01010101 
+ 1822              	.LASF38:
+ 1823 0000 7472696D 		.ascii	"trimVal\000"
+ 1823      56616C00 
+ 1824              	.LASF22:
+ 1825 0008 436F6D70 		.ascii	"Comp_1_SetSpeed\000"
+ 1825      5F315F53 
+ 1825      65745370 
+ 1825      65656400 
+ 1826              	.LASF14:
+ 1827 0018 72656733 		.ascii	"reg32\000"
+ 1827      3200
+ 1828              	.LASF17:
+ 1829 001e 436F6D70 		.ascii	"Comp_1_Init\000"
+ 1829      5F315F49 
+ 1829      6E697400 
+ 1830              	.LASF11:
+ 1831 002a 666C6F61 		.ascii	"float\000"
+ 1831      7400
+ 1832              	.LASF24:
+ 1833 0030 436F6D70 		.ascii	"Comp_1_SetInterruptMode\000"
+ 1833      5F315F53 
+ 1833      6574496E 
+ 1833      74657272 
+ 1833      7570744D 
+ 1834              	.LASF3:
+ 1835 0048 73686F72 		.ascii	"short unsigned int\000"
+ 1835      7420756E 
+ 1835      7369676E 
+ 1835      65642069 
+ 1835      6E7400
+ 1836              	.LASF45:
+ 1837 005b 433A5C70 		.ascii	"C:\\proj\\QEncRT\\QEncRT\\QuadEncoderRTOS.cydsn\000"
+ 1837      726F6A5C 
+ 1837      51456E63 
+ 1837      52545C51 
+ 1837      456E6352 
+ 1838              	.LASF27:
+ 1839 0087 436F6D70 		.ascii	"Comp_1_ClearInterrupt\000"
+ 1839      5F315F43 
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccq0l6x5.s 			page 43
+
+
+ 1839      6C656172 
+ 1839      496E7465 
+ 1839      72727570 
+ 1840              	.LASF35:
+ 1841 009d 436F6D70 		.ascii	"Comp_1_GetCompare\000"
+ 1841      5F315F47 
+ 1841      6574436F 
+ 1841      6D706172 
+ 1841      6500
+ 1842              	.LASF7:
+ 1843 00af 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1843      206C6F6E 
+ 1843      6720756E 
+ 1843      7369676E 
+ 1843      65642069 
+ 1844              	.LASF19:
+ 1845 00c6 656E6162 		.ascii	"enableInterrupts\000"
+ 1845      6C65496E 
+ 1845      74657272 
+ 1845      75707473 
+ 1845      00
+ 1846              	.LASF29:
+ 1847 00d7 436F6D70 		.ascii	"Comp_1_SetInterrupt\000"
+ 1847      5F315F53 
+ 1847      6574496E 
+ 1847      74657272 
+ 1847      75707400 
+ 1848              	.LASF1:
+ 1849 00eb 756E7369 		.ascii	"unsigned char\000"
+ 1849      676E6564 
+ 1849      20636861 
+ 1849      7200
+ 1850              	.LASF44:
+ 1851 00f9 47656E65 		.ascii	"Generated_Source\\PSoC4\\Comp_1.c\000"
+ 1851      72617465 
+ 1851      645F536F 
+ 1851      75726365 
+ 1851      5C50536F 
+ 1852              	.LASF5:
+ 1853 0119 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1853      20756E73 
+ 1853      69676E65 
+ 1853      6420696E 
+ 1853      7400
+ 1854              	.LASF9:
+ 1855 012b 75696E74 		.ascii	"uint8\000"
+ 1855      3800
+ 1856              	.LASF33:
+ 1857 0131 66696C74 		.ascii	"filter\000"
+ 1857      657200
+ 1858              	.LASF23:
+ 1859 0138 636F6E66 		.ascii	"config\000"
+ 1859      696700
+ 1860              	.LASF12:
+ 1861 013f 646F7562 		.ascii	"double\000"
+ 1861      6C6500
+ 1862              	.LASF42:
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccq0l6x5.s 			page 44
+
+
+ 1863 0146 43794465 		.ascii	"CyDelayUs\000"
+ 1863      6C617955 
+ 1863      7300
+ 1864              	.LASF10:
+ 1865 0150 75696E74 		.ascii	"uint32\000"
+ 1865      333200
+ 1866              	.LASF40:
+ 1867 0157 4379456E 		.ascii	"CyEnterCriticalSection\000"
+ 1867      74657243 
+ 1867      72697469 
+ 1867      63616C53 
+ 1867      65637469 
+ 1868              	.LASF8:
+ 1869 016e 756E7369 		.ascii	"unsigned int\000"
+ 1869      676E6564 
+ 1869      20696E74 
+ 1869      00
+ 1870              	.LASF39:
+ 1871 017b 436F6D70 		.ascii	"Comp_1_internalIntr\000"
+ 1871      5F315F69 
+ 1871      6E746572 
+ 1871      6E616C49 
+ 1871      6E747200 
+ 1872              	.LASF41:
+ 1873 018f 43794578 		.ascii	"CyExitCriticalSection\000"
+ 1873      69744372 
+ 1873      69746963 
+ 1873      616C5365 
+ 1873      6374696F 
+ 1874              	.LASF21:
+ 1875 01a5 436F6D70 		.ascii	"Comp_1_Stop\000"
+ 1875      5F315F53 
+ 1875      746F7000 
+ 1876              	.LASF34:
+ 1877 01b1 436F6D70 		.ascii	"Comp_1_GetInterruptSource\000"
+ 1877      5F315F47 
+ 1877      6574496E 
+ 1877      74657272 
+ 1877      75707453 
+ 1878              	.LASF26:
+ 1879 01cb 6D6F6465 		.ascii	"mode\000"
+ 1879      00
+ 1880              	.LASF37:
+ 1881 01d0 436F6D70 		.ascii	"Comp_1_LoadTrim\000"
+ 1881      5F315F4C 
+ 1881      6F616454 
+ 1881      72696D00 
+ 1882              	.LASF43:
+ 1883 01e0 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1883      43313120 
+ 1883      352E342E 
+ 1883      31203230 
+ 1883      31363036 
+ 1884 0213 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
+ 1884      20726576 
+ 1884      6973696F 
+ 1884      6E203233 
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccq0l6x5.s 			page 45
+
+
+ 1884      37373135 
+ 1885 0246 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 1885      66756E63 
+ 1885      74696F6E 
+ 1885      2D736563 
+ 1885      74696F6E 
+ 1886              	.LASF31:
+ 1887 026e 68797374 		.ascii	"hysteresis\000"
+ 1887      65726573 
+ 1887      697300
+ 1888              	.LASF25:
+ 1889 0279 73706565 		.ascii	"speed\000"
+ 1889      6400
+ 1890              	.LASF16:
+ 1891 027f 73697A65 		.ascii	"sizetype\000"
+ 1891      74797065 
+ 1891      00
+ 1892              	.LASF32:
+ 1893 0288 436F6D70 		.ascii	"Comp_1_SetFilter\000"
+ 1893      5F315F53 
+ 1893      65744669 
+ 1893      6C746572 
+ 1893      00
+ 1894              	.LASF6:
+ 1895 0299 6C6F6E67 		.ascii	"long long int\000"
+ 1895      206C6F6E 
+ 1895      6720696E 
+ 1895      7400
+ 1896              	.LASF30:
+ 1897 02a7 436F6D70 		.ascii	"Comp_1_SetHysteresis\000"
+ 1897      5F315F53 
+ 1897      65744879 
+ 1897      73746572 
+ 1897      65736973 
+ 1898              	.LASF13:
+ 1899 02bc 63686172 		.ascii	"char\000"
+ 1899      00
+ 1900              	.LASF46:
+ 1901 02c1 436F6D70 		.ascii	"Comp_1_ZeroCal\000"
+ 1901      5F315F5A 
+ 1901      65726F43 
+ 1901      616C00
+ 1902              	.LASF2:
+ 1903 02d0 73686F72 		.ascii	"short int\000"
+ 1903      7420696E 
+ 1903      7400
+ 1904              	.LASF36:
+ 1905 02da 636D704F 		.ascii	"cmpOut\000"
+ 1905      757400
+ 1906              	.LASF28:
+ 1907 02e1 696E7465 		.ascii	"interruptMask\000"
+ 1907      72727570 
+ 1907      744D6173 
+ 1907      6B00
+ 1908              	.LASF4:
+ 1909 02ef 6C6F6E67 		.ascii	"long int\000"
+ 1909      20696E74 
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccq0l6x5.s 			page 46
+
+
+ 1909      00
+ 1910              	.LASF18:
+ 1911 02f8 436F6D70 		.ascii	"Comp_1_Enable\000"
+ 1911      5F315F45 
+ 1911      6E61626C 
+ 1911      6500
+ 1912              	.LASF15:
+ 1913 0306 6C6F6E67 		.ascii	"long double\000"
+ 1913      20646F75 
+ 1913      626C6500 
+ 1914              	.LASF0:
+ 1915 0312 7369676E 		.ascii	"signed char\000"
+ 1915      65642063 
+ 1915      68617200 
+ 1916              	.LASF47:
+ 1917 031e 436F6D70 		.ascii	"Comp_1_initVar\000"
+ 1917      5F315F69 
+ 1917      6E697456 
+ 1917      617200
+ 1918              	.LASF20:
+ 1919 032d 436F6D70 		.ascii	"Comp_1_Start\000"
+ 1919      5F315F53 
+ 1919      74617274 
+ 1919      00
+ 1920              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
