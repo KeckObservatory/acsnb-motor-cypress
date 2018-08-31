@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccl1yLGR.s 			page 1
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccRYyyRM.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccl1yLGR.s 			page 1
   28:FreeRTOS/heap_1.c **** 
   29:FreeRTOS/heap_1.c **** /*
   30:FreeRTOS/heap_1.c ****  * The simplest possible implementation of pvPortMalloc().  Note that this
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccl1yLGR.s 			page 2
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccRYyyRM.s 			page 2
 
 
   31:FreeRTOS/heap_1.c ****  * implementation does NOT allow allocated memory to be freed again.
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccl1yLGR.s 			page 1
   72:FreeRTOS/heap_1.c **** void *pvReturn = NULL;
   73:FreeRTOS/heap_1.c **** static uint8_t *pucAlignedHeap = NULL;
   74:FreeRTOS/heap_1.c **** 
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccl1yLGR.s 			page 3
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccRYyyRM.s 			page 3
 
 
   75:FreeRTOS/heap_1.c **** 	/* Ensure that blocks are always aligned to the required number of bytes. */
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccl1yLGR.s 			page 1
   74              		.loc 1 95 0 is_stmt 0 discriminator 1
   75 0032 A342     		cmp	r3, r4
   76 0034 07D2     		bcs	.L6
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccl1yLGR.s 			page 4
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccRYyyRM.s 			page 4
 
 
   96:FreeRTOS/heap_1.c **** 			( ( xNextFreeByte + xWantedSize ) > xNextFreeByte )	)/* Check for overflow. */
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccl1yLGR.s 			page 1
  106 0050 00000000 		.word	.LANCHOR0
  107 0054 80070000 		.word	.LANCHOR1
  108 0058 C7070000 		.word	1991
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccl1yLGR.s 			page 5
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccRYyyRM.s 			page 5
 
 
  109              		.cfi_endproc
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccl1yLGR.s 			page 1
  151              	vPortInitialiseBlocks:
  152              	.LFB34:
  132:FreeRTOS/heap_1.c **** /*-----------------------------------------------------------*/
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccl1yLGR.s 			page 6
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccRYyyRM.s 			page 6
 
 
  133:FreeRTOS/heap_1.c **** 
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccl1yLGR.s 			page 1
  195              		.align	2
  196              	.L16:
  197 000c 80070000 		.word	.LANCHOR1
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccl1yLGR.s 			page 7
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccRYyyRM.s 			page 7
 
 
  198              		.cfi_endproc
@@ -368,9 +368,9 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccl1yLGR.s 			page 1
  202              		.align	2
  203              		.set	.LANCHOR0,. + 0
  204              		.set	.LANCHOR1,. + 1920
- 205              		.type	pucAlignedHeap.6713, %object
- 206              		.size	pucAlignedHeap.6713, 4
- 207              	pucAlignedHeap.6713:
+ 205              		.type	pucAlignedHeap.6691, %object
+ 206              		.size	pucAlignedHeap.6691, 4
+ 207              	pucAlignedHeap.6691:
  208 0000 00000000 		.space	4
  209              		.type	ucHeap, %object
  210              		.size	ucHeap, 2000
@@ -397,10 +397,10 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccl1yLGR.s 			page 1
  227 0006 00000000 		.4byte	.Ldebug_abbrev0
  228 000a 04       		.byte	0x4
  229 000b 01       		.uleb128 0x1
- 230 000c 0E010000 		.4byte	.LASF26
+ 230 000c 14010000 		.4byte	.LASF26
  231 0010 0C       		.byte	0xc
- 232 0011 EA010000 		.4byte	.LASF27
- 233 0015 45000000 		.4byte	.LASF28
+ 232 0011 F0010000 		.4byte	.LASF27
+ 233 0015 7E000000 		.4byte	.LASF28
  234 0019 00000000 		.4byte	.Ldebug_ranges0+0
  235 001d 00000000 		.4byte	0
  236 0021 00000000 		.4byte	.Ldebug_line0
@@ -412,26 +412,26 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccl1yLGR.s 			page 1
  242 0030 03       		.uleb128 0x3
  243 0031 04       		.byte	0x4
  244 0032 07       		.byte	0x7
- 245 0033 E2000000 		.4byte	.LASF0
+ 245 0033 E8000000 		.4byte	.LASF0
  246 0037 04       		.uleb128 0x4
  247 0038 04       		.byte	0x4
  248 0039 05       		.byte	0x5
  249 003a 696E7400 		.ascii	"int\000"
  250 003e 03       		.uleb128 0x3
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccl1yLGR.s 			page 8
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccRYyyRM.s 			page 8
 
 
  251 003f 08       		.byte	0x8
  252 0040 05       		.byte	0x5
- 253 0041 A5010000 		.4byte	.LASF1
+ 253 0041 AB010000 		.4byte	.LASF1
  254 0045 03       		.uleb128 0x3
  255 0046 08       		.byte	0x8
  256 0047 04       		.byte	0x4
- 257 0048 18020000 		.4byte	.LASF2
+ 257 0048 1E020000 		.4byte	.LASF2
  258 004c 03       		.uleb128 0x3
  259 004d 01       		.byte	0x1
  260 004e 06       		.byte	0x6
- 261 004f 24020000 		.4byte	.LASF3
+ 261 004f 2A020000 		.4byte	.LASF3
  262 0053 02       		.uleb128 0x2
  263 0054 00000000 		.4byte	.LASF5
  264 0058 03       		.byte	0x3
@@ -440,68 +440,68 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccl1yLGR.s 			page 1
  267 005e 03       		.uleb128 0x3
  268 005f 01       		.byte	0x1
  269 0060 08       		.byte	0x8
- 270 0061 77000000 		.4byte	.LASF6
+ 270 0061 4B000000 		.4byte	.LASF6
  271 0065 03       		.uleb128 0x3
  272 0066 02       		.byte	0x2
  273 0067 05       		.byte	0x5
- 274 0068 E0010000 		.4byte	.LASF7
+ 274 0068 E6010000 		.4byte	.LASF7
  275 006c 03       		.uleb128 0x3
  276 006d 02       		.byte	0x2
  277 006e 07       		.byte	0x7
- 278 006f 97000000 		.4byte	.LASF8
+ 278 006f 6B000000 		.4byte	.LASF8
  279 0073 03       		.uleb128 0x3
  280 0074 04       		.byte	0x4
  281 0075 05       		.byte	0x5
- 282 0076 0F020000 		.4byte	.LASF9
+ 282 0076 15020000 		.4byte	.LASF9
  283 007a 02       		.uleb128 0x2
- 284 007b B1000000 		.4byte	.LASF10
+ 284 007b B7000000 		.4byte	.LASF10
  285 007f 03       		.byte	0x3
  286 0080 41       		.byte	0x41
  287 0081 85000000 		.4byte	0x85
  288 0085 03       		.uleb128 0x3
  289 0086 04       		.byte	0x4
  290 0087 07       		.byte	0x7
- 291 0088 85000000 		.4byte	.LASF11
+ 291 0088 59000000 		.4byte	.LASF11
  292 008c 03       		.uleb128 0x3
  293 008d 08       		.byte	0x8
  294 008e 07       		.byte	0x7
- 295 008f EF000000 		.4byte	.LASF12
+ 295 008f F5000000 		.4byte	.LASF12
  296 0093 03       		.uleb128 0x3
  297 0094 04       		.byte	0x4
  298 0095 07       		.byte	0x7
- 299 0096 9C010000 		.4byte	.LASF13
+ 299 0096 A2010000 		.4byte	.LASF13
  300 009a 05       		.uleb128 0x5
  301 009b 04       		.byte	0x4
  302 009c 03       		.uleb128 0x3
  303 009d 01       		.byte	0x1
  304 009e 08       		.byte	0x8
- 305 009f BF010000 		.4byte	.LASF14
+ 305 009f C5010000 		.4byte	.LASF14
  306 00a3 02       		.uleb128 0x2
- 307 00a4 06010000 		.4byte	.LASF15
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccl1yLGR.s 			page 9
+ 307 00a4 0C010000 		.4byte	.LASF15
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccRYyyRM.s 			page 9
 
 
  308 00a8 04       		.byte	0x4
  309 00a9 18       		.byte	0x18
  310 00aa 53000000 		.4byte	0x53
  311 00ae 02       		.uleb128 0x2
- 312 00af 06020000 		.4byte	.LASF16
+ 312 00af 0C020000 		.4byte	.LASF16
  313 00b3 04       		.byte	0x4
  314 00b4 30       		.byte	0x30
  315 00b5 7A000000 		.4byte	0x7a
  316 00b9 03       		.uleb128 0x3
  317 00ba 04       		.byte	0x4
  318 00bb 04       		.byte	0x4
- 319 00bc 71000000 		.4byte	.LASF17
+ 319 00bc 45000000 		.4byte	.LASF17
  320 00c0 03       		.uleb128 0x3
  321 00c1 08       		.byte	0x8
  322 00c2 04       		.byte	0x4
- 323 00c3 AA000000 		.4byte	.LASF18
+ 323 00c3 B0000000 		.4byte	.LASF18
  324 00c7 06       		.uleb128 0x6
  325 00c8 04       		.byte	0x4
  326 00c9 A3000000 		.4byte	0xa3
  327 00cd 07       		.uleb128 0x7
- 328 00ce D3010000 		.4byte	.LASF29
+ 328 00ce D9010000 		.4byte	.LASF29
  329 00d2 01       		.byte	0x1
  330 00d3 46       		.byte	0x46
  331 00d4 9A000000 		.4byte	0x9a
@@ -511,25 +511,25 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccl1yLGR.s 			page 1
  335 00e1 9C       		.byte	0x9c
  336 00e2 28010000 		.4byte	0x128
  337 00e6 08       		.uleb128 0x8
- 338 00e7 B3010000 		.4byte	.LASF21
+ 338 00e7 B9010000 		.4byte	.LASF21
  339 00eb 01       		.byte	0x1
  340 00ec 46       		.byte	0x46
  341 00ed 25000000 		.4byte	0x25
  342 00f1 00000000 		.4byte	.LLST0
  343 00f5 09       		.uleb128 0x9
- 344 00f6 BC000000 		.4byte	.LASF19
+ 344 00f6 C2000000 		.4byte	.LASF19
  345 00fa 01       		.byte	0x1
  346 00fb 48       		.byte	0x48
  347 00fc 9A000000 		.4byte	0x9a
  348 0100 1E000000 		.4byte	.LLST1
  349 0104 0A       		.uleb128 0xa
- 350 0105 C4010000 		.4byte	.LASF20
+ 350 0105 CA010000 		.4byte	.LASF20
  351 0109 01       		.byte	0x1
  352 010a 49       		.byte	0x49
  353 010b C7000000 		.4byte	0xc7
  354 010f 05       		.uleb128 0x5
  355 0110 03       		.byte	0x3
- 356 0111 00000000 		.4byte	pucAlignedHeap.6713
+ 356 0111 00000000 		.4byte	pucAlignedHeap.6691
  357 0115 0B       		.uleb128 0xb
  358 0116 12000000 		.4byte	.LVL3
  359 011a A3010000 		.4byte	0x1a3
@@ -538,10 +538,10 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccl1yLGR.s 			page 1
  362 0123 AF010000 		.4byte	0x1af
  363 0127 00       		.byte	0
  364 0128 0C       		.uleb128 0xc
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccl1yLGR.s 			page 10
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccRYyyRM.s 			page 10
 
 
- 365 0129 FC010000 		.4byte	.LASF30
+ 365 0129 02020000 		.4byte	.LASF30
  366 012d 01       		.byte	0x1
  367 012e 7A       		.byte	0x7a
  368 012f 00000000 		.4byte	.LFB33
@@ -558,7 +558,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccl1yLGR.s 			page 1
  379 0148 50       		.byte	0x50
  380 0149 00       		.byte	0
  381 014a 0E       		.uleb128 0xe
- 382 014b CC000000 		.4byte	.LASF31
+ 382 014b D2000000 		.4byte	.LASF31
  383 014f 01       		.byte	0x1
  384 0150 86       		.byte	0x86
  385 0151 00000000 		.4byte	.LFB34
@@ -582,7 +582,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccl1yLGR.s 			page 1
  403 017e CF07     		.2byte	0x7cf
  404 0180 00       		.byte	0
  405 0181 0A       		.uleb128 0xa
- 406 0182 C5000000 		.4byte	.LASF22
+ 406 0182 CB000000 		.4byte	.LASF22
  407 0186 01       		.byte	0x1
  408 0187 3E       		.byte	0x3e
  409 0188 70010000 		.4byte	0x170
@@ -590,7 +590,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccl1yLGR.s 			page 1
  411 018d 03       		.byte	0x3
  412 018e 04000000 		.4byte	ucHeap
  413 0192 0A       		.uleb128 0xa
- 414 0193 30020000 		.4byte	.LASF23
+ 414 0193 36020000 		.4byte	.LASF23
  415 0197 01       		.byte	0x1
  416 0198 42       		.byte	0x42
  417 0199 25000000 		.4byte	0x25
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccl1yLGR.s 			page 1
  419 019e 03       		.byte	0x3
  420 019f D4070000 		.4byte	xNextFreeByte
  421 01a3 12       		.uleb128 0x12
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccl1yLGR.s 			page 11
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccRYyyRM.s 			page 11
 
 
  422 01a4 11000000 		.4byte	.LASF24
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccl1yLGR.s 			page 1
  476 002a 00       		.byte	0
  477 002b 04       		.uleb128 0x4
  478 002c 24       		.uleb128 0x24
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccl1yLGR.s 			page 12
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccRYyyRM.s 			page 12
 
 
  479 002d 00       		.byte	0
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccl1yLGR.s 			page 1
  533 0064 00       		.byte	0
  534 0065 03       		.uleb128 0x3
  535 0066 0E       		.uleb128 0xe
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccl1yLGR.s 			page 13
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccRYyyRM.s 			page 13
 
 
  536 0067 3A       		.uleb128 0x3a
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccl1yLGR.s 			page 1
  590 009f 03       		.uleb128 0x3
  591 00a0 0E       		.uleb128 0xe
  592 00a1 3A       		.uleb128 0x3a
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccl1yLGR.s 			page 14
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccRYyyRM.s 			page 14
 
 
  593 00a2 0B       		.uleb128 0xb
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccl1yLGR.s 			page 1
  647 00da 00       		.byte	0
  648 00db 0F       		.uleb128 0xf
  649 00dc 2E       		.uleb128 0x2e
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccl1yLGR.s 			page 15
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccRYyyRM.s 			page 15
 
 
  650 00dd 00       		.byte	0
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccl1yLGR.s 			page 1
  704 0114 3B       		.uleb128 0x3b
  705 0115 05       		.uleb128 0x5
  706 0116 00       		.byte	0
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccl1yLGR.s 			page 16
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccRYyyRM.s 			page 16
 
 
  707 0117 00       		.byte	0
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccl1yLGR.s 			page 1
  761 0028 00000000 		.4byte	.LFB35
  762 002c 10000000 		.4byte	.LFE35-.LFB35
  763 0030 00000000 		.4byte	0
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccl1yLGR.s 			page 17
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccRYyyRM.s 			page 17
 
 
  764 0034 00000000 		.4byte	0
@@ -1004,150 +1004,151 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccl1yLGR.s 			page 1
  789      6B526573 
  789      756D6541 
  789      6C6C00
- 790              	.LASF28:
- 791 0045 433A5C70 		.ascii	"C:\\proj\\QEncRT\\QEncRT\\QuadEncoderRTOS.cydsn\000"
- 791      726F6A5C 
- 791      51456E63 
- 791      52545C51 
- 791      456E6352 
- 792              	.LASF17:
- 793 0071 666C6F61 		.ascii	"float\000"
- 793      7400
- 794              	.LASF6:
- 795 0077 756E7369 		.ascii	"unsigned char\000"
- 795      676E6564 
- 795      20636861 
- 795      7200
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccl1yLGR.s 			page 18
+ 790              	.LASF17:
+ 791 0045 666C6F61 		.ascii	"float\000"
+ 791      7400
+ 792              	.LASF6:
+ 793 004b 756E7369 		.ascii	"unsigned char\000"
+ 793      676E6564 
+ 793      20636861 
+ 793      7200
+ 794              	.LASF11:
+ 795 0059 6C6F6E67 		.ascii	"long unsigned int\000"
+ 795      20756E73 
+ 795      69676E65 
+ 795      6420696E 
+ 795      7400
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccRYyyRM.s 			page 18
 
 
- 796              	.LASF11:
- 797 0085 6C6F6E67 		.ascii	"long unsigned int\000"
- 797      20756E73 
- 797      69676E65 
- 797      6420696E 
- 797      7400
- 798              	.LASF8:
- 799 0097 73686F72 		.ascii	"short unsigned int\000"
- 799      7420756E 
- 799      7369676E 
- 799      65642069 
- 799      6E7400
- 800              	.LASF18:
- 801 00aa 646F7562 		.ascii	"double\000"
- 801      6C6500
- 802              	.LASF10:
- 803 00b1 5F5F7569 		.ascii	"__uint32_t\000"
- 803      6E743332 
- 803      5F7400
- 804              	.LASF19:
- 805 00bc 70765265 		.ascii	"pvReturn\000"
- 805      7475726E 
- 805      00
- 806              	.LASF22:
- 807 00c5 75634865 		.ascii	"ucHeap\000"
- 807      617000
- 808              	.LASF31:
- 809 00cc 76506F72 		.ascii	"vPortInitialiseBlocks\000"
- 809      74496E69 
- 809      7469616C 
- 809      69736542 
- 809      6C6F636B 
- 810              	.LASF0:
- 811 00e2 756E7369 		.ascii	"unsigned int\000"
- 811      676E6564 
- 811      20696E74 
- 811      00
- 812              	.LASF12:
- 813 00ef 6C6F6E67 		.ascii	"long long unsigned int\000"
- 813      206C6F6E 
- 813      6720756E 
- 813      7369676E 
- 813      65642069 
- 814              	.LASF15:
- 815 0106 75696E74 		.ascii	"uint8_t\000"
- 815      385F7400 
- 816              	.LASF26:
- 817 010e 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
- 817      43313120 
- 817      352E342E 
- 817      31203230 
- 817      31363036 
- 818 0141 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
- 818      20726576 
- 818      6973696F 
- 818      6E203233 
- 818      37373135 
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccl1yLGR.s 			page 19
+ 796              	.LASF8:
+ 797 006b 73686F72 		.ascii	"short unsigned int\000"
+ 797      7420756E 
+ 797      7369676E 
+ 797      65642069 
+ 797      6E7400
+ 798              	.LASF28:
+ 799 007e 433A5C70 		.ascii	"C:\\proj\\acsnb-motor-cypress\\QuadEncoderRTOS.cyds"
+ 799      726F6A5C 
+ 799      6163736E 
+ 799      622D6D6F 
+ 799      746F722D 
+ 800 00ae 6E00     		.ascii	"n\000"
+ 801              	.LASF18:
+ 802 00b0 646F7562 		.ascii	"double\000"
+ 802      6C6500
+ 803              	.LASF10:
+ 804 00b7 5F5F7569 		.ascii	"__uint32_t\000"
+ 804      6E743332 
+ 804      5F7400
+ 805              	.LASF19:
+ 806 00c2 70765265 		.ascii	"pvReturn\000"
+ 806      7475726E 
+ 806      00
+ 807              	.LASF22:
+ 808 00cb 75634865 		.ascii	"ucHeap\000"
+ 808      617000
+ 809              	.LASF31:
+ 810 00d2 76506F72 		.ascii	"vPortInitialiseBlocks\000"
+ 810      74496E69 
+ 810      7469616C 
+ 810      69736542 
+ 810      6C6F636B 
+ 811              	.LASF0:
+ 812 00e8 756E7369 		.ascii	"unsigned int\000"
+ 812      676E6564 
+ 812      20696E74 
+ 812      00
+ 813              	.LASF12:
+ 814 00f5 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 814      206C6F6E 
+ 814      6720756E 
+ 814      7369676E 
+ 814      65642069 
+ 815              	.LASF15:
+ 816 010c 75696E74 		.ascii	"uint8_t\000"
+ 816      385F7400 
+ 817              	.LASF26:
+ 818 0114 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 818      43313120 
+ 818      352E342E 
+ 818      31203230 
+ 818      31363036 
+ 819 0147 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
+ 819      20726576 
+ 819      6973696F 
+ 819      6E203233 
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccRYyyRM.s 			page 19
 
 
- 819 0174 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
- 819      66756E63 
- 819      74696F6E 
- 819      2D736563 
- 819      74696F6E 
- 820              	.LASF13:
- 821 019c 73697A65 		.ascii	"sizetype\000"
- 821      74797065 
- 821      00
- 822              	.LASF1:
- 823 01a5 6C6F6E67 		.ascii	"long long int\000"
- 823      206C6F6E 
- 823      6720696E 
- 823      7400
- 824              	.LASF21:
- 825 01b3 7857616E 		.ascii	"xWantedSize\000"
- 825      74656453 
- 825      697A6500 
- 826              	.LASF14:
- 827 01bf 63686172 		.ascii	"char\000"
- 827      00
- 828              	.LASF20:
- 829 01c4 70756341 		.ascii	"pucAlignedHeap\000"
- 829      6C69676E 
- 829      65644865 
- 829      617000
- 830              	.LASF29:
- 831 01d3 7076506F 		.ascii	"pvPortMalloc\000"
- 831      72744D61 
- 831      6C6C6F63 
- 831      00
- 832              	.LASF7:
- 833 01e0 73686F72 		.ascii	"short int\000"
- 833      7420696E 
- 833      7400
- 834              	.LASF27:
- 835 01ea 46726565 		.ascii	"FreeRTOS\\heap_1.c\000"
- 835      52544F53 
- 835      5C686561 
- 835      705F312E 
- 835      6300
- 836              	.LASF30:
- 837 01fc 76506F72 		.ascii	"vPortFree\000"
- 837      74467265 
- 837      6500
- 838              	.LASF16:
- 839 0206 75696E74 		.ascii	"uint32_t\000"
- 839      33325F74 
- 839      00
- 840              	.LASF9:
- 841 020f 6C6F6E67 		.ascii	"long int\000"
- 841      20696E74 
- 841      00
- 842              	.LASF2:
- 843 0218 6C6F6E67 		.ascii	"long double\000"
- 843      20646F75 
- 843      626C6500 
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccl1yLGR.s 			page 20
+ 819      37373135 
+ 820 017a 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 820      66756E63 
+ 820      74696F6E 
+ 820      2D736563 
+ 820      74696F6E 
+ 821              	.LASF13:
+ 822 01a2 73697A65 		.ascii	"sizetype\000"
+ 822      74797065 
+ 822      00
+ 823              	.LASF1:
+ 824 01ab 6C6F6E67 		.ascii	"long long int\000"
+ 824      206C6F6E 
+ 824      6720696E 
+ 824      7400
+ 825              	.LASF21:
+ 826 01b9 7857616E 		.ascii	"xWantedSize\000"
+ 826      74656453 
+ 826      697A6500 
+ 827              	.LASF14:
+ 828 01c5 63686172 		.ascii	"char\000"
+ 828      00
+ 829              	.LASF20:
+ 830 01ca 70756341 		.ascii	"pucAlignedHeap\000"
+ 830      6C69676E 
+ 830      65644865 
+ 830      617000
+ 831              	.LASF29:
+ 832 01d9 7076506F 		.ascii	"pvPortMalloc\000"
+ 832      72744D61 
+ 832      6C6C6F63 
+ 832      00
+ 833              	.LASF7:
+ 834 01e6 73686F72 		.ascii	"short int\000"
+ 834      7420696E 
+ 834      7400
+ 835              	.LASF27:
+ 836 01f0 46726565 		.ascii	"FreeRTOS\\heap_1.c\000"
+ 836      52544F53 
+ 836      5C686561 
+ 836      705F312E 
+ 836      6300
+ 837              	.LASF30:
+ 838 0202 76506F72 		.ascii	"vPortFree\000"
+ 838      74467265 
+ 838      6500
+ 839              	.LASF16:
+ 840 020c 75696E74 		.ascii	"uint32_t\000"
+ 840      33325F74 
+ 840      00
+ 841              	.LASF9:
+ 842 0215 6C6F6E67 		.ascii	"long int\000"
+ 842      20696E74 
+ 842      00
+ 843              	.LASF2:
+ 844 021e 6C6F6E67 		.ascii	"long double\000"
+ 844      20646F75 
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccRYyyRM.s 			page 20
 
 
- 844              	.LASF3:
- 845 0224 7369676E 		.ascii	"signed char\000"
- 845      65642063 
- 845      68617200 
- 846              	.LASF23:
- 847 0230 784E6578 		.ascii	"xNextFreeByte\000"
- 847      74467265 
- 847      65427974 
- 847      6500
- 848              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
+ 844      626C6500 
+ 845              	.LASF3:
+ 846 022a 7369676E 		.ascii	"signed char\000"
+ 846      65642063 
+ 846      68617200 
+ 847              	.LASF23:
+ 848 0236 784E6578 		.ascii	"xNextFreeByte\000"
+ 848      74467265 
+ 848      65427974 
+ 848      6500
+ 849              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccoPLdY2.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
   28:Generated_Source\PSoC4/SPI_1_SPI_UART.c ****     volatile uint32 SPI_1_rxBufferHead;
   29:Generated_Source\PSoC4/SPI_1_SPI_UART.c ****     /* Start index to get data from the software receive buffer.*/
   30:Generated_Source\PSoC4/SPI_1_SPI_UART.c ****     volatile uint32 SPI_1_rxBufferTail;
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 2
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccoPLdY2.s 			page 2
 
 
   31:Generated_Source\PSoC4/SPI_1_SPI_UART.c ****     /**
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
   28              		.loc 1 84 0
   29              		.cfi_startproc
   30              		@ args = 0, pretend = 0, frame = 0
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 3
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccoPLdY2.s 			page 3
 
 
   31              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
   60 0020 1360     		str	r3, [r2]
   61 0022 00E0     		b	.L2
   62              	.LVL4:
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 4
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccoPLdY2.s 			page 4
 
 
   63              	.L4:
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
  138:Generated_Source\PSoC4/SPI_1_SPI_UART.c ****     * Function Name: SPI_1_SpiUartGetRxBufferSize
  139:Generated_Source\PSoC4/SPI_1_SPI_UART.c ****     ****************************************************************************//**
  140:Generated_Source\PSoC4/SPI_1_SPI_UART.c ****     *
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 5
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccoPLdY2.s 			page 5
 
 
  141:Generated_Source\PSoC4/SPI_1_SPI_UART.c ****     *  Returns the number of received data elements in the receive buffer.
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
  173:Generated_Source\PSoC4/SPI_1_SPI_UART.c ****             {
  174:Generated_Source\PSoC4/SPI_1_SPI_UART.c ****                 size = (locHead + (SPI_1_INTERNAL_RX_BUFFER_SIZE - SPI_1_rxBufferTail));
  110              		.loc 1 174 0
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 6
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccoPLdY2.s 			page 6
 
 
  111 0014 034A     		ldr	r2, .L11+4
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
  138              		.loc 1 201 0
  139              		.cfi_startproc
  140              		@ args = 0, pretend = 0, frame = 0
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 7
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccoPLdY2.s 			page 7
 
 
  141              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
  223:Generated_Source\PSoC4/SPI_1_SPI_UART.c ****             /* Release lock */
  224:Generated_Source\PSoC4/SPI_1_SPI_UART.c ****             SPI_1_EnableInt();
  174              		.loc 1 224 0
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 8
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccoPLdY2.s 			page 8
 
 
  175 0030 0B20     		movs	r0, #11
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
  252:Generated_Source\PSoC4/SPI_1_SPI_UART.c ****     *  software transmit buffer.
  253:Generated_Source\PSoC4/SPI_1_SPI_UART.c ****     *  SPI_1_txBufferTail - start index to get data from the software
  254:Generated_Source\PSoC4/SPI_1_SPI_UART.c ****     *  transmit buffer.
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 9
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccoPLdY2.s 			page 9
 
 
  255:Generated_Source\PSoC4/SPI_1_SPI_UART.c ****     *
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
  277:Generated_Source\PSoC4/SPI_1_SPI_UART.c **** 
  278:Generated_Source\PSoC4/SPI_1_SPI_UART.c ****                 /* Adjust TX software buffer index */
  279:Generated_Source\PSoC4/SPI_1_SPI_UART.c ****                 if (SPI_1_TX_BUFFER_SIZE == locHead)
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 10
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccoPLdY2.s 			page 10
 
 
  233              		.loc 1 279 0
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
  264 004a 084A     		ldr	r2, .L22+24
  265 004c 1168     		ldr	r1, [r2]
  266 004e 0B43     		orrs	r3, r1
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 11
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccoPLdY2.s 			page 11
 
 
  267 0050 1360     		str	r3, [r2]
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
  330:Generated_Source\PSoC4/SPI_1_SPI_UART.c ****     *  (the data bit counting starts from LSB for each array element).
  331:Generated_Source\PSoC4/SPI_1_SPI_UART.c ****     * \param count: number of data elements to be placed in the transmit buffer.
  332:Generated_Source\PSoC4/SPI_1_SPI_UART.c ****     *
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 12
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccoPLdY2.s 			page 12
 
 
  333:Generated_Source\PSoC4/SPI_1_SPI_UART.c ****     * \globalvars
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
  330              		.cfi_endproc
  331              	.LFE4:
  332              		.size	SPI_1_SpiUartPutArray, .-SPI_1_SpiUartPutArray
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 13
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccoPLdY2.s 			page 13
 
 
  333              		.section	.text.SPI_1_SpiUartGetTxBufferSize,"ax",%progbits
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
  350              		.loc 1 385 0
  351 0004 074B     		ldr	r3, .L30+4
  352 0006 1B68     		ldr	r3, [r3]
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 14
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccoPLdY2.s 			page 14
 
 
  353 0008 9842     		cmp	r0, r3
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
  403:Generated_Source\PSoC4/SPI_1_SPI_UART.c **** 
  404:Generated_Source\PSoC4/SPI_1_SPI_UART.c ****     /*******************************************************************************
  405:Generated_Source\PSoC4/SPI_1_SPI_UART.c ****     * Function Name: SPI_1_SpiUartClearTxBuffer
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 15
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccoPLdY2.s 			page 15
 
 
  406:Generated_Source\PSoC4/SPI_1_SPI_UART.c ****     ****************************************************************************//**
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
  421 0028 084A     		ldr	r2, .L33+16
  422 002a 0A40     		ands	r2, r1
  423 002c 1A60     		str	r2, [r3]
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 16
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccoPLdY2.s 			page 16
 
 
  429:Generated_Source\PSoC4/SPI_1_SPI_UART.c ****             SPI_1_ClearTxInterruptSource(SPI_1_INTR_TX_ALL);
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
  451:Generated_Source\PSoC4/SPI_1_SPI_UART.c **** *   Returns the RX interrupt sources enabled before the function call.
  452:Generated_Source\PSoC4/SPI_1_SPI_UART.c **** *
  453:Generated_Source\PSoC4/SPI_1_SPI_UART.c **** *******************************************************************************/
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 17
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccoPLdY2.s 			page 17
 
 
  454:Generated_Source\PSoC4/SPI_1_SPI_UART.c **** uint32 SPI_1_SpiUartDisableIntRx(void)
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
  486              		.loc 1 477 0
  487              		.cfi_startproc
  488              		@ args = 0, pretend = 0, frame = 0
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 18
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccoPLdY2.s 			page 18
 
 
  489              		@ frame_needed = 0, uses_anonymous_args = 0
@@ -1066,28 +1066,28 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
  523 0006 00000000 		.4byte	.Ldebug_abbrev0
  524 000a 04       		.byte	0x4
  525 000b 01       		.uleb128 0x1
- 526 000c 08020000 		.4byte	.LASF44
+ 526 000c 0E020000 		.4byte	.LASF44
  527 0010 0C       		.byte	0xc
- 528 0011 83010000 		.4byte	.LASF45
- 529 0015 50000000 		.4byte	.LASF46
+ 528 0011 89010000 		.4byte	.LASF45
+ 529 0015 DD000000 		.4byte	.LASF46
  530 0019 00000000 		.4byte	.Ldebug_ranges0+0
  531 001d 00000000 		.4byte	0
  532 0021 00000000 		.4byte	.Ldebug_line0
  533 0025 02       		.uleb128 0x2
  534 0026 01       		.byte	0x1
  535 0027 06       		.byte	0x6
- 536 0028 3F030000 		.4byte	.LASF0
+ 536 0028 45030000 		.4byte	.LASF0
  537 002c 02       		.uleb128 0x2
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 19
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccoPLdY2.s 			page 19
 
 
  538 002d 01       		.byte	0x1
  539 002e 08       		.byte	0x8
- 540 002f 40010000 		.4byte	.LASF1
+ 540 002f 46010000 		.4byte	.LASF1
  541 0033 02       		.uleb128 0x2
  542 0034 02       		.byte	0x2
  543 0035 05       		.byte	0x5
- 544 0036 C7020000 		.4byte	.LASF2
+ 544 0036 CD020000 		.4byte	.LASF2
  545 003a 02       		.uleb128 0x2
  546 003b 02       		.byte	0x2
  547 003c 07       		.byte	0x7
@@ -1095,19 +1095,19 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
  549 0041 02       		.uleb128 0x2
  550 0042 04       		.byte	0x4
  551 0043 05       		.byte	0x5
- 552 0044 10030000 		.4byte	.LASF4
+ 552 0044 16030000 		.4byte	.LASF4
  553 0048 02       		.uleb128 0x2
  554 0049 04       		.byte	0x4
  555 004a 07       		.byte	0x7
- 556 004b F1000000 		.4byte	.LASF5
+ 556 004b C5000000 		.4byte	.LASF5
  557 004f 02       		.uleb128 0x2
  558 0050 08       		.byte	0x8
  559 0051 05       		.byte	0x5
- 560 0052 A7020000 		.4byte	.LASF6
+ 560 0052 AD020000 		.4byte	.LASF6
  561 0056 02       		.uleb128 0x2
  562 0057 08       		.byte	0x8
  563 0058 07       		.byte	0x7
- 564 0059 DA010000 		.4byte	.LASF7
+ 564 0059 E0010000 		.4byte	.LASF7
  565 005d 03       		.uleb128 0x3
  566 005e 04       		.byte	0x4
  567 005f 05       		.byte	0x5
@@ -1117,28 +1117,28 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
  571 0066 07       		.byte	0x7
  572 0067 43000000 		.4byte	.LASF8
  573 006b 04       		.uleb128 0x4
- 574 006c 03010000 		.4byte	.LASF9
+ 574 006c D7000000 		.4byte	.LASF9
  575 0070 02       		.byte	0x2
  576 0071 E401     		.2byte	0x1e4
  577 0073 2C000000 		.4byte	0x2c
  578 0077 04       		.uleb128 0x4
- 579 0078 61010000 		.4byte	.LASF10
+ 579 0078 67010000 		.4byte	.LASF10
  580 007c 02       		.byte	0x2
  581 007d E601     		.2byte	0x1e6
  582 007f 48000000 		.4byte	0x48
  583 0083 02       		.uleb128 0x2
  584 0084 04       		.byte	0x4
  585 0085 04       		.byte	0x4
- 586 0086 A8000000 		.4byte	.LASF11
+ 586 0086 94000000 		.4byte	.LASF11
  587 008a 02       		.uleb128 0x2
  588 008b 08       		.byte	0x8
  589 008c 04       		.byte	0x4
- 590 008d 4E010000 		.4byte	.LASF12
+ 590 008d 54010000 		.4byte	.LASF12
  591 0091 02       		.uleb128 0x2
  592 0092 01       		.byte	0x1
  593 0093 08       		.byte	0x8
- 594 0094 B5020000 		.4byte	.LASF13
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 20
+ 594 0094 BB020000 		.4byte	.LASF13
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccoPLdY2.s 			page 20
 
 
  595 0098 05       		.uleb128 0x5
@@ -1153,13 +1153,13 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
  604 00ae 02       		.uleb128 0x2
  605 00af 08       		.byte	0x8
  606 00b0 04       		.byte	0x4
- 607 00b1 19030000 		.4byte	.LASF15
+ 607 00b1 1F030000 		.4byte	.LASF15
  608 00b5 02       		.uleb128 0x2
  609 00b6 04       		.byte	0x4
  610 00b7 07       		.byte	0x7
- 611 00b8 9E020000 		.4byte	.LASF16
+ 611 00b8 A4020000 		.4byte	.LASF16
  612 00bc 06       		.uleb128 0x6
- 613 00bd D9000000 		.4byte	.LASF19
+ 613 00bd 50000000 		.4byte	.LASF19
  614 00c1 01       		.byte	0x1
  615 00c2 53       		.byte	0x53
  616 00c3 77000000 		.4byte	0x77
@@ -1169,20 +1169,20 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
  620 00d0 9C       		.byte	0x9c
  621 00d1 F4000000 		.4byte	0xf4
  622 00d5 07       		.uleb128 0x7
- 623 00d6 A1000000 		.4byte	.LASF17
+ 623 00d6 8D000000 		.4byte	.LASF17
  624 00da 01       		.byte	0x1
  625 00db 55       		.byte	0x55
  626 00dc 77000000 		.4byte	0x77
  627 00e0 00000000 		.4byte	.LLST0
  628 00e4 07       		.uleb128 0x7
- 629 00e5 96020000 		.4byte	.LASF18
+ 629 00e5 9C020000 		.4byte	.LASF18
  630 00e9 01       		.byte	0x1
  631 00ea 58       		.byte	0x58
  632 00eb 77000000 		.4byte	0x77
  633 00ef 36000000 		.4byte	.LLST1
  634 00f3 00       		.byte	0
  635 00f4 06       		.uleb128 0x6
- 636 00f5 7C000000 		.4byte	.LASF20
+ 636 00f5 68000000 		.4byte	.LASF20
  637 00f9 01       		.byte	0x1
  638 00fa 9D       		.byte	0x9d
  639 00fb 77000000 		.4byte	0x77
@@ -1192,23 +1192,23 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
  643 0108 9C       		.byte	0x9c
  644 0109 2C010000 		.4byte	0x12c
  645 010d 07       		.uleb128 0x7
- 646 010e C1000000 		.4byte	.LASF21
+ 646 010e AD000000 		.4byte	.LASF21
  647 0112 01       		.byte	0x1
  648 0113 9F       		.byte	0x9f
  649 0114 77000000 		.4byte	0x77
  650 0118 49000000 		.4byte	.LLST2
  651 011c 07       		.uleb128 0x7
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 21
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccoPLdY2.s 			page 21
 
 
- 652 011d 99000000 		.4byte	.LASF22
+ 652 011d 85000000 		.4byte	.LASF22
  653 0121 01       		.byte	0x1
  654 0122 A1       		.byte	0xa1
  655 0123 77000000 		.4byte	0x77
  656 0127 67000000 		.4byte	.LLST3
  657 012b 00       		.byte	0
  658 012c 08       		.uleb128 0x8
- 659 012d 61030000 		.4byte	.LASF23
+ 659 012d 67030000 		.4byte	.LASF23
  660 0131 01       		.byte	0x1
  661 0132 C8       		.byte	0xc8
  662 0133 00000000 		.4byte	.LFB2
@@ -1237,7 +1237,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
  685 0162 00       		.byte	0
  686 0163 00       		.byte	0
  687 0164 0C       		.uleb128 0xc
- 688 0165 E4020000 		.4byte	.LASF24
+ 688 0165 EA020000 		.4byte	.LASF24
  689 0169 01       		.byte	0x1
  690 016a 0101     		.2byte	0x101
  691 016c 00000000 		.4byte	.LFB3
@@ -1252,17 +1252,17 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
  700 0182 77000000 		.4byte	0x77
  701 0186 7A000000 		.4byte	.LLST4
  702 018a 0E       		.uleb128 0xe
- 703 018b 99000000 		.4byte	.LASF22
+ 703 018b 85000000 		.4byte	.LASF22
  704 018f 01       		.byte	0x1
  705 0190 0401     		.2byte	0x104
  706 0192 77000000 		.4byte	0x77
  707 0196 9B000000 		.4byte	.LLST5
  708 019a 00       		.byte	0
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 22
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccoPLdY2.s 			page 22
 
 
  709 019b 0C       		.uleb128 0xc
- 710 019c 4B030000 		.4byte	.LASF25
+ 710 019c 51030000 		.4byte	.LASF25
  711 01a0 01       		.byte	0x1
  712 01a1 5401     		.2byte	0x154
  713 01a3 00000000 		.4byte	.LFB4
@@ -1271,7 +1271,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
  716 01ac 9C       		.byte	0x9c
  717 01ad E9010000 		.4byte	0x1e9
  718 01b1 0D       		.uleb128 0xd
- 719 01b2 3A010000 		.4byte	.LASF27
+ 719 01b2 40010000 		.4byte	.LASF27
  720 01b6 01       		.byte	0x1
  721 01b7 5401     		.2byte	0x154
  722 01b9 E9010000 		.4byte	0x1e9
@@ -1308,23 +1308,23 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
  753 0209 9C       		.byte	0x9c
  754 020a 2F020000 		.4byte	0x22f
  755 020e 0E       		.uleb128 0xe
- 756 020f C1000000 		.4byte	.LASF21
+ 756 020f AD000000 		.4byte	.LASF21
  757 0213 01       		.byte	0x1
  758 0214 7701     		.2byte	0x177
  759 0216 77000000 		.4byte	0x77
  760 021a 34010000 		.4byte	.LLST9
  761 021e 0E       		.uleb128 0xe
- 762 021f 96020000 		.4byte	.LASF18
+ 762 021f 9C020000 		.4byte	.LASF18
  763 0223 01       		.byte	0x1
  764 0224 7901     		.2byte	0x179
  765 0226 77000000 		.4byte	0x77
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 23
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccoPLdY2.s 			page 23
 
 
  766 022a 52010000 		.4byte	.LLST10
  767 022e 00       		.byte	0
  768 022f 0C       		.uleb128 0xc
- 769 0230 68010000 		.4byte	.LASF30
+ 769 0230 6E010000 		.4byte	.LASF30
  770 0234 01       		.byte	0x1
  771 0235 A101     		.2byte	0x1a1
  772 0237 00000000 		.4byte	.LFB6
@@ -1353,7 +1353,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
  795 0266 00       		.byte	0
  796 0267 00       		.byte	0
  797 0268 13       		.uleb128 0x13
- 798 0269 09010000 		.4byte	.LASF31
+ 798 0269 0F010000 		.4byte	.LASF31
  799 026d 01       		.byte	0x1
  800 026e C601     		.2byte	0x1c6
  801 0270 77000000 		.4byte	0x77
@@ -1363,7 +1363,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
  805 027d 9C       		.byte	0x9c
  806 027e 91020000 		.4byte	0x291
  807 0282 14       		.uleb128 0x14
- 808 0283 B9010000 		.4byte	.LASF32
+ 808 0283 BF010000 		.4byte	.LASF32
  809 0287 01       		.byte	0x1
  810 0288 C801     		.2byte	0x1c8
  811 028a 77000000 		.4byte	0x77
@@ -1371,20 +1371,20 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
  813 028f 50       		.byte	0x50
  814 0290 00       		.byte	0
  815 0291 13       		.uleb128 0x13
- 816 0292 25030000 		.4byte	.LASF33
+ 816 0292 2B030000 		.4byte	.LASF33
  817 0296 01       		.byte	0x1
  818 0297 DC01     		.2byte	0x1dc
  819 0299 77000000 		.4byte	0x77
  820 029d 00000000 		.4byte	.LFB8
  821 02a1 10000000 		.4byte	.LFE8-.LFB8
  822 02a5 01       		.uleb128 0x1
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 24
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccoPLdY2.s 			page 24
 
 
  823 02a6 9C       		.byte	0x9c
  824 02a7 BA020000 		.4byte	0x2ba
  825 02ab 14       		.uleb128 0x14
- 826 02ac AB010000 		.4byte	.LASF34
+ 826 02ac B1010000 		.4byte	.LASF34
  827 02b0 01       		.byte	0x1
  828 02b1 DE01     		.2byte	0x1de
  829 02b3 77000000 		.4byte	0x77
@@ -1392,7 +1392,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
  831 02b8 50       		.byte	0x50
  832 02b9 00       		.byte	0
  833 02ba 15       		.uleb128 0x15
- 834 02bb FD020000 		.4byte	.LASF35
+ 834 02bb 03030000 		.4byte	.LASF35
  835 02bf 01       		.byte	0x1
  836 02c0 1C       		.byte	0x1c
  837 02c1 A9000000 		.4byte	0xa9
@@ -1400,7 +1400,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
  839 02c6 03       		.byte	0x3
  840 02c7 00000000 		.4byte	SPI_1_rxBufferHead
  841 02cb 15       		.uleb128 0x15
- 842 02cc C6000000 		.4byte	.LASF36
+ 842 02cc B2000000 		.4byte	.LASF36
  843 02d0 01       		.byte	0x1
  844 02d1 1E       		.byte	0x1e
  845 02d2 A9000000 		.4byte	0xa9
@@ -1408,7 +1408,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
  847 02d7 03       		.byte	0x3
  848 02d8 00000000 		.4byte	SPI_1_rxBufferTail
  849 02dc 15       		.uleb128 0x15
- 850 02dd C3010000 		.4byte	.LASF37
+ 850 02dd C9010000 		.4byte	.LASF37
  851 02e1 01       		.byte	0x1
  852 02e2 26       		.byte	0x26
  853 02e3 98000000 		.4byte	0x98
@@ -1416,7 +1416,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
  855 02e8 03       		.byte	0x3
  856 02e9 00000000 		.4byte	SPI_1_rxBufferOverflow
  857 02ed 15       		.uleb128 0x15
- 858 02ee D1020000 		.4byte	.LASF38
+ 858 02ee D7020000 		.4byte	.LASF38
  859 02f2 01       		.byte	0x1
  860 02f3 2C       		.byte	0x2c
  861 02f4 A9000000 		.4byte	0xa9
@@ -1424,7 +1424,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
  863 02f9 03       		.byte	0x3
  864 02fa 00000000 		.4byte	SPI_1_txBufferHead
  865 02fe 15       		.uleb128 0x15
- 866 02ff AE000000 		.4byte	.LASF39
+ 866 02ff 9A000000 		.4byte	.LASF39
  867 0303 01       		.byte	0x1
  868 0304 2E       		.byte	0x2e
  869 0305 A9000000 		.4byte	0xa9
@@ -1438,11 +1438,11 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
  877 0319 B5000000 		.4byte	0xb5
  878 031d 20       		.byte	0x20
  879 031e 00       		.byte	0
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 25
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccoPLdY2.s 			page 25
 
 
  880 031f 15       		.uleb128 0x15
- 881 0320 23010000 		.4byte	.LASF40
+ 881 0320 29010000 		.4byte	.LASF40
  882 0324 01       		.byte	0x1
  883 0325 33       		.byte	0x33
  884 0326 30030000 		.4byte	0x330
@@ -1459,7 +1459,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
  895 0343 1F       		.byte	0x1f
  896 0344 00       		.byte	0
  897 0345 15       		.uleb128 0x15
- 898 0346 F1010000 		.4byte	.LASF41
+ 898 0346 F7010000 		.4byte	.LASF41
  899 034a 01       		.byte	0x1
  900 034b 37       		.byte	0x37
  901 034c 56030000 		.4byte	0x356
@@ -1469,13 +1469,13 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
  905 0356 05       		.uleb128 0x5
  906 0357 35030000 		.4byte	0x335
  907 035b 18       		.uleb128 0x18
- 908 035c BA020000 		.4byte	.LASF42
- 909 0360 BA020000 		.4byte	.LASF42
+ 908 035c C0020000 		.4byte	.LASF42
+ 909 0360 C0020000 		.4byte	.LASF42
  910 0364 03       		.byte	0x3
  911 0365 C5       		.byte	0xc5
  912 0366 18       		.uleb128 0x18
- 913 0367 55010000 		.4byte	.LASF43
- 914 036b 55010000 		.4byte	.LASF43
+ 913 0367 5B010000 		.4byte	.LASF43
+ 914 036b 5B010000 		.4byte	.LASF43
  915 036f 03       		.byte	0x3
  916 0370 C3       		.byte	0xc3
  917 0371 00       		.byte	0
@@ -1498,7 +1498,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
  934 000e 01       		.uleb128 0x1
  935 000f 10       		.uleb128 0x10
  936 0010 17       		.uleb128 0x17
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 26
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccoPLdY2.s 			page 26
 
 
  937 0011 00       		.byte	0
@@ -1558,7 +1558,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
  991 0047 0B       		.uleb128 0xb
  992 0048 27       		.uleb128 0x27
  993 0049 19       		.uleb128 0x19
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 27
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccoPLdY2.s 			page 27
 
 
  994 004a 49       		.uleb128 0x49
@@ -1618,7 +1618,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
  1048 0082 09       		.uleb128 0x9
  1049 0083 898201   		.uleb128 0x4109
  1050 0086 01       		.byte	0x1
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 28
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccoPLdY2.s 			page 28
 
 
  1051 0087 11       		.uleb128 0x11
@@ -1678,7 +1678,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
  1105 00c3 03       		.uleb128 0x3
  1106 00c4 0E       		.uleb128 0xe
  1107 00c5 3A       		.uleb128 0x3a
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 29
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccoPLdY2.s 			page 29
 
 
  1108 00c6 0B       		.uleb128 0xb
@@ -1738,7 +1738,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
  1162 00fe 13       		.uleb128 0x13
  1163 00ff 00       		.byte	0
  1164 0100 00       		.byte	0
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 30
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccoPLdY2.s 			page 30
 
 
  1165 0101 12       		.uleb128 0x12
@@ -1798,7 +1798,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
  1219 0138 3A       		.uleb128 0x3a
  1220 0139 0B       		.uleb128 0xb
  1221 013a 3B       		.uleb128 0x3b
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 31
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccoPLdY2.s 			page 31
 
 
  1222 013b 0B       		.uleb128 0xb
@@ -1858,7 +1858,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
  1276 0010 24000000 		.4byte	.LVL4
  1277 0014 0100     		.2byte	0x1
  1278 0016 50       		.byte	0x50
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 32
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccoPLdY2.s 			page 32
 
 
  1279 0017 24000000 		.4byte	.LVL4
@@ -1918,7 +1918,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
  1333 00a5 52       		.byte	0x52
  1334 00a6 44000000 		.4byte	.LVL17
  1335 00aa 52000000 		.4byte	.LVL18
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 33
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccoPLdY2.s 			page 33
 
 
  1336 00ae 0500     		.2byte	0x5
@@ -1978,7 +1978,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
  1390 0134 12000000 		.4byte	.LVL28
  1391 0138 14000000 		.4byte	.LVL29
  1392 013c 0100     		.2byte	0x1
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 34
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccoPLdY2.s 			page 34
 
 
  1393 013e 50       		.byte	0x50
@@ -2038,7 +2038,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
  1447 0018 00000000 		.4byte	.LFB3
  1448 001c 70000000 		.4byte	.LFE3
  1449 0020 00000000 		.4byte	.LFB4
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 35
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccoPLdY2.s 			page 35
 
 
  1450 0024 18000000 		.4byte	.LFE4
@@ -2085,224 +2085,225 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 1
  1475      676E6564 
  1475      20696E74 
  1475      00
- 1476              	.LASF46:
- 1477 0050 433A5C70 		.ascii	"C:\\proj\\QEncRT\\QEncRT\\QuadEncoderRTOS.cydsn\000"
- 1477      726F6A5C 
- 1477      51456E63 
- 1477      52545C51 
- 1477      456E6352 
+ 1476              	.LASF19:
+ 1477 0050 5350495F 		.ascii	"SPI_1_SpiUartReadRxData\000"
+ 1477      315F5370 
+ 1477      69556172 
+ 1477      74526561 
+ 1477      64527844 
  1478              	.LASF20:
- 1479 007c 5350495F 		.ascii	"SPI_1_SpiUartGetRxBufferSize\000"
+ 1479 0068 5350495F 		.ascii	"SPI_1_SpiUartGetRxBufferSize\000"
  1479      315F5370 
  1479      69556172 
  1479      74476574 
  1479      52784275 
  1480              	.LASF22:
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 36
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccoPLdY2.s 			page 36
 
 
- 1481 0099 6C6F6348 		.ascii	"locHead\000"
+ 1481 0085 6C6F6348 		.ascii	"locHead\000"
  1481      65616400 
  1482              	.LASF17:
- 1483 00a1 72784461 		.ascii	"rxData\000"
+ 1483 008d 72784461 		.ascii	"rxData\000"
  1483      746100
  1484              	.LASF11:
- 1485 00a8 666C6F61 		.ascii	"float\000"
+ 1485 0094 666C6F61 		.ascii	"float\000"
  1485      7400
  1486              	.LASF39:
- 1487 00ae 5350495F 		.ascii	"SPI_1_txBufferTail\000"
+ 1487 009a 5350495F 		.ascii	"SPI_1_txBufferTail\000"
  1487      315F7478 
  1487      42756666 
  1487      65725461 
  1487      696C00
  1488              	.LASF21:
- 1489 00c1 73697A65 		.ascii	"size\000"
+ 1489 00ad 73697A65 		.ascii	"size\000"
  1489      00
  1490              	.LASF36:
- 1491 00c6 5350495F 		.ascii	"SPI_1_rxBufferTail\000"
+ 1491 00b2 5350495F 		.ascii	"SPI_1_rxBufferTail\000"
  1491      315F7278 
  1491      42756666 
  1491      65725461 
  1491      696C00
- 1492              	.LASF19:
- 1493 00d9 5350495F 		.ascii	"SPI_1_SpiUartReadRxData\000"
- 1493      315F5370 
- 1493      69556172 
- 1493      74526561 
- 1493      64527844 
- 1494              	.LASF5:
- 1495 00f1 6C6F6E67 		.ascii	"long unsigned int\000"
- 1495      20756E73 
- 1495      69676E65 
- 1495      6420696E 
- 1495      7400
- 1496              	.LASF9:
- 1497 0103 75696E74 		.ascii	"uint8\000"
- 1497      3800
- 1498              	.LASF31:
- 1499 0109 5350495F 		.ascii	"SPI_1_SpiUartDisableIntRx\000"
- 1499      315F5370 
- 1499      69556172 
- 1499      74446973 
- 1499      61626C65 
- 1500              	.LASF40:
- 1501 0123 5350495F 		.ascii	"SPI_1_rxBufferInternal\000"
- 1501      315F7278 
- 1501      42756666 
- 1501      6572496E 
- 1501      7465726E 
- 1502              	.LASF27:
- 1503 013a 77724275 		.ascii	"wrBuf\000"
- 1503      6600
- 1504              	.LASF1:
- 1505 0140 756E7369 		.ascii	"unsigned char\000"
- 1505      676E6564 
- 1505      20636861 
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 37
+ 1492              	.LASF5:
+ 1493 00c5 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1493      20756E73 
+ 1493      69676E65 
+ 1493      6420696E 
+ 1493      7400
+ 1494              	.LASF9:
+ 1495 00d7 75696E74 		.ascii	"uint8\000"
+ 1495      3800
+ 1496              	.LASF46:
+ 1497 00dd 433A5C70 		.ascii	"C:\\proj\\acsnb-motor-cypress\\QuadEncoderRTOS.cyds"
+ 1497      726F6A5C 
+ 1497      6163736E 
+ 1497      622D6D6F 
+ 1497      746F722D 
+ 1498 010d 6E00     		.ascii	"n\000"
+ 1499              	.LASF31:
+ 1500 010f 5350495F 		.ascii	"SPI_1_SpiUartDisableIntRx\000"
+ 1500      315F5370 
+ 1500      69556172 
+ 1500      74446973 
+ 1500      61626C65 
+ 1501              	.LASF40:
+ 1502 0129 5350495F 		.ascii	"SPI_1_rxBufferInternal\000"
+ 1502      315F7278 
+ 1502      42756666 
+ 1502      6572496E 
+ 1502      7465726E 
+ 1503              	.LASF27:
+ 1504 0140 77724275 		.ascii	"wrBuf\000"
+ 1504      6600
+ 1505              	.LASF1:
+ 1506 0146 756E7369 		.ascii	"unsigned char\000"
+ 1506      676E6564 
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccoPLdY2.s 			page 37
 
 
- 1505      7200
- 1506              	.LASF12:
- 1507 014e 646F7562 		.ascii	"double\000"
- 1507      6C6500
- 1508              	.LASF43:
- 1509 0155 4379496E 		.ascii	"CyIntEnable\000"
- 1509      74456E61 
- 1509      626C6500 
- 1510              	.LASF10:
- 1511 0161 75696E74 		.ascii	"uint32\000"
- 1511      333200
- 1512              	.LASF30:
- 1513 0168 5350495F 		.ascii	"SPI_1_SpiUartClearTxBuffer\000"
- 1513      315F5370 
- 1513      69556172 
- 1513      74436C65 
- 1513      61725478 
- 1514              	.LASF45:
- 1515 0183 47656E65 		.ascii	"Generated_Source\\PSoC4\\SPI_1_SPI_UART.c\000"
- 1515      72617465 
- 1515      645F536F 
- 1515      75726365 
- 1515      5C50536F 
- 1516              	.LASF34:
- 1517 01ab 696E7453 		.ascii	"intSourceMask\000"
- 1517      6F757263 
- 1517      654D6173 
- 1517      6B00
- 1518              	.LASF32:
- 1519 01b9 696E7453 		.ascii	"intSource\000"
- 1519      6F757263 
- 1519      6500
- 1520              	.LASF37:
- 1521 01c3 5350495F 		.ascii	"SPI_1_rxBufferOverflow\000"
- 1521      315F7278 
- 1521      42756666 
- 1521      65724F76 
- 1521      6572666C 
- 1522              	.LASF7:
- 1523 01da 6C6F6E67 		.ascii	"long long unsigned int\000"
- 1523      206C6F6E 
- 1523      6720756E 
- 1523      7369676E 
- 1523      65642069 
- 1524              	.LASF41:
- 1525 01f1 5350495F 		.ascii	"SPI_1_txBufferInternal\000"
- 1525      315F7478 
- 1525      42756666 
- 1525      6572496E 
- 1525      7465726E 
- 1526              	.LASF44:
- 1527 0208 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
- 1527      43313120 
- 1527      352E342E 
- 1527      31203230 
- 1527      31363036 
- 1528 023b 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 38
+ 1506      20636861 
+ 1506      7200
+ 1507              	.LASF12:
+ 1508 0154 646F7562 		.ascii	"double\000"
+ 1508      6C6500
+ 1509              	.LASF43:
+ 1510 015b 4379496E 		.ascii	"CyIntEnable\000"
+ 1510      74456E61 
+ 1510      626C6500 
+ 1511              	.LASF10:
+ 1512 0167 75696E74 		.ascii	"uint32\000"
+ 1512      333200
+ 1513              	.LASF30:
+ 1514 016e 5350495F 		.ascii	"SPI_1_SpiUartClearTxBuffer\000"
+ 1514      315F5370 
+ 1514      69556172 
+ 1514      74436C65 
+ 1514      61725478 
+ 1515              	.LASF45:
+ 1516 0189 47656E65 		.ascii	"Generated_Source\\PSoC4\\SPI_1_SPI_UART.c\000"
+ 1516      72617465 
+ 1516      645F536F 
+ 1516      75726365 
+ 1516      5C50536F 
+ 1517              	.LASF34:
+ 1518 01b1 696E7453 		.ascii	"intSourceMask\000"
+ 1518      6F757263 
+ 1518      654D6173 
+ 1518      6B00
+ 1519              	.LASF32:
+ 1520 01bf 696E7453 		.ascii	"intSource\000"
+ 1520      6F757263 
+ 1520      6500
+ 1521              	.LASF37:
+ 1522 01c9 5350495F 		.ascii	"SPI_1_rxBufferOverflow\000"
+ 1522      315F7278 
+ 1522      42756666 
+ 1522      65724F76 
+ 1522      6572666C 
+ 1523              	.LASF7:
+ 1524 01e0 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1524      206C6F6E 
+ 1524      6720756E 
+ 1524      7369676E 
+ 1524      65642069 
+ 1525              	.LASF41:
+ 1526 01f7 5350495F 		.ascii	"SPI_1_txBufferInternal\000"
+ 1526      315F7478 
+ 1526      42756666 
+ 1526      6572496E 
+ 1526      7465726E 
+ 1527              	.LASF44:
+ 1528 020e 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1528      43313120 
+ 1528      352E342E 
+ 1528      31203230 
+ 1528      31363036 
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccoPLdY2.s 			page 38
 
 
- 1528      20726576 
- 1528      6973696F 
- 1528      6E203233 
- 1528      37373135 
- 1529 026e 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
- 1529      66756E63 
- 1529      74696F6E 
- 1529      2D736563 
- 1529      74696F6E 
- 1530              	.LASF18:
- 1531 0296 6C6F6354 		.ascii	"locTail\000"
- 1531      61696C00 
- 1532              	.LASF16:
- 1533 029e 73697A65 		.ascii	"sizetype\000"
- 1533      74797065 
- 1533      00
- 1534              	.LASF6:
- 1535 02a7 6C6F6E67 		.ascii	"long long int\000"
- 1535      206C6F6E 
- 1535      6720696E 
- 1535      7400
- 1536              	.LASF13:
- 1537 02b5 63686172 		.ascii	"char\000"
- 1537      00
- 1538              	.LASF42:
- 1539 02ba 4379496E 		.ascii	"CyIntDisable\000"
- 1539      74446973 
- 1539      61626C65 
- 1539      00
- 1540              	.LASF2:
- 1541 02c7 73686F72 		.ascii	"short int\000"
- 1541      7420696E 
- 1541      7400
- 1542              	.LASF38:
- 1543 02d1 5350495F 		.ascii	"SPI_1_txBufferHead\000"
- 1543      315F7478 
- 1543      42756666 
- 1543      65724865 
- 1543      616400
- 1544              	.LASF24:
- 1545 02e4 5350495F 		.ascii	"SPI_1_SpiUartWriteTxData\000"
- 1545      315F5370 
- 1545      69556172 
- 1545      74577269 
- 1545      74655478 
- 1546              	.LASF35:
- 1547 02fd 5350495F 		.ascii	"SPI_1_rxBufferHead\000"
- 1547      315F7278 
- 1547      42756666 
- 1547      65724865 
- 1547      616400
- 1548              	.LASF4:
- 1549 0310 6C6F6E67 		.ascii	"long int\000"
- 1549      20696E74 
- 1549      00
- 1550              	.LASF15:
- 1551 0319 6C6F6E67 		.ascii	"long double\000"
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccEm2aZ3.s 			page 39
+ 1529 0241 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
+ 1529      20726576 
+ 1529      6973696F 
+ 1529      6E203233 
+ 1529      37373135 
+ 1530 0274 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 1530      66756E63 
+ 1530      74696F6E 
+ 1530      2D736563 
+ 1530      74696F6E 
+ 1531              	.LASF18:
+ 1532 029c 6C6F6354 		.ascii	"locTail\000"
+ 1532      61696C00 
+ 1533              	.LASF16:
+ 1534 02a4 73697A65 		.ascii	"sizetype\000"
+ 1534      74797065 
+ 1534      00
+ 1535              	.LASF6:
+ 1536 02ad 6C6F6E67 		.ascii	"long long int\000"
+ 1536      206C6F6E 
+ 1536      6720696E 
+ 1536      7400
+ 1537              	.LASF13:
+ 1538 02bb 63686172 		.ascii	"char\000"
+ 1538      00
+ 1539              	.LASF42:
+ 1540 02c0 4379496E 		.ascii	"CyIntDisable\000"
+ 1540      74446973 
+ 1540      61626C65 
+ 1540      00
+ 1541              	.LASF2:
+ 1542 02cd 73686F72 		.ascii	"short int\000"
+ 1542      7420696E 
+ 1542      7400
+ 1543              	.LASF38:
+ 1544 02d7 5350495F 		.ascii	"SPI_1_txBufferHead\000"
+ 1544      315F7478 
+ 1544      42756666 
+ 1544      65724865 
+ 1544      616400
+ 1545              	.LASF24:
+ 1546 02ea 5350495F 		.ascii	"SPI_1_SpiUartWriteTxData\000"
+ 1546      315F5370 
+ 1546      69556172 
+ 1546      74577269 
+ 1546      74655478 
+ 1547              	.LASF35:
+ 1548 0303 5350495F 		.ascii	"SPI_1_rxBufferHead\000"
+ 1548      315F7278 
+ 1548      42756666 
+ 1548      65724865 
+ 1548      616400
+ 1549              	.LASF4:
+ 1550 0316 6C6F6E67 		.ascii	"long int\000"
+ 1550      20696E74 
+ 1550      00
+ 1551              	.LASF15:
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccoPLdY2.s 			page 39
 
 
- 1551      20646F75 
- 1551      626C6500 
- 1552              	.LASF33:
- 1553 0325 5350495F 		.ascii	"SPI_1_SpiUartDisableIntTx\000"
- 1553      315F5370 
- 1553      69556172 
- 1553      74446973 
- 1553      61626C65 
- 1554              	.LASF0:
- 1555 033f 7369676E 		.ascii	"signed char\000"
- 1555      65642063 
- 1555      68617200 
- 1556              	.LASF25:
- 1557 034b 5350495F 		.ascii	"SPI_1_SpiUartPutArray\000"
- 1557      315F5370 
- 1557      69556172 
- 1557      74507574 
- 1557      41727261 
- 1558              	.LASF23:
- 1559 0361 5350495F 		.ascii	"SPI_1_SpiUartClearRxBuffer\000"
- 1559      315F5370 
- 1559      69556172 
- 1559      74436C65 
- 1559      61725278 
- 1560              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
+ 1552 031f 6C6F6E67 		.ascii	"long double\000"
+ 1552      20646F75 
+ 1552      626C6500 
+ 1553              	.LASF33:
+ 1554 032b 5350495F 		.ascii	"SPI_1_SpiUartDisableIntTx\000"
+ 1554      315F5370 
+ 1554      69556172 
+ 1554      74446973 
+ 1554      61626C65 
+ 1555              	.LASF0:
+ 1556 0345 7369676E 		.ascii	"signed char\000"
+ 1556      65642063 
+ 1556      68617200 
+ 1557              	.LASF25:
+ 1558 0351 5350495F 		.ascii	"SPI_1_SpiUartPutArray\000"
+ 1558      315F5370 
+ 1558      69556172 
+ 1558      74507574 
+ 1558      41727261 
+ 1559              	.LASF23:
+ 1560 0367 5350495F 		.ascii	"SPI_1_SpiUartClearRxBuffer\000"
+ 1560      315F5370 
+ 1560      69556172 
+ 1560      74436C65 
+ 1560      61725278 
+ 1561              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

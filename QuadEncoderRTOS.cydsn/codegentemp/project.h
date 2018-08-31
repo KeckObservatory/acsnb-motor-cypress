@@ -64,8 +64,6 @@
 #include "spi_clk_aliases.h"
 #include "spi_miso.h"
 #include "spi_miso_aliases.h"
-#include "PROBE.h"
-#include "PROBE_aliases.h"
 #include "SPI_1_SCBCLK.h"
 #include "SPI_1_SCB_IRQ.h"
 #include "I2C_SCBCLK.h"

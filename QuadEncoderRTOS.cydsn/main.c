@@ -105,6 +105,7 @@ CY_ISR_PROTO(SPI_SS_IsrHandler);
  * GLOBALS
  * --------------------------------------------------------------------- */
 volatile uint16 Current;
+uint8 CurrentI2Cinbuf[20];
 TPIDLoop pidLoop;
 TPIDConstants pidConstants;
 
@@ -140,14 +141,19 @@ union {
     uint8 buf[sizeof(rxMessage_t)];
 } rxMessage;
 
+/* This is not a formal RTOS locking mechanism, because you cannot take locks inside an 
+   interrupt handler.  However, we can set a flag to indicate the rxMessage is at risk
+   of changing and make sure the PID task does not act on changing data. */
+bool rxMessageLocked;
 
 /* Message back to the BBB, watch out for alignment here by packing the structure */
 typedef struct  {
     
     uint32 signature; /* Comm signature for reliable messaging */
-    uint32 position;  /* Actual actuator position */
-    float pwm;        /* PWM value to drive the motor at, derived from onboard PID */
+    uint16 pad1;      /* Pad byte for backwards compatibility during testing */
     uint16 current;   /* Motor current consumption (mA) */
+    uint32 position;  /* Actual actuator position */ 
+    float pwm;        /* PWM value to drive the motor at, derived from onboard PID */     
     //TODO uint16 checksum;  /* Message checksum */
     
 } __attribute__ ((__packed__)) txMessage_t ;
@@ -210,37 +216,48 @@ void setupFreeRTOS(void) {
 *******************************************************************************/
 void Current_Read_Task(void *arg) {
     
+    volatile uint32 err;
     uint8 byteMSB;
     uint8 byteLSB;
-    uint8 inbuf[20];
     volatile uint16 CurrentTemp;
     
     /* Initial high water mark reading */
     uxHighWaterMark_Current = uxTaskGetStackHighWaterMark( NULL );
     
     while (1) {
-    
-        // TODO: Error checking here so the 'current' value doesn't get garbage in it
-        I2C_I2CMasterSendStart(INA219_I2C_ADDR, 0x00, 10); // send start condition for the INA219
-        I2C_I2CMasterWriteByte(INA219_REG_CALIBRATION, 10);
+
+        err = I2C_I2CMasterSendStart(INA219_I2C_ADDR, 0x00, 10); // send start condition for the INA219
+        if (err == I2C_I2C_MSTR_NO_ERROR) {
+            
+            I2C_I2CMasterWriteByte(INA219_REG_CALIBRATION, 10);
+            
+            byteMSB = (uint8)((INA219_CAL_VALUE & 0xFF00) >> 8);
+            I2C_I2CMasterWriteByte(byteMSB, 10);
+            
+            byteLSB = (uint8)(INA219_CAL_VALUE & 0x00FF);
+            I2C_I2CMasterWriteByte(byteLSB, 10);
+            I2C_I2CMasterSendStop(10);
+        }
         
-        byteMSB = (uint8)((INA219_CAL_VALUE & 0x0000FF00) >> 8);
-        I2C_I2CMasterWriteByte(byteMSB, 10);
-        
-        byteLSB = (uint8)(INA219_CAL_VALUE & 0x000000FF);
-        I2C_I2CMasterWriteByte(byteLSB, 10);
-        I2C_I2CMasterSendStop(10);
-        
-        I2C_I2CMasterSendStart(INA219_I2C_ADDR, 0x00, 10); // send start condition for the INA219
-        I2C_I2CMasterWriteByte(INA219_REG_CURRENT, 10);
-        I2C_I2CMasterSendStop(10);
-        
-        /* Read back the value for the current usage */
-        I2C_I2CMasterReadBuf(INA219_I2C_ADDR, inbuf, 5, 1);
-        
-        /* Reassemble the current value into a 16 bit value */
-        CurrentTemp = (uint16)(inbuf[0] << 8) + inbuf[1];
-        
+        err = I2C_I2CMasterSendStart(INA219_I2C_ADDR, 0x00, 10); // send start condition for the INA219
+        if (err == I2C_I2C_MSTR_NO_ERROR) {
+            
+            I2C_I2CMasterWriteByte(INA219_REG_CURRENT, 10);
+            I2C_I2CMasterSendStop(10);
+            
+            /* Read back the value for the current usage */
+            err = I2C_I2CMasterReadBuf(INA219_I2C_ADDR, CurrentI2Cinbuf, 5, 1);
+            
+            /* Reassemble the current value into a 16 bit value */
+            if (err == I2C_I2C_MSTR_NO_ERROR) {
+                CurrentTemp = (uint16)(CurrentI2Cinbuf[0] << 8) + CurrentI2Cinbuf[1];
+            } else {
+                CurrentTemp = 0;     
+            }
+        } else {
+            CurrentTemp = 0;   
+        }
+
         /* Perform the assignment as one operation, to make it as atomic as possible (may need more work here) */
         Current = CurrentTemp;
 
@@ -307,7 +324,7 @@ void Comm_Task(void *arg) {
             }
             
         }
-
+        
         /* Quick sleep, a whole messaging sequence will take maybe 1.5ms */
         Sleep(1);
         
@@ -328,7 +345,7 @@ void Comm_Task(void *arg) {
 *******************************************************************************/
 void PID_Task(void *arg) {
     
-    uint8 s = 0;
+    uint32 s = 0;
     uint32 error;
     uint32 position;
     static uint32 setpoint;
@@ -345,8 +362,9 @@ void PID_Task(void *arg) {
     
     while (1) {
         
-        /* If the SPI is moving data in right now, skip any touching of the message buffer */
-        if (SPI_1_SpiIsBusBusy()) {
+        /* If the interrupt handler for the end of SPI transaction is moving data into the rxMessageBuffer right now, 
+           wait for it to be done. */
+        if (rxMessageLocked) {
             
             /* Hold off until the SPI is done! */
             Sleep(1);
@@ -354,8 +372,14 @@ void PID_Task(void *arg) {
         } else {
         
             /* Flash the light to indicate the task is running */
-            s = !s;
-            LED_Write(s);                
+            if (++s > 100)
+                s = 0;
+            
+            if (s > 50) {
+                LED_Write(1);
+            } else {
+                LED_Write(0);
+            }
                 
             /* If the rxMessage is not corrupt, use it to update P/I/D and setpoint */
             if (rxMessage.msg.signature == COMM_SIGNATURE_WORD) {
@@ -367,7 +391,7 @@ void PID_Task(void *arg) {
                 
                     InitializePIDLoop( &pidLoop, rxMessage.msg.P, rxMessage.msg.I, rxMessage.msg.D, 0.0, 100.0 );        
                 }
-                    
+                   
                 setpoint = rxMessage.msg.setpoint;
             }
 
@@ -461,7 +485,7 @@ int main(void) {
 
     /* Enable the global interrupt */
     CyGlobalIntEnable;
-        
+    
     /*********************************************************************** 
     * Start the various subsystems.
     ***********************************************************************/
@@ -472,6 +496,9 @@ int main(void) {
     /* Start counting the quadrature encoding */
     Counter_1_Start();    
     Counter_1_WriteCounter(0x00800000);  // Set the encoder initially to mid range
+ 
+    /* Set some initial values */
+    rxMessageLocked = false;
     
     /***********************************************************************
     * Start the RTOS task scheduler
@@ -571,15 +598,17 @@ CY_ISR(SPI_SS_IsrHandler) {
             if (txclear) {
              
                 /* FIFO is clear and slave select deasserted, it's time to reset */ 
-                PROBE_Write(0);
+                //PROBE_Write(0);
                 
                 /* Clear the message buffer, the comm thread will fill it in again to make sure a fresh message is heading out */
                 bzero(txMessage.buf, sizeof(txMessage.buf)); 
 
-                /* Message from the master is completely clocked in by now */            
+                /* Message from the master is completely clocked in by now */     
+                rxMessageLocked = true;
                 for (i = 0; i < sizeof(rxMessage.buf); i++) {
                     rxMessage.buf[i] = (uint8) SPI_1_SpiUartReadRxData();            
                 }
+                rxMessageLocked = false;
                 
                 /* Clear out all the bytes in the receive side so they can be filled in again */
                 SPI_1_SpiUartClearRxBuffer();   
@@ -587,7 +616,7 @@ CY_ISR(SPI_SS_IsrHandler) {
                 /* Set the state to indicate to the messaging thread that it's time to load the TX buffer again */
                 txMessageState = txmsClear;
                 
-                PROBE_Write(1);              
+                //PROBE_Write(1);              
                 
             } else {
 

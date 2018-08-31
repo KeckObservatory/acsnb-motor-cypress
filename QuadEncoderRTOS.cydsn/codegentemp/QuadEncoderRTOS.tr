@@ -18,19 +18,20 @@
 ##################################################################### 
                     1::Clock Frequency Summary
 ===================================================================== 
-Number of clocks: 12
-Clock: Clock_1            | Frequency: 34.32 MHz  | Target: 12.00 MHz  | 
-Clock: Clock_1(FFB)       | N/A                   | Target: 12.00 MHz  | 
-Clock: CyHFClk            | N/A                   | Target: 24.00 MHz  | 
-Clock: CyILO              | N/A                   | Target: 0.03 MHz   | 
-Clock: CyIMO              | N/A                   | Target: 24.00 MHz  | 
-Clock: CyLFClk            | N/A                   | Target: 0.03 MHz   | 
-Clock: CyRouted1          | N/A                   | Target: 24.00 MHz  | 
-Clock: CySysClk           | N/A                   | Target: 24.00 MHz  | 
-Clock: I2C_SCBCLK         | N/A                   | Target: 1.60 MHz   | 
-Clock: I2C_SCBCLK(FFB)    | N/A                   | Target: 1.60 MHz   | 
-Clock: SPI_1_SCBCLK       | N/A                   | Target: 24.00 MHz  | 
-Clock: SPI_1_SCBCLK(FFB)  | N/A                   | Target: 24.00 MHz  | 
+Number of clocks: 13
+Clock: ClockBlock/ff_div_10  | N/A                   | Target: 100.00 MHz  | 
+Clock: Clock_1               | Frequency: 34.32 MHz  | Target: 12.00 MHz   | 
+Clock: Clock_1(FFB)          | N/A                   | Target: 12.00 MHz   | 
+Clock: CyHFClk               | N/A                   | Target: 48.00 MHz   | 
+Clock: CyILO                 | N/A                   | Target: 0.03 MHz    | 
+Clock: CyIMO                 | N/A                   | Target: 48.00 MHz   | 
+Clock: CyLFClk               | N/A                   | Target: 0.03 MHz    | 
+Clock: CyRouted1             | N/A                   | Target: 48.00 MHz   | 
+Clock: CySysClk              | N/A                   | Target: 48.00 MHz   | 
+Clock: I2C_SCBCLK            | N/A                   | Target: 1.60 MHz    | 
+Clock: I2C_SCBCLK(FFB)       | N/A                   | Target: 1.60 MHz    | 
+Clock: SPI_1_SCBCLK          | N/A                   | Target: 48.00 MHz   | 
+Clock: SPI_1_SCBCLK(FFB)     | N/A                   | Target: 48.00 MHz   | 
 
  =====================================================================
                     End of Clock Frequency Summary
@@ -61,19 +62,19 @@ All values are in Picoseconds
 
 Port Name        Setup to Clk  Clock Name:Phase  
 ---------------  ------------  ----------------  
-HOME_IN(0)_PAD   21158         Clock_1:R         
+HOME_IN(0)_PAD   21868         Clock_1:R         
 INDEX_IN(0)_PAD  21792         Clock_1:R         
 phiA(0)_PAD      22022         Clock_1:R         
-phiB(0)_PAD      22758         Clock_1:R         
+phiB(0)_PAD      22316         Clock_1:R         
 
 
                        3.2::Clock to Out
                        -----------------
 
-Port Name         Clock to Out  Clock Name:Phase  
-----------------  ------------  ----------------  
-Direction(0)_PAD  26032         Clock_1:R         
-PWM_OUT(0)_PAD    21379         Clock_1(FFB):R    
+Port Name         Clock to Out  Clock Name:Phase        
+----------------  ------------  ----------------------  
+Direction(0)_PAD  26032         Clock_1:R               
+PWM_OUT(0)_PAD    15120         ClockBlock/ff_div_10:R  
 
 
                          3.3::Pad to Pad
@@ -81,7 +82,7 @@ PWM_OUT(0)_PAD    21379         Clock_1(FFB):R
 
 Port Name (Source)  Port Name (Destination)  Delay  
 ------------------  -----------------------  -----  
-HOME_IN(0)_PAD      HOME_OUT(0)_PAD          36952  
+HOME_IN(0)_PAD      HOME_OUT(0)_PAD          37343  
 INDEX_IN(0)_PAD     INDEX_OUT(0)_PAD         38857  
 
  =====================================================================

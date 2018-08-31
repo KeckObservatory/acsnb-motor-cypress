@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <device schemaVersion="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:noNamespaceSchemaLocation="CMSIS-SVD_Schema_1_0.xsd">
-  <name>CY8C4245AXI_483</name>
+  <name>CY8C4245AXI_473</name>
   <version>0.1</version>
   <description>PSoC 4200</description>
   <addressUnitBits>8</addressUnitBits>
@@ -19,7 +19,7 @@
         <register>
           <name>COUNTER</name>
           <description>Current counter value</description>
-          <addressOffset>0x40050108</addressOffset>
+          <addressOffset>0x40050188</addressOffset>
           <size>32</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -28,7 +28,7 @@
         <register>
           <name>CC</name>
           <description>Compare / capture value</description>
-          <addressOffset>0x4005010C</addressOffset>
+          <addressOffset>0x4005018C</addressOffset>
           <size>32</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -37,7 +37,7 @@
         <register>
           <name>CC_BUF</name>
           <description>Compare / capture buffer value</description>
-          <addressOffset>0x40050110</addressOffset>
+          <addressOffset>0x40050190</addressOffset>
           <size>32</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -46,7 +46,7 @@
         <register>
           <name>PERIOD</name>
           <description>Period value</description>
-          <addressOffset>0x40050114</addressOffset>
+          <addressOffset>0x40050194</addressOffset>
           <size>32</size>
           <access>read-write</access>
           <resetValue>0</resetValue>
@@ -55,7 +55,7 @@
         <register>
           <name>PERIOD_BUF</name>
           <description>Period buffer value</description>
-          <addressOffset>0x40050118</addressOffset>
+          <addressOffset>0x40050198</addressOffset>
           <size>32</size>
           <access>read-write</access>
           <resetValue>0</resetValue>

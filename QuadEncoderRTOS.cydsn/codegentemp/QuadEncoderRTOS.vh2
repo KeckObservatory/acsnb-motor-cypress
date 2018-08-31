@@ -2,7 +2,7 @@
 --	Conversion of QuadEncoderRTOS.v to vh2:
 --
 --	Cypress Semiconductor - WARP Version 6.3 IR 41
---	Tue Aug 14 12:12:08 2018
+--	Fri Aug 31 12:43:19 2018
 --
 
 USE cypress.cypress.all;
@@ -459,11 +459,6 @@ SIGNAL tmpFB_0__spi_miso_net_0 : bit;
 SIGNAL tmpIO_0__spi_miso_net_0 : bit;
 TERMINAL tmpSIOVREF__spi_miso_net_0 : bit;
 SIGNAL tmpINTERRUPT_0__spi_miso_net_0 : bit;
-SIGNAL tmpOE__PROBE_net_0 : bit;
-SIGNAL tmpFB_0__PROBE_net_0 : bit;
-SIGNAL tmpIO_0__PROBE_net_0 : bit;
-TERMINAL tmpSIOVREF__PROBE_net_0 : bit;
-SIGNAL tmpINTERRUPT_0__PROBE_net_0 : bit;
 SIGNAL cydff_6D : bit;
 SIGNAL cydff_5D : bit;
 SIGNAL \Counter_1:CounterUDB:prevCapture\\D\ : bit;
@@ -832,7 +827,7 @@ HOME_IN:cy_psoc3_pins_v1_10
 		id=>"8c8734ef-3644-4eed-bc55-360072b94fff/2dc2d7a8-ce2b-43c7-af4a-821c8cd73ccf",
 		source_clock_id=>"",
 		divisor=>0,
-		period=>"62500000",
+		period=>"20833333.3333333",
 		is_direct=>'0',
 		is_digital=>'0')
 	PORT MAP(clock_out=>\SPI_1:Net_847\,
@@ -2070,76 +2065,6 @@ spi_miso:cy_psoc3_pins_v1_10
 		out_clock_en=>tmpOE__INDEX_OUT_net_0,
 		out_reset=>zero,
 		interrupt=>tmpINTERRUPT_0__spi_miso_net_0);
-PROBE:cy_psoc3_pins_v1_10
-	GENERIC MAP(id=>"c0188285-e1f3-4a8b-83c9-6a40e68ea3dd",
-		drive_mode=>"110",
-		ibuf_enabled=>"1",
-		init_dr_st=>"0",
-		input_sync=>"1",
-		input_clk_en=>'0',
-		input_sync_mode=>"0",
-		intr_mode=>"00",
-		invert_in_clock=>'0',
-		invert_in_clock_en=>'0',
-		invert_in_reset=>'0',
-		invert_out_clock=>'0',
-		invert_out_clock_en=>'0',
-		invert_out_reset=>'0',
-		io_voltage=>"",
-		layout_mode=>"CONTIGUOUS",
-		output_conn=>"0",
-		output_sync=>"0",
-		output_clk_en=>'0',
-		output_mode=>"0",
-		output_reset=>'0',
-		output_clock_mode=>"0",
-		oe_sync=>"0",
-		oe_conn=>"0",
-		oe_reset=>'0',
-		pin_aliases=>"",
-		pin_mode=>"O",
-		por_state=>4,
-		sio_group_cnt=>0,
-		sio_hifreq=>"00000000",
-		sio_hyst=>"1",
-		sio_ibuf=>"00000000",
-		sio_info=>"00",
-		sio_obuf=>"00000000",
-		sio_refsel=>"00000000",
-		sio_vtrip=>"00000000",
-		sio_vohsel=>"00000000",
-		slew_rate=>"0",
-		spanning=>'0',
-		sw_only=>'0',
-		vtrip=>"10",
-		width=>1,
-		port_alias_required=>'0',
-		port_alias_group=>"",
-		use_annotation=>"0",
-		pa_in_clock=>-1,
-		pa_in_clock_en=>-1,
-		pa_in_reset=>-1,
-		pa_out_clock=>-1,
-		pa_out_clock_en=>-1,
-		pa_out_reset=>-1,
-		ovt_needed=>"0",
-		ovt_slew_control=>"00",
-		ovt_hyst_trim=>"0",
-		input_buffer_sel=>"00")
-	PORT MAP(oe=>(tmpOE__INDEX_OUT_net_0),
-		y=>(zero),
-		fb=>(tmpFB_0__PROBE_net_0),
-		analog=>(open),
-		io=>(tmpIO_0__PROBE_net_0),
-		siovref=>(tmpSIOVREF__PROBE_net_0),
-		annotation=>(open),
-		in_clock=>zero,
-		in_clock_en=>tmpOE__INDEX_OUT_net_0,
-		in_reset=>zero,
-		out_clock=>zero,
-		out_clock_en=>tmpOE__INDEX_OUT_net_0,
-		out_reset=>zero,
-		interrupt=>tmpINTERRUPT_0__PROBE_net_0);
 cydff_6:cy_dff
 	PORT MAP(d=>Net_629,
 		clk=>Net_478,

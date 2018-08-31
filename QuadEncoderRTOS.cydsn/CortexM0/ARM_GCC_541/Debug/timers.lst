@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccgEcgGh.s 			page 1
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccIVz4Qc.s 			page 1
 
 
    1              		.syntax unified
@@ -27,10 +27,10 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccgEcgGh.s 			page 1
   24 0006 00000000 		.4byte	.Ldebug_abbrev0
   25 000a 04       		.byte	0x4
   26 000b 01       		.uleb128 0x1
-  27 000c 93000000 		.4byte	.LASF14
+  27 000c 99000000 		.4byte	.LASF14
   28 0010 0C       		.byte	0xc
-  29 0011 4C010000 		.4byte	.LASF15
-  30 0015 1B000000 		.4byte	.LASF16
+  29 0011 52010000 		.4byte	.LASF15
+  30 0015 60000000 		.4byte	.LASF16
   31 0019 00000000 		.4byte	.Ldebug_line0
   32 001d 02       		.uleb128 0x2
   33 001e 04       		.byte	0x4
@@ -47,54 +47,54 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccgEcgGh.s 			page 1
   44 0032 02       		.uleb128 0x2
   45 0033 08       		.byte	0x8
   46 0034 04       		.byte	0x4
-  47 0035 40010000 		.4byte	.LASF2
+  47 0035 46010000 		.4byte	.LASF2
   48 0039 02       		.uleb128 0x2
   49 003a 01       		.byte	0x1
   50 003b 06       		.byte	0x6
-  51 003c 34010000 		.4byte	.LASF3
+  51 003c 3A010000 		.4byte	.LASF3
   52 0040 02       		.uleb128 0x2
   53 0041 01       		.byte	0x1
   54 0042 08       		.byte	0x8
-  55 0043 70000000 		.4byte	.LASF4
+  55 0043 44000000 		.4byte	.LASF4
   56 0047 02       		.uleb128 0x2
   57 0048 02       		.byte	0x2
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccgEcgGh.s 			page 2
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccIVz4Qc.s 			page 2
 
 
   58 0049 05       		.byte	0x5
-  59 004a 6B010000 		.4byte	.LASF5
+  59 004a 71010000 		.4byte	.LASF5
   60 004e 02       		.uleb128 0x2
   61 004f 02       		.byte	0x2
   62 0050 07       		.byte	0x7
-  63 0051 21010000 		.4byte	.LASF6
+  63 0051 27010000 		.4byte	.LASF6
   64 0055 02       		.uleb128 0x2
   65 0056 04       		.byte	0x4
   66 0057 05       		.byte	0x5
-  67 0058 83000000 		.4byte	.LASF7
+  67 0058 57000000 		.4byte	.LASF7
   68 005c 02       		.uleb128 0x2
   69 005d 04       		.byte	0x4
   70 005e 07       		.byte	0x7
-  71 005f 47000000 		.4byte	.LASF8
+  71 005f 1B000000 		.4byte	.LASF8
   72 0063 02       		.uleb128 0x2
   73 0064 08       		.byte	0x8
   74 0065 07       		.byte	0x7
-  75 0066 59000000 		.4byte	.LASF9
+  75 0066 2D000000 		.4byte	.LASF9
   76 006a 02       		.uleb128 0x2
   77 006b 04       		.byte	0x4
   78 006c 07       		.byte	0x7
-  79 006d 75010000 		.4byte	.LASF10
+  79 006d 7B010000 		.4byte	.LASF10
   80 0071 02       		.uleb128 0x2
   81 0072 01       		.byte	0x1
   82 0073 08       		.byte	0x8
-  83 0074 7E000000 		.4byte	.LASF11
+  83 0074 52000000 		.4byte	.LASF11
   84 0078 02       		.uleb128 0x2
   85 0079 04       		.byte	0x4
   86 007a 04       		.byte	0x4
-  87 007b 65010000 		.4byte	.LASF12
+  87 007b 6B010000 		.4byte	.LASF12
   88 007f 02       		.uleb128 0x2
   89 0080 08       		.byte	0x8
   90 0081 04       		.byte	0x4
-  91 0082 8C000000 		.4byte	.LASF13
+  91 0082 92000000 		.4byte	.LASF13
   92 0086 00       		.byte	0
   93              		.section	.debug_abbrev,"",%progbits
   94              	.Ldebug_abbrev0:
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccgEcgGh.s 			page 1
  112 0011 00       		.byte	0
  113 0012 0B       		.uleb128 0xb
  114 0013 0B       		.uleb128 0xb
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccgEcgGh.s 			page 3
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccIVz4Qc.s 			page 3
 
 
  115 0014 3E       		.uleb128 0x3e
@@ -166,90 +166,91 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccgEcgGh.s 			page 1
  149      676E6564 
  149      20696E74 
  149      00
- 150              	.LASF16:
- 151 001b 433A5C70 		.ascii	"C:\\proj\\QEncRT\\QEncRT\\QuadEncoderRTOS.cydsn\000"
- 151      726F6A5C 
- 151      51456E63 
- 151      52545C51 
- 151      456E6352 
- 152              	.LASF8:
- 153 0047 6C6F6E67 		.ascii	"long unsigned int\000"
- 153      20756E73 
- 153      69676E65 
- 153      6420696E 
- 153      7400
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccgEcgGh.s 			page 4
+ 150              	.LASF8:
+ 151 001b 6C6F6E67 		.ascii	"long unsigned int\000"
+ 151      20756E73 
+ 151      69676E65 
+ 151      6420696E 
+ 151      7400
+ 152              	.LASF9:
+ 153 002d 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 153      206C6F6E 
+ 153      6720756E 
+ 153      7369676E 
+ 153      65642069 
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccIVz4Qc.s 			page 4
 
 
- 154              	.LASF9:
- 155 0059 6C6F6E67 		.ascii	"long long unsigned int\000"
- 155      206C6F6E 
- 155      6720756E 
- 155      7369676E 
- 155      65642069 
- 156              	.LASF4:
- 157 0070 756E7369 		.ascii	"unsigned char\000"
- 157      676E6564 
- 157      20636861 
- 157      7200
- 158              	.LASF11:
- 159 007e 63686172 		.ascii	"char\000"
+ 154              	.LASF4:
+ 155 0044 756E7369 		.ascii	"unsigned char\000"
+ 155      676E6564 
+ 155      20636861 
+ 155      7200
+ 156              	.LASF11:
+ 157 0052 63686172 		.ascii	"char\000"
+ 157      00
+ 158              	.LASF7:
+ 159 0057 6C6F6E67 		.ascii	"long int\000"
+ 159      20696E74 
  159      00
- 160              	.LASF7:
- 161 0083 6C6F6E67 		.ascii	"long int\000"
- 161      20696E74 
- 161      00
- 162              	.LASF13:
- 163 008c 646F7562 		.ascii	"double\000"
- 163      6C6500
- 164              	.LASF14:
- 165 0093 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
- 165      43313120 
- 165      352E342E 
- 165      31203230 
- 165      31363036 
- 166 00c6 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
- 166      20726576 
- 166      6973696F 
- 166      6E203233 
- 166      37373135 
- 167 00f9 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
- 167      66756E63 
- 167      74696F6E 
- 167      2D736563 
- 167      74696F6E 
- 168              	.LASF6:
- 169 0121 73686F72 		.ascii	"short unsigned int\000"
- 169      7420756E 
- 169      7369676E 
- 169      65642069 
- 169      6E7400
- 170              	.LASF3:
- 171 0134 7369676E 		.ascii	"signed char\000"
- 171      65642063 
- 171      68617200 
- 172              	.LASF2:
- 173 0140 6C6F6E67 		.ascii	"long double\000"
- 173      20646F75 
- 173      626C6500 
- 174              	.LASF15:
- 175 014c 46726565 		.ascii	"FreeRTOS\\source\\timers.c\000"
- 175      52544F53 
- 175      5C736F75 
- 175      7263655C 
- 175      74696D65 
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccgEcgGh.s 			page 5
+ 160              	.LASF16:
+ 161 0060 433A5C70 		.ascii	"C:\\proj\\acsnb-motor-cypress\\QuadEncoderRTOS.cyds"
+ 161      726F6A5C 
+ 161      6163736E 
+ 161      622D6D6F 
+ 161      746F722D 
+ 162 0090 6E00     		.ascii	"n\000"
+ 163              	.LASF13:
+ 164 0092 646F7562 		.ascii	"double\000"
+ 164      6C6500
+ 165              	.LASF14:
+ 166 0099 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 166      43313120 
+ 166      352E342E 
+ 166      31203230 
+ 166      31363036 
+ 167 00cc 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
+ 167      20726576 
+ 167      6973696F 
+ 167      6E203233 
+ 167      37373135 
+ 168 00ff 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 168      66756E63 
+ 168      74696F6E 
+ 168      2D736563 
+ 168      74696F6E 
+ 169              	.LASF6:
+ 170 0127 73686F72 		.ascii	"short unsigned int\000"
+ 170      7420756E 
+ 170      7369676E 
+ 170      65642069 
+ 170      6E7400
+ 171              	.LASF3:
+ 172 013a 7369676E 		.ascii	"signed char\000"
+ 172      65642063 
+ 172      68617200 
+ 173              	.LASF2:
+ 174 0146 6C6F6E67 		.ascii	"long double\000"
+ 174      20646F75 
+ 174      626C6500 
+ 175              	.LASF15:
+ 176 0152 46726565 		.ascii	"FreeRTOS\\source\\timers.c\000"
+ 176      52544F53 
+ 176      5C736F75 
+ 176      7263655C 
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccIVz4Qc.s 			page 5
 
 
- 176              	.LASF12:
- 177 0165 666C6F61 		.ascii	"float\000"
- 177      7400
- 178              	.LASF5:
- 179 016b 73686F72 		.ascii	"short int\000"
- 179      7420696E 
- 179      7400
- 180              	.LASF10:
- 181 0175 73697A65 		.ascii	"sizetype\000"
- 181      74797065 
- 181      00
- 182              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
+ 176      74696D65 
+ 177              	.LASF12:
+ 178 016b 666C6F61 		.ascii	"float\000"
+ 178      7400
+ 179              	.LASF5:
+ 180 0171 73686F72 		.ascii	"short int\000"
+ 180      7420696E 
+ 180      7400
+ 181              	.LASF10:
+ 182 017b 73697A65 		.ascii	"sizetype\000"
+ 182      74797065 
+ 182      00
+ 183              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
