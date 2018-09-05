@@ -95,7 +95,7 @@ CY_ISR_PROTO(SPI_SS_IsrHandler);
 /* --------------------------------------------------------------------- 
  * RTOS INTERFACES
  * --------------------------------------------------------------------- */
-#/* Define macros for delaying a task by an amount, returning control back to the OS.
+/* Define macros for delaying a task by an amount, returning control back to the OS.
    We have to sleep in OS ticks, so compute how many that is and sleep that long.
    Minimum sleep time is 1ms. */
 #define Sleep(MSToSleep)    vTaskDelay( ( MSToSleep * 1000 ) / configTICK_RATE_HZ )
