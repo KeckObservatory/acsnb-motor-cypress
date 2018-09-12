@@ -127,7 +127,7 @@ SemaphoreHandle_t Lock;
 typedef struct {
     
     uint32 signature;  /* Comm signature for reliable messaging */ 
-    uint32 setpoint;   /* Setpoint (desired actuator position) */
+    uint32 setpoint;   /* Setpoint (desired actuator position, 24 bits), high byte used as PID enable */
     float P;
     float I;
     float D;
@@ -346,15 +346,16 @@ void Comm_Task(void *arg) {
 void PID_Task(void *arg) {
     
     uint32 s = 0;
-    uint32 error;
+    int32 error;
     uint32 position;
     static uint32 setpoint;
+    static bool pidenabled = false;
     
     /* Initial high water mark reading */
     uxHighWaterMark_PID = uxTaskGetStackHighWaterMark( NULL );
     
     /* Setup the PID data structure */
-    InitializePIDLoop( &pidLoop, 1.0, 1.0, 1.0, 0.0, 100.0 );    
+    InitializePIDLoop( &pidLoop, 1.0, 1.0, 1.0, -100.0, 100.0 );    
     InitializePIDLoopConstants( &pidLoop, pidConstants, true );
     
     /* Local copy of the setpoint; this will be updated by the rxMessage contents when they are valid */    
@@ -389,16 +390,25 @@ void PID_Task(void *arg) {
                     (pidConstants.IGain != rxMessage.msg.I) ||
                     (pidConstants.DGain != rxMessage.msg.D)) {
                 
-                    InitializePIDLoop( &pidLoop, rxMessage.msg.P, rxMessage.msg.I, rxMessage.msg.D, 0.0, 100.0 );        
+                    pidConstants.PGain = rxMessage.msg.P;
+                    pidConstants.IGain = rxMessage.msg.I;
+                    pidConstants.DGain = rxMessage.msg.D;
+                        
+                    InitializePIDLoopConstants( &pidLoop, pidConstants, true );
+                    //InitializePIDLoop( &pidLoop, rxMessage.msg.P, rxMessage.msg.I, rxMessage.msg.D, -100.0, 100.0 );        
                 }
                    
-                setpoint = rxMessage.msg.setpoint;
+                pidenabled = ((rxMessage.msg.setpoint & 0xFF000000) > 0);
+                setpoint = (rxMessage.msg.setpoint & 0x00FFFFFF);               
             }
 
             /* Run the PID algorithm */
-            position = Counter_1_ReadCounter();  
-            error = setpoint - position;
-            UpdatePIDLoop( &pidLoop, rxMessage.msg.setpoint, position, error );            
+            if (pidenabled) {
+                position = Counter_1_ReadCounter();  
+                error = setpoint - position;
+                
+                UpdatePIDLoop( &pidLoop, setpoint, position, error );   
+            }
 
             /* Run the PID every 10ms, which is 100Hz update rate */
             Sleep(10);

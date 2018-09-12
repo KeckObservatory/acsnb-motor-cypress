@@ -160,8 +160,6 @@ void UpdatePIDLoop( TPIDLoop* TheLoop, float TheSetpoint, float TheFeedbackPosit
 
   TheLoop->CurrentOutput = TempOutput;
 
-  /* Restart the stop watch to reset it's starting time. */
-  ///TODO FIX StopWatchStart( &TheLoop->LastUpdate );
 }
 
 /****************************************************************************
