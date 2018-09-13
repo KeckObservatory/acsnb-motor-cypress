@@ -14,7 +14,11 @@
 #include <semphr.h>
 #include <task.h>
 #include <I2C_I2C.h>
-#include "PID.h"
+#include <stdbool.h>
+#include <math.h>
+
+
+//PMR #include "PID.h"
 
 /* --------------------------------------------------------------------- 
  * CONSTANTS
@@ -105,9 +109,10 @@ CY_ISR_PROTO(SPI_SS_IsrHandler);
  * GLOBALS
  * --------------------------------------------------------------------- */
 volatile uint16 Current;
+volatile float PWM;
 uint8 CurrentI2Cinbuf[20];
-TPIDLoop pidLoop;
-TPIDConstants pidConstants;
+//PMR TPIDLoop pidLoop;
+//PMR TPIDConstants pidConstants;
 
 /* Task stack information */
 volatile UBaseType_t uxHighWaterMark_PID;
@@ -302,7 +307,7 @@ void Comm_Task(void *arg) {
                         /* Set fields individually */
                         txMessage.msg.signature = COMM_SIGNATURE_WORD;
                         txMessage.msg.position = Counter_1_ReadCounter();
-                        txMessage.msg.pwm = pidLoop.CurrentOutputExtendedConfinedAsPercent;
+                        txMessage.msg.pwm = PWM; ///PMR pidLoop.CurrentOutputExtendedConfinedAsPercent;
                         txMessage.msg.current = Current;            
 
                         /* Copy the readied buffer out to the FIFO */
@@ -333,7 +338,7 @@ void Comm_Task(void *arg) {
     }
 }
 
-
+#ifdef zero
 /*******************************************************************************
 * Function Name: PID_Task
 ********************************************************************************
@@ -355,7 +360,9 @@ void PID_Task(void *arg) {
     uxHighWaterMark_PID = uxTaskGetStackHighWaterMark( NULL );
     
     /* Setup the PID data structure */
-    InitializePIDLoop( &pidLoop, 1.0, 1.0, 1.0, -100.0, 100.0 );    
+    pidLoop.MinCurrentOutputExtended = -100;
+    pidLoop.MaxCurrentOutputExtended = 100;
+    InitializePIDLoop( &pidLoop, 1.0, 1.0, 1.0, -500.0, 500.0 );    
     InitializePIDLoopConstants( &pidLoop, pidConstants, true );
     
     /* Local copy of the setpoint; this will be updated by the rxMessage contents when they are valid */    
@@ -393,6 +400,8 @@ void PID_Task(void *arg) {
                     pidConstants.PGain = rxMessage.msg.P;
                     pidConstants.IGain = rxMessage.msg.I;
                     pidConstants.DGain = rxMessage.msg.D;
+                    pidConstants.IMin  = -500;
+                    pidConstants.IMax  = 500;
                         
                     InitializePIDLoopConstants( &pidLoop, pidConstants, true );
                     //InitializePIDLoop( &pidLoop, rxMessage.msg.P, rxMessage.msg.I, rxMessage.msg.D, -100.0, 100.0 );        
@@ -408,7 +417,20 @@ void PID_Task(void *arg) {
                 error = setpoint - position;
                 
                 UpdatePIDLoop( &pidLoop, setpoint, position, error );   
+            } else {
+                /* When disabled, treat the error as zero */ 
+                position = Counter_1_ReadCounter();
+                setpoint = position;
+                error = 0;
+                
+                pidLoop.CurrentOutput = 0.0;
+                pidLoop.LastError     = 0.0;
+                pidLoop.ICurrentValue = 0.0;
+                pidLoop.DCurrentValue = 0.0;
+                
+                UpdatePIDLoop( &pidLoop, setpoint, position, error );  
             }
+            
 
             /* Run the PID every 10ms, which is 100Hz update rate */
             Sleep(10);
@@ -419,6 +441,137 @@ void PID_Task(void *arg) {
     }    
    
 }
+#endif
+
+
+
+/*******************************************************************************
+* Function Name: PID_Task
+********************************************************************************
+* Summary:
+*  RTOS task to perform the PID calculations.
+*
+* Parameters: None
+* Return: None
+*******************************************************************************/
+void PID_Task(void *arg) {
+    
+    int32 error, last_error, integral, derivative, windup;
+    uint32 position, desired;
+    bool enabled; //, running;
+    float Kp, Ki, Kd, pwm;
+    
+    /* Initial high water mark reading */
+    uxHighWaterMark_PID = uxTaskGetStackHighWaterMark( NULL );
+    
+    /* Initial values */
+    Kp = 0;
+    Ki = 0;
+    Kd = 0;
+    error = 0;
+    last_error = 0;
+    integral = 0;
+    derivative = 0;
+    position = 0;
+    desired = 0;  
+    
+    /* Start off disabled */
+    enabled = false;
+    
+    while (1) {
+
+        /* If the interrupt handler for the end of SPI transaction is moving data into the rxMessageBuffer right now, 
+           wait for it to be done. */
+        if (rxMessageLocked) {
+            
+            /* Hold off until the SPI is done! */
+            Sleep(1);
+            
+        } else {
+            
+            /* If the rxMessage is not corrupt, use it to update P/I/D and setpoint */
+            if (rxMessage.msg.signature == COMM_SIGNATURE_WORD) {
+            
+                /* If the PID constants are different, reset the PID. */
+                if ((Kp != rxMessage.msg.P) || (Ki != rxMessage.msg.I) || (Kd != rxMessage.msg.D)) {
+                
+                    Kp = rxMessage.msg.P;
+                    Ki = rxMessage.msg.I;
+                    Kd = rxMessage.msg.D;
+                    windup  = 300;            
+
+                    integral = 0;
+                    derivative = 0;
+                    last_error = 0;
+                }
+                   
+                enabled = ((rxMessage.msg.setpoint & 0xFF000000) > 0);
+                desired = (rxMessage.msg.setpoint & 0x00FFFFFF);               
+            }
+            
+            // Get up-to-date current position
+            position = Counter_1_ReadCounter(); 
+            
+            // Calculate the error
+            error = desired - position;
+            
+            // Calculate the integral
+            integral = integral + error;
+
+            // Limit the integral (windup)
+            if (integral > windup) 
+                integral = windup;
+            else if (integral < -windup) 
+                integral = -windup;
+            
+            // Calculate the derivative
+            derivative = error - last_error;
+            
+            // Decay the integral term in the dead band
+            if (error == 0) {
+                integral = trunc(integral * 0.5);
+            }
+            
+            // All set up, do the calculation
+            pwm = (Kp * error) + (Ki * integral) + (Kd * derivative);
+            
+            
+            // Limit the PWM to +/- 100 (a percent)
+            if (pwm > 100.0) 
+                pwm = 100.0;
+            else if (pwm < -100.0) 
+                pwm = -100.0;
+            
+            // Send the pwm back up to the BBB
+            if (enabled) {
+                
+                // Update the global PWM value
+                PWM = pwm;
+
+                // Save the current error as last error for next iteration
+                last_error = error;
+                
+            } else {
+                
+                // If disabled, just zero out everything until PID is turned on again and start fresh
+                PWM = 0;   
+                integral = 0;
+                derivative = 0;
+                last_error = 0;
+            }            
+        
+        }
+        
+        /* Run the PID every 10ms, which is 100Hz update rate */
+        Sleep(10);
+
+        /* Get our task stack usage high water mark */    
+        uxHighWaterMark_PID = uxTaskGetStackHighWaterMark( NULL );        
+    }
+
+   
+}
+
 
 
 /*******************************************************************************
