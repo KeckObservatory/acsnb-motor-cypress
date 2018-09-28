@@ -37,9 +37,7 @@
       <Folder BuildType="STRICT" Path="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn">
         <Files Root="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn">
           <File BuildType="BUILD" Toolchain="">main.c</File>
-          <File BuildType="BUILD" Toolchain="">PID.c</File>
           <File BuildType="BUILD" Toolchain="">FreeRTOSConfig.h</File>
-          <File BuildType="BUILD" Toolchain="">PID.h</File>
           <File BuildType="BUILD" Toolchain="">FreeRTOS\portmacro.h</File>
           <File BuildType="BUILD" Toolchain="">FreeRTOS\projdefs.h</File>
           <File BuildType="BUILD" Toolchain="">FreeRTOS\queue.h</File>
