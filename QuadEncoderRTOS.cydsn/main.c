@@ -133,9 +133,9 @@ typedef struct {
     
     uint32 signature;  /* Comm signature for reliable messaging */ 
     uint32 setpoint;   /* Setpoint (desired actuator position, 24 bits), high byte used as PID enable */
-    float P;
-    float I;
-    float D;
+    float Kp;
+    float Ki;
+    float Kd;
     //TODO uint16 checksum;
     
 } __attribute__ ((__packed__)) rxMessage_t;
@@ -337,113 +337,144 @@ void Comm_Task(void *arg) {
         uxHighWaterMark_Comm = uxTaskGetStackHighWaterMark( NULL );
     }
 }
-
-#ifdef zero
-/*******************************************************************************
-* Function Name: PID_Task
-********************************************************************************
-* Summary:
-*  RTOS task to perform the PID calculations.
-*
-* Parameters: None
-* Return: None
-*******************************************************************************/
-void PID_Task(void *arg) {
     
-    uint32 s = 0;
-    int32 error;
+
+
+/* Global PID process variables */
+uint32 lastTime;
+float Output;
+float ITerm, lastPosition;
+float refKp, refKi, refKd;
+float kp, ki, kd;
+uint32 SampleTime = 5; // 5ms
+float outMin, outMax;
+bool inAuto = false;
+ 
+#define PID_MANUAL 0
+#define PID_AUTOMATIC 1
+
+void PID_Initialize(void) {
+    
     uint32 position;
-    static uint32 setpoint;
-    static bool pidenabled = false;
     
-    /* Initial high water mark reading */
-    uxHighWaterMark_PID = uxTaskGetStackHighWaterMark( NULL );
-    
-    /* Setup the PID data structure */
-    pidLoop.MinCurrentOutputExtended = -100;
-    pidLoop.MaxCurrentOutputExtended = 100;
-    InitializePIDLoop( &pidLoop, 1.0, 1.0, 1.0, -500.0, 500.0 );    
-    InitializePIDLoopConstants( &pidLoop, pidConstants, true );
-    
-    /* Local copy of the setpoint; this will be updated by the rxMessage contents when they are valid */    
-    setpoint = 0;
-    
-    while (1) {
-        
-        /* If the interrupt handler for the end of SPI transaction is moving data into the rxMessageBuffer right now, 
-           wait for it to be done. */
-        if (rxMessageLocked) {
-            
-            /* Hold off until the SPI is done! */
-            Sleep(1);
-            
-        } else {
-        
-            /* Flash the light to indicate the task is running */
-            if (++s > 100)
-                s = 0;
-            
-            if (s > 50) {
-                LED_Write(1);
-            } else {
-                LED_Write(0);
-            }
-                
-            /* If the rxMessage is not corrupt, use it to update P/I/D and setpoint */
-            if (rxMessage.msg.signature == COMM_SIGNATURE_WORD) {
-            
-                /* If the PID constants are different, update the PID loop. */
-                if ((pidConstants.PGain != rxMessage.msg.P) ||
-                    (pidConstants.IGain != rxMessage.msg.I) ||
-                    (pidConstants.DGain != rxMessage.msg.D)) {
-                
-                    pidConstants.PGain = rxMessage.msg.P;
-                    pidConstants.IGain = rxMessage.msg.I;
-                    pidConstants.DGain = rxMessage.msg.D;
-                    pidConstants.IMin  = -500;
-                    pidConstants.IMax  = 500;
-                        
-                    InitializePIDLoopConstants( &pidLoop, pidConstants, true );
-                    //InitializePIDLoop( &pidLoop, rxMessage.msg.P, rxMessage.msg.I, rxMessage.msg.D, -100.0, 100.0 );        
-                }
-                   
-                pidenabled = ((rxMessage.msg.setpoint & 0xFF000000) > 0);
-                setpoint = (rxMessage.msg.setpoint & 0x00FFFFFF);               
-            }
+    /* Get up-to-date current position */
+    position = Counter_1_ReadCounter();     
 
-            /* Run the PID algorithm */
-            if (pidenabled) {
-                position = Counter_1_ReadCounter();  
-                error = setpoint - position;
-                
-                UpdatePIDLoop( &pidLoop, setpoint, position, error );   
-            } else {
-                /* When disabled, treat the error as zero */ 
-                position = Counter_1_ReadCounter();
-                setpoint = position;
-                error = 0;
-                
-                pidLoop.CurrentOutput = 0.0;
-                pidLoop.LastError     = 0.0;
-                pidLoop.ICurrentValue = 0.0;
-                pidLoop.DCurrentValue = 0.0;
-                
-                UpdatePIDLoop( &pidLoop, setpoint, position, error );  
-            }
-            
+    lastPosition = position;
+    ITerm = Output;
+    
+    if (ITerm > outMax) {
+        ITerm = outMax;
+    } else if (ITerm < outMin) {
+        ITerm = outMin;
+    }
+}    
 
-            /* Run the PID every 10ms, which is 100Hz update rate */
-            Sleep(10);
+float PID_Compute(uint32 now, uint32 setpoint) {
+    
+    int32 error, dPosition;
+    uint32 timeChange;
+    uint32 position;
+        
+    if(!inAuto) 
+        return 0;
+    
+    /* Get up-to-date current position */
+    position = Counter_1_ReadCounter();     
+
+    /* How much time has elapsed since the last pass? */
+    timeChange = (now - lastTime);
+
+    if (timeChange >= SampleTime) {
+    
+        /* Compute all the working error variables */
+        error = setpoint - position;
+        ITerm += (ki * error);
+        
+        /* Clip the I term at the output max (windup guard) */
+        if (ITerm > outMax) {
+            ITerm = outMax;
+        } else if (ITerm < outMin) {
+            ITerm = outMin;
+        }
+        
+        /* Calculate the error term */
+        dPosition = (position - lastPosition);
+
+        /* Compute PID Output */
+        Output = (kp * error) + ITerm - (kd * dPosition);
+        
+        /* Clip the output */
+        if (Output> outMax) {
+            Output = outMax;
+        } else if (Output < outMin) {
+            Output = outMin;
         }
 
-        /* Get our task stack usage high water mark */    
-        uxHighWaterMark_PID = uxTaskGetStackHighWaterMark( NULL );
-    }    
-   
+        /* Remember some variables for next time */
+        lastPosition = position;
+        lastTime = now;        
+    }
+    
+    return Output;    
 }
-#endif
+ 
+void PID_SetTunings(float Kp, float Ki, float Kd) {
+    
+    float SampleTimeInSec = ((float) SampleTime) / 1000;
+    
+    kp = Kp;
+    ki = Ki * SampleTimeInSec;
+    kd = Kd / SampleTimeInSec;
+}
+ 
+void PID_SetSampleTime(uint32 NewSampleTime) {
+    
+    if (NewSampleTime > 0) {
+    
+        float ratio  = (float) NewSampleTime / (float) SampleTime;
+        ki *= ratio;
+        kd /= ratio;
+        SampleTime = (uint32) NewSampleTime;
+    }
+}
+ 
+void PID_SetOutputLimits(float Min, float Max) {
+    
+    if(Min > Max) 
+        return;
 
+    /* Update the global min/max */
+    outMin = Min;
+    outMax = Max;
 
+    /* Clip the output to the new max */
+    if(Output > outMax) {
+        Output = outMax;
+    } else if(Output < outMin) {
+        Output = outMin;
+    }
+
+    /* Clip the I term to the new max */
+    if (ITerm > outMax) {
+        ITerm = outMax;
+    } else if (ITerm < outMin) {
+        ITerm = outMin;
+    }
+}
+ 
+void PID_SetMode(uint32 Mode)
+{
+    bool newAuto = (Mode == PID_AUTOMATIC);
+    
+    if (newAuto && !inAuto) {  
+        /*we just went from manual to auto*/
+        PID_Initialize();
+    }
+    
+    inAuto = newAuto;
+} 
+    
 
 /*******************************************************************************
 * Function Name: PID_Task
@@ -456,26 +487,34 @@ void PID_Task(void *arg) {
 *******************************************************************************/
 void PID_Task(void *arg) {
     
-    int32 error, last_error, integral, derivative, windup;
-    uint32 position, desired;
-    bool enabled; //, running;
-    float Kp, Ki, Kd, pwm;
+    uint32 sleeptime = 5;
+    uint32 now;
+    uint32 desired;
+    bool enabled, was_enabled;
+    float pwm; 
     
     /* Initial high water mark reading */
     uxHighWaterMark_PID = uxTaskGetStackHighWaterMark( NULL );
     
     /* Initial values */
-    Kp = 0;
-    Ki = 0;
-    Kd = 0;
-    error = 0;
-    last_error = 0;
-    integral = 0;
-    derivative = 0;
-    position = 0;
+
+    /* These are the 'reference' values passed down from the server, not to be used in-the-raw because the actual gain 
+       values are time interval adjusted */
+    refKp = 0;
+    refKi = 0;
+    refKd = 0;
+    
+    PID_Initialize();
+    PID_SetTunings(refKp, refKi, refKd);
+    PID_SetOutputLimits(-100.0, 100.0);
+    PID_SetMode(PID_MANUAL);
+    PID_SetSampleTime(sleeptime);
+
+    now = 0;
     desired = 0;  
     
     /* Start off disabled */
+    was_enabled = false;
     enabled = false;
     
     while (1) {
@@ -484,93 +523,71 @@ void PID_Task(void *arg) {
            wait for it to be done. */
         if (rxMessageLocked) {
             
-            /* Hold off until the SPI is done! */
+            /* Hold off until the SPI is done!  One millisecond will definitely cover it. */
             Sleep(1);
+            //now += 1;
             
         } else {
             
-            /* If the rxMessage is not corrupt, use it to update P/I/D and setpoint */
+            /* If the rxMessage is not corrupt, use it to update PID gains and setpoint */
             if (rxMessage.msg.signature == COMM_SIGNATURE_WORD) {
             
                 /* If the PID constants are different, reset the PID. */
-                if ((Kp != rxMessage.msg.P) || (Ki != rxMessage.msg.I) || (Kd != rxMessage.msg.D)) {
+                if ((refKp != rxMessage.msg.Kp) || (refKi != rxMessage.msg.Ki) || (refKd != rxMessage.msg.Kd)) {
                 
-                    Kp = rxMessage.msg.P;
-                    Ki = rxMessage.msg.I;
-                    Kd = rxMessage.msg.D;
-                    windup  = 300;            
-
-                    integral = 0;
-                    derivative = 0;
-                    last_error = 0;
+                    /* Update the 'reference' values passed down from the server, not to be used in-the-raw because the actual gain 
+                       values are time interval adjusted */
+                    refKp = rxMessage.msg.Kp;
+                    refKi = rxMessage.msg.Ki;
+                    refKd = rxMessage.msg.Kd;                    
+                    
+                    /* Live-update the tuning parameters */
+                    PID_SetTunings(refKp, refKi, refKd);                    
                 }
                    
+                /* The enable flag and desired position are currently stacked together in one uint32 */
                 enabled = ((rxMessage.msg.setpoint & 0xFF000000) > 0);
                 desired = (rxMessage.msg.setpoint & 0x00FFFFFF);               
             }
             
-            // Get up-to-date current position
-            position = Counter_1_ReadCounter(); 
-            
-            // Calculate the error
-            error = desired - position;
-            
-            // Calculate the integral
-            integral = integral + error;
-
-            // Limit the integral (windup)
-            if (integral > windup) 
-                integral = windup;
-            else if (integral < -windup) 
-                integral = -windup;
-            
-            // Calculate the derivative
-            derivative = error - last_error;
-            
-            // Decay the integral term in the dead band
-            if (error == 0) {
-                integral = trunc(integral * 0.5);
+            /* Handle mode switching */
+            if (!was_enabled && enabled) {
+                PID_SetMode(PID_AUTOMATIC);
+            } else if (!enabled && was_enabled) {
+                PID_SetMode(PID_MANUAL);                
+            } else {
+                // No mode change happened   
             }
             
-            // All set up, do the calculation
-            pwm = (Kp * error) + (Ki * integral) + (Kd * derivative);
+            /* Run the PID algorithm */
+            now = xTaskGetTickCount();
+            pwm = PID_Compute(now, desired);
             
-            
-            // Limit the PWM to +/- 100 (a percent)
-            if (pwm > 100.0) 
-                pwm = 100.0;
-            else if (pwm < -100.0) 
-                pwm = -100.0;
-            
-            // Send the pwm back up to the BBB
+            /* Send the pwm back up to the BBB */
             if (enabled) {
                 
-                // Update the global PWM value
+                /* Update the global PWM value */
                 PWM = pwm;
-
-                // Save the current error as last error for next iteration
-                last_error = error;
                 
             } else {
-                
-                // If disabled, just zero out everything until PID is turned on again and start fresh
-                PWM = 0;   
-                integral = 0;
-                derivative = 0;
-                last_error = 0;
+                /* If disabled, just return 0 */
+                PWM = 0;
             }            
         
         }
         
-        /* Run the PID every 10ms, which is 100Hz update rate */
-        Sleep(10);
+        /* Run the PID every 5ms, which is 200Hz update rate */
+        Sleep(sleeptime);
+        //now += sleeptime;
 
         /* Get our task stack usage high water mark */    
         uxHighWaterMark_PID = uxTaskGetStackHighWaterMark( NULL );        
     }
-
    
 }
+
+
+
 
 
 

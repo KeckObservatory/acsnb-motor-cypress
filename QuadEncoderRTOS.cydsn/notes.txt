@@ -1,0 +1,196 @@
+
+uint8 smessage[20] = { 0xA5, 0xA6, 0xA7, 0xA8, 0x10, 
+                       0x11, 0x12, 0x13, 0x14, 0x15, 
+                       0x16, 0x17, 0x18, 0x19, 0x1A, 
+                       0x1B, 0x1C, 0x1D, 0x1E, 0x1F };
+
+
+    
+    //SPI_1_SetCustomInterruptHandler(SPI_IsrHandler);
+
+
+    /* Wait for idle, then preload first 4 bytes */
+    while (SPI_1_SpiIsBusBusy()) { }
+    SPI_1_SpiUartPutArray(smessage, 4);
+
+
+
+/*******************************************************************************
+* Function Name: SPIIsrHandler
+********************************************************************************
+* Summary:
+*  The interrupt handler for filling the SPI RX/TX buffers.
+*  Clears a pending Interrupt.
+*
+* Parameters: None
+* Return: None
+*******************************************************************************/
+CY_ISR(SPI_IsrHandler) {
+
+    uint32 rxbufsize, i;
+    volatile uint32 tsize, rsize;
+    bool eom;
+    
+    /* Do the SPI */
+    volatile uint32 source = SPI_1_GetTxInterruptSource();
+    
+    if (0UL != (SPI_1_GetTxInterruptSource() & SPI_1_INTR_TX_UART_DONE)) {
+    
+    
+        SPI_1_ClearTxInterruptSource(SPI_1_INTR_TX_UART_DONE);
+        
+    }
+    
+    /* Check if enabled interrupt source is active */
+    if (0UL != (SPI_1_GetTxInterruptSource() & SPI_1_INTR_TX_FIFO_LEVEL)) {
+        
+        /* Clear interrupt source */
+        SPI_1_ClearTxInterruptSource(SPI_1_INTR_TX_FIFO_LEVEL);
+
+        
+#ifdef zero        
+        /* If it's busy, setup to send the rest of the messsage.  If not, setup for the next messaging
+           cycle. */
+       
+        /* Determine if this is the end of a message cycle, or the beginning of the next one, based on how much
+           is in the receive buffer */
+        eom = (SPI_1_SpiUartGetRxBufferSize() > 5);
+        
+        if (SPI_1_SpiIsBusBusy() && !eom) {
+            
+            /* TX buffer is empty of the 4 bytes we pre-loaded, send the rest now */
+            //SPI_1_SpiUartPutArray(txMessage.buf, sizeof(txMessage.buf));
+            SPI_1_SpiUartPutArray(&smessage[4], sizeof(smessage)-4);
+            
+        } else if (SPI_1_SpiIsBusBusy()) {    
+            
+            // Do nothing until the SPI master deasserts the slave select
+            
+        } else {
+
+            /* Clear the TX buffer in case of a partial message */
+            SPI_1_SpiUartClearTxBuffer();
+            
+            /* SPI master is done talking to us, setup for the next message by readying one byte */
+            SPI_1_SpiUartPutArray(smessage, 4);
+
+            /* Message from the master is completely clocked in by now */            
+            for (i = 0; i < rxbufsize; i++) {
+                rxMessage.buf[i] = (uint8) SPI_1_SpiUartReadRxData();            
+            }
+            
+            SPI_1_SpiUartClearRxBuffer();           
+        }
+    
+#endif            
+            
+        
+        
+        //tsize = SPI_1_SpiUartGetTxBufferSize();        
+        
+        /* TX buffer is empty, reset the contents for the next time it's called */
+        //SPI_1_SpiUartPutArray(txMessage.buf, sizeof(txMessage.buf));
+        //SPI_1_SpiUartPutArray(smessage, sizeof(smessage));        
+        //tsize = SPI_1_SpiUartGetTxBufferSize();        
+        
+        //rsize = SPI_1_SpiUartGetRxBufferSize();
+        
+    }
+
+    
+    if (0UL != (SPI_1_GetSlaveInterruptSourceMasked() & SPI_1_INTR_TX_NOT_FULL)) {
+        
+        /* Clear interrupt source */
+        SPI_1_ClearSlaveInterruptSource(SPI_1_INTR_TX_NOT_FULL);        
+        
+    }    
+
+    if (0UL != (SPI_1_GetSlaveInterruptSourceMasked() & SPI_1_INTR_TX_EMPTY)) {
+        
+        /* Clear interrupt source */
+        SPI_1_ClearSlaveInterruptSource(SPI_1_INTR_TX_EMPTY);        
+        
+    }    
+
+    if (0UL != (SPI_1_GetSlaveInterruptSourceMasked() & SPI_1_INTR_TX_UNDERFLOW)) {
+        
+        /* Clear interrupt source */
+        SPI_1_ClearSlaveInterruptSource(SPI_1_INTR_TX_UNDERFLOW);        
+        
+    }    
+    
+    if (0UL != (SPI_1_GetSlaveInterruptSourceMasked() & SPI_1_INTR_TX_TRIGGER)) {
+        
+        /* Clear interrupt source */
+        SPI_1_ClearSlaveInterruptSource(SPI_1_INTR_TX_TRIGGER);        
+        
+    }    
+
+    
+    
+    
+    
+    source = SPI_1_GetTxInterruptSource();   
+}
+
+
+
+
+
+
+
+
+
+
+    //bzero(txMessage.buf, sizeof(txMessage.buf));        
+    for (i = 0; i < sizeof(txMessage.buf); i++) {
+        txMessage.buf[i] = 0xDE;
+    }
+
+
+
+#ifdef zero        
+        
+        /* Put the first byte of the SPI transaction in the FIFO to get ready for the caller. 
+           It doesn't need to be anything meaningful until the actual response section, about
+           20 bytes later */
+        SPI_1_TX_FIFO_WR_REG = 0x00;
+        
+        /* Wait for the SPI FIFO to be free, indicating the BeagleBoneBlack is talking to us */
+        while (SPI_1_SPI_UART_FIFO_SIZE != 0) {
+            vTaskDelay(configTICK_RATE_HZ / 1);
+        }
+        
+        /* Inbound message comes first (about 20 bytes long), copy to a local buffer first */
+        for (i = 0; i < sizeof(rxbuf); i++) {
+            rxbuf[i] = SPI_1_SpiUartReadRxData();  
+        }
+        
+        /* Take the message lock to keep the PID task from touching anything while we make a local copy */
+        if( Lock != NULL ) {
+            
+            /* Take the lock, wait up to 10 ticks */
+            if( xSemaphoreTake( Lock, ( TickType_t ) 10 ) == pdTRUE ){
+
+                /* Copy the rxBuffer out to the main one */
+                memcpy(rxMessage.buf, rxbuf, sizeof(rxbuf));
+                
+                /* Make a local copy of the transmit buffer so we can send it out having to block
+                   the PID task forever while we send it out */
+                memcpy(txbuf, txMessage.buf, sizeof(txbuf));
+        
+                /* Finished, unlock on the way out */
+                xSemaphoreGive( Lock );
+                
+            } else {
+                //TODO: We could not obtain the semaphore - now what? 
+            }
+        }        
+            
+        /* Good to send the response, send the whole buffer in one go */
+        for( i = 0; i < sizeof(txbuf); i++ ) {
+            SPI_1_SpiUartWriteTxData(txbuf[i]);
+            //SPIS_SpiUartWriteTxData(3);
+        }    
+        
+#endif 
