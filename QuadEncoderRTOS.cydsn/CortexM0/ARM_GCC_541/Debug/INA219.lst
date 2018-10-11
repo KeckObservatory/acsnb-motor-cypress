@@ -1,0 +1,2108 @@
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccFdzAZJ.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m0
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"INA219.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.I2C_INA_SendSequence,"ax",%progbits
+  20              		.align	2
+  21              		.global	I2C_INA_SendSequence
+  22              		.code	16
+  23              		.thumb_func
+  24              		.type	I2C_INA_SendSequence, %function
+  25              	I2C_INA_SendSequence:
+  26              	.LFB35:
+  27              		.file 1 "INA219.c"
+   1:INA219.c      **** /* ========================================
+   2:INA219.c      ****  *
+   3:INA219.c      ****  * Copyright YOUR COMPANY, THE YEAR
+   4:INA219.c      ****  * All Rights Reserved
+   5:INA219.c      ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:INA219.c      ****  *
+   7:INA219.c      ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:INA219.c      ****  * WHICH IS THE PROPERTY OF your company.
+   9:INA219.c      ****  *
+  10:INA219.c      ****  * ========================================
+  11:INA219.c      **** */
+  12:INA219.c      **** 
+  13:INA219.c      **** #include "INA219.h"
+  14:INA219.c      **** 
+  15:INA219.c      ****                 
+  16:INA219.c      **** /* Buffer that holds data to be send to INA219 slave */
+  17:INA219.c      **** static uint8 I2C_INA_buff[10];
+  18:INA219.c      **** 
+  19:INA219.c      **** 
+  20:INA219.c      **** /* Variable used for buffer indexing */
+  21:INA219.c      **** static uint32 I2C_INA_buffIndex = 0u;
+  22:INA219.c      **** /* Variable stores the I2C address */
+  23:INA219.c      **** static uint32 I2C_INA_address = 0x40;      
+  24:INA219.c      **** 
+  25:INA219.c      **** uint32_t ina219_calValue = 8192;
+  26:INA219.c      **** 
+  27:INA219.c      **** uint32_t ReadData;
+  28:INA219.c      **** 
+  29:INA219.c      **** void Init_INA(uint32 INA_Addr)
+  30:INA219.c      **** {
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccFdzAZJ.s 			page 2
+
+
+  31:INA219.c      ****     I2C_INA_address = INA_Addr;
+  32:INA219.c      ****     uint16_t config = INA219_CONFIG_BVOLTAGERANGE_32V |
+  33:INA219.c      ****                 INA219_CONFIG_GAIN_8_320MV |
+  34:INA219.c      ****                 INA219_CONFIG_BADCRES_12BIT |
+  35:INA219.c      ****                 INA219_CONFIG_SADCRES_12BIT_1S_532US |
+  36:INA219.c      ****                 INA219_CONFIG_MODE_SANDBVOLT_CONTINUOUS;
+  37:INA219.c      ****     
+  38:INA219.c      ****     
+  39:INA219.c      ****     
+  40:INA219.c      ****     I2C_INA_SendData(INA219_REG_CALIBRATION, 0x20, 0x00);
+  41:INA219.c      ****     
+  42:INA219.c      ****     // setup the Config Register    
+  43:INA219.c      ****     I2C_INA_SendData(INA219_REG_CONFIG, config&0xff00>>8, config&0x00ff);
+  44:INA219.c      **** }
+  45:INA219.c      **** 
+  46:INA219.c      **** 
+  47:INA219.c      **** void I2C_INA_SendData(uint8 reg, uint8 data1, uint8 data2) CYREENTRANT
+  48:INA219.c      **** {
+  49:INA219.c      ****     I2C_INA_buff[0u] = reg;
+  50:INA219.c      ****     I2C_INA_buff[1u] = data1;
+  51:INA219.c      ****     I2C_INA_buff[2u] = data2;
+  52:INA219.c      ****     I2C_INA_buffIndex = 3;
+  53:INA219.c      ****     
+  54:INA219.c      ****     I2C_INA_SendSequence();
+  55:INA219.c      **** }
+  56:INA219.c      **** 
+  57:INA219.c      **** void I2C_INA_ReadData(uint8 readreg) CYREENTRANT
+  58:INA219.c      **** {
+  59:INA219.c      ****     I2C_INA_buff[0u] = readreg;
+  60:INA219.c      ****     I2C_INA_buffIndex = 1;
+  61:INA219.c      ****     I2C_INA_SendSequence();
+  62:INA219.c      ****     I2C_INA_ReadSequence();
+  63:INA219.c      **** }
+  64:INA219.c      **** 
+  65:INA219.c      **** void I2C_INA_SendSequence(void) CYREENTRANT
+  66:INA219.c      **** {
+  28              		.loc 1 66 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32 0000 10B5     		push	{r4, lr}
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 4, -8
+  35              		.cfi_offset 14, -4
+  67:INA219.c      ****     (void) I2C_I2CMasterWriteBuf(I2C_INA_address,
+  36              		.loc 1 67 0
+  37 0002 0749     		ldr	r1, .L3
+  38 0004 04C9     		ldmia	r1!, {r2}
+  39 0006 074B     		ldr	r3, .L3+4
+  40 0008 1868     		ldr	r0, [r3]
+  41 000a 0023     		movs	r3, #0
+  42 000c FFF7FEFF 		bl	I2C_I2CMasterWriteBuf
+  43              	.LVL0:
+  44              	.L2:
+  68:INA219.c      ****                                            I2C_INA_buff,
+  69:INA219.c      ****                                            I2C_INA_buffIndex,
+  70:INA219.c      ****                                            0x00);
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccFdzAZJ.s 			page 3
+
+
+  71:INA219.c      **** 
+  72:INA219.c      ****     while(0u == (I2C_I2CMasterStatus() & 0x02))
+  45              		.loc 1 72 0 discriminator 1
+  46 0010 FFF7FEFF 		bl	I2C_I2CMasterStatus
+  47              	.LVL1:
+  48 0014 8307     		lsls	r3, r0, #30
+  49 0016 FBD5     		bpl	.L2
+  73:INA219.c      ****     {
+  74:INA219.c      ****         /* Wait until I2C Master finishes transaction */
+  75:INA219.c      ****     }
+  76:INA219.c      **** 
+  77:INA219.c      ****     /* Reset buffer index */
+  78:INA219.c      ****     I2C_INA_buffIndex = 0u;
+  50              		.loc 1 78 0
+  51 0018 0022     		movs	r2, #0
+  52 001a 014B     		ldr	r3, .L3
+  53 001c 1A60     		str	r2, [r3]
+  79:INA219.c      **** }
+  54              		.loc 1 79 0
+  55              		@ sp needed
+  56 001e 10BD     		pop	{r4, pc}
+  57              	.L4:
+  58              		.align	2
+  59              	.L3:
+  60 0020 00000000 		.word	.LANCHOR0
+  61 0024 00000000 		.word	.LANCHOR1
+  62              		.cfi_endproc
+  63              	.LFE35:
+  64              		.size	I2C_INA_SendSequence, .-I2C_INA_SendSequence
+  65              		.section	.text.I2C_INA_SendData,"ax",%progbits
+  66              		.align	2
+  67              		.global	I2C_INA_SendData
+  68              		.code	16
+  69              		.thumb_func
+  70              		.type	I2C_INA_SendData, %function
+  71              	I2C_INA_SendData:
+  72              	.LFB33:
+  48:INA219.c      ****     I2C_INA_buff[0u] = reg;
+  73              		.loc 1 48 0
+  74              		.cfi_startproc
+  75              		@ args = 0, pretend = 0, frame = 0
+  76              		@ frame_needed = 0, uses_anonymous_args = 0
+  77              	.LVL2:
+  78 0000 10B5     		push	{r4, lr}
+  79              		.cfi_def_cfa_offset 8
+  80              		.cfi_offset 4, -8
+  81              		.cfi_offset 14, -4
+  49:INA219.c      ****     I2C_INA_buff[1u] = data1;
+  82              		.loc 1 49 0
+  83 0002 044B     		ldr	r3, .L6
+  84 0004 1871     		strb	r0, [r3, #4]
+  50:INA219.c      ****     I2C_INA_buff[2u] = data2;
+  85              		.loc 1 50 0
+  86 0006 5971     		strb	r1, [r3, #5]
+  51:INA219.c      ****     I2C_INA_buffIndex = 3;
+  87              		.loc 1 51 0
+  88 0008 9A71     		strb	r2, [r3, #6]
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccFdzAZJ.s 			page 4
+
+
+  52:INA219.c      ****     
+  89              		.loc 1 52 0
+  90 000a 0322     		movs	r2, #3
+  91              	.LVL3:
+  92 000c 1A60     		str	r2, [r3]
+  54:INA219.c      **** }
+  93              		.loc 1 54 0
+  94 000e FFF7FEFF 		bl	I2C_INA_SendSequence
+  95              	.LVL4:
+  55:INA219.c      **** 
+  96              		.loc 1 55 0
+  97              		@ sp needed
+  98 0012 10BD     		pop	{r4, pc}
+  99              	.L7:
+ 100              		.align	2
+ 101              	.L6:
+ 102 0014 00000000 		.word	.LANCHOR0
+ 103              		.cfi_endproc
+ 104              	.LFE33:
+ 105              		.size	I2C_INA_SendData, .-I2C_INA_SendData
+ 106              		.section	.text.Init_INA,"ax",%progbits
+ 107              		.align	2
+ 108              		.global	Init_INA
+ 109              		.code	16
+ 110              		.thumb_func
+ 111              		.type	Init_INA, %function
+ 112              	Init_INA:
+ 113              	.LFB32:
+  30:INA219.c      ****     I2C_INA_address = INA_Addr;
+ 114              		.loc 1 30 0
+ 115              		.cfi_startproc
+ 116              		@ args = 0, pretend = 0, frame = 0
+ 117              		@ frame_needed = 0, uses_anonymous_args = 0
+ 118              	.LVL5:
+ 119 0000 10B5     		push	{r4, lr}
+ 120              		.cfi_def_cfa_offset 8
+ 121              		.cfi_offset 4, -8
+ 122              		.cfi_offset 14, -4
+  31:INA219.c      ****     uint16_t config = INA219_CONFIG_BVOLTAGERANGE_32V |
+ 123              		.loc 1 31 0
+ 124 0002 064B     		ldr	r3, .L9
+ 125 0004 1860     		str	r0, [r3]
+ 126              	.LVL6:
+  40:INA219.c      ****     
+ 127              		.loc 1 40 0
+ 128 0006 0022     		movs	r2, #0
+ 129 0008 2021     		movs	r1, #32
+ 130 000a 0520     		movs	r0, #5
+ 131              	.LVL7:
+ 132 000c FFF7FEFF 		bl	I2C_INA_SendData
+ 133              	.LVL8:
+  43:INA219.c      **** }
+ 134              		.loc 1 43 0
+ 135 0010 1F22     		movs	r2, #31
+ 136 0012 1F21     		movs	r1, #31
+ 137 0014 0020     		movs	r0, #0
+ 138 0016 FFF7FEFF 		bl	I2C_INA_SendData
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccFdzAZJ.s 			page 5
+
+
+ 139              	.LVL9:
+  44:INA219.c      **** 
+ 140              		.loc 1 44 0
+ 141              		@ sp needed
+ 142 001a 10BD     		pop	{r4, pc}
+ 143              	.L10:
+ 144              		.align	2
+ 145              	.L9:
+ 146 001c 00000000 		.word	.LANCHOR1
+ 147              		.cfi_endproc
+ 148              	.LFE32:
+ 149              		.size	Init_INA, .-Init_INA
+ 150              		.section	.text.I2C_INA_ReadSequence,"ax",%progbits
+ 151              		.align	2
+ 152              		.global	I2C_INA_ReadSequence
+ 153              		.code	16
+ 154              		.thumb_func
+ 155              		.type	I2C_INA_ReadSequence, %function
+ 156              	I2C_INA_ReadSequence:
+ 157              	.LFB36:
+  80:INA219.c      **** void I2C_INA_ReadSequence(void) CYREENTRANT
+  81:INA219.c      **** {
+ 158              		.loc 1 81 0
+ 159              		.cfi_startproc
+ 160              		@ args = 0, pretend = 0, frame = 0
+ 161              		@ frame_needed = 0, uses_anonymous_args = 0
+ 162 0000 10B5     		push	{r4, lr}
+ 163              		.cfi_def_cfa_offset 8
+ 164              		.cfi_offset 4, -8
+ 165              		.cfi_offset 14, -4
+  82:INA219.c      ****     I2C_INA_buff[0u] = 0x00;
+ 166              		.loc 1 82 0
+ 167 0002 0A49     		ldr	r1, .L13
+ 168 0004 0023     		movs	r3, #0
+ 169 0006 0B71     		strb	r3, [r1, #4]
+  83:INA219.c      ****     I2C_INA_buff[1u] = 0x00;
+ 170              		.loc 1 83 0
+ 171 0008 4B71     		strb	r3, [r1, #5]
+  84:INA219.c      ****     I2C_INA_buffIndex = 2;
+ 172              		.loc 1 84 0
+ 173 000a 0233     		adds	r3, r3, #2
+ 174 000c 08C1     		stmia	r1!, {r3}
+  85:INA219.c      ****     I2C_I2CMasterReadBuf(I2C_INA_address,I2C_INA_buff,I2C_INA_buffIndex,0x00);
+ 175              		.loc 1 85 0
+ 176 000e 084B     		ldr	r3, .L13+4
+ 177 0010 1868     		ldr	r0, [r3]
+ 178 0012 0023     		movs	r3, #0
+ 179 0014 0222     		movs	r2, #2
+ 180 0016 FFF7FEFF 		bl	I2C_I2CMasterReadBuf
+ 181              	.LVL10:
+ 182              	.L12:
+  86:INA219.c      **** 
+  87:INA219.c      ****     while(0u == (I2C_I2CMasterStatus() & 0x02))
+ 183              		.loc 1 87 0 discriminator 1
+ 184 001a FFF7FEFF 		bl	I2C_I2CMasterStatus
+ 185              	.LVL11:
+ 186 001e 8307     		lsls	r3, r0, #30
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccFdzAZJ.s 			page 6
+
+
+ 187 0020 FBD5     		bpl	.L12
+  88:INA219.c      ****     {
+  89:INA219.c      ****         /* Wait until I2C Master finishes transaction */
+  90:INA219.c      ****     }
+  91:INA219.c      **** 
+  92:INA219.c      ****     /* Reset buffer index */
+  93:INA219.c      ****     I2C_INA_buffIndex = 0u;
+ 188              		.loc 1 93 0
+ 189 0022 0022     		movs	r2, #0
+ 190 0024 014B     		ldr	r3, .L13
+ 191 0026 1A60     		str	r2, [r3]
+  94:INA219.c      **** }
+ 192              		.loc 1 94 0
+ 193              		@ sp needed
+ 194 0028 10BD     		pop	{r4, pc}
+ 195              	.L14:
+ 196 002a C046     		.align	2
+ 197              	.L13:
+ 198 002c 00000000 		.word	.LANCHOR0
+ 199 0030 00000000 		.word	.LANCHOR1
+ 200              		.cfi_endproc
+ 201              	.LFE36:
+ 202              		.size	I2C_INA_ReadSequence, .-I2C_INA_ReadSequence
+ 203              		.section	.text.I2C_INA_ReadData,"ax",%progbits
+ 204              		.align	2
+ 205              		.global	I2C_INA_ReadData
+ 206              		.code	16
+ 207              		.thumb_func
+ 208              		.type	I2C_INA_ReadData, %function
+ 209              	I2C_INA_ReadData:
+ 210              	.LFB34:
+  58:INA219.c      ****     I2C_INA_buff[0u] = readreg;
+ 211              		.loc 1 58 0
+ 212              		.cfi_startproc
+ 213              		@ args = 0, pretend = 0, frame = 0
+ 214              		@ frame_needed = 0, uses_anonymous_args = 0
+ 215              	.LVL12:
+ 216 0000 10B5     		push	{r4, lr}
+ 217              		.cfi_def_cfa_offset 8
+ 218              		.cfi_offset 4, -8
+ 219              		.cfi_offset 14, -4
+  59:INA219.c      ****     I2C_INA_buffIndex = 1;
+ 220              		.loc 1 59 0
+ 221 0002 044B     		ldr	r3, .L16
+ 222 0004 1871     		strb	r0, [r3, #4]
+  60:INA219.c      ****     I2C_INA_SendSequence();
+ 223              		.loc 1 60 0
+ 224 0006 0122     		movs	r2, #1
+ 225 0008 1A60     		str	r2, [r3]
+  61:INA219.c      ****     I2C_INA_ReadSequence();
+ 226              		.loc 1 61 0
+ 227 000a FFF7FEFF 		bl	I2C_INA_SendSequence
+ 228              	.LVL13:
+  62:INA219.c      **** }
+ 229              		.loc 1 62 0
+ 230 000e FFF7FEFF 		bl	I2C_INA_ReadSequence
+ 231              	.LVL14:
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccFdzAZJ.s 			page 7
+
+
+  63:INA219.c      **** 
+ 232              		.loc 1 63 0
+ 233              		@ sp needed
+ 234 0012 10BD     		pop	{r4, pc}
+ 235              	.L17:
+ 236              		.align	2
+ 237              	.L16:
+ 238 0014 00000000 		.word	.LANCHOR0
+ 239              		.cfi_endproc
+ 240              	.LFE34:
+ 241              		.size	I2C_INA_ReadData, .-I2C_INA_ReadData
+ 242              		.section	.text.getCurrent_raw,"ax",%progbits
+ 243              		.align	2
+ 244              		.global	getCurrent_raw
+ 245              		.code	16
+ 246              		.thumb_func
+ 247              		.type	getCurrent_raw, %function
+ 248              	getCurrent_raw:
+ 249              	.LFB37:
+  95:INA219.c      **** 
+  96:INA219.c      **** int16_t getCurrent_raw(uint32 INA_addr) 
+  97:INA219.c      **** {
+ 250              		.loc 1 97 0
+ 251              		.cfi_startproc
+ 252              		@ args = 0, pretend = 0, frame = 0
+ 253              		@ frame_needed = 0, uses_anonymous_args = 0
+ 254              	.LVL15:
+ 255 0000 10B5     		push	{r4, lr}
+ 256              		.cfi_def_cfa_offset 8
+ 257              		.cfi_offset 4, -8
+ 258              		.cfi_offset 14, -4
+  98:INA219.c      ****     I2C_INA_address = INA_addr;
+ 259              		.loc 1 98 0
+ 260 0002 0C4B     		ldr	r3, .L19
+ 261 0004 1860     		str	r0, [r3]
+ 262              	.LVL16:
+  99:INA219.c      ****     
+ 100:INA219.c      ****     uint16_t value=0;
+ 101:INA219.c      **** 
+ 102:INA219.c      ****     // Sometimes a sharp load will reset the INA219, which will
+ 103:INA219.c      ****     // reset the cal register, meaning CURRENT and POWER will
+ 104:INA219.c      ****     // not be available ... avoid this by always setting a cal
+ 105:INA219.c      ****     // value even if it's an unfortunate extra step
+ 106:INA219.c      ****     I2C_INA_SendData(INA219_REG_CALIBRATION, 0x20, 0x00);
+ 263              		.loc 1 106 0
+ 264 0006 0022     		movs	r2, #0
+ 265 0008 2021     		movs	r1, #32
+ 266 000a 0520     		movs	r0, #5
+ 267              	.LVL17:
+ 268 000c FFF7FEFF 		bl	I2C_INA_SendData
+ 269              	.LVL18:
+ 107:INA219.c      **** 
+ 108:INA219.c      ****     // Now we can safely read the CURRENT register!
+ 109:INA219.c      ****     I2C_INA_ReadData(INA219_REG_CURRENT);
+ 270              		.loc 1 109 0
+ 271 0010 0420     		movs	r0, #4
+ 272 0012 FFF7FEFF 		bl	I2C_INA_ReadData
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccFdzAZJ.s 			page 8
+
+
+ 273              	.LVL19:
+ 110:INA219.c      **** 
+ 111:INA219.c      ****     CyDelay(1u);
+ 274              		.loc 1 111 0
+ 275 0016 0120     		movs	r0, #1
+ 276 0018 FFF7FEFF 		bl	CyDelay
+ 277              	.LVL20:
+ 112:INA219.c      ****     value = (uint16_t)(I2C_INA_buff[0]<<8) + I2C_INA_buff[1];
+ 278              		.loc 1 112 0
+ 279 001c 064B     		ldr	r3, .L19+4
+ 280 001e 1C79     		ldrb	r4, [r3, #4]
+ 281 0020 2402     		lsls	r4, r4, #8
+ 282 0022 5B79     		ldrb	r3, [r3, #5]
+ 283 0024 E418     		adds	r4, r4, r3
+ 284 0026 A4B2     		uxth	r4, r4
+ 285              	.LVL21:
+ 113:INA219.c      ****     CyDelay(1u);
+ 286              		.loc 1 113 0
+ 287 0028 0120     		movs	r0, #1
+ 288 002a FFF7FEFF 		bl	CyDelay
+ 289              	.LVL22:
+ 114:INA219.c      ****     return (int16_t)value;
+ 290              		.loc 1 114 0
+ 291 002e 20B2     		sxth	r0, r4
+ 115:INA219.c      **** }
+ 292              		.loc 1 115 0
+ 293              		@ sp needed
+ 294              	.LVL23:
+ 295 0030 10BD     		pop	{r4, pc}
+ 296              	.L20:
+ 297 0032 C046     		.align	2
+ 298              	.L19:
+ 299 0034 00000000 		.word	.LANCHOR1
+ 300 0038 00000000 		.word	.LANCHOR0
+ 301              		.cfi_endproc
+ 302              	.LFE37:
+ 303              		.size	getCurrent_raw, .-getCurrent_raw
+ 304              		.global	__aeabi_i2d
+ 305              		.global	__aeabi_dmul
+ 306              		.global	__aeabi_d2f
+ 307              		.section	.text.getCurrent_mA,"ax",%progbits
+ 308              		.align	2
+ 309              		.global	getCurrent_mA
+ 310              		.code	16
+ 311              		.thumb_func
+ 312              		.type	getCurrent_mA, %function
+ 313              	getCurrent_mA:
+ 314              	.LFB38:
+ 116:INA219.c      **** 
+ 117:INA219.c      **** float getCurrent_mA(uint32 INA_Addr) 
+ 118:INA219.c      **** {
+ 315              		.loc 1 118 0
+ 316              		.cfi_startproc
+ 317              		@ args = 0, pretend = 0, frame = 0
+ 318              		@ frame_needed = 0, uses_anonymous_args = 0
+ 319              	.LVL24:
+ 320 0000 10B5     		push	{r4, lr}
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccFdzAZJ.s 			page 9
+
+
+ 321              		.cfi_def_cfa_offset 8
+ 322              		.cfi_offset 4, -8
+ 323              		.cfi_offset 14, -4
+ 119:INA219.c      ****   float valueDec = getCurrent_raw(INA_Addr) * 0.05;
+ 324              		.loc 1 119 0
+ 325 0002 FFF7FEFF 		bl	getCurrent_raw
+ 326              	.LVL25:
+ 327 0006 FFF7FEFF 		bl	__aeabi_i2d
+ 328              	.LVL26:
+ 329 000a 034A     		ldr	r2, .L22
+ 330 000c 034B     		ldr	r3, .L22+4
+ 331 000e FFF7FEFF 		bl	__aeabi_dmul
+ 332              	.LVL27:
+ 333 0012 FFF7FEFF 		bl	__aeabi_d2f
+ 334              	.LVL28:
+ 120:INA219.c      ****   return valueDec;
+ 121:INA219.c      **** }
+ 335              		.loc 1 121 0
+ 336              		@ sp needed
+ 337 0016 10BD     		pop	{r4, pc}
+ 338              	.L23:
+ 339              		.align	2
+ 340              	.L22:
+ 341 0018 9A999999 		.word	-1717986918
+ 342 001c 9999A93F 		.word	1068079513
+ 343              		.cfi_endproc
+ 344              	.LFE38:
+ 345              		.size	getCurrent_mA, .-getCurrent_mA
+ 346              		.section	.text.getBusVoltage_raw,"ax",%progbits
+ 347              		.align	2
+ 348              		.global	getBusVoltage_raw
+ 349              		.code	16
+ 350              		.thumb_func
+ 351              		.type	getBusVoltage_raw, %function
+ 352              	getBusVoltage_raw:
+ 353              	.LFB39:
+ 122:INA219.c      **** 
+ 123:INA219.c      **** int16_t getBusVoltage_raw(uint32 INA_addr) 
+ 124:INA219.c      **** {
+ 354              		.loc 1 124 0
+ 355              		.cfi_startproc
+ 356              		@ args = 0, pretend = 0, frame = 0
+ 357              		@ frame_needed = 0, uses_anonymous_args = 0
+ 358              	.LVL29:
+ 359 0000 10B5     		push	{r4, lr}
+ 360              		.cfi_def_cfa_offset 8
+ 361              		.cfi_offset 4, -8
+ 362              		.cfi_offset 14, -4
+ 125:INA219.c      ****     I2C_INA_address = INA_addr;      
+ 363              		.loc 1 125 0
+ 364 0002 0A4B     		ldr	r3, .L25
+ 365 0004 1860     		str	r0, [r3]
+ 366              	.LVL30:
+ 126:INA219.c      ****     uint16_t value=0;
+ 127:INA219.c      ****     I2C_INA_ReadData(INA219_REG_BUSVOLTAGE);
+ 367              		.loc 1 127 0
+ 368 0006 0220     		movs	r0, #2
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccFdzAZJ.s 			page 10
+
+
+ 369              	.LVL31:
+ 370 0008 FFF7FEFF 		bl	I2C_INA_ReadData
+ 371              	.LVL32:
+ 128:INA219.c      ****     
+ 129:INA219.c      ****     CyDelay(1u);
+ 372              		.loc 1 129 0
+ 373 000c 0120     		movs	r0, #1
+ 374 000e FFF7FEFF 		bl	CyDelay
+ 375              	.LVL33:
+ 130:INA219.c      ****     value = (uint16_t)(I2C_INA_buff[0]<<8) + I2C_INA_buff[1];
+ 376              		.loc 1 130 0
+ 377 0012 074B     		ldr	r3, .L25+4
+ 378 0014 1C79     		ldrb	r4, [r3, #4]
+ 379 0016 2402     		lsls	r4, r4, #8
+ 380 0018 5B79     		ldrb	r3, [r3, #5]
+ 381 001a E418     		adds	r4, r4, r3
+ 382 001c A4B2     		uxth	r4, r4
+ 383              	.LVL34:
+ 131:INA219.c      ****     CyDelay(1u);    
+ 384              		.loc 1 131 0
+ 385 001e 0120     		movs	r0, #1
+ 386 0020 FFF7FEFF 		bl	CyDelay
+ 387              	.LVL35:
+ 132:INA219.c      **** 
+ 133:INA219.c      ****     // Shift to the right 3 to drop CNVR and OVF and multiply by LSB
+ 134:INA219.c      ****     return (int16_t)((value >> 3) * 4);
+ 388              		.loc 1 134 0
+ 389 0024 E008     		lsrs	r0, r4, #3
+ 390 0026 8000     		lsls	r0, r0, #2
+ 135:INA219.c      **** }
+ 391              		.loc 1 135 0
+ 392              		@ sp needed
+ 393              	.LVL36:
+ 394 0028 10BD     		pop	{r4, pc}
+ 395              	.L26:
+ 396 002a C046     		.align	2
+ 397              	.L25:
+ 398 002c 00000000 		.word	.LANCHOR1
+ 399 0030 00000000 		.word	.LANCHOR0
+ 400              		.cfi_endproc
+ 401              	.LFE39:
+ 402              		.size	getBusVoltage_raw, .-getBusVoltage_raw
+ 403              		.section	.text.getBusVoltage_V,"ax",%progbits
+ 404              		.align	2
+ 405              		.global	getBusVoltage_V
+ 406              		.code	16
+ 407              		.thumb_func
+ 408              		.type	getBusVoltage_V, %function
+ 409              	getBusVoltage_V:
+ 410              	.LFB40:
+ 136:INA219.c      **** 
+ 137:INA219.c      **** float getBusVoltage_V(uint32 INA_addr) 
+ 138:INA219.c      **** {    
+ 411              		.loc 1 138 0
+ 412              		.cfi_startproc
+ 413              		@ args = 0, pretend = 0, frame = 0
+ 414              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccFdzAZJ.s 			page 11
+
+
+ 415              	.LVL37:
+ 416 0000 10B5     		push	{r4, lr}
+ 417              		.cfi_def_cfa_offset 8
+ 418              		.cfi_offset 4, -8
+ 419              		.cfi_offset 14, -4
+ 139:INA219.c      ****     int16_t value = getBusVoltage_raw(INA_addr);
+ 420              		.loc 1 139 0
+ 421 0002 FFF7FEFF 		bl	getBusVoltage_raw
+ 422              	.LVL38:
+ 140:INA219.c      ****     return value * 0.001;
+ 423              		.loc 1 140 0
+ 424 0006 FFF7FEFF 		bl	__aeabi_i2d
+ 425              	.LVL39:
+ 426 000a 034A     		ldr	r2, .L28
+ 427 000c 034B     		ldr	r3, .L28+4
+ 428 000e FFF7FEFF 		bl	__aeabi_dmul
+ 429              	.LVL40:
+ 430 0012 FFF7FEFF 		bl	__aeabi_d2f
+ 431              	.LVL41:
+ 141:INA219.c      **** }
+ 432              		.loc 1 141 0
+ 433              		@ sp needed
+ 434 0016 10BD     		pop	{r4, pc}
+ 435              	.L29:
+ 436              		.align	2
+ 437              	.L28:
+ 438 0018 FCA9F1D2 		.word	-755914244
+ 439 001c 4D62503F 		.word	1062232653
+ 440              		.cfi_endproc
+ 441              	.LFE40:
+ 442              		.size	getBusVoltage_V, .-getBusVoltage_V
+ 443              		.comm	ReadData,4,4
+ 444              		.global	ina219_calValue
+ 445              		.data
+ 446              		.align	2
+ 447              		.set	.LANCHOR1,. + 0
+ 448              		.type	I2C_INA_address, %object
+ 449              		.size	I2C_INA_address, 4
+ 450              	I2C_INA_address:
+ 451 0000 40000000 		.word	64
+ 452              		.type	ina219_calValue, %object
+ 453              		.size	ina219_calValue, 4
+ 454              	ina219_calValue:
+ 455 0004 00200000 		.word	8192
+ 456              		.bss
+ 457              		.align	2
+ 458              		.set	.LANCHOR0,. + 0
+ 459              		.type	I2C_INA_buffIndex, %object
+ 460              		.size	I2C_INA_buffIndex, 4
+ 461              	I2C_INA_buffIndex:
+ 462 0000 00000000 		.space	4
+ 463              		.type	I2C_INA_buff, %object
+ 464              		.size	I2C_INA_buff, 10
+ 465              	I2C_INA_buff:
+ 466 0004 00000000 		.space	10
+ 466      00000000 
+ 466      0000
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccFdzAZJ.s 			page 12
+
+
+ 467              		.text
+ 468              	.Letext0:
+ 469              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 470              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.2\\psoc creator\\import\\gnu\\arm\\5.4.
+ 471              		.file 4 "Generated_Source\\PSoC4/cytypes.h"
+ 472              		.file 5 "Generated_Source\\PSoC4/I2C_I2C.h"
+ 473              		.file 6 "Generated_Source\\PSoC4/CyLib.h"
+ 474              		.section	.debug_info,"",%progbits
+ 475              	.Ldebug_info0:
+ 476 0000 68040000 		.4byte	0x468
+ 477 0004 0400     		.2byte	0x4
+ 478 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 479 000a 04       		.byte	0x4
+ 480 000b 01       		.uleb128 0x1
+ 481 000c D6010000 		.4byte	.LASF48
+ 482 0010 0C       		.byte	0xc
+ 483 0011 12000000 		.4byte	.LASF49
+ 484 0015 02010000 		.4byte	.LASF50
+ 485 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 486 001d 00000000 		.4byte	0
+ 487 0021 00000000 		.4byte	.Ldebug_line0
+ 488 0025 02       		.uleb128 0x2
+ 489 0026 01       		.byte	0x1
+ 490 0027 06       		.byte	0x6
+ 491 0028 F1020000 		.4byte	.LASF0
+ 492 002c 02       		.uleb128 0x2
+ 493 002d 01       		.byte	0x1
+ 494 002e 08       		.byte	0x8
+ 495 002f C6000000 		.4byte	.LASF1
+ 496 0033 03       		.uleb128 0x3
+ 497 0034 1B000000 		.4byte	.LASF3
+ 498 0038 02       		.byte	0x2
+ 499 0039 29       		.byte	0x29
+ 500 003a 3E000000 		.4byte	0x3e
+ 501 003e 02       		.uleb128 0x2
+ 502 003f 02       		.byte	0x2
+ 503 0040 05       		.byte	0x5
+ 504 0041 92020000 		.4byte	.LASF2
+ 505 0045 03       		.uleb128 0x3
+ 506 0046 4E010000 		.4byte	.LASF4
+ 507 004a 02       		.byte	0x2
+ 508 004b 2B       		.byte	0x2b
+ 509 004c 50000000 		.4byte	0x50
+ 510 0050 02       		.uleb128 0x2
+ 511 0051 02       		.byte	0x2
+ 512 0052 07       		.byte	0x7
+ 513 0053 EF000000 		.4byte	.LASF5
+ 514 0057 02       		.uleb128 0x2
+ 515 0058 04       		.byte	0x4
+ 516 0059 05       		.byte	0x5
+ 517 005a BE020000 		.4byte	.LASF6
+ 518 005e 03       		.uleb128 0x3
+ 519 005f 60010000 		.4byte	.LASF7
+ 520 0063 02       		.byte	0x2
+ 521 0064 41       		.byte	0x41
+ 522 0065 69000000 		.4byte	0x69
+ 523 0069 02       		.uleb128 0x2
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccFdzAZJ.s 			page 13
+
+
+ 524 006a 04       		.byte	0x4
+ 525 006b 07       		.byte	0x7
+ 526 006c D4000000 		.4byte	.LASF8
+ 527 0070 02       		.uleb128 0x2
+ 528 0071 08       		.byte	0x8
+ 529 0072 05       		.byte	0x5
+ 530 0073 7F020000 		.4byte	.LASF9
+ 531 0077 02       		.uleb128 0x2
+ 532 0078 08       		.byte	0x8
+ 533 0079 07       		.byte	0x7
+ 534 007a A9010000 		.4byte	.LASF10
+ 535 007e 04       		.uleb128 0x4
+ 536 007f 04       		.byte	0x4
+ 537 0080 05       		.byte	0x5
+ 538 0081 696E7400 		.ascii	"int\000"
+ 539 0085 02       		.uleb128 0x2
+ 540 0086 04       		.byte	0x4
+ 541 0087 07       		.byte	0x7
+ 542 0088 9C010000 		.4byte	.LASF11
+ 543 008c 03       		.uleb128 0x3
+ 544 008d C8010000 		.4byte	.LASF12
+ 545 0091 03       		.byte	0x3
+ 546 0092 20       		.byte	0x20
+ 547 0093 33000000 		.4byte	0x33
+ 548 0097 03       		.uleb128 0x3
+ 549 0098 9C020000 		.4byte	.LASF13
+ 550 009c 03       		.byte	0x3
+ 551 009d 24       		.byte	0x24
+ 552 009e 45000000 		.4byte	0x45
+ 553 00a2 03       		.uleb128 0x3
+ 554 00a3 B5020000 		.4byte	.LASF14
+ 555 00a7 03       		.byte	0x3
+ 556 00a8 30       		.byte	0x30
+ 557 00a9 5E000000 		.4byte	0x5e
+ 558 00ad 05       		.uleb128 0x5
+ 559 00ae AC000000 		.4byte	.LASF15
+ 560 00b2 04       		.byte	0x4
+ 561 00b3 E401     		.2byte	0x1e4
+ 562 00b5 2C000000 		.4byte	0x2c
+ 563 00b9 05       		.uleb128 0x5
+ 564 00ba 7D010000 		.4byte	.LASF16
+ 565 00be 04       		.byte	0x4
+ 566 00bf E601     		.2byte	0x1e6
+ 567 00c1 69000000 		.4byte	0x69
+ 568 00c5 02       		.uleb128 0x2
+ 569 00c6 04       		.byte	0x4
+ 570 00c7 04       		.byte	0x4
+ 571 00c8 A6000000 		.4byte	.LASF17
+ 572 00cc 02       		.uleb128 0x2
+ 573 00cd 08       		.byte	0x8
+ 574 00ce 04       		.byte	0x4
+ 575 00cf 59010000 		.4byte	.LASF18
+ 576 00d3 02       		.uleb128 0x2
+ 577 00d4 01       		.byte	0x1
+ 578 00d5 08       		.byte	0x8
+ 579 00d6 8D020000 		.4byte	.LASF19
+ 580 00da 02       		.uleb128 0x2
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccFdzAZJ.s 			page 14
+
+
+ 581 00db 08       		.byte	0x8
+ 582 00dc 04       		.byte	0x4
+ 583 00dd D0020000 		.4byte	.LASF20
+ 584 00e1 02       		.uleb128 0x2
+ 585 00e2 04       		.byte	0x4
+ 586 00e3 07       		.byte	0x7
+ 587 00e4 76020000 		.4byte	.LASF21
+ 588 00e8 06       		.uleb128 0x6
+ 589 00e9 DC020000 		.4byte	.LASF22
+ 590 00ed 01       		.byte	0x1
+ 591 00ee 41       		.byte	0x41
+ 592 00ef 00000000 		.4byte	.LFB35
+ 593 00f3 28000000 		.4byte	.LFE35-.LFB35
+ 594 00f7 01       		.uleb128 0x1
+ 595 00f8 9C       		.byte	0x9c
+ 596 00f9 23010000 		.4byte	0x123
+ 597 00fd 07       		.uleb128 0x7
+ 598 00fe 10000000 		.4byte	.LVL0
+ 599 0102 3C040000 		.4byte	0x43c
+ 600 0106 19010000 		.4byte	0x119
+ 601 010a 08       		.uleb128 0x8
+ 602 010b 01       		.uleb128 0x1
+ 603 010c 51       		.byte	0x51
+ 604 010d 05       		.uleb128 0x5
+ 605 010e 03       		.byte	0x3
+ 606 010f 00000000 		.4byte	.LANCHOR0
+ 607 0113 08       		.uleb128 0x8
+ 608 0114 01       		.uleb128 0x1
+ 609 0115 53       		.byte	0x53
+ 610 0116 01       		.uleb128 0x1
+ 611 0117 30       		.byte	0x30
+ 612 0118 00       		.byte	0
+ 613 0119 09       		.uleb128 0x9
+ 614 011a 14000000 		.4byte	.LVL1
+ 615 011e 48040000 		.4byte	0x448
+ 616 0122 00       		.byte	0
+ 617 0123 06       		.uleb128 0x6
+ 618 0124 51000000 		.4byte	.LASF23
+ 619 0128 01       		.byte	0x1
+ 620 0129 2F       		.byte	0x2f
+ 621 012a 00000000 		.4byte	.LFB33
+ 622 012e 18000000 		.4byte	.LFE33-.LFB33
+ 623 0132 01       		.uleb128 0x1
+ 624 0133 9C       		.byte	0x9c
+ 625 0134 6F010000 		.4byte	0x16f
+ 626 0138 0A       		.uleb128 0xa
+ 627 0139 72656700 		.ascii	"reg\000"
+ 628 013d 01       		.byte	0x1
+ 629 013e 2F       		.byte	0x2f
+ 630 013f AD000000 		.4byte	0xad
+ 631 0143 00000000 		.4byte	.LLST0
+ 632 0147 0B       		.uleb128 0xb
+ 633 0148 34010000 		.4byte	.LASF24
+ 634 014c 01       		.byte	0x1
+ 635 014d 2F       		.byte	0x2f
+ 636 014e AD000000 		.4byte	0xad
+ 637 0152 21000000 		.4byte	.LLST1
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccFdzAZJ.s 			page 15
+
+
+ 638 0156 0B       		.uleb128 0xb
+ 639 0157 D0010000 		.4byte	.LASF25
+ 640 015b 01       		.byte	0x1
+ 641 015c 2F       		.byte	0x2f
+ 642 015d AD000000 		.4byte	0xad
+ 643 0161 42000000 		.4byte	.LLST2
+ 644 0165 09       		.uleb128 0x9
+ 645 0166 12000000 		.4byte	.LVL4
+ 646 016a E8000000 		.4byte	0xe8
+ 647 016e 00       		.byte	0
+ 648 016f 06       		.uleb128 0x6
+ 649 0170 09000000 		.4byte	.LASF26
+ 650 0174 01       		.byte	0x1
+ 651 0175 1D       		.byte	0x1d
+ 652 0176 00000000 		.4byte	.LFB32
+ 653 017a 20000000 		.4byte	.LFE32-.LFB32
+ 654 017e 01       		.uleb128 0x1
+ 655 017f 9C       		.byte	0x9c
+ 656 0180 D8010000 		.4byte	0x1d8
+ 657 0184 0B       		.uleb128 0xb
+ 658 0185 93010000 		.4byte	.LASF27
+ 659 0189 01       		.byte	0x1
+ 660 018a 1D       		.byte	0x1d
+ 661 018b B9000000 		.4byte	0xb9
+ 662 018f 72000000 		.4byte	.LLST3
+ 663 0193 0C       		.uleb128 0xc
+ 664 0194 47010000 		.4byte	.LASF32
+ 665 0198 01       		.byte	0x1
+ 666 0199 20       		.byte	0x20
+ 667 019a 97000000 		.4byte	0x97
+ 668 019e 1F3C     		.2byte	0x3c1f
+ 669 01a0 07       		.uleb128 0x7
+ 670 01a1 10000000 		.4byte	.LVL8
+ 671 01a5 23010000 		.4byte	0x123
+ 672 01a9 BE010000 		.4byte	0x1be
+ 673 01ad 08       		.uleb128 0x8
+ 674 01ae 01       		.uleb128 0x1
+ 675 01af 50       		.byte	0x50
+ 676 01b0 01       		.uleb128 0x1
+ 677 01b1 35       		.byte	0x35
+ 678 01b2 08       		.uleb128 0x8
+ 679 01b3 01       		.uleb128 0x1
+ 680 01b4 51       		.byte	0x51
+ 681 01b5 02       		.uleb128 0x2
+ 682 01b6 08       		.byte	0x8
+ 683 01b7 20       		.byte	0x20
+ 684 01b8 08       		.uleb128 0x8
+ 685 01b9 01       		.uleb128 0x1
+ 686 01ba 52       		.byte	0x52
+ 687 01bb 01       		.uleb128 0x1
+ 688 01bc 30       		.byte	0x30
+ 689 01bd 00       		.byte	0
+ 690 01be 0D       		.uleb128 0xd
+ 691 01bf 1A000000 		.4byte	.LVL9
+ 692 01c3 23010000 		.4byte	0x123
+ 693 01c7 08       		.uleb128 0x8
+ 694 01c8 01       		.uleb128 0x1
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccFdzAZJ.s 			page 16
+
+
+ 695 01c9 50       		.byte	0x50
+ 696 01ca 01       		.uleb128 0x1
+ 697 01cb 30       		.byte	0x30
+ 698 01cc 08       		.uleb128 0x8
+ 699 01cd 01       		.uleb128 0x1
+ 700 01ce 51       		.byte	0x51
+ 701 01cf 01       		.uleb128 0x1
+ 702 01d0 4F       		.byte	0x4f
+ 703 01d1 08       		.uleb128 0x8
+ 704 01d2 01       		.uleb128 0x1
+ 705 01d3 52       		.byte	0x52
+ 706 01d4 01       		.uleb128 0x1
+ 707 01d5 4F       		.byte	0x4f
+ 708 01d6 00       		.byte	0
+ 709 01d7 00       		.byte	0
+ 710 01d8 06       		.uleb128 0x6
+ 711 01d9 62000000 		.4byte	.LASF28
+ 712 01dd 01       		.byte	0x1
+ 713 01de 50       		.byte	0x50
+ 714 01df 00000000 		.4byte	.LFB36
+ 715 01e3 34000000 		.4byte	.LFE36-.LFB36
+ 716 01e7 01       		.uleb128 0x1
+ 717 01e8 9C       		.byte	0x9c
+ 718 01e9 18020000 		.4byte	0x218
+ 719 01ed 07       		.uleb128 0x7
+ 720 01ee 1A000000 		.4byte	.LVL10
+ 721 01f2 54040000 		.4byte	0x454
+ 722 01f6 0E020000 		.4byte	0x20e
+ 723 01fa 08       		.uleb128 0x8
+ 724 01fb 01       		.uleb128 0x1
+ 725 01fc 51       		.byte	0x51
+ 726 01fd 05       		.uleb128 0x5
+ 727 01fe 03       		.byte	0x3
+ 728 01ff 04000000 		.4byte	.LANCHOR0+4
+ 729 0203 08       		.uleb128 0x8
+ 730 0204 01       		.uleb128 0x1
+ 731 0205 52       		.byte	0x52
+ 732 0206 01       		.uleb128 0x1
+ 733 0207 32       		.byte	0x32
+ 734 0208 08       		.uleb128 0x8
+ 735 0209 01       		.uleb128 0x1
+ 736 020a 53       		.byte	0x53
+ 737 020b 01       		.uleb128 0x1
+ 738 020c 30       		.byte	0x30
+ 739 020d 00       		.byte	0
+ 740 020e 09       		.uleb128 0x9
+ 741 020f 1E000000 		.4byte	.LVL11
+ 742 0213 48040000 		.4byte	0x448
+ 743 0217 00       		.byte	0
+ 744 0218 06       		.uleb128 0x6
+ 745 0219 85000000 		.4byte	.LASF29
+ 746 021d 01       		.byte	0x1
+ 747 021e 39       		.byte	0x39
+ 748 021f 00000000 		.4byte	.LFB34
+ 749 0223 18000000 		.4byte	.LFE34-.LFB34
+ 750 0227 01       		.uleb128 0x1
+ 751 0228 9C       		.byte	0x9c
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccFdzAZJ.s 			page 17
+
+
+ 752 0229 4F020000 		.4byte	0x24f
+ 753 022d 0B       		.uleb128 0xb
+ 754 022e C0010000 		.4byte	.LASF30
+ 755 0232 01       		.byte	0x1
+ 756 0233 39       		.byte	0x39
+ 757 0234 AD000000 		.4byte	0xad
+ 758 0238 A2000000 		.4byte	.LLST4
+ 759 023c 09       		.uleb128 0x9
+ 760 023d 0E000000 		.4byte	.LVL13
+ 761 0241 E8000000 		.4byte	0xe8
+ 762 0245 09       		.uleb128 0x9
+ 763 0246 12000000 		.4byte	.LVL14
+ 764 024a D8010000 		.4byte	0x1d8
+ 765 024e 00       		.byte	0
+ 766 024f 0E       		.uleb128 0xe
+ 767 0250 84010000 		.4byte	.LASF34
+ 768 0254 01       		.byte	0x1
+ 769 0255 60       		.byte	0x60
+ 770 0256 8C000000 		.4byte	0x8c
+ 771 025a 00000000 		.4byte	.LFB37
+ 772 025e 3C000000 		.4byte	.LFE37-.LFB37
+ 773 0262 01       		.uleb128 0x1
+ 774 0263 9C       		.byte	0x9c
+ 775 0264 DA020000 		.4byte	0x2da
+ 776 0268 0B       		.uleb128 0xb
+ 777 0269 E6000000 		.4byte	.LASF31
+ 778 026d 01       		.byte	0x1
+ 779 026e 60       		.byte	0x60
+ 780 026f B9000000 		.4byte	0xb9
+ 781 0273 C3000000 		.4byte	.LLST5
+ 782 0277 0F       		.uleb128 0xf
+ 783 0278 3B000000 		.4byte	.LASF33
+ 784 027c 01       		.byte	0x1
+ 785 027d 64       		.byte	0x64
+ 786 027e 97000000 		.4byte	0x97
+ 787 0282 F3000000 		.4byte	.LLST6
+ 788 0286 07       		.uleb128 0x7
+ 789 0287 10000000 		.4byte	.LVL18
+ 790 028b 23010000 		.4byte	0x123
+ 791 028f A4020000 		.4byte	0x2a4
+ 792 0293 08       		.uleb128 0x8
+ 793 0294 01       		.uleb128 0x1
+ 794 0295 50       		.byte	0x50
+ 795 0296 01       		.uleb128 0x1
+ 796 0297 35       		.byte	0x35
+ 797 0298 08       		.uleb128 0x8
+ 798 0299 01       		.uleb128 0x1
+ 799 029a 51       		.byte	0x51
+ 800 029b 02       		.uleb128 0x2
+ 801 029c 08       		.byte	0x8
+ 802 029d 20       		.byte	0x20
+ 803 029e 08       		.uleb128 0x8
+ 804 029f 01       		.uleb128 0x1
+ 805 02a0 52       		.byte	0x52
+ 806 02a1 01       		.uleb128 0x1
+ 807 02a2 30       		.byte	0x30
+ 808 02a3 00       		.byte	0
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccFdzAZJ.s 			page 18
+
+
+ 809 02a4 07       		.uleb128 0x7
+ 810 02a5 16000000 		.4byte	.LVL19
+ 811 02a9 18020000 		.4byte	0x218
+ 812 02ad B7020000 		.4byte	0x2b7
+ 813 02b1 08       		.uleb128 0x8
+ 814 02b2 01       		.uleb128 0x1
+ 815 02b3 50       		.byte	0x50
+ 816 02b4 01       		.uleb128 0x1
+ 817 02b5 34       		.byte	0x34
+ 818 02b6 00       		.byte	0
+ 819 02b7 07       		.uleb128 0x7
+ 820 02b8 1C000000 		.4byte	.LVL20
+ 821 02bc 60040000 		.4byte	0x460
+ 822 02c0 CA020000 		.4byte	0x2ca
+ 823 02c4 08       		.uleb128 0x8
+ 824 02c5 01       		.uleb128 0x1
+ 825 02c6 50       		.byte	0x50
+ 826 02c7 01       		.uleb128 0x1
+ 827 02c8 31       		.byte	0x31
+ 828 02c9 00       		.byte	0
+ 829 02ca 0D       		.uleb128 0xd
+ 830 02cb 2E000000 		.4byte	.LVL22
+ 831 02cf 60040000 		.4byte	0x460
+ 832 02d3 08       		.uleb128 0x8
+ 833 02d4 01       		.uleb128 0x1
+ 834 02d5 50       		.byte	0x50
+ 835 02d6 01       		.uleb128 0x1
+ 836 02d7 31       		.byte	0x31
+ 837 02d8 00       		.byte	0
+ 838 02d9 00       		.byte	0
+ 839 02da 10       		.uleb128 0x10
+ 840 02db 77000000 		.4byte	.LASF35
+ 841 02df 01       		.byte	0x1
+ 842 02e0 75       		.byte	0x75
+ 843 02e1 C5000000 		.4byte	0xc5
+ 844 02e5 00000000 		.4byte	.LFB38
+ 845 02e9 20000000 		.4byte	.LFE38-.LFB38
+ 846 02ed 01       		.uleb128 0x1
+ 847 02ee 9C       		.byte	0x9c
+ 848 02ef 21030000 		.4byte	0x321
+ 849 02f3 0B       		.uleb128 0xb
+ 850 02f4 93010000 		.4byte	.LASF27
+ 851 02f8 01       		.byte	0x1
+ 852 02f9 75       		.byte	0x75
+ 853 02fa B9000000 		.4byte	0xb9
+ 854 02fe 1D010000 		.4byte	.LLST7
+ 855 0302 11       		.uleb128 0x11
+ 856 0303 C7020000 		.4byte	.LASF36
+ 857 0307 01       		.byte	0x1
+ 858 0308 77       		.byte	0x77
+ 859 0309 C5000000 		.4byte	0xc5
+ 860 030d 01       		.uleb128 0x1
+ 861 030e 50       		.byte	0x50
+ 862 030f 0D       		.uleb128 0xd
+ 863 0310 06000000 		.4byte	.LVL25
+ 864 0314 4F020000 		.4byte	0x24f
+ 865 0318 08       		.uleb128 0x8
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccFdzAZJ.s 			page 19
+
+
+ 866 0319 01       		.uleb128 0x1
+ 867 031a 50       		.byte	0x50
+ 868 031b 03       		.uleb128 0x3
+ 869 031c F3       		.byte	0xf3
+ 870 031d 01       		.uleb128 0x1
+ 871 031e 50       		.byte	0x50
+ 872 031f 00       		.byte	0
+ 873 0320 00       		.byte	0
+ 874 0321 0E       		.uleb128 0xe
+ 875 0322 64020000 		.4byte	.LASF37
+ 876 0326 01       		.byte	0x1
+ 877 0327 7B       		.byte	0x7b
+ 878 0328 8C000000 		.4byte	0x8c
+ 879 032c 00000000 		.4byte	.LFB39
+ 880 0330 34000000 		.4byte	.LFE39-.LFB39
+ 881 0334 01       		.uleb128 0x1
+ 882 0335 9C       		.byte	0x9c
+ 883 0336 8E030000 		.4byte	0x38e
+ 884 033a 0B       		.uleb128 0xb
+ 885 033b E6000000 		.4byte	.LASF31
+ 886 033f 01       		.byte	0x1
+ 887 0340 7B       		.byte	0x7b
+ 888 0341 B9000000 		.4byte	0xb9
+ 889 0345 3E010000 		.4byte	.LLST8
+ 890 0349 0F       		.uleb128 0xf
+ 891 034a 3B000000 		.4byte	.LASF33
+ 892 034e 01       		.byte	0x1
+ 893 034f 7E       		.byte	0x7e
+ 894 0350 97000000 		.4byte	0x97
+ 895 0354 6E010000 		.4byte	.LLST9
+ 896 0358 07       		.uleb128 0x7
+ 897 0359 0C000000 		.4byte	.LVL32
+ 898 035d 18020000 		.4byte	0x218
+ 899 0361 6B030000 		.4byte	0x36b
+ 900 0365 08       		.uleb128 0x8
+ 901 0366 01       		.uleb128 0x1
+ 902 0367 50       		.byte	0x50
+ 903 0368 01       		.uleb128 0x1
+ 904 0369 32       		.byte	0x32
+ 905 036a 00       		.byte	0
+ 906 036b 07       		.uleb128 0x7
+ 907 036c 12000000 		.4byte	.LVL33
+ 908 0370 60040000 		.4byte	0x460
+ 909 0374 7E030000 		.4byte	0x37e
+ 910 0378 08       		.uleb128 0x8
+ 911 0379 01       		.uleb128 0x1
+ 912 037a 50       		.byte	0x50
+ 913 037b 01       		.uleb128 0x1
+ 914 037c 31       		.byte	0x31
+ 915 037d 00       		.byte	0
+ 916 037e 0D       		.uleb128 0xd
+ 917 037f 24000000 		.4byte	.LVL35
+ 918 0383 60040000 		.4byte	0x460
+ 919 0387 08       		.uleb128 0x8
+ 920 0388 01       		.uleb128 0x1
+ 921 0389 50       		.byte	0x50
+ 922 038a 01       		.uleb128 0x1
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccFdzAZJ.s 			page 20
+
+
+ 923 038b 31       		.byte	0x31
+ 924 038c 00       		.byte	0
+ 925 038d 00       		.byte	0
+ 926 038e 10       		.uleb128 0x10
+ 927 038f A5020000 		.4byte	.LASF38
+ 928 0393 01       		.byte	0x1
+ 929 0394 89       		.byte	0x89
+ 930 0395 C5000000 		.4byte	0xc5
+ 931 0399 00000000 		.4byte	.LFB40
+ 932 039d 20000000 		.4byte	.LFE40-.LFB40
+ 933 03a1 01       		.uleb128 0x1
+ 934 03a2 9C       		.byte	0x9c
+ 935 03a3 D7030000 		.4byte	0x3d7
+ 936 03a7 0B       		.uleb128 0xb
+ 937 03a8 E6000000 		.4byte	.LASF31
+ 938 03ac 01       		.byte	0x1
+ 939 03ad 89       		.byte	0x89
+ 940 03ae B9000000 		.4byte	0xb9
+ 941 03b2 8D010000 		.4byte	.LLST10
+ 942 03b6 0F       		.uleb128 0xf
+ 943 03b7 3B000000 		.4byte	.LASF33
+ 944 03bb 01       		.byte	0x1
+ 945 03bc 8B       		.byte	0x8b
+ 946 03bd 8C000000 		.4byte	0x8c
+ 947 03c1 AE010000 		.4byte	.LLST11
+ 948 03c5 0D       		.uleb128 0xd
+ 949 03c6 06000000 		.4byte	.LVL38
+ 950 03ca 21030000 		.4byte	0x321
+ 951 03ce 08       		.uleb128 0x8
+ 952 03cf 01       		.uleb128 0x1
+ 953 03d0 50       		.byte	0x50
+ 954 03d1 03       		.uleb128 0x3
+ 955 03d2 F3       		.byte	0xf3
+ 956 03d3 01       		.uleb128 0x1
+ 957 03d4 50       		.byte	0x50
+ 958 03d5 00       		.byte	0
+ 959 03d6 00       		.byte	0
+ 960 03d7 12       		.uleb128 0x12
+ 961 03d8 AD000000 		.4byte	0xad
+ 962 03dc E7030000 		.4byte	0x3e7
+ 963 03e0 13       		.uleb128 0x13
+ 964 03e1 E1000000 		.4byte	0xe1
+ 965 03e5 09       		.byte	0x9
+ 966 03e6 00       		.byte	0
+ 967 03e7 11       		.uleb128 0x11
+ 968 03e8 3A010000 		.4byte	.LASF39
+ 969 03ec 01       		.byte	0x1
+ 970 03ed 11       		.byte	0x11
+ 971 03ee D7030000 		.4byte	0x3d7
+ 972 03f2 05       		.uleb128 0x5
+ 973 03f3 03       		.byte	0x3
+ 974 03f4 04000000 		.4byte	I2C_INA_buff
+ 975 03f8 11       		.uleb128 0x11
+ 976 03f9 6B010000 		.4byte	.LASF40
+ 977 03fd 01       		.byte	0x1
+ 978 03fe 15       		.byte	0x15
+ 979 03ff B9000000 		.4byte	0xb9
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccFdzAZJ.s 			page 21
+
+
+ 980 0403 05       		.uleb128 0x5
+ 981 0404 03       		.byte	0x3
+ 982 0405 00000000 		.4byte	I2C_INA_buffIndex
+ 983 0409 11       		.uleb128 0x11
+ 984 040a 96000000 		.4byte	.LASF41
+ 985 040e 01       		.byte	0x1
+ 986 040f 17       		.byte	0x17
+ 987 0410 B9000000 		.4byte	0xb9
+ 988 0414 05       		.uleb128 0x5
+ 989 0415 03       		.byte	0x3
+ 990 0416 00000000 		.4byte	I2C_INA_address
+ 991 041a 14       		.uleb128 0x14
+ 992 041b 41000000 		.4byte	.LASF42
+ 993 041f 01       		.byte	0x1
+ 994 0420 19       		.byte	0x19
+ 995 0421 A2000000 		.4byte	0xa2
+ 996 0425 05       		.uleb128 0x5
+ 997 0426 03       		.byte	0x3
+ 998 0427 00000000 		.4byte	ina219_calValue
+ 999 042b 14       		.uleb128 0x14
+ 1000 042c 00000000 		.4byte	.LASF43
+ 1001 0430 01       		.byte	0x1
+ 1002 0431 1B       		.byte	0x1b
+ 1003 0432 A2000000 		.4byte	0xa2
+ 1004 0436 05       		.uleb128 0x5
+ 1005 0437 03       		.byte	0x3
+ 1006 0438 00000000 		.4byte	ReadData
+ 1007 043c 15       		.uleb128 0x15
+ 1008 043d 25000000 		.4byte	.LASF44
+ 1009 0441 25000000 		.4byte	.LASF44
+ 1010 0445 05       		.byte	0x5
+ 1011 0446 1301     		.2byte	0x113
+ 1012 0448 15       		.uleb128 0x15
+ 1013 0449 B2000000 		.4byte	.LASF45
+ 1014 044d B2000000 		.4byte	.LASF45
+ 1015 0451 05       		.byte	0x5
+ 1016 0452 0F01     		.2byte	0x10f
+ 1017 0454 15       		.uleb128 0x15
+ 1018 0455 FD020000 		.4byte	.LASF46
+ 1019 0459 FD020000 		.4byte	.LASF46
+ 1020 045d 05       		.byte	0x5
+ 1021 045e 1401     		.2byte	0x114
+ 1022 0460 16       		.uleb128 0x16
+ 1023 0461 12030000 		.4byte	.LASF47
+ 1024 0465 12030000 		.4byte	.LASF47
+ 1025 0469 06       		.byte	0x6
+ 1026 046a D9       		.byte	0xd9
+ 1027 046b 00       		.byte	0
+ 1028              		.section	.debug_abbrev,"",%progbits
+ 1029              	.Ldebug_abbrev0:
+ 1030 0000 01       		.uleb128 0x1
+ 1031 0001 11       		.uleb128 0x11
+ 1032 0002 01       		.byte	0x1
+ 1033 0003 25       		.uleb128 0x25
+ 1034 0004 0E       		.uleb128 0xe
+ 1035 0005 13       		.uleb128 0x13
+ 1036 0006 0B       		.uleb128 0xb
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccFdzAZJ.s 			page 22
+
+
+ 1037 0007 03       		.uleb128 0x3
+ 1038 0008 0E       		.uleb128 0xe
+ 1039 0009 1B       		.uleb128 0x1b
+ 1040 000a 0E       		.uleb128 0xe
+ 1041 000b 55       		.uleb128 0x55
+ 1042 000c 17       		.uleb128 0x17
+ 1043 000d 11       		.uleb128 0x11
+ 1044 000e 01       		.uleb128 0x1
+ 1045 000f 10       		.uleb128 0x10
+ 1046 0010 17       		.uleb128 0x17
+ 1047 0011 00       		.byte	0
+ 1048 0012 00       		.byte	0
+ 1049 0013 02       		.uleb128 0x2
+ 1050 0014 24       		.uleb128 0x24
+ 1051 0015 00       		.byte	0
+ 1052 0016 0B       		.uleb128 0xb
+ 1053 0017 0B       		.uleb128 0xb
+ 1054 0018 3E       		.uleb128 0x3e
+ 1055 0019 0B       		.uleb128 0xb
+ 1056 001a 03       		.uleb128 0x3
+ 1057 001b 0E       		.uleb128 0xe
+ 1058 001c 00       		.byte	0
+ 1059 001d 00       		.byte	0
+ 1060 001e 03       		.uleb128 0x3
+ 1061 001f 16       		.uleb128 0x16
+ 1062 0020 00       		.byte	0
+ 1063 0021 03       		.uleb128 0x3
+ 1064 0022 0E       		.uleb128 0xe
+ 1065 0023 3A       		.uleb128 0x3a
+ 1066 0024 0B       		.uleb128 0xb
+ 1067 0025 3B       		.uleb128 0x3b
+ 1068 0026 0B       		.uleb128 0xb
+ 1069 0027 49       		.uleb128 0x49
+ 1070 0028 13       		.uleb128 0x13
+ 1071 0029 00       		.byte	0
+ 1072 002a 00       		.byte	0
+ 1073 002b 04       		.uleb128 0x4
+ 1074 002c 24       		.uleb128 0x24
+ 1075 002d 00       		.byte	0
+ 1076 002e 0B       		.uleb128 0xb
+ 1077 002f 0B       		.uleb128 0xb
+ 1078 0030 3E       		.uleb128 0x3e
+ 1079 0031 0B       		.uleb128 0xb
+ 1080 0032 03       		.uleb128 0x3
+ 1081 0033 08       		.uleb128 0x8
+ 1082 0034 00       		.byte	0
+ 1083 0035 00       		.byte	0
+ 1084 0036 05       		.uleb128 0x5
+ 1085 0037 16       		.uleb128 0x16
+ 1086 0038 00       		.byte	0
+ 1087 0039 03       		.uleb128 0x3
+ 1088 003a 0E       		.uleb128 0xe
+ 1089 003b 3A       		.uleb128 0x3a
+ 1090 003c 0B       		.uleb128 0xb
+ 1091 003d 3B       		.uleb128 0x3b
+ 1092 003e 05       		.uleb128 0x5
+ 1093 003f 49       		.uleb128 0x49
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccFdzAZJ.s 			page 23
+
+
+ 1094 0040 13       		.uleb128 0x13
+ 1095 0041 00       		.byte	0
+ 1096 0042 00       		.byte	0
+ 1097 0043 06       		.uleb128 0x6
+ 1098 0044 2E       		.uleb128 0x2e
+ 1099 0045 01       		.byte	0x1
+ 1100 0046 3F       		.uleb128 0x3f
+ 1101 0047 19       		.uleb128 0x19
+ 1102 0048 03       		.uleb128 0x3
+ 1103 0049 0E       		.uleb128 0xe
+ 1104 004a 3A       		.uleb128 0x3a
+ 1105 004b 0B       		.uleb128 0xb
+ 1106 004c 3B       		.uleb128 0x3b
+ 1107 004d 0B       		.uleb128 0xb
+ 1108 004e 27       		.uleb128 0x27
+ 1109 004f 19       		.uleb128 0x19
+ 1110 0050 11       		.uleb128 0x11
+ 1111 0051 01       		.uleb128 0x1
+ 1112 0052 12       		.uleb128 0x12
+ 1113 0053 06       		.uleb128 0x6
+ 1114 0054 40       		.uleb128 0x40
+ 1115 0055 18       		.uleb128 0x18
+ 1116 0056 9742     		.uleb128 0x2117
+ 1117 0058 19       		.uleb128 0x19
+ 1118 0059 01       		.uleb128 0x1
+ 1119 005a 13       		.uleb128 0x13
+ 1120 005b 00       		.byte	0
+ 1121 005c 00       		.byte	0
+ 1122 005d 07       		.uleb128 0x7
+ 1123 005e 898201   		.uleb128 0x4109
+ 1124 0061 01       		.byte	0x1
+ 1125 0062 11       		.uleb128 0x11
+ 1126 0063 01       		.uleb128 0x1
+ 1127 0064 31       		.uleb128 0x31
+ 1128 0065 13       		.uleb128 0x13
+ 1129 0066 01       		.uleb128 0x1
+ 1130 0067 13       		.uleb128 0x13
+ 1131 0068 00       		.byte	0
+ 1132 0069 00       		.byte	0
+ 1133 006a 08       		.uleb128 0x8
+ 1134 006b 8A8201   		.uleb128 0x410a
+ 1135 006e 00       		.byte	0
+ 1136 006f 02       		.uleb128 0x2
+ 1137 0070 18       		.uleb128 0x18
+ 1138 0071 9142     		.uleb128 0x2111
+ 1139 0073 18       		.uleb128 0x18
+ 1140 0074 00       		.byte	0
+ 1141 0075 00       		.byte	0
+ 1142 0076 09       		.uleb128 0x9
+ 1143 0077 898201   		.uleb128 0x4109
+ 1144 007a 00       		.byte	0
+ 1145 007b 11       		.uleb128 0x11
+ 1146 007c 01       		.uleb128 0x1
+ 1147 007d 31       		.uleb128 0x31
+ 1148 007e 13       		.uleb128 0x13
+ 1149 007f 00       		.byte	0
+ 1150 0080 00       		.byte	0
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccFdzAZJ.s 			page 24
+
+
+ 1151 0081 0A       		.uleb128 0xa
+ 1152 0082 05       		.uleb128 0x5
+ 1153 0083 00       		.byte	0
+ 1154 0084 03       		.uleb128 0x3
+ 1155 0085 08       		.uleb128 0x8
+ 1156 0086 3A       		.uleb128 0x3a
+ 1157 0087 0B       		.uleb128 0xb
+ 1158 0088 3B       		.uleb128 0x3b
+ 1159 0089 0B       		.uleb128 0xb
+ 1160 008a 49       		.uleb128 0x49
+ 1161 008b 13       		.uleb128 0x13
+ 1162 008c 02       		.uleb128 0x2
+ 1163 008d 17       		.uleb128 0x17
+ 1164 008e 00       		.byte	0
+ 1165 008f 00       		.byte	0
+ 1166 0090 0B       		.uleb128 0xb
+ 1167 0091 05       		.uleb128 0x5
+ 1168 0092 00       		.byte	0
+ 1169 0093 03       		.uleb128 0x3
+ 1170 0094 0E       		.uleb128 0xe
+ 1171 0095 3A       		.uleb128 0x3a
+ 1172 0096 0B       		.uleb128 0xb
+ 1173 0097 3B       		.uleb128 0x3b
+ 1174 0098 0B       		.uleb128 0xb
+ 1175 0099 49       		.uleb128 0x49
+ 1176 009a 13       		.uleb128 0x13
+ 1177 009b 02       		.uleb128 0x2
+ 1178 009c 17       		.uleb128 0x17
+ 1179 009d 00       		.byte	0
+ 1180 009e 00       		.byte	0
+ 1181 009f 0C       		.uleb128 0xc
+ 1182 00a0 34       		.uleb128 0x34
+ 1183 00a1 00       		.byte	0
+ 1184 00a2 03       		.uleb128 0x3
+ 1185 00a3 0E       		.uleb128 0xe
+ 1186 00a4 3A       		.uleb128 0x3a
+ 1187 00a5 0B       		.uleb128 0xb
+ 1188 00a6 3B       		.uleb128 0x3b
+ 1189 00a7 0B       		.uleb128 0xb
+ 1190 00a8 49       		.uleb128 0x49
+ 1191 00a9 13       		.uleb128 0x13
+ 1192 00aa 1C       		.uleb128 0x1c
+ 1193 00ab 05       		.uleb128 0x5
+ 1194 00ac 00       		.byte	0
+ 1195 00ad 00       		.byte	0
+ 1196 00ae 0D       		.uleb128 0xd
+ 1197 00af 898201   		.uleb128 0x4109
+ 1198 00b2 01       		.byte	0x1
+ 1199 00b3 11       		.uleb128 0x11
+ 1200 00b4 01       		.uleb128 0x1
+ 1201 00b5 31       		.uleb128 0x31
+ 1202 00b6 13       		.uleb128 0x13
+ 1203 00b7 00       		.byte	0
+ 1204 00b8 00       		.byte	0
+ 1205 00b9 0E       		.uleb128 0xe
+ 1206 00ba 2E       		.uleb128 0x2e
+ 1207 00bb 01       		.byte	0x1
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccFdzAZJ.s 			page 25
+
+
+ 1208 00bc 3F       		.uleb128 0x3f
+ 1209 00bd 19       		.uleb128 0x19
+ 1210 00be 03       		.uleb128 0x3
+ 1211 00bf 0E       		.uleb128 0xe
+ 1212 00c0 3A       		.uleb128 0x3a
+ 1213 00c1 0B       		.uleb128 0xb
+ 1214 00c2 3B       		.uleb128 0x3b
+ 1215 00c3 0B       		.uleb128 0xb
+ 1216 00c4 27       		.uleb128 0x27
+ 1217 00c5 19       		.uleb128 0x19
+ 1218 00c6 49       		.uleb128 0x49
+ 1219 00c7 13       		.uleb128 0x13
+ 1220 00c8 11       		.uleb128 0x11
+ 1221 00c9 01       		.uleb128 0x1
+ 1222 00ca 12       		.uleb128 0x12
+ 1223 00cb 06       		.uleb128 0x6
+ 1224 00cc 40       		.uleb128 0x40
+ 1225 00cd 18       		.uleb128 0x18
+ 1226 00ce 9742     		.uleb128 0x2117
+ 1227 00d0 19       		.uleb128 0x19
+ 1228 00d1 01       		.uleb128 0x1
+ 1229 00d2 13       		.uleb128 0x13
+ 1230 00d3 00       		.byte	0
+ 1231 00d4 00       		.byte	0
+ 1232 00d5 0F       		.uleb128 0xf
+ 1233 00d6 34       		.uleb128 0x34
+ 1234 00d7 00       		.byte	0
+ 1235 00d8 03       		.uleb128 0x3
+ 1236 00d9 0E       		.uleb128 0xe
+ 1237 00da 3A       		.uleb128 0x3a
+ 1238 00db 0B       		.uleb128 0xb
+ 1239 00dc 3B       		.uleb128 0x3b
+ 1240 00dd 0B       		.uleb128 0xb
+ 1241 00de 49       		.uleb128 0x49
+ 1242 00df 13       		.uleb128 0x13
+ 1243 00e0 02       		.uleb128 0x2
+ 1244 00e1 17       		.uleb128 0x17
+ 1245 00e2 00       		.byte	0
+ 1246 00e3 00       		.byte	0
+ 1247 00e4 10       		.uleb128 0x10
+ 1248 00e5 2E       		.uleb128 0x2e
+ 1249 00e6 01       		.byte	0x1
+ 1250 00e7 3F       		.uleb128 0x3f
+ 1251 00e8 19       		.uleb128 0x19
+ 1252 00e9 03       		.uleb128 0x3
+ 1253 00ea 0E       		.uleb128 0xe
+ 1254 00eb 3A       		.uleb128 0x3a
+ 1255 00ec 0B       		.uleb128 0xb
+ 1256 00ed 3B       		.uleb128 0x3b
+ 1257 00ee 0B       		.uleb128 0xb
+ 1258 00ef 27       		.uleb128 0x27
+ 1259 00f0 19       		.uleb128 0x19
+ 1260 00f1 49       		.uleb128 0x49
+ 1261 00f2 13       		.uleb128 0x13
+ 1262 00f3 11       		.uleb128 0x11
+ 1263 00f4 01       		.uleb128 0x1
+ 1264 00f5 12       		.uleb128 0x12
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccFdzAZJ.s 			page 26
+
+
+ 1265 00f6 06       		.uleb128 0x6
+ 1266 00f7 40       		.uleb128 0x40
+ 1267 00f8 18       		.uleb128 0x18
+ 1268 00f9 9642     		.uleb128 0x2116
+ 1269 00fb 19       		.uleb128 0x19
+ 1270 00fc 01       		.uleb128 0x1
+ 1271 00fd 13       		.uleb128 0x13
+ 1272 00fe 00       		.byte	0
+ 1273 00ff 00       		.byte	0
+ 1274 0100 11       		.uleb128 0x11
+ 1275 0101 34       		.uleb128 0x34
+ 1276 0102 00       		.byte	0
+ 1277 0103 03       		.uleb128 0x3
+ 1278 0104 0E       		.uleb128 0xe
+ 1279 0105 3A       		.uleb128 0x3a
+ 1280 0106 0B       		.uleb128 0xb
+ 1281 0107 3B       		.uleb128 0x3b
+ 1282 0108 0B       		.uleb128 0xb
+ 1283 0109 49       		.uleb128 0x49
+ 1284 010a 13       		.uleb128 0x13
+ 1285 010b 02       		.uleb128 0x2
+ 1286 010c 18       		.uleb128 0x18
+ 1287 010d 00       		.byte	0
+ 1288 010e 00       		.byte	0
+ 1289 010f 12       		.uleb128 0x12
+ 1290 0110 01       		.uleb128 0x1
+ 1291 0111 01       		.byte	0x1
+ 1292 0112 49       		.uleb128 0x49
+ 1293 0113 13       		.uleb128 0x13
+ 1294 0114 01       		.uleb128 0x1
+ 1295 0115 13       		.uleb128 0x13
+ 1296 0116 00       		.byte	0
+ 1297 0117 00       		.byte	0
+ 1298 0118 13       		.uleb128 0x13
+ 1299 0119 21       		.uleb128 0x21
+ 1300 011a 00       		.byte	0
+ 1301 011b 49       		.uleb128 0x49
+ 1302 011c 13       		.uleb128 0x13
+ 1303 011d 2F       		.uleb128 0x2f
+ 1304 011e 0B       		.uleb128 0xb
+ 1305 011f 00       		.byte	0
+ 1306 0120 00       		.byte	0
+ 1307 0121 14       		.uleb128 0x14
+ 1308 0122 34       		.uleb128 0x34
+ 1309 0123 00       		.byte	0
+ 1310 0124 03       		.uleb128 0x3
+ 1311 0125 0E       		.uleb128 0xe
+ 1312 0126 3A       		.uleb128 0x3a
+ 1313 0127 0B       		.uleb128 0xb
+ 1314 0128 3B       		.uleb128 0x3b
+ 1315 0129 0B       		.uleb128 0xb
+ 1316 012a 49       		.uleb128 0x49
+ 1317 012b 13       		.uleb128 0x13
+ 1318 012c 3F       		.uleb128 0x3f
+ 1319 012d 19       		.uleb128 0x19
+ 1320 012e 02       		.uleb128 0x2
+ 1321 012f 18       		.uleb128 0x18
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccFdzAZJ.s 			page 27
+
+
+ 1322 0130 00       		.byte	0
+ 1323 0131 00       		.byte	0
+ 1324 0132 15       		.uleb128 0x15
+ 1325 0133 2E       		.uleb128 0x2e
+ 1326 0134 00       		.byte	0
+ 1327 0135 3F       		.uleb128 0x3f
+ 1328 0136 19       		.uleb128 0x19
+ 1329 0137 3C       		.uleb128 0x3c
+ 1330 0138 19       		.uleb128 0x19
+ 1331 0139 6E       		.uleb128 0x6e
+ 1332 013a 0E       		.uleb128 0xe
+ 1333 013b 03       		.uleb128 0x3
+ 1334 013c 0E       		.uleb128 0xe
+ 1335 013d 3A       		.uleb128 0x3a
+ 1336 013e 0B       		.uleb128 0xb
+ 1337 013f 3B       		.uleb128 0x3b
+ 1338 0140 05       		.uleb128 0x5
+ 1339 0141 00       		.byte	0
+ 1340 0142 00       		.byte	0
+ 1341 0143 16       		.uleb128 0x16
+ 1342 0144 2E       		.uleb128 0x2e
+ 1343 0145 00       		.byte	0
+ 1344 0146 3F       		.uleb128 0x3f
+ 1345 0147 19       		.uleb128 0x19
+ 1346 0148 3C       		.uleb128 0x3c
+ 1347 0149 19       		.uleb128 0x19
+ 1348 014a 6E       		.uleb128 0x6e
+ 1349 014b 0E       		.uleb128 0xe
+ 1350 014c 03       		.uleb128 0x3
+ 1351 014d 0E       		.uleb128 0xe
+ 1352 014e 3A       		.uleb128 0x3a
+ 1353 014f 0B       		.uleb128 0xb
+ 1354 0150 3B       		.uleb128 0x3b
+ 1355 0151 0B       		.uleb128 0xb
+ 1356 0152 00       		.byte	0
+ 1357 0153 00       		.byte	0
+ 1358 0154 00       		.byte	0
+ 1359              		.section	.debug_loc,"",%progbits
+ 1360              	.Ldebug_loc0:
+ 1361              	.LLST0:
+ 1362 0000 00000000 		.4byte	.LVL2
+ 1363 0004 11000000 		.4byte	.LVL4-1
+ 1364 0008 0100     		.2byte	0x1
+ 1365 000a 50       		.byte	0x50
+ 1366 000b 11000000 		.4byte	.LVL4-1
+ 1367 000f 18000000 		.4byte	.LFE33
+ 1368 0013 0400     		.2byte	0x4
+ 1369 0015 F3       		.byte	0xf3
+ 1370 0016 01       		.uleb128 0x1
+ 1371 0017 50       		.byte	0x50
+ 1372 0018 9F       		.byte	0x9f
+ 1373 0019 00000000 		.4byte	0
+ 1374 001d 00000000 		.4byte	0
+ 1375              	.LLST1:
+ 1376 0021 00000000 		.4byte	.LVL2
+ 1377 0025 11000000 		.4byte	.LVL4-1
+ 1378 0029 0100     		.2byte	0x1
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccFdzAZJ.s 			page 28
+
+
+ 1379 002b 51       		.byte	0x51
+ 1380 002c 11000000 		.4byte	.LVL4-1
+ 1381 0030 18000000 		.4byte	.LFE33
+ 1382 0034 0400     		.2byte	0x4
+ 1383 0036 F3       		.byte	0xf3
+ 1384 0037 01       		.uleb128 0x1
+ 1385 0038 51       		.byte	0x51
+ 1386 0039 9F       		.byte	0x9f
+ 1387 003a 00000000 		.4byte	0
+ 1388 003e 00000000 		.4byte	0
+ 1389              	.LLST2:
+ 1390 0042 00000000 		.4byte	.LVL2
+ 1391 0046 0C000000 		.4byte	.LVL3
+ 1392 004a 0100     		.2byte	0x1
+ 1393 004c 52       		.byte	0x52
+ 1394 004d 0C000000 		.4byte	.LVL3
+ 1395 0051 11000000 		.4byte	.LVL4-1
+ 1396 0055 0500     		.2byte	0x5
+ 1397 0057 03       		.byte	0x3
+ 1398 0058 06000000 		.4byte	I2C_INA_buff+2
+ 1399 005c 11000000 		.4byte	.LVL4-1
+ 1400 0060 18000000 		.4byte	.LFE33
+ 1401 0064 0400     		.2byte	0x4
+ 1402 0066 F3       		.byte	0xf3
+ 1403 0067 01       		.uleb128 0x1
+ 1404 0068 52       		.byte	0x52
+ 1405 0069 9F       		.byte	0x9f
+ 1406 006a 00000000 		.4byte	0
+ 1407 006e 00000000 		.4byte	0
+ 1408              	.LLST3:
+ 1409 0072 00000000 		.4byte	.LVL5
+ 1410 0076 0C000000 		.4byte	.LVL7
+ 1411 007a 0100     		.2byte	0x1
+ 1412 007c 50       		.byte	0x50
+ 1413 007d 0C000000 		.4byte	.LVL7
+ 1414 0081 0F000000 		.4byte	.LVL8-1
+ 1415 0085 0500     		.2byte	0x5
+ 1416 0087 03       		.byte	0x3
+ 1417 0088 00000000 		.4byte	I2C_INA_address
+ 1418 008c 0F000000 		.4byte	.LVL8-1
+ 1419 0090 20000000 		.4byte	.LFE32
+ 1420 0094 0400     		.2byte	0x4
+ 1421 0096 F3       		.byte	0xf3
+ 1422 0097 01       		.uleb128 0x1
+ 1423 0098 50       		.byte	0x50
+ 1424 0099 9F       		.byte	0x9f
+ 1425 009a 00000000 		.4byte	0
+ 1426 009e 00000000 		.4byte	0
+ 1427              	.LLST4:
+ 1428 00a2 00000000 		.4byte	.LVL12
+ 1429 00a6 0D000000 		.4byte	.LVL13-1
+ 1430 00aa 0100     		.2byte	0x1
+ 1431 00ac 50       		.byte	0x50
+ 1432 00ad 0D000000 		.4byte	.LVL13-1
+ 1433 00b1 18000000 		.4byte	.LFE34
+ 1434 00b5 0400     		.2byte	0x4
+ 1435 00b7 F3       		.byte	0xf3
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccFdzAZJ.s 			page 29
+
+
+ 1436 00b8 01       		.uleb128 0x1
+ 1437 00b9 50       		.byte	0x50
+ 1438 00ba 9F       		.byte	0x9f
+ 1439 00bb 00000000 		.4byte	0
+ 1440 00bf 00000000 		.4byte	0
+ 1441              	.LLST5:
+ 1442 00c3 00000000 		.4byte	.LVL15
+ 1443 00c7 0C000000 		.4byte	.LVL17
+ 1444 00cb 0100     		.2byte	0x1
+ 1445 00cd 50       		.byte	0x50
+ 1446 00ce 0C000000 		.4byte	.LVL17
+ 1447 00d2 0F000000 		.4byte	.LVL18-1
+ 1448 00d6 0500     		.2byte	0x5
+ 1449 00d8 03       		.byte	0x3
+ 1450 00d9 00000000 		.4byte	I2C_INA_address
+ 1451 00dd 0F000000 		.4byte	.LVL18-1
+ 1452 00e1 3C000000 		.4byte	.LFE37
+ 1453 00e5 0400     		.2byte	0x4
+ 1454 00e7 F3       		.byte	0xf3
+ 1455 00e8 01       		.uleb128 0x1
+ 1456 00e9 50       		.byte	0x50
+ 1457 00ea 9F       		.byte	0x9f
+ 1458 00eb 00000000 		.4byte	0
+ 1459 00ef 00000000 		.4byte	0
+ 1460              	.LLST6:
+ 1461 00f3 06000000 		.4byte	.LVL16
+ 1462 00f7 28000000 		.4byte	.LVL21
+ 1463 00fb 0200     		.2byte	0x2
+ 1464 00fd 30       		.byte	0x30
+ 1465 00fe 9F       		.byte	0x9f
+ 1466 00ff 28000000 		.4byte	.LVL21
+ 1467 0103 30000000 		.4byte	.LVL23
+ 1468 0107 0100     		.2byte	0x1
+ 1469 0109 54       		.byte	0x54
+ 1470 010a 30000000 		.4byte	.LVL23
+ 1471 010e 3C000000 		.4byte	.LFE37
+ 1472 0112 0100     		.2byte	0x1
+ 1473 0114 50       		.byte	0x50
+ 1474 0115 00000000 		.4byte	0
+ 1475 0119 00000000 		.4byte	0
+ 1476              	.LLST7:
+ 1477 011d 00000000 		.4byte	.LVL24
+ 1478 0121 05000000 		.4byte	.LVL25-1
+ 1479 0125 0100     		.2byte	0x1
+ 1480 0127 50       		.byte	0x50
+ 1481 0128 05000000 		.4byte	.LVL25-1
+ 1482 012c 20000000 		.4byte	.LFE38
+ 1483 0130 0400     		.2byte	0x4
+ 1484 0132 F3       		.byte	0xf3
+ 1485 0133 01       		.uleb128 0x1
+ 1486 0134 50       		.byte	0x50
+ 1487 0135 9F       		.byte	0x9f
+ 1488 0136 00000000 		.4byte	0
+ 1489 013a 00000000 		.4byte	0
+ 1490              	.LLST8:
+ 1491 013e 00000000 		.4byte	.LVL29
+ 1492 0142 08000000 		.4byte	.LVL31
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccFdzAZJ.s 			page 30
+
+
+ 1493 0146 0100     		.2byte	0x1
+ 1494 0148 50       		.byte	0x50
+ 1495 0149 08000000 		.4byte	.LVL31
+ 1496 014d 0B000000 		.4byte	.LVL32-1
+ 1497 0151 0500     		.2byte	0x5
+ 1498 0153 03       		.byte	0x3
+ 1499 0154 00000000 		.4byte	I2C_INA_address
+ 1500 0158 0B000000 		.4byte	.LVL32-1
+ 1501 015c 34000000 		.4byte	.LFE39
+ 1502 0160 0400     		.2byte	0x4
+ 1503 0162 F3       		.byte	0xf3
+ 1504 0163 01       		.uleb128 0x1
+ 1505 0164 50       		.byte	0x50
+ 1506 0165 9F       		.byte	0x9f
+ 1507 0166 00000000 		.4byte	0
+ 1508 016a 00000000 		.4byte	0
+ 1509              	.LLST9:
+ 1510 016e 06000000 		.4byte	.LVL30
+ 1511 0172 1E000000 		.4byte	.LVL34
+ 1512 0176 0200     		.2byte	0x2
+ 1513 0178 30       		.byte	0x30
+ 1514 0179 9F       		.byte	0x9f
+ 1515 017a 1E000000 		.4byte	.LVL34
+ 1516 017e 28000000 		.4byte	.LVL36
+ 1517 0182 0100     		.2byte	0x1
+ 1518 0184 54       		.byte	0x54
+ 1519 0185 00000000 		.4byte	0
+ 1520 0189 00000000 		.4byte	0
+ 1521              	.LLST10:
+ 1522 018d 00000000 		.4byte	.LVL37
+ 1523 0191 05000000 		.4byte	.LVL38-1
+ 1524 0195 0100     		.2byte	0x1
+ 1525 0197 50       		.byte	0x50
+ 1526 0198 05000000 		.4byte	.LVL38-1
+ 1527 019c 20000000 		.4byte	.LFE40
+ 1528 01a0 0400     		.2byte	0x4
+ 1529 01a2 F3       		.byte	0xf3
+ 1530 01a3 01       		.uleb128 0x1
+ 1531 01a4 50       		.byte	0x50
+ 1532 01a5 9F       		.byte	0x9f
+ 1533 01a6 00000000 		.4byte	0
+ 1534 01aa 00000000 		.4byte	0
+ 1535              	.LLST11:
+ 1536 01ae 06000000 		.4byte	.LVL38
+ 1537 01b2 09000000 		.4byte	.LVL39-1
+ 1538 01b6 0100     		.2byte	0x1
+ 1539 01b8 50       		.byte	0x50
+ 1540 01b9 00000000 		.4byte	0
+ 1541 01bd 00000000 		.4byte	0
+ 1542              		.section	.debug_aranges,"",%progbits
+ 1543 0000 5C000000 		.4byte	0x5c
+ 1544 0004 0200     		.2byte	0x2
+ 1545 0006 00000000 		.4byte	.Ldebug_info0
+ 1546 000a 04       		.byte	0x4
+ 1547 000b 00       		.byte	0
+ 1548 000c 0000     		.2byte	0
+ 1549 000e 0000     		.2byte	0
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccFdzAZJ.s 			page 31
+
+
+ 1550 0010 00000000 		.4byte	.LFB35
+ 1551 0014 28000000 		.4byte	.LFE35-.LFB35
+ 1552 0018 00000000 		.4byte	.LFB33
+ 1553 001c 18000000 		.4byte	.LFE33-.LFB33
+ 1554 0020 00000000 		.4byte	.LFB32
+ 1555 0024 20000000 		.4byte	.LFE32-.LFB32
+ 1556 0028 00000000 		.4byte	.LFB36
+ 1557 002c 34000000 		.4byte	.LFE36-.LFB36
+ 1558 0030 00000000 		.4byte	.LFB34
+ 1559 0034 18000000 		.4byte	.LFE34-.LFB34
+ 1560 0038 00000000 		.4byte	.LFB37
+ 1561 003c 3C000000 		.4byte	.LFE37-.LFB37
+ 1562 0040 00000000 		.4byte	.LFB38
+ 1563 0044 20000000 		.4byte	.LFE38-.LFB38
+ 1564 0048 00000000 		.4byte	.LFB39
+ 1565 004c 34000000 		.4byte	.LFE39-.LFB39
+ 1566 0050 00000000 		.4byte	.LFB40
+ 1567 0054 20000000 		.4byte	.LFE40-.LFB40
+ 1568 0058 00000000 		.4byte	0
+ 1569 005c 00000000 		.4byte	0
+ 1570              		.section	.debug_ranges,"",%progbits
+ 1571              	.Ldebug_ranges0:
+ 1572 0000 00000000 		.4byte	.LFB35
+ 1573 0004 28000000 		.4byte	.LFE35
+ 1574 0008 00000000 		.4byte	.LFB33
+ 1575 000c 18000000 		.4byte	.LFE33
+ 1576 0010 00000000 		.4byte	.LFB32
+ 1577 0014 20000000 		.4byte	.LFE32
+ 1578 0018 00000000 		.4byte	.LFB36
+ 1579 001c 34000000 		.4byte	.LFE36
+ 1580 0020 00000000 		.4byte	.LFB34
+ 1581 0024 18000000 		.4byte	.LFE34
+ 1582 0028 00000000 		.4byte	.LFB37
+ 1583 002c 3C000000 		.4byte	.LFE37
+ 1584 0030 00000000 		.4byte	.LFB38
+ 1585 0034 20000000 		.4byte	.LFE38
+ 1586 0038 00000000 		.4byte	.LFB39
+ 1587 003c 34000000 		.4byte	.LFE39
+ 1588 0040 00000000 		.4byte	.LFB40
+ 1589 0044 20000000 		.4byte	.LFE40
+ 1590 0048 00000000 		.4byte	0
+ 1591 004c 00000000 		.4byte	0
+ 1592              		.section	.debug_line,"",%progbits
+ 1593              	.Ldebug_line0:
+ 1594 0000 23020000 		.section	.debug_str,"MS",%progbits,1
+ 1594      02005801 
+ 1594      00000201 
+ 1594      FB0E0D00 
+ 1594      01010101 
+ 1595              	.LASF43:
+ 1596 0000 52656164 		.ascii	"ReadData\000"
+ 1596      44617461 
+ 1596      00
+ 1597              	.LASF26:
+ 1598 0009 496E6974 		.ascii	"Init_INA\000"
+ 1598      5F494E41 
+ 1598      00
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccFdzAZJ.s 			page 32
+
+
+ 1599              	.LASF49:
+ 1600 0012 494E4132 		.ascii	"INA219.c\000"
+ 1600      31392E63 
+ 1600      00
+ 1601              	.LASF3:
+ 1602 001b 5F5F696E 		.ascii	"__int16_t\000"
+ 1602      7431365F 
+ 1602      7400
+ 1603              	.LASF44:
+ 1604 0025 4932435F 		.ascii	"I2C_I2CMasterWriteBuf\000"
+ 1604      4932434D 
+ 1604      61737465 
+ 1604      72577269 
+ 1604      74654275 
+ 1605              	.LASF33:
+ 1606 003b 76616C75 		.ascii	"value\000"
+ 1606      6500
+ 1607              	.LASF42:
+ 1608 0041 696E6132 		.ascii	"ina219_calValue\000"
+ 1608      31395F63 
+ 1608      616C5661 
+ 1608      6C756500 
+ 1609              	.LASF23:
+ 1610 0051 4932435F 		.ascii	"I2C_INA_SendData\000"
+ 1610      494E415F 
+ 1610      53656E64 
+ 1610      44617461 
+ 1610      00
+ 1611              	.LASF28:
+ 1612 0062 4932435F 		.ascii	"I2C_INA_ReadSequence\000"
+ 1612      494E415F 
+ 1612      52656164 
+ 1612      53657175 
+ 1612      656E6365 
+ 1613              	.LASF35:
+ 1614 0077 67657443 		.ascii	"getCurrent_mA\000"
+ 1614      75727265 
+ 1614      6E745F6D 
+ 1614      4100
+ 1615              	.LASF29:
+ 1616 0085 4932435F 		.ascii	"I2C_INA_ReadData\000"
+ 1616      494E415F 
+ 1616      52656164 
+ 1616      44617461 
+ 1616      00
+ 1617              	.LASF41:
+ 1618 0096 4932435F 		.ascii	"I2C_INA_address\000"
+ 1618      494E415F 
+ 1618      61646472 
+ 1618      65737300 
+ 1619              	.LASF17:
+ 1620 00a6 666C6F61 		.ascii	"float\000"
+ 1620      7400
+ 1621              	.LASF15:
+ 1622 00ac 75696E74 		.ascii	"uint8\000"
+ 1622      3800
+ 1623              	.LASF45:
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccFdzAZJ.s 			page 33
+
+
+ 1624 00b2 4932435F 		.ascii	"I2C_I2CMasterStatus\000"
+ 1624      4932434D 
+ 1624      61737465 
+ 1624      72537461 
+ 1624      74757300 
+ 1625              	.LASF1:
+ 1626 00c6 756E7369 		.ascii	"unsigned char\000"
+ 1626      676E6564 
+ 1626      20636861 
+ 1626      7200
+ 1627              	.LASF8:
+ 1628 00d4 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1628      20756E73 
+ 1628      69676E65 
+ 1628      6420696E 
+ 1628      7400
+ 1629              	.LASF31:
+ 1630 00e6 494E415F 		.ascii	"INA_addr\000"
+ 1630      61646472 
+ 1630      00
+ 1631              	.LASF5:
+ 1632 00ef 73686F72 		.ascii	"short unsigned int\000"
+ 1632      7420756E 
+ 1632      7369676E 
+ 1632      65642069 
+ 1632      6E7400
+ 1633              	.LASF50:
+ 1634 0102 433A5C70 		.ascii	"C:\\proj\\acsnb-motor-cypress\\QuadEncoderRTOS.cyds"
+ 1634      726F6A5C 
+ 1634      6163736E 
+ 1634      622D6D6F 
+ 1634      746F722D 
+ 1635 0132 6E00     		.ascii	"n\000"
+ 1636              	.LASF24:
+ 1637 0134 64617461 		.ascii	"data1\000"
+ 1637      3100
+ 1638              	.LASF39:
+ 1639 013a 4932435F 		.ascii	"I2C_INA_buff\000"
+ 1639      494E415F 
+ 1639      62756666 
+ 1639      00
+ 1640              	.LASF32:
+ 1641 0147 636F6E66 		.ascii	"config\000"
+ 1641      696700
+ 1642              	.LASF4:
+ 1643 014e 5F5F7569 		.ascii	"__uint16_t\000"
+ 1643      6E743136 
+ 1643      5F7400
+ 1644              	.LASF18:
+ 1645 0159 646F7562 		.ascii	"double\000"
+ 1645      6C6500
+ 1646              	.LASF7:
+ 1647 0160 5F5F7569 		.ascii	"__uint32_t\000"
+ 1647      6E743332 
+ 1647      5F7400
+ 1648              	.LASF40:
+ 1649 016b 4932435F 		.ascii	"I2C_INA_buffIndex\000"
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccFdzAZJ.s 			page 34
+
+
+ 1649      494E415F 
+ 1649      62756666 
+ 1649      496E6465 
+ 1649      7800
+ 1650              	.LASF16:
+ 1651 017d 75696E74 		.ascii	"uint32\000"
+ 1651      333200
+ 1652              	.LASF34:
+ 1653 0184 67657443 		.ascii	"getCurrent_raw\000"
+ 1653      75727265 
+ 1653      6E745F72 
+ 1653      617700
+ 1654              	.LASF27:
+ 1655 0193 494E415F 		.ascii	"INA_Addr\000"
+ 1655      41646472 
+ 1655      00
+ 1656              	.LASF11:
+ 1657 019c 756E7369 		.ascii	"unsigned int\000"
+ 1657      676E6564 
+ 1657      20696E74 
+ 1657      00
+ 1658              	.LASF10:
+ 1659 01a9 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1659      206C6F6E 
+ 1659      6720756E 
+ 1659      7369676E 
+ 1659      65642069 
+ 1660              	.LASF30:
+ 1661 01c0 72656164 		.ascii	"readreg\000"
+ 1661      72656700 
+ 1662              	.LASF12:
+ 1663 01c8 696E7431 		.ascii	"int16_t\000"
+ 1663      365F7400 
+ 1664              	.LASF25:
+ 1665 01d0 64617461 		.ascii	"data2\000"
+ 1665      3200
+ 1666              	.LASF48:
+ 1667 01d6 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1667      43313120 
+ 1667      352E342E 
+ 1667      31203230 
+ 1667      31363036 
+ 1668 0209 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
+ 1668      20726576 
+ 1668      6973696F 
+ 1668      6E203233 
+ 1668      37373135 
+ 1669 023c 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 1669      66756E63 
+ 1669      74696F6E 
+ 1669      2D736563 
+ 1669      74696F6E 
+ 1670              	.LASF37:
+ 1671 0264 67657442 		.ascii	"getBusVoltage_raw\000"
+ 1671      7573566F 
+ 1671      6C746167 
+ 1671      655F7261 
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccFdzAZJ.s 			page 35
+
+
+ 1671      7700
+ 1672              	.LASF21:
+ 1673 0276 73697A65 		.ascii	"sizetype\000"
+ 1673      74797065 
+ 1673      00
+ 1674              	.LASF9:
+ 1675 027f 6C6F6E67 		.ascii	"long long int\000"
+ 1675      206C6F6E 
+ 1675      6720696E 
+ 1675      7400
+ 1676              	.LASF19:
+ 1677 028d 63686172 		.ascii	"char\000"
+ 1677      00
+ 1678              	.LASF2:
+ 1679 0292 73686F72 		.ascii	"short int\000"
+ 1679      7420696E 
+ 1679      7400
+ 1680              	.LASF13:
+ 1681 029c 75696E74 		.ascii	"uint16_t\000"
+ 1681      31365F74 
+ 1681      00
+ 1682              	.LASF38:
+ 1683 02a5 67657442 		.ascii	"getBusVoltage_V\000"
+ 1683      7573566F 
+ 1683      6C746167 
+ 1683      655F5600 
+ 1684              	.LASF14:
+ 1685 02b5 75696E74 		.ascii	"uint32_t\000"
+ 1685      33325F74 
+ 1685      00
+ 1686              	.LASF6:
+ 1687 02be 6C6F6E67 		.ascii	"long int\000"
+ 1687      20696E74 
+ 1687      00
+ 1688              	.LASF36:
+ 1689 02c7 76616C75 		.ascii	"valueDec\000"
+ 1689      65446563 
+ 1689      00
+ 1690              	.LASF20:
+ 1691 02d0 6C6F6E67 		.ascii	"long double\000"
+ 1691      20646F75 
+ 1691      626C6500 
+ 1692              	.LASF22:
+ 1693 02dc 4932435F 		.ascii	"I2C_INA_SendSequence\000"
+ 1693      494E415F 
+ 1693      53656E64 
+ 1693      53657175 
+ 1693      656E6365 
+ 1694              	.LASF0:
+ 1695 02f1 7369676E 		.ascii	"signed char\000"
+ 1695      65642063 
+ 1695      68617200 
+ 1696              	.LASF46:
+ 1697 02fd 4932435F 		.ascii	"I2C_I2CMasterReadBuf\000"
+ 1697      4932434D 
+ 1697      61737465 
+ 1697      72526561 
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccFdzAZJ.s 			page 36
+
+
+ 1697      64427566 
+ 1698              	.LASF47:
+ 1699 0312 43794465 		.ascii	"CyDelay\000"
+ 1699      6C617900 
+ 1700              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

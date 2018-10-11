@@ -467,7 +467,7 @@ net cydff_5
 	switch ":udb@[UDB=(0,0)]:clockreset:clken_pld0_mux.pld0_clken==>:udb@[UDB=(0,0)]:pld0:mc0.clk_en"
 	term   ":udb@[UDB=(0,0)]:pld0:mc0.clk_en"
 end cydff_5
-net Net_478_digital
+net Net_2535_digital
 	term   ":m0s8clockgenblockcell.gen_clk_out_0"
 	switch ":m0s8clockgenblockcell.gen_clk_out_0==>:udb@[UDB=(1,1)]:clockreset:clk_sc_mux.in_0"
 	switch ":udb@[UDB=(1,1)]:clockreset:clk_sc_mux.sc_clk==>:udb@[UDB=(1,1)]:controlcell.clock"
@@ -514,7 +514,7 @@ net Net_478_digital
 	term   ":udb@[UDB=(0,0)]:pld0:mc0.clock_0"
 	switch ":udb@[UDB=(1,1)]:clockreset:clk_pld0_mux.pld0_clk==>:udb@[UDB=(1,1)]:pld0:mc2.clock_0"
 	term   ":udb@[UDB=(1,1)]:pld0:mc2.clock_0"
-end Net_478_digital
+end Net_2535_digital
 net ClockBlock_HFClk
 	term   ":m0s8clockblockcell.hfclk"
 	switch ":m0s8clockblockcell.hfclk==>:interrupt_11.clock"
@@ -663,6 +663,13 @@ net Net_2381
 	switch ":ioport0:hsiom_out5.hsiom5_out==>:ioport0:pin5.pin_input"
 	term   ":ioport0:pin5.pin_input"
 end Net_2381
+net Net_2611
+	term   ":m0s8tcpwmcell_2.line"
+	switch ":m0s8tcpwmcell_2.line==>Stub-:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v28+:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v30"
+	switch "Stub-:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v28+:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v30==>:ioport1:hsiom_out0.fixed_ACT_0"
+	switch ":ioport1:hsiom_out0.hsiom0_out==>:ioport1:pin0.pin_input"
+	term   ":ioport1:pin0.pin_input"
+end Net_2611
 net Net_622
 	term   ":logicalport_2.interrupt"
 	switch ":logicalport_2.interrupt==>Stub-:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v20+:dsiswitch_bottom@[DSI=(1,1)][side=bottom]:dsihc_bottom:v22"
@@ -708,13 +715,6 @@ net Net_647
 	switch ":interrupt_idmux_0.interrupt_idmux_0__out==>:interrupt_0.interrupt"
 	term   ":interrupt_0.interrupt"
 end Net_647
-net Net_826
-	term   ":m0s8tcpwmcell_2.line"
-	switch ":m0s8tcpwmcell_2.line==>Stub-:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v28+:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v30"
-	switch "Stub-:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v28+:dsiswitch_top@[DSI=(0,0)][side=top]:dsihc_top:v30==>:ioport1:hsiom_out0.fixed_ACT_0"
-	switch ":ioport1:hsiom_out0.hsiom0_out==>:ioport1:pin0.pin_input"
-	term   ":ioport1:pin0.pin_input"
-end Net_826
 net \Counter_1:CounterUDB:sC24:counterdp:u1.ce0__sig\
 	term   ":udb@[UDB=(1,1)]:dp_wrapper:datapath.ce0"
 	switch ":udb@[UDB=(1,1)]:dp_wrapper:datapath.ce0==>:udb@[UDB=(1,0)]:dp_wrapper:datapath.ce0i"

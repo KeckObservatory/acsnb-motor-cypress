@@ -7,7 +7,7 @@
   <width>32</width>
   <peripherals>
     <peripheral>
-      <name>PWM_3</name>
+      <name>PWM_1</name>
       <description>No description available</description>
       <baseAddress>0x0</baseAddress>
       <addressBlock>

@@ -8,6 +8,7 @@
 *  The I2C device provides readback of motor current consumption.
 *
 * History:
+* 10/11/18 PMR  Rev: A  Implement PWM functions for PDI control
 * 07/31/18 PMR  Rev: NC Initial Release after port from Kona Scientific code
 *******************************************************************************/
 #include <FreeRTOS.h>
@@ -16,9 +17,7 @@
 #include <I2C_I2C.h>
 #include <stdbool.h>
 #include <math.h>
-
-
-//PMR #include "PID.h"
+#include "INA219.h"
 
 /* --------------------------------------------------------------------- 
  * CONSTANTS
@@ -36,10 +35,16 @@ CY_ISR_PROTO(SPI_IsrHandler);
 CY_ISR_PROTO(SPI_SS_IsrHandler);
 
 
+/* --------------------------------------------------------------------- 
+ * PWM Defines
+ * --------------------------------------------------------------------- */
+#define PWM_15KHZ_PERIOD 800
+#define PWM_PCT_TO_COMPARE(x) trunc((float) x * (PWM_15KHZ_PERIOD/100))
+#define PWM_IDLE 50.0
+
 /* TI INA219 Zero-Drift, Bidirectional Current/Power Monitor With I2C Interface */
 #define INA219_I2C_ADDR                        (0x40)
 #define INA219_CAL_VALUE                       (8192)
-
 
 /* --------------------------------------------------------------------- 
  * INA219 REGISTERS
@@ -111,8 +116,6 @@ CY_ISR_PROTO(SPI_SS_IsrHandler);
 volatile uint16 Current;
 volatile float PWM;
 uint8 CurrentI2Cinbuf[20];
-//PMR TPIDLoop pidLoop;
-//PMR TPIDConstants pidConstants;
 
 /* Task stack information */
 volatile UBaseType_t uxHighWaterMark_PID;
@@ -128,14 +131,15 @@ SemaphoreHandle_t Lock;
 #define COMM_SIGNATURE_BYTE 0xA5
 #define COMM_SIGNATURE_WORD 0xA5A5A5A5
 
-/* Inbound message from BBB, currently 20 bytes long */
+/* Inbound message from BBB, 21 bytes long */
 typedef struct {
     
     uint32 signature;  /* Comm signature for reliable messaging */ 
     uint32 setpoint;   /* Setpoint (desired actuator position, 24 bits), high byte used as PID enable */
-    float Kp;
+    float Kp;          /* PID constants to be used in calculation */
     float Ki;
     float Kd;
+    int8 jog;          /* Jog value, to manually move the motor; valid range 0 to 100 */    
     //TODO uint16 checksum;
     
 } __attribute__ ((__packed__)) rxMessage_t;
@@ -221,16 +225,30 @@ void setupFreeRTOS(void) {
 *******************************************************************************/
 void Current_Read_Task(void *arg) {
     
+//#ifdef zero
     volatile uint32 err;
     uint8 byteMSB;
     uint8 byteLSB;
+//#endif
+
     volatile uint16 CurrentTemp;
+    uint8 foo = 0;
     
     /* Initial high water mark reading */
     uxHighWaterMark_Current = uxTaskGetStackHighWaterMark( NULL );
     
+    //TODO Init_INA(INA219_I2C_ADDR);
+    
     while (1) {
+        LED_Write(foo);
+        PROBE_Write(foo);
 
+        if (foo) { foo = 0; } else { foo = 1; }
+        
+        //TODO CurrentTemp = getCurrent_raw(INA219_I2C_ADDR);
+        
+        
+//#ifdef zero        
         err = I2C_I2CMasterSendStart(INA219_I2C_ADDR, 0x00, 10); // send start condition for the INA219
         if (err == I2C_I2C_MSTR_NO_ERROR) {
             
@@ -262,6 +280,8 @@ void Current_Read_Task(void *arg) {
         } else {
             CurrentTemp = 0;   
         }
+//#endif
+
 
         /* Perform the assignment as one operation, to make it as atomic as possible (may need more work here) */
         Current = CurrentTemp;
@@ -307,7 +327,7 @@ void Comm_Task(void *arg) {
                         /* Set fields individually */
                         txMessage.msg.signature = COMM_SIGNATURE_WORD;
                         txMessage.msg.position = Counter_1_ReadCounter();
-                        txMessage.msg.pwm = PWM; ///PMR pidLoop.CurrentOutputExtendedConfinedAsPercent;
+                        txMessage.msg.pwm = PWM;
                         txMessage.msg.current = Current;            
 
                         /* Copy the readied buffer out to the FIFO */
@@ -338,6 +358,23 @@ void Comm_Task(void *arg) {
     }
 }
     
+
+
+/* PWM Subsystem */
+void PWM_Set(float dutycycle) {
+    
+    float drive = dutycycle;    
+    
+    /* Clip to the max/min of the drive */
+    if (drive > 100) {
+        drive = 100;
+    } else if (drive < 0) {
+        drive = 0;
+    }
+    
+    PWM_1_WriteCompare(PWM_PCT_TO_COMPARE(drive));    
+}
+
 
 
 /* Global PID process variables */
@@ -463,8 +500,8 @@ void PID_SetOutputLimits(float Min, float Max) {
     }
 }
  
-void PID_SetMode(uint32 Mode)
-{
+void PID_SetMode(uint32 Mode) {
+    
     bool newAuto = (Mode == PID_AUTOMATIC);
     
     if (newAuto && !inAuto) {  
@@ -475,6 +512,16 @@ void PID_SetMode(uint32 Mode)
     inAuto = newAuto;
 } 
     
+void PID_SetDrive(float percent) {
+    
+    /* Valid percentage range coming out of the PID algorithm is -100.0 to +100.0 
+       which needs to be translated into a duty cycle value of 0.0 to 100.0 */
+    float dutycycle = (percent + 100) / 2;    
+    
+    /* The duty cycle can now be written to the PWM device itself */
+    PWM_Set(dutycycle);  
+}
+
 
 /*******************************************************************************
 * Function Name: PID_Task
@@ -491,7 +538,7 @@ void PID_Task(void *arg) {
     uint32 now;
     uint32 desired;
     bool enabled, was_enabled;
-    float pwm; 
+    float percent; 
     
     /* Initial high water mark reading */
     uxHighWaterMark_PID = uxTaskGetStackHighWaterMark( NULL );
@@ -525,7 +572,6 @@ void PID_Task(void *arg) {
             
             /* Hold off until the SPI is done!  One millisecond will definitely cover it. */
             Sleep(1);
-            //now += 1;
             
         } else {
             
@@ -542,12 +588,23 @@ void PID_Task(void *arg) {
                     refKd = rxMessage.msg.Kd;                    
                     
                     /* Live-update the tuning parameters */
-                    PID_SetTunings(refKp, refKi, refKd);                    
+                    PID_SetTunings(refKp, refKi, refKd);
                 }
                    
                 /* The enable flag and desired position are currently stacked together in one uint32 */
                 enabled = ((rxMessage.msg.setpoint & 0xFF000000) > 0);
-                desired = (rxMessage.msg.setpoint & 0x00FFFFFF);               
+                desired = (rxMessage.msg.setpoint & 0x00FFFFFF);
+                
+                /* If the server is asking us to jog, do that instead of PID */
+                if ((rxMessage.msg.jog >= 0) && (rxMessage.msg.jog <= 100)) {
+                    
+                    enabled = false;
+                    PWM_Set(rxMessage.msg.jog);
+                    
+                /* If we're not enabled and not jogging, set the PWM neutral */    
+                } else if (!enabled) {
+                    PWM_Set(PWM_IDLE);                    
+                }
             }
             
             /* Handle mode switching */
@@ -561,13 +618,16 @@ void PID_Task(void *arg) {
             
             /* Run the PID algorithm */
             now = xTaskGetTickCount();
-            pwm = PID_Compute(now, desired);
+            percent = PID_Compute(now, desired);
             
             /* Send the pwm back up to the BBB */
             if (enabled) {
                 
-                /* Update the global PWM value */
-                PWM = pwm;
+                /* Use the global PWM value to communicate back the percentage of drive to the server */
+                PWM = percent;
+                
+                /* Put the PID drive percentage out on the wire */
+                PID_SetDrive(percent);
                 
             } else {
                 /* If disabled, just return 0 */
@@ -578,7 +638,6 @@ void PID_Task(void *arg) {
         
         /* Run the PID every 5ms, which is 200Hz update rate */
         Sleep(sleeptime);
-        //now += sleeptime;
 
         /* Get our task stack usage high water mark */    
         uxHighWaterMark_PID = uxTaskGetStackHighWaterMark( NULL );        
@@ -604,7 +663,7 @@ int main(void) {
     
     uint8 s;
     setupFreeRTOS();
-    
+        
     /* Create LED task, which will control the intensity of the LEDs */
     xTaskCreate(
         PID_Task,       /* Task function */
@@ -673,6 +732,12 @@ int main(void) {
     CyDelay(100u);
     SPI_1_Start();
     
+    /* Setup the PWM at a base frequency of 15KHz, 50% duty cycle.  Clock_1 is set to
+       12MHz, so the desired period to get 15KHz is a count of 800. */
+    PWM_1_Start();
+    PWM_1_WritePeriod(PWM_15KHZ_PERIOD);
+    PWM_Set(PWM_IDLE);    
+   
     /* Start counting the quadrature encoding */
     Counter_1_Start();    
     Counter_1_WriteCounter(0x00800000);  // Set the encoder initially to mid range
@@ -778,7 +843,6 @@ CY_ISR(SPI_SS_IsrHandler) {
             if (txclear) {
              
                 /* FIFO is clear and slave select deasserted, it's time to reset */ 
-                //PROBE_Write(0);
                 
                 /* Clear the message buffer, the comm thread will fill it in again to make sure a fresh message is heading out */
                 bzero(txMessage.buf, sizeof(txMessage.buf)); 
@@ -795,8 +859,6 @@ CY_ISR(SPI_SS_IsrHandler) {
                 
                 /* Set the state to indicate to the messaging thread that it's time to load the TX buffer again */
                 txMessageState = txmsClear;
-                
-                //PROBE_Write(1);              
                 
             } else {
 

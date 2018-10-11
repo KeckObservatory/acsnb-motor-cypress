@@ -1,6 +1,6 @@
 // ======================================================================
 // QuadEncoderRTOS.v generated from TopDesign.cysch
-// 08/31/2018 at 12:43
+// 10/11/2018 at 09:50
 // This file is auto generated. ANY EDITS YOU MAKE MAY BE LOST WHEN THIS FILE IS REGENERATED!!!
 // ======================================================================
 
@@ -833,7 +833,7 @@ endmodule
 `include "C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\psoc\content\CyPrimitives\cyprimitives.cylib\not_v1_0\not_v1_0.v"
 `endif
 
-// TCPWM_P4_v2_10(Clock_CheckTolerance=true, Clock_desired_freq=12, Clock_desired_freq_unit=6, Clock_divisor=1, Clock_FractDividerDenominator=0, Clock_FractDividerNumerator=0, Clock_FractDividerUsed=false, Clock_is_direct=false, Clock_is_divider=false, Clock_is_freq=true, Clock_minus_tolerance=5, Clock_ph_align_clock_id=, Clock_ph_align_clock_name=, Clock_plus_tolerance=5, Clock_source_clock_id=, Clock_source_clock_name=, PinVisibility_index=false, PinVisibility_kill=false, PinVisibility_phiA=false, PinVisibility_phiB=false, PinVisibility_switch=false, PWMCompare=65535, PWMCompareBuf=65535, PWMCompareSwap=0, PWMCountMode=3, PWMCountPresent=false, PWMDeadTimeCycle=0, PWMInterruptMask=1, PWMKillEvent=0, PWMLinenSignal=0, PWMLineSignal=0, PWMMode=4, PWMPeriod=65535, PWMPeriodBuf=65535, PWMPeriodSwap=0, PWMPrescaler=0, PWMReloadMode=0, PWMReloadPresent=false, PWMRunMode=0, PWMSetAlign=0, PWMStartMode=0, PWMStartPresent=false, PWMStopEvent=0, PWMStopMode=0, PWMStopPresent=false, PWMSwitchMode=0, PWMSwitchPresent=false, QuadAutoStart=true, QuadEncodingModes=0, QuadIndexMode=0, QuadIndexPresent=false, QuadInterruptMask=1, QuadPhiAMode=3, QuadPhiBMode=3, QuadStopMode=0, QuadStopPresent=false, TCCaptureMode=0, TCCapturePresent=false, TCCompare=65535, TCCompareBuf=65535, TCCompareSwap=0, TCCompCapMode=2, TCCountingModes=0, TCCountMode=3, TCCountPresent=false, TCInterruptMask=1, TCPeriod=65535, TCPrescaler=0, TCPWMCapturePresent=false, TCPWMConfig=7, TCPWMCountPresent=false, TCPWMReloadPresent=false, TCPWMStartPresent=false, TCPWMStopPresent=false, TCReloadMode=0, TCReloadPresent=false, TCRunMode=0, TCStartMode=0, TCStartPresent=false, TCStopMode=0, TCStopPresent=false, TermMode_capture=0, TermMode_cc=0, TermMode_clock=0, TermMode_count=0, TermMode_interrupt=0, TermMode_line=0, TermMode_line_n=0, TermMode_ov=0, TermMode_reload=0, TermMode_start=0, TermMode_stop=0, TermMode_un=0, TermModeStates=, TermVisibility_capture=false, TermVisibility_cc=true, TermVisibility_clock=true, TermVisibility_count=false, TermVisibility_interrupt=true, TermVisibility_line=true, TermVisibility_line_n=true, TermVisibility_ov=true, TermVisibility_reload=false, TermVisibility_start=false, TermVisibility_stop=false, TermVisibility_un=true, CY_API_CALLBACK_HEADER_INCLUDE=, CY_COMMENT=, CY_COMPONENT_NAME=TCPWM_P4_v2_10, CY_CONFIG_TITLE=PWM_3, CY_CONST_CONFIG=true, CY_CONTROL_FILE=<:default:>, CY_DATASHEET_FILE=<:default:>, CY_FITTER_NAME=PWM_3, CY_INSTANCE_SHORT_NAME=PWM_3, CY_MAJOR_VERSION=2, CY_MINOR_VERSION=10, CY_PDL_DRIVER_NAME=, CY_PDL_DRIVER_REQ_VERSION=, CY_PDL_DRIVER_SUBGROUP=, CY_PDL_DRIVER_VARIANT=, CY_REMOVE=false, CY_SUPPRESS_API_GEN=false, CY_VERSION=PSoC Creator  4.2, INSTANCE_NAME=PWM_3, )
+// TCPWM_P4_v2_10(Clock_CheckTolerance=true, Clock_desired_freq=12, Clock_desired_freq_unit=6, Clock_divisor=1, Clock_FractDividerDenominator=0, Clock_FractDividerNumerator=0, Clock_FractDividerUsed=false, Clock_is_direct=false, Clock_is_divider=false, Clock_is_freq=true, Clock_minus_tolerance=5, Clock_ph_align_clock_id=, Clock_ph_align_clock_name=, Clock_plus_tolerance=5, Clock_source_clock_id=, Clock_source_clock_name=, PinVisibility_index=false, PinVisibility_kill=false, PinVisibility_phiA=false, PinVisibility_phiB=false, PinVisibility_switch=false, PWMCompare=400, PWMCompareBuf=65535, PWMCompareSwap=0, PWMCountMode=3, PWMCountPresent=false, PWMDeadTimeCycle=0, PWMInterruptMask=1, PWMKillEvent=0, PWMLinenSignal=0, PWMLineSignal=0, PWMMode=4, PWMPeriod=800, PWMPeriodBuf=65535, PWMPeriodSwap=0, PWMPrescaler=0, PWMReloadMode=0, PWMReloadPresent=false, PWMRunMode=0, PWMSetAlign=0, PWMStartMode=0, PWMStartPresent=false, PWMStopEvent=0, PWMStopMode=0, PWMStopPresent=false, PWMSwitchMode=0, PWMSwitchPresent=false, QuadAutoStart=true, QuadEncodingModes=0, QuadIndexMode=0, QuadIndexPresent=false, QuadInterruptMask=1, QuadPhiAMode=3, QuadPhiBMode=3, QuadStopMode=0, QuadStopPresent=false, TCCaptureMode=0, TCCapturePresent=false, TCCompare=65535, TCCompareBuf=65535, TCCompareSwap=0, TCCompCapMode=2, TCCountingModes=0, TCCountMode=3, TCCountPresent=false, TCInterruptMask=1, TCPeriod=65535, TCPrescaler=0, TCPWMCapturePresent=false, TCPWMConfig=7, TCPWMCountPresent=false, TCPWMReloadPresent=false, TCPWMStartPresent=false, TCPWMStopPresent=false, TCReloadMode=0, TCReloadPresent=false, TCRunMode=0, TCStartMode=0, TCStartPresent=false, TCStopMode=0, TCStopPresent=false, TermMode_capture=0, TermMode_cc=0, TermMode_clock=0, TermMode_count=0, TermMode_interrupt=0, TermMode_line=0, TermMode_line_n=0, TermMode_ov=0, TermMode_reload=0, TermMode_start=0, TermMode_stop=0, TermMode_un=0, TermModeStates=, TermVisibility_capture=false, TermVisibility_cc=true, TermVisibility_clock=true, TermVisibility_count=false, TermVisibility_interrupt=true, TermVisibility_line=true, TermVisibility_line_n=true, TermVisibility_ov=true, TermVisibility_reload=false, TermVisibility_start=false, TermVisibility_stop=false, TermVisibility_un=true, CY_API_CALLBACK_HEADER_INCLUDE=, CY_COMMENT=, CY_COMPONENT_NAME=TCPWM_P4_v2_10, CY_CONFIG_TITLE=PWM_1, CY_CONST_CONFIG=true, CY_CONTROL_FILE=<:default:>, CY_DATASHEET_FILE=<:default:>, CY_FITTER_NAME=PWM_1, CY_INSTANCE_SHORT_NAME=PWM_1, CY_MAJOR_VERSION=2, CY_MINOR_VERSION=10, CY_PDL_DRIVER_NAME=, CY_PDL_DRIVER_REQ_VERSION=, CY_PDL_DRIVER_SUBGROUP=, CY_PDL_DRIVER_VARIANT=, CY_REMOVE=false, CY_SUPPRESS_API_GEN=false, CY_VERSION=PSoC Creator  4.2, INSTANCE_NAME=PWM_1, )
 module TCPWM_P4_v2_10_3 (
     stop,
     reload,
@@ -919,16 +919,17 @@ endmodule
 // top
 module top ;
 
-          wire  Net_2332;
-          wire  Net_2331;
-          wire  Net_2330;
-          wire  Net_2329;
-          wire  Net_2328;
-          wire  Net_2327;
-          wire  Net_2326;
-          wire  Net_2325;
-          wire  Net_2324;
-          wire  Net_2323;
+          wire  Net_2612;
+          wire  Net_2610;
+          wire  Net_2609;
+          wire  Net_2608;
+          wire  Net_2607;
+          wire  Net_2606;
+          wire  Net_2605;
+          wire  Net_2604;
+          wire  Net_2603;
+          wire  Net_2602;
+          wire  Net_2611;
           wire  Net_2338;
           wire  Net_2322;
           wire  Net_2321;
@@ -944,6 +945,8 @@ module top ;
           wire  Net_2285;
           wire  Net_2284;
           wire  Net_2283;
+    electrical  SDA;
+    electrical  SCL;
           wire  Net_2282;
           wire  Net_2281;
           wire  Net_2280;
@@ -955,8 +958,6 @@ module top ;
           wire  Net_2274;
           wire  Net_2273;
           wire  Net_2272;
-    electrical  SDA;
-    electrical  SCL;
           wire  Net_2271;
           wire  Net_2270;
           wire  Net_2269;
@@ -988,7 +989,6 @@ module top ;
     electrical  Net_2342;
           wire  Net_2377;
           wire  Net_2344;
-          wire  Net_826;
           wire  Net_528;
           wire  Net_583;
           wire  Net_647;
@@ -1007,12 +1007,12 @@ module top ;
           wire  Net_477;
           wire  Net_476;
           wire  Net_482;
-          wire  Net_478;
+          wire  Net_2535;
     electrical  Net_122;
 
     // -- DFF Start --
     reg  cydff_6;
-    always @(posedge Net_478)
+    always @(posedge Net_2535)
     begin
         cydff_6 <= Net_629;
     end
@@ -1453,7 +1453,7 @@ module top ;
 		  .is_direct(0),
 		  .is_digital(1))
 		Clock_1
-		 (.clock_out(Net_478));
+		 (.clock_out(Net_2535));
 
 
 	wire [0:0] tmpOE__phiB_net;
@@ -1650,7 +1650,7 @@ module top ;
 
     // -- DFF Start --
     reg  cydff_5;
-    always @(posedge Net_478)
+    always @(posedge Net_2535)
     begin
         cydff_5 <= Net_628;
     end
@@ -1661,7 +1661,7 @@ module top ;
         .reset(1'b0),
         .tc(Net_2316),
         .comp(Net_2317),
-        .clock(Net_478),
+        .clock(Net_2535),
         .interrupt(Net_2318),
         .enable(1'b0),
         .capture(1'b0),
@@ -1684,7 +1684,7 @@ module top ;
 
     // -- DFF Start --
     reg  cydff_3;
-    always @(posedge Net_478)
+    always @(posedge Net_2535)
     begin
         cydff_3 <= Net_479;
     end
@@ -1693,7 +1693,7 @@ module top ;
 
     // -- DFF Start --
     reg  cydff_4;
-    always @(posedge Net_478)
+    always @(posedge Net_2535)
     begin
         cydff_4 <= Net_482;
     end
@@ -1708,7 +1708,7 @@ module top ;
 
     // -- DFF Start --
     reg  cydff_2;
-    always @(posedge Net_478)
+    always @(posedge Net_2535)
     begin
         cydff_2 <= Net_476;
     end
@@ -1717,7 +1717,7 @@ module top ;
 
     // -- DFF Start --
     reg  cydff_1;
-    always @(posedge Net_478)
+    always @(posedge Net_2535)
     begin
         cydff_1 <= Net_473;
     end
@@ -1890,7 +1890,7 @@ module top ;
 
     // -- SRFF Start --
     reg  cy_srff_1;
-    always @(posedge Net_478)
+    always @(posedge Net_2535)
     begin
         cy_srff_1 <= (Net_360 | Net_644) & ~Net_625;
     end
@@ -1912,20 +1912,6 @@ module top ;
 		isr_home
 		 (.int_signal(Net_647));
 
-
-    TCPWM_P4_v2_10_3 PWM_3 (
-        .stop(1'b0),
-        .reload(1'b0),
-        .start(1'b0),
-        .count(1'b1),
-        .capture(1'b0),
-        .interrupt(Net_2328),
-        .ov(Net_2329),
-        .un(Net_2330),
-        .cc(Net_2331),
-        .line(Net_826),
-        .line_n(Net_2332),
-        .clock(Net_478));
 
 	wire [0:0] tmpOE__PWM_OUT_net;
 	wire [0:0] tmpFB_0__PWM_OUT_net;
@@ -1988,7 +1974,7 @@ module top ;
 		  .input_buffer_sel(2'b00))
 		PWM_OUT
 		 (.oe(tmpOE__PWM_OUT_net),
-		  .y({Net_826}),
+		  .y({Net_2611}),
 		  .fb({tmpFB_0__PWM_OUT_net[0:0]}),
 		  .io({tmpIO_0__PWM_OUT_net[0:0]}),
 		  .siovref(tmpSIOVREF__PWM_OUT_net),
@@ -2305,6 +2291,95 @@ module top ;
 		  .out_reset({1'b0}));
 
 	assign tmpOE__spi_miso_net = (`CYDEV_CHIP_MEMBER_USED == `CYDEV_CHIP_MEMBER_3A && `CYDEV_CHIP_REVISION_USED < `CYDEV_CHIP_REVISION_3A_ES3) ? ~{1'b1} : {1'b1};
+
+	wire [0:0] tmpOE__PROBE_net;
+	wire [0:0] tmpFB_0__PROBE_net;
+	wire [0:0] tmpIO_0__PROBE_net;
+	wire [0:0] tmpINTERRUPT_0__PROBE_net;
+	electrical [0:0] tmpSIOVREF__PROBE_net;
+
+	cy_psoc3_pins_v1_10
+		#(.id("c0188285-e1f3-4a8b-83c9-6a40e68ea3dd"),
+		  .drive_mode(3'b110),
+		  .ibuf_enabled(1'b1),
+		  .init_dr_st(1'b0),
+		  .input_clk_en(0),
+		  .input_sync(1'b1),
+		  .input_sync_mode(1'b0),
+		  .intr_mode(2'b00),
+		  .invert_in_clock(0),
+		  .invert_in_clock_en(0),
+		  .invert_in_reset(0),
+		  .invert_out_clock(0),
+		  .invert_out_clock_en(0),
+		  .invert_out_reset(0),
+		  .io_voltage(""),
+		  .layout_mode("CONTIGUOUS"),
+		  .oe_conn(1'b0),
+		  .oe_reset(0),
+		  .oe_sync(1'b0),
+		  .output_clk_en(0),
+		  .output_clock_mode(1'b0),
+		  .output_conn(1'b0),
+		  .output_mode(1'b0),
+		  .output_reset(0),
+		  .output_sync(1'b0),
+		  .pa_in_clock(-1),
+		  .pa_in_clock_en(-1),
+		  .pa_in_reset(-1),
+		  .pa_out_clock(-1),
+		  .pa_out_clock_en(-1),
+		  .pa_out_reset(-1),
+		  .pin_aliases(""),
+		  .pin_mode("O"),
+		  .por_state(4),
+		  .sio_group_cnt(0),
+		  .sio_hyst(1'b1),
+		  .sio_ibuf(""),
+		  .sio_info(2'b00),
+		  .sio_obuf(""),
+		  .sio_refsel(""),
+		  .sio_vtrip(""),
+		  .sio_hifreq(""),
+		  .sio_vohsel(""),
+		  .slew_rate(1'b0),
+		  .spanning(0),
+		  .use_annotation(1'b0),
+		  .vtrip(2'b10),
+		  .width(1),
+		  .ovt_hyst_trim(1'b0),
+		  .ovt_needed(1'b0),
+		  .ovt_slew_control(2'b00),
+		  .input_buffer_sel(2'b00))
+		PROBE
+		 (.oe(tmpOE__PROBE_net),
+		  .y({1'b0}),
+		  .fb({tmpFB_0__PROBE_net[0:0]}),
+		  .io({tmpIO_0__PROBE_net[0:0]}),
+		  .siovref(tmpSIOVREF__PROBE_net),
+		  .interrupt({tmpINTERRUPT_0__PROBE_net[0:0]}),
+		  .in_clock({1'b0}),
+		  .in_clock_en({1'b1}),
+		  .in_reset({1'b0}),
+		  .out_clock({1'b0}),
+		  .out_clock_en({1'b1}),
+		  .out_reset({1'b0}));
+
+	assign tmpOE__PROBE_net = (`CYDEV_CHIP_MEMBER_USED == `CYDEV_CHIP_MEMBER_3A && `CYDEV_CHIP_REVISION_USED < `CYDEV_CHIP_REVISION_3A_ES3) ? ~{1'b1} : {1'b1};
+
+    TCPWM_P4_v2_10_3 PWM_1 (
+        .stop(1'b0),
+        .reload(1'b0),
+        .start(1'b0),
+        .count(1'b1),
+        .capture(1'b0),
+        .interrupt(Net_2607),
+        .ov(Net_2608),
+        .un(Net_2609),
+        .cc(Net_2610),
+        .line(Net_2611),
+        .line_n(Net_2612),
+        .clock(Net_2535));
 
 
 

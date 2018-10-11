@@ -104,7 +104,7 @@ extern uint8  PWM_3_initVar;
 #define PWM_3_PWM_ALIGN                      (0lu)
 #define PWM_3_PWM_RUN_MODE                   (0lu)
 #define PWM_3_PWM_DEAD_TIME_CYCLE            (0lu)
-#define PWM_3_PWM_PRESCALER                  (0lu)
+#define PWM_3_PWM_PRESCALER                  (5lu)
 
 /* Signal modes */
 #define PWM_3_PWM_RELOAD_SIGNAL_MODE         (0lu)
@@ -121,7 +121,7 @@ extern uint8  PWM_3_initVar;
 #define PWM_3_PWM_SWITCH_SIGNAL_PRESENT      (0lu)
 
 /* Interrupt Mask */
-#define PWM_3_PWM_INTERRUPT_MASK             (1lu)
+#define PWM_3_PWM_INTERRUPT_MASK             (0lu)
 
 
 /***************************************
