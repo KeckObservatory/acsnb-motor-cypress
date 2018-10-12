@@ -38,7 +38,7 @@ CY_ISR_PROTO(SPI_SS_IsrHandler);
 /* --------------------------------------------------------------------- 
  * PWM Defines
  * --------------------------------------------------------------------- */
-#define PWM_15KHZ_PERIOD 800
+#define PWM_15KHZ_PERIOD 1600
 #define PWM_PCT_TO_COMPARE(x) trunc((float) x * (PWM_15KHZ_PERIOD/100))
 #define PWM_IDLE 50.0
 
@@ -596,14 +596,9 @@ void PID_Task(void *arg) {
                 desired = (rxMessage.msg.setpoint & 0x00FFFFFF);
                 
                 /* If the server is asking us to jog, do that instead of PID */
-                if ((rxMessage.msg.jog >= 0) && (rxMessage.msg.jog <= 100)) {
+                if (!enabled) { // && (rxMessage.msg.jog != 0)) {
                     
-                    enabled = false;
-                    PWM_Set(rxMessage.msg.jog);
-                    
-                /* If we're not enabled and not jogging, set the PWM neutral */    
-                } else if (!enabled) {
-                    PWM_Set(PWM_IDLE);                    
+                    PWM_Set(rxMessage.msg.jog + 50);
                 }
             }
             
@@ -635,7 +630,7 @@ void PID_Task(void *arg) {
             }            
         
         }
-        
+
         /* Run the PID every 5ms, which is 200Hz update rate */
         Sleep(sleeptime);
 
@@ -736,7 +731,7 @@ int main(void) {
        12MHz, so the desired period to get 15KHz is a count of 800. */
     PWM_1_Start();
     PWM_1_WritePeriod(PWM_15KHZ_PERIOD);
-    PWM_Set(PWM_IDLE);    
+    PWM_Set(PWM_IDLE);   
    
     /* Start counting the quadrature encoding */
     Counter_1_Start();    

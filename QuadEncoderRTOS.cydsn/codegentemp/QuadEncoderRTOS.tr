@@ -20,8 +20,8 @@
 ===================================================================== 
 Number of clocks: 13
 Clock: ClockBlock/ff_div_10  | N/A                   | Target: 100.00 MHz  | 
-Clock: Clock_1               | Frequency: 34.32 MHz  | Target: 12.00 MHz   | 
-Clock: Clock_1(FFB)          | N/A                   | Target: 12.00 MHz   | 
+Clock: Clock_1               | Frequency: 34.32 MHz  | Target: 24.00 MHz   | 
+Clock: Clock_1(FFB)          | N/A                   | Target: 24.00 MHz   | 
 Clock: CyHFClk               | N/A                   | Target: 48.00 MHz   | 
 Clock: CyILO                 | N/A                   | Target: 0.03 MHz    | 
 Clock: CyIMO                 | N/A                   | Target: 48.00 MHz   | 
@@ -44,7 +44,7 @@ Clock: SPI_1_SCBCLK(FFB)     | N/A                   | Target: 48.00 MHz   |
 
 Launch Clock  Capture Clock  Constraint(R-R)  Slack(R-R)  Constraint(R-F)  Slack(R-F)  Constraint(F-F)  Slack(F-F)  Constraint(F-R)  Slack(F-R)  
 ------------  -------------  ---------------  ----------  ---------------  ----------  ---------------  ----------  ---------------  ----------  
-Clock_1       Clock_1        83333.3          54194       N/A              N/A         N/A              N/A         N/A              N/A         
+Clock_1       Clock_1        41666.7          12527       N/A              N/A         N/A              N/A         N/A              N/A         
 
  =====================================================================
                     End of Clock Relationship Summary
@@ -94,21 +94,21 @@ INDEX_IN(0)_PAD     INDEX_OUT(0)_PAD         38857
 4.1::Critical Path Report for Clock_1
 *************************************
 Clock: Clock_1
-Frequency: 34.32 MHz | Target: 12.00 MHz
+Frequency: 34.32 MHz | Target: 24.00 MHz
 
  ++++Path 1  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 Path Begin     : \Counter_1:CounterUDB:sCTRLReg:ctrlreg\/control_7
 Path End       : \Counter_1:CounterUDB:sC24:counterdp:u2\/ci
 Capture Clock  : \Counter_1:CounterUDB:sC24:counterdp:u2\/clock
-Path slack     : 54194p
+Path slack     : 12527p
 
 Capture Clock Arrival Time                         0
 + Clock path delay                                 0
-+ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   83333
++ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   41667
 - Setup time                                   -5090
 --------------------------------------------   ----- 
-End-of-path required time (ps)                 78243
+End-of-path required time (ps)                 36577
 
 Launch Clock Arrival Time                       0
 + Clock path delay                          0
@@ -127,14 +127,14 @@ ClockGenBlock/gen_clk_out_0                               m0s8clockgenblockcell 
 Data path
 pin name                                            model name     delay     AT  slack  edge  Fanout
 --------------------------------------------------  -------------  -----  -----  -----  ----  ------
-\Counter_1:CounterUDB:sCTRLReg:ctrlreg\/control_7   controlcell1    2580   2580  54194  RISE       1
-\Counter_1:CounterUDB:count_enable\/main_0          macrocell4      2333   4913  54194  RISE       1
-\Counter_1:CounterUDB:count_enable\/q               macrocell4      3350   8263  54194  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u0\/cs_addr_1  datapathcell1   2766  11030  54194  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u0\/co_msb     datapathcell1   9710  20740  54194  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u1\/ci         datapathcell2      0  20740  54194  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u1\/co_msb     datapathcell2   3310  24050  54194  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u2\/ci         datapathcell3      0  24050  54194  RISE       1
+\Counter_1:CounterUDB:sCTRLReg:ctrlreg\/control_7   controlcell1    2580   2580  12527  RISE       1
+\Counter_1:CounterUDB:count_enable\/main_0          macrocell4      2333   4913  12527  RISE       1
+\Counter_1:CounterUDB:count_enable\/q               macrocell4      3350   8263  12527  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u0\/cs_addr_1  datapathcell1   2766  11030  12527  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u0\/co_msb     datapathcell1   9710  20740  12527  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u1\/ci         datapathcell2      0  20740  12527  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u1\/co_msb     datapathcell2   3310  24050  12527  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u2\/ci         datapathcell3      0  24050  12527  RISE       1
 
 Capture Clock Path
 pin name                                                  model name             delay     AT  edge  Fanout
@@ -163,14 +163,14 @@ ClockGenBlock/gen_clk_out_0                               m0s8clockgenblockcell 
 Path Begin     : \Counter_1:CounterUDB:sCTRLReg:ctrlreg\/control_7
 Path End       : \Counter_1:CounterUDB:sC24:counterdp:u2\/ci
 Capture Clock  : \Counter_1:CounterUDB:sC24:counterdp:u2\/clock
-Path slack     : 54194p
+Path slack     : 12527p
 
 Capture Clock Arrival Time                         0
 + Clock path delay                                 0
-+ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   83333
++ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   41667
 - Setup time                                   -5090
 --------------------------------------------   ----- 
-End-of-path required time (ps)                 78243
+End-of-path required time (ps)                 36577
 
 Launch Clock Arrival Time                       0
 + Clock path delay                          0
@@ -189,14 +189,14 @@ ClockGenBlock/gen_clk_out_0                               m0s8clockgenblockcell 
 Data path
 pin name                                            model name     delay     AT  slack  edge  Fanout
 --------------------------------------------------  -------------  -----  -----  -----  ----  ------
-\Counter_1:CounterUDB:sCTRLReg:ctrlreg\/control_7   controlcell1    2580   2580  54194  RISE       1
-\Counter_1:CounterUDB:count_enable\/main_0          macrocell4      2333   4913  54194  RISE       1
-\Counter_1:CounterUDB:count_enable\/q               macrocell4      3350   8263  54194  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u0\/cs_addr_1  datapathcell1   2766  11030  54194  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u0\/co_msb     datapathcell1   9710  20740  54194  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u1\/ci         datapathcell2      0  20740  54194  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u1\/co_msb     datapathcell2   3310  24050  54194  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u2\/ci         datapathcell3      0  24050  54194  RISE       1
+\Counter_1:CounterUDB:sCTRLReg:ctrlreg\/control_7   controlcell1    2580   2580  12527  RISE       1
+\Counter_1:CounterUDB:count_enable\/main_0          macrocell4      2333   4913  12527  RISE       1
+\Counter_1:CounterUDB:count_enable\/q               macrocell4      3350   8263  12527  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u0\/cs_addr_1  datapathcell1   2766  11030  12527  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u0\/co_msb     datapathcell1   9710  20740  12527  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u1\/ci         datapathcell2      0  20740  12527  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u1\/co_msb     datapathcell2   3310  24050  12527  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u2\/ci         datapathcell3      0  24050  12527  RISE       1
 
 Capture Clock Path
 pin name                                                  model name             delay     AT  edge  Fanout
@@ -221,14 +221,14 @@ ClockGenBlock/gen_clk_out_0                               m0s8clockgenblockcell 
 Path Begin     : \Counter_1:CounterUDB:sCTRLReg:ctrlreg\/control_7
 Path End       : \Counter_1:CounterUDB:sC24:counterdp:u2\/ci
 Capture Clock  : \Counter_1:CounterUDB:sC24:counterdp:u2\/clock
-Path slack     : 54194p
+Path slack     : 12527p
 
 Capture Clock Arrival Time                         0
 + Clock path delay                                 0
-+ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   83333
++ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   41667
 - Setup time                                   -5090
 --------------------------------------------   ----- 
-End-of-path required time (ps)                 78243
+End-of-path required time (ps)                 36577
 
 Launch Clock Arrival Time                       0
 + Clock path delay                          0
@@ -247,14 +247,14 @@ ClockGenBlock/gen_clk_out_0                               m0s8clockgenblockcell 
 Data path
 pin name                                            model name     delay     AT  slack  edge  Fanout
 --------------------------------------------------  -------------  -----  -----  -----  ----  ------
-\Counter_1:CounterUDB:sCTRLReg:ctrlreg\/control_7   controlcell1    2580   2580  54194  RISE       1
-\Counter_1:CounterUDB:count_enable\/main_0          macrocell4      2333   4913  54194  RISE       1
-\Counter_1:CounterUDB:count_enable\/q               macrocell4      3350   8263  54194  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u0\/cs_addr_1  datapathcell1   2766  11030  54194  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u0\/co_msb     datapathcell1   9710  20740  54194  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u1\/ci         datapathcell2      0  20740  54194  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u1\/co_msb     datapathcell2   3310  24050  54194  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u2\/ci         datapathcell3      0  24050  54194  RISE       1
+\Counter_1:CounterUDB:sCTRLReg:ctrlreg\/control_7   controlcell1    2580   2580  12527  RISE       1
+\Counter_1:CounterUDB:count_enable\/main_0          macrocell4      2333   4913  12527  RISE       1
+\Counter_1:CounterUDB:count_enable\/q               macrocell4      3350   8263  12527  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u0\/cs_addr_1  datapathcell1   2766  11030  12527  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u0\/co_msb     datapathcell1   9710  20740  12527  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u1\/ci         datapathcell2      0  20740  12527  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u1\/co_msb     datapathcell2   3310  24050  12527  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u2\/ci         datapathcell3      0  24050  12527  RISE       1
 
 Capture Clock Path
 pin name                                                  model name             delay     AT  edge  Fanout
@@ -271,14 +271,14 @@ ClockGenBlock/gen_clk_out_0                               m0s8clockgenblockcell 
 Path Begin     : \Counter_1:CounterUDB:sCTRLReg:ctrlreg\/control_7
 Path End       : \Counter_1:CounterUDB:sC24:counterdp:u1\/ci
 Capture Clock  : \Counter_1:CounterUDB:sC24:counterdp:u1\/clock
-Path slack     : 57504p
+Path slack     : 15837p
 
 Capture Clock Arrival Time                         0
 + Clock path delay                                 0
-+ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   83333
++ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   41667
 - Setup time                                   -5090
 --------------------------------------------   ----- 
-End-of-path required time (ps)                 78243
+End-of-path required time (ps)                 36577
 
 Launch Clock Arrival Time                       0
 + Clock path delay                          0
@@ -297,12 +297,12 @@ ClockGenBlock/gen_clk_out_0                               m0s8clockgenblockcell 
 Data path
 pin name                                            model name     delay     AT  slack  edge  Fanout
 --------------------------------------------------  -------------  -----  -----  -----  ----  ------
-\Counter_1:CounterUDB:sCTRLReg:ctrlreg\/control_7   controlcell1    2580   2580  54194  RISE       1
-\Counter_1:CounterUDB:count_enable\/main_0          macrocell4      2333   4913  54194  RISE       1
-\Counter_1:CounterUDB:count_enable\/q               macrocell4      3350   8263  54194  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u0\/cs_addr_1  datapathcell1   2766  11030  54194  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u0\/co_msb     datapathcell1   9710  20740  54194  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u1\/ci         datapathcell2      0  20740  57504  RISE       1
+\Counter_1:CounterUDB:sCTRLReg:ctrlreg\/control_7   controlcell1    2580   2580  12527  RISE       1
+\Counter_1:CounterUDB:count_enable\/main_0          macrocell4      2333   4913  12527  RISE       1
+\Counter_1:CounterUDB:count_enable\/q               macrocell4      3350   8263  12527  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u0\/cs_addr_1  datapathcell1   2766  11030  12527  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u0\/co_msb     datapathcell1   9710  20740  12527  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u1\/ci         datapathcell2      0  20740  15837  RISE       1
 
 Capture Clock Path
 pin name                                                  model name             delay     AT  edge  Fanout
@@ -319,14 +319,14 @@ ClockGenBlock/gen_clk_out_0                               m0s8clockgenblockcell 
 Path Begin     : \Counter_1:CounterUDB:sCTRLReg:ctrlreg\/control_7
 Path End       : \Counter_1:CounterUDB:sC24:counterdp:u2\/cs_addr_1
 Capture Clock  : \Counter_1:CounterUDB:sC24:counterdp:u2\/clock
-Path slack     : 59893p
+Path slack     : 18226p
 
 Capture Clock Arrival Time                          0
 + Clock path delay                                  0
-+ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)    83333
++ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)    41667
 - Setup time                                   -11520
 --------------------------------------------   ------ 
-End-of-path required time (ps)                  71813
+End-of-path required time (ps)                  30147
 
 Launch Clock Arrival Time                       0
 + Clock path delay                          0
@@ -345,10 +345,10 @@ ClockGenBlock/gen_clk_out_0                               m0s8clockgenblockcell 
 Data path
 pin name                                            model name     delay     AT  slack  edge  Fanout
 --------------------------------------------------  -------------  -----  -----  -----  ----  ------
-\Counter_1:CounterUDB:sCTRLReg:ctrlreg\/control_7   controlcell1    2580   2580  54194  RISE       1
-\Counter_1:CounterUDB:count_enable\/main_0          macrocell4      2333   4913  54194  RISE       1
-\Counter_1:CounterUDB:count_enable\/q               macrocell4      3350   8263  54194  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u2\/cs_addr_1  datapathcell3   3657  11920  59893  RISE       1
+\Counter_1:CounterUDB:sCTRLReg:ctrlreg\/control_7   controlcell1    2580   2580  12527  RISE       1
+\Counter_1:CounterUDB:count_enable\/main_0          macrocell4      2333   4913  12527  RISE       1
+\Counter_1:CounterUDB:count_enable\/q               macrocell4      3350   8263  12527  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u2\/cs_addr_1  datapathcell3   3657  11920  18226  RISE       1
 
 Capture Clock Path
 pin name                                                  model name             delay     AT  edge  Fanout
@@ -365,14 +365,14 @@ ClockGenBlock/gen_clk_out_0                               m0s8clockgenblockcell 
 Path Begin     : Net_477/q
 Path End       : \Counter_1:CounterUDB:sC24:counterdp:u2\/cs_addr_2
 Capture Clock  : \Counter_1:CounterUDB:sC24:counterdp:u2\/clock
-Path slack     : 60607p
+Path slack     : 18941p
 
 Capture Clock Arrival Time                          0
 + Clock path delay                                  0
-+ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)    83333
++ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)    41667
 - Setup time                                   -11520
 --------------------------------------------   ------ 
-End-of-path required time (ps)                  71813
+End-of-path required time (ps)                  30147
 
 Launch Clock Arrival Time                       0
 + Clock path delay                          0
@@ -391,10 +391,10 @@ Net_477/clock_0                                           macrocell14           
 Data path
 pin name                                            model name     delay     AT  slack  edge  Fanout
 --------------------------------------------------  -------------  -----  -----  -----  ----  ------
-Net_477/q                                           macrocell14     1250   1250  54794  RISE       1
-Net_583/main_1                                      macrocell5      2935   4185  54873  RISE       1
-Net_583/q                                           macrocell5      3350   7535  54873  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u2\/cs_addr_2  datapathcell3   3671  11206  60607  RISE       1
+Net_477/q                                           macrocell14     1250   1250  13127  RISE       1
+Net_583/main_1                                      macrocell5      2935   4185  13207  RISE       1
+Net_583/q                                           macrocell5      3350   7535  13207  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u2\/cs_addr_2  datapathcell3   3671  11206  18941  RISE       1
 
 Capture Clock Path
 pin name                                                  model name             delay     AT  edge  Fanout
@@ -411,14 +411,14 @@ ClockGenBlock/gen_clk_out_0                               m0s8clockgenblockcell 
 Path Begin     : \Counter_1:CounterUDB:sCTRLReg:ctrlreg\/control_7
 Path End       : \Counter_1:CounterUDB:sC24:counterdp:u1\/cs_addr_1
 Capture Clock  : \Counter_1:CounterUDB:sC24:counterdp:u1\/clock
-Path slack     : 60755p
+Path slack     : 19088p
 
 Capture Clock Arrival Time                          0
 + Clock path delay                                  0
-+ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)    83333
++ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)    41667
 - Setup time                                   -11520
 --------------------------------------------   ------ 
-End-of-path required time (ps)                  71813
+End-of-path required time (ps)                  30147
 
 Launch Clock Arrival Time                       0
 + Clock path delay                          0
@@ -437,10 +437,10 @@ ClockGenBlock/gen_clk_out_0                               m0s8clockgenblockcell 
 Data path
 pin name                                            model name     delay     AT  slack  edge  Fanout
 --------------------------------------------------  -------------  -----  -----  -----  ----  ------
-\Counter_1:CounterUDB:sCTRLReg:ctrlreg\/control_7   controlcell1    2580   2580  54194  RISE       1
-\Counter_1:CounterUDB:count_enable\/main_0          macrocell4      2333   4913  54194  RISE       1
-\Counter_1:CounterUDB:count_enable\/q               macrocell4      3350   8263  54194  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u1\/cs_addr_1  datapathcell2   2795  11058  60755  RISE       1
+\Counter_1:CounterUDB:sCTRLReg:ctrlreg\/control_7   controlcell1    2580   2580  12527  RISE       1
+\Counter_1:CounterUDB:count_enable\/main_0          macrocell4      2333   4913  12527  RISE       1
+\Counter_1:CounterUDB:count_enable\/q               macrocell4      3350   8263  12527  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u1\/cs_addr_1  datapathcell2   2795  11058  19088  RISE       1
 
 Capture Clock Path
 pin name                                                  model name             delay     AT  edge  Fanout
@@ -457,14 +457,14 @@ ClockGenBlock/gen_clk_out_0                               m0s8clockgenblockcell 
 Path Begin     : \Counter_1:CounterUDB:sCTRLReg:ctrlreg\/control_7
 Path End       : \Counter_1:CounterUDB:sC24:counterdp:u0\/cs_addr_1
 Capture Clock  : \Counter_1:CounterUDB:sC24:counterdp:u0\/clock
-Path slack     : 60784p
+Path slack     : 19117p
 
 Capture Clock Arrival Time                          0
 + Clock path delay                                  0
-+ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)    83333
++ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)    41667
 - Setup time                                   -11520
 --------------------------------------------   ------ 
-End-of-path required time (ps)                  71813
+End-of-path required time (ps)                  30147
 
 Launch Clock Arrival Time                       0
 + Clock path delay                          0
@@ -483,10 +483,10 @@ ClockGenBlock/gen_clk_out_0                               m0s8clockgenblockcell 
 Data path
 pin name                                            model name     delay     AT  slack  edge  Fanout
 --------------------------------------------------  -------------  -----  -----  -----  ----  ------
-\Counter_1:CounterUDB:sCTRLReg:ctrlreg\/control_7   controlcell1    2580   2580  54194  RISE       1
-\Counter_1:CounterUDB:count_enable\/main_0          macrocell4      2333   4913  54194  RISE       1
-\Counter_1:CounterUDB:count_enable\/q               macrocell4      3350   8263  54194  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u0\/cs_addr_1  datapathcell1   2766  11030  60784  RISE       1
+\Counter_1:CounterUDB:sCTRLReg:ctrlreg\/control_7   controlcell1    2580   2580  12527  RISE       1
+\Counter_1:CounterUDB:count_enable\/main_0          macrocell4      2333   4913  12527  RISE       1
+\Counter_1:CounterUDB:count_enable\/q               macrocell4      3350   8263  12527  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u0\/cs_addr_1  datapathcell1   2766  11030  19117  RISE       1
 
 Capture Clock Path
 pin name                                                  model name             delay     AT  edge  Fanout
@@ -503,14 +503,14 @@ ClockGenBlock/gen_clk_out_0                               m0s8clockgenblockcell 
 Path Begin     : Net_477/q
 Path End       : \Counter_1:CounterUDB:sC24:counterdp:u0\/cs_addr_2
 Capture Clock  : \Counter_1:CounterUDB:sC24:counterdp:u0\/clock
-Path slack     : 61463p
+Path slack     : 19797p
 
 Capture Clock Arrival Time                          0
 + Clock path delay                                  0
-+ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)    83333
++ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)    41667
 - Setup time                                   -11520
 --------------------------------------------   ------ 
-End-of-path required time (ps)                  71813
+End-of-path required time (ps)                  30147
 
 Launch Clock Arrival Time                       0
 + Clock path delay                          0
@@ -529,10 +529,10 @@ Net_477/clock_0                                           macrocell14           
 Data path
 pin name                                            model name     delay     AT  slack  edge  Fanout
 --------------------------------------------------  -------------  -----  -----  -----  ----  ------
-Net_477/q                                           macrocell14     1250   1250  54794  RISE       1
-Net_583/main_1                                      macrocell5      2935   4185  54873  RISE       1
-Net_583/q                                           macrocell5      3350   7535  54873  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u0\/cs_addr_2  datapathcell1   2816  10350  61463  RISE       1
+Net_477/q                                           macrocell14     1250   1250  13127  RISE       1
+Net_583/main_1                                      macrocell5      2935   4185  13207  RISE       1
+Net_583/q                                           macrocell5      3350   7535  13207  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u0\/cs_addr_2  datapathcell1   2816  10350  19797  RISE       1
 
 Capture Clock Path
 pin name                                                  model name             delay     AT  edge  Fanout
@@ -549,14 +549,14 @@ ClockGenBlock/gen_clk_out_0                               m0s8clockgenblockcell 
 Path Begin     : Net_477/q
 Path End       : \Counter_1:CounterUDB:sC24:counterdp:u1\/cs_addr_2
 Capture Clock  : \Counter_1:CounterUDB:sC24:counterdp:u1\/clock
-Path slack     : 61468p
+Path slack     : 19802p
 
 Capture Clock Arrival Time                          0
 + Clock path delay                                  0
-+ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)    83333
++ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)    41667
 - Setup time                                   -11520
 --------------------------------------------   ------ 
-End-of-path required time (ps)                  71813
+End-of-path required time (ps)                  30147
 
 Launch Clock Arrival Time                       0
 + Clock path delay                          0
@@ -575,10 +575,10 @@ Net_477/clock_0                                           macrocell14           
 Data path
 pin name                                            model name     delay     AT  slack  edge  Fanout
 --------------------------------------------------  -------------  -----  -----  -----  ----  ------
-Net_477/q                                           macrocell14     1250   1250  54794  RISE       1
-Net_583/main_1                                      macrocell5      2935   4185  54873  RISE       1
-Net_583/q                                           macrocell5      3350   7535  54873  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u1\/cs_addr_2  datapathcell2   2811  10345  61468  RISE       1
+Net_477/q                                           macrocell14     1250   1250  13127  RISE       1
+Net_583/main_1                                      macrocell5      2935   4185  13207  RISE       1
+Net_583/q                                           macrocell5      3350   7535  13207  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u1\/cs_addr_2  datapathcell2   2811  10345  19802  RISE       1
 
 Capture Clock Path
 pin name                                                  model name             delay     AT  edge  Fanout
@@ -595,14 +595,14 @@ ClockGenBlock/gen_clk_out_0                               m0s8clockgenblockcell 
 Path Begin     : \Counter_1:CounterUDB:sC24:counterdp:u0\/cl1
 Path End       : \Counter_1:CounterUDB:sSTSReg:stsreg\/status_0
 Capture Clock  : \Counter_1:CounterUDB:sSTSReg:stsreg\/clock
-Path slack     : 64120p
+Path slack     : 22454p
 
 Capture Clock Arrival Time                         0
 + Clock path delay                                 0
-+ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   83333
++ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   41667
 - Setup time                                   -1570
 --------------------------------------------   ----- 
-End-of-path required time (ps)                 81763
+End-of-path required time (ps)                 40097
 
 Launch Clock Arrival Time                       0
 + Clock path delay                          0
@@ -621,14 +621,14 @@ ClockGenBlock/gen_clk_out_0                               m0s8clockgenblockcell 
 Data path
 pin name                                           model name     delay     AT  slack  edge  Fanout
 -------------------------------------------------  -------------  -----  -----  -----  ----  ------
-\Counter_1:CounterUDB:sC24:counterdp:u0\/cl1       datapathcell1   4900   4900  64120  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u1\/cl1i      datapathcell2      0   4900  64120  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u1\/cl1       datapathcell2   1530   6430  64120  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u2\/cl1i      datapathcell3      0   6430  64120  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u2\/cl1_comb  datapathcell3   3070   9500  64120  RISE       1
-\Counter_1:CounterUDB:status_0\/main_3             macrocell1      2541  12041  64120  RISE       1
-\Counter_1:CounterUDB:status_0\/q                  macrocell1      3350  15391  64120  RISE       1
-\Counter_1:CounterUDB:sSTSReg:stsreg\/status_0     statusicell1    2252  17643  64120  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u0\/cl1       datapathcell1   4900   4900  22454  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u1\/cl1i      datapathcell2      0   4900  22454  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u1\/cl1       datapathcell2   1530   6430  22454  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u2\/cl1i      datapathcell3      0   6430  22454  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u2\/cl1_comb  datapathcell3   3070   9500  22454  RISE       1
+\Counter_1:CounterUDB:status_0\/main_3             macrocell1      2541  12041  22454  RISE       1
+\Counter_1:CounterUDB:status_0\/q                  macrocell1      3350  15391  22454  RISE       1
+\Counter_1:CounterUDB:sSTSReg:stsreg\/status_0     statusicell1    2252  17643  22454  RISE       1
 
 Capture Clock Path
 pin name                                                  model name             delay     AT  edge  Fanout
@@ -645,14 +645,14 @@ ClockGenBlock/gen_clk_out_0                               m0s8clockgenblockcell 
 Path Begin     : \Counter_1:CounterUDB:sC24:counterdp:u0\/z0
 Path End       : \Counter_1:CounterUDB:sSTSReg:stsreg\/status_3
 Capture Clock  : \Counter_1:CounterUDB:sSTSReg:stsreg\/clock
-Path slack     : 64887p
+Path slack     : 23220p
 
 Capture Clock Arrival Time                         0
 + Clock path delay                                 0
-+ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   83333
++ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   41667
 - Setup time                                   -1570
 --------------------------------------------   ----- 
-End-of-path required time (ps)                 81763
+End-of-path required time (ps)                 40097
 
 Launch Clock Arrival Time                       0
 + Clock path delay                          0
@@ -671,14 +671,14 @@ ClockGenBlock/gen_clk_out_0                               m0s8clockgenblockcell 
 Data path
 pin name                                          model name     delay     AT  slack  edge  Fanout
 ------------------------------------------------  -------------  -----  -----  -----  ----  ------
-\Counter_1:CounterUDB:sC24:counterdp:u0\/z0       datapathcell1   2320   2320  64887  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u1\/z0i      datapathcell2      0   2320  64887  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u1\/z0       datapathcell2   1430   3750  64887  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u2\/z0i      datapathcell3      0   3750  64887  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u2\/z0_comb  datapathcell3   2960   6710  64887  RISE       1
-\Counter_1:CounterUDB:status_3\/main_0            macrocell3      4560  11270  64887  RISE       1
-\Counter_1:CounterUDB:status_3\/q                 macrocell3      3350  14620  64887  RISE       1
-\Counter_1:CounterUDB:sSTSReg:stsreg\/status_3    statusicell1    2257  16877  64887  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u0\/z0       datapathcell1   2320   2320  23220  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u1\/z0i      datapathcell2      0   2320  23220  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u1\/z0       datapathcell2   1430   3750  23220  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u2\/z0i      datapathcell3      0   3750  23220  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u2\/z0_comb  datapathcell3   2960   6710  23220  RISE       1
+\Counter_1:CounterUDB:status_3\/main_0            macrocell3      4560  11270  23220  RISE       1
+\Counter_1:CounterUDB:status_3\/q                 macrocell3      3350  14620  23220  RISE       1
+\Counter_1:CounterUDB:sSTSReg:stsreg\/status_3    statusicell1    2257  16877  23220  RISE       1
 
 Capture Clock Path
 pin name                                                  model name             delay     AT  edge  Fanout
@@ -695,14 +695,14 @@ ClockGenBlock/gen_clk_out_0                               m0s8clockgenblockcell 
 Path Begin     : \Counter_1:CounterUDB:sC24:counterdp:u0\/ff0
 Path End       : \Counter_1:CounterUDB:sSTSReg:stsreg\/status_2
 Capture Clock  : \Counter_1:CounterUDB:sSTSReg:stsreg\/clock
-Path slack     : 66347p
+Path slack     : 24680p
 
 Capture Clock Arrival Time                         0
 + Clock path delay                                 0
-+ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   83333
++ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   41667
 - Setup time                                   -1570
 --------------------------------------------   ----- 
-End-of-path required time (ps)                 81763
+End-of-path required time (ps)                 40097
 
 Launch Clock Arrival Time                       0
 + Clock path delay                          0
@@ -721,14 +721,14 @@ ClockGenBlock/gen_clk_out_0                               m0s8clockgenblockcell 
 Data path
 pin name                                          model name     delay     AT  slack  edge  Fanout
 ------------------------------------------------  -------------  -----  -----  -----  ----  ------
-\Counter_1:CounterUDB:sC24:counterdp:u0\/ff0      datapathcell1   2730   2730  66347  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u1\/ff0i     datapathcell2      0   2730  66347  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u1\/ff0      datapathcell2   1430   4160  66347  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u2\/ff0i     datapathcell3      0   4160  66347  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u2\/f0_comb  datapathcell3   2960   7120  66347  RISE       1
-\Counter_1:CounterUDB:status_2\/main_0            macrocell2      2691   9811  66347  RISE       1
-\Counter_1:CounterUDB:status_2\/q                 macrocell2      3350  13161  66347  RISE       1
-\Counter_1:CounterUDB:sSTSReg:stsreg\/status_2    statusicell1    2255  15416  66347  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u0\/ff0      datapathcell1   2730   2730  24680  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u1\/ff0i     datapathcell2      0   2730  24680  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u1\/ff0      datapathcell2   1430   4160  24680  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u2\/ff0i     datapathcell3      0   4160  24680  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u2\/f0_comb  datapathcell3   2960   7120  24680  RISE       1
+\Counter_1:CounterUDB:status_2\/main_0            macrocell2      2691   9811  24680  RISE       1
+\Counter_1:CounterUDB:status_2\/q                 macrocell2      3350  13161  24680  RISE       1
+\Counter_1:CounterUDB:sSTSReg:stsreg\/status_2    statusicell1    2255  15416  24680  RISE       1
 
 Capture Clock Path
 pin name                                                  model name             delay     AT  edge  Fanout
@@ -745,14 +745,14 @@ ClockGenBlock/gen_clk_out_0                               m0s8clockgenblockcell 
 Path Begin     : \Counter_1:CounterUDB:sC24:counterdp:u0\/cl1
 Path End       : \Counter_1:CounterUDB:prevCompare\/main_3
 Capture Clock  : \Counter_1:CounterUDB:prevCompare\/clock_0
-Path slack     : 67795p
+Path slack     : 26128p
 
 Capture Clock Arrival Time                         0
 + Clock path delay                                 0
-+ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   83333
++ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   41667
 - Setup time                                   -3510
 --------------------------------------------   ----- 
-End-of-path required time (ps)                 79823
+End-of-path required time (ps)                 38157
 
 Launch Clock Arrival Time                       0
 + Clock path delay                          0
@@ -771,12 +771,12 @@ ClockGenBlock/gen_clk_out_0                               m0s8clockgenblockcell 
 Data path
 pin name                                           model name     delay     AT  slack  edge  Fanout
 -------------------------------------------------  -------------  -----  -----  -----  ----  ------
-\Counter_1:CounterUDB:sC24:counterdp:u0\/cl1       datapathcell1   4900   4900  64120  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u1\/cl1i      datapathcell2      0   4900  64120  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u1\/cl1       datapathcell2   1530   6430  64120  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u2\/cl1i      datapathcell3      0   6430  64120  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u2\/cl1_comb  datapathcell3   3070   9500  64120  RISE       1
-\Counter_1:CounterUDB:prevCompare\/main_3          macrocell10     2529  12029  67795  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u0\/cl1       datapathcell1   4900   4900  22454  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u1\/cl1i      datapathcell2      0   4900  22454  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u1\/cl1       datapathcell2   1530   6430  22454  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u2\/cl1i      datapathcell3      0   6430  22454  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u2\/cl1_comb  datapathcell3   3070   9500  22454  RISE       1
+\Counter_1:CounterUDB:prevCompare\/main_3          macrocell10     2529  12029  26128  RISE       1
 
 Capture Clock Path
 pin name                                                  model name             delay     AT  edge  Fanout
@@ -793,14 +793,14 @@ ClockGenBlock/gen_clk_out_0                               m0s8clockgenblockcell 
 Path Begin     : \Counter_1:CounterUDB:sC24:counterdp:u0\/z0
 Path End       : \Counter_1:CounterUDB:underflow_reg_i\/main_0
 Capture Clock  : \Counter_1:CounterUDB:underflow_reg_i\/clock_0
-Path slack     : 68559p
+Path slack     : 26893p
 
 Capture Clock Arrival Time                         0
 + Clock path delay                                 0
-+ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   83333
++ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   41667
 - Setup time                                   -3510
 --------------------------------------------   ----- 
-End-of-path required time (ps)                 79823
+End-of-path required time (ps)                 38157
 
 Launch Clock Arrival Time                       0
 + Clock path delay                          0
@@ -819,12 +819,12 @@ ClockGenBlock/gen_clk_out_0                               m0s8clockgenblockcell 
 Data path
 pin name                                          model name     delay     AT  slack  edge  Fanout
 ------------------------------------------------  -------------  -----  -----  -----  ----  ------
-\Counter_1:CounterUDB:sC24:counterdp:u0\/z0       datapathcell1   2320   2320  64887  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u1\/z0i      datapathcell2      0   2320  64887  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u1\/z0       datapathcell2   1430   3750  64887  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u2\/z0i      datapathcell3      0   3750  64887  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u2\/z0_comb  datapathcell3   2960   6710  64887  RISE       1
-\Counter_1:CounterUDB:underflow_reg_i\/main_0     macrocell9      4554  11264  68559  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u0\/z0       datapathcell1   2320   2320  23220  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u1\/z0i      datapathcell2      0   2320  23220  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u1\/z0       datapathcell2   1430   3750  23220  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u2\/z0i      datapathcell3      0   3750  23220  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u2\/z0_comb  datapathcell3   2960   6710  23220  RISE       1
+\Counter_1:CounterUDB:underflow_reg_i\/main_0     macrocell9      4554  11264  26893  RISE       1
 
 Capture Clock Path
 pin name                                                  model name             delay     AT  edge  Fanout
@@ -841,14 +841,14 @@ ClockGenBlock/gen_clk_out_0                               m0s8clockgenblockcell 
 Path Begin     : \Counter_1:CounterUDB:sC24:counterdp:u0\/z0
 Path End       : \Counter_1:CounterUDB:sSTSReg:stsreg\/status_1
 Capture Clock  : \Counter_1:CounterUDB:sSTSReg:stsreg\/clock
-Path slack     : 69133p
+Path slack     : 27466p
 
 Capture Clock Arrival Time                         0
 + Clock path delay                                 0
-+ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   83333
++ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   41667
 - Setup time                                   -1570
 --------------------------------------------   ----- 
-End-of-path required time (ps)                 81763
+End-of-path required time (ps)                 40097
 
 Launch Clock Arrival Time                       0
 + Clock path delay                          0
@@ -867,12 +867,12 @@ ClockGenBlock/gen_clk_out_0                               m0s8clockgenblockcell 
 Data path
 pin name                                          model name     delay     AT  slack  edge  Fanout
 ------------------------------------------------  -------------  -----  -----  -----  ----  ------
-\Counter_1:CounterUDB:sC24:counterdp:u0\/z0       datapathcell1   2320   2320  64887  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u1\/z0i      datapathcell2      0   2320  64887  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u1\/z0       datapathcell2   1430   3750  64887  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u2\/z0i      datapathcell3      0   3750  64887  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u2\/z0_comb  datapathcell3   2960   6710  64887  RISE       1
-\Counter_1:CounterUDB:sSTSReg:stsreg\/status_1    statusicell1    5921  12631  69133  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u0\/z0       datapathcell1   2320   2320  23220  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u1\/z0i      datapathcell2      0   2320  23220  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u1\/z0       datapathcell2   1430   3750  23220  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u2\/z0i      datapathcell3      0   3750  23220  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u2\/z0_comb  datapathcell3   2960   6710  23220  RISE       1
+\Counter_1:CounterUDB:sSTSReg:stsreg\/status_1    statusicell1    5921  12631  27466  RISE       1
 
 Capture Clock Path
 pin name                                                  model name             delay     AT  edge  Fanout
@@ -889,14 +889,14 @@ ClockGenBlock/gen_clk_out_0                               m0s8clockgenblockcell 
 Path Begin     : \Counter_1:CounterUDB:sC24:counterdp:u0\/ce1
 Path End       : \Counter_1:CounterUDB:prevCompare\/main_4
 Capture Clock  : \Counter_1:CounterUDB:prevCompare\/clock_0
-Path slack     : 69383p
+Path slack     : 27717p
 
 Capture Clock Arrival Time                         0
 + Clock path delay                                 0
-+ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   83333
++ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   41667
 - Setup time                                   -3510
 --------------------------------------------   ----- 
-End-of-path required time (ps)                 79823
+End-of-path required time (ps)                 38157
 
 Launch Clock Arrival Time                       0
 + Clock path delay                          0
@@ -915,12 +915,12 @@ ClockGenBlock/gen_clk_out_0                               m0s8clockgenblockcell 
 Data path
 pin name                                           model name     delay     AT  slack  edge  Fanout
 -------------------------------------------------  -------------  -----  -----  -----  ----  ------
-\Counter_1:CounterUDB:sC24:counterdp:u0\/ce1       datapathcell1   3510   3510  65715  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u1\/ce1i      datapathcell2      0   3510  65715  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u1\/ce1       datapathcell2   1430   4940  65715  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u2\/ce1i      datapathcell3      0   4940  65715  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u2\/ce1_comb  datapathcell3   2950   7890  65715  RISE       1
-\Counter_1:CounterUDB:prevCompare\/main_4          macrocell10     2550  10440  69383  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u0\/ce1       datapathcell1   3510   3510  24049  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u1\/ce1i      datapathcell2      0   3510  24049  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u1\/ce1       datapathcell2   1430   4940  24049  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u2\/ce1i      datapathcell3      0   4940  24049  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u2\/ce1_comb  datapathcell3   2950   7890  24049  RISE       1
+\Counter_1:CounterUDB:prevCompare\/main_4          macrocell10     2550  10440  27717  RISE       1
 
 Capture Clock Path
 pin name                                                  model name             delay     AT  edge  Fanout
@@ -937,14 +937,14 @@ ClockGenBlock/gen_clk_out_0                               m0s8clockgenblockcell 
 Path Begin     : \Counter_1:CounterUDB:sC24:counterdp:u0\/ff0
 Path End       : \Counter_1:CounterUDB:overflow_reg_i\/main_0
 Capture Clock  : \Counter_1:CounterUDB:overflow_reg_i\/clock_0
-Path slack     : 70006p
+Path slack     : 28339p
 
 Capture Clock Arrival Time                         0
 + Clock path delay                                 0
-+ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   83333
++ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   41667
 - Setup time                                   -3510
 --------------------------------------------   ----- 
-End-of-path required time (ps)                 79823
+End-of-path required time (ps)                 38157
 
 Launch Clock Arrival Time                      0
 + Clock path delay                         0
@@ -963,12 +963,12 @@ ClockGenBlock/gen_clk_out_0                               m0s8clockgenblockcell 
 Data path
 pin name                                          model name     delay     AT  slack  edge  Fanout
 ------------------------------------------------  -------------  -----  -----  -----  ----  ------
-\Counter_1:CounterUDB:sC24:counterdp:u0\/ff0      datapathcell1   2730   2730  66347  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u1\/ff0i     datapathcell2      0   2730  66347  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u1\/ff0      datapathcell2   1430   4160  66347  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u2\/ff0i     datapathcell3      0   4160  66347  RISE       1
-\Counter_1:CounterUDB:sC24:counterdp:u2\/f0_comb  datapathcell3   2960   7120  66347  RISE       1
-\Counter_1:CounterUDB:overflow_reg_i\/main_0      macrocell8      2698   9818  70006  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u0\/ff0      datapathcell1   2730   2730  24680  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u1\/ff0i     datapathcell2      0   2730  24680  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u1\/ff0      datapathcell2   1430   4160  24680  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u2\/ff0i     datapathcell3      0   4160  24680  RISE       1
+\Counter_1:CounterUDB:sC24:counterdp:u2\/f0_comb  datapathcell3   2960   7120  24680  RISE       1
+\Counter_1:CounterUDB:overflow_reg_i\/main_0      macrocell8      2698   9818  28339  RISE       1
 
 Capture Clock Path
 pin name                                                  model name             delay     AT  edge  Fanout
@@ -985,14 +985,14 @@ ClockGenBlock/gen_clk_out_0                               m0s8clockgenblockcell 
 Path Begin     : \Counter_1:CounterUDB:sCTRLReg:ctrlreg\/control_0
 Path End       : \Counter_1:CounterUDB:prevCompare\/main_2
 Capture Clock  : \Counter_1:CounterUDB:prevCompare\/clock_0
-Path slack     : 72871p
+Path slack     : 31204p
 
 Capture Clock Arrival Time                         0
 + Clock path delay                                 0
-+ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   83333
++ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   41667
 - Setup time                                   -3510
 --------------------------------------------   ----- 
-End-of-path required time (ps)                 79823
+End-of-path required time (ps)                 38157
 
 Launch Clock Arrival Time                      0
 + Clock path delay                         0
@@ -1011,8 +1011,8 @@ ClockGenBlock/gen_clk_out_0                               m0s8clockgenblockcell 
 Data path
 pin name                                           model name    delay     AT  slack  edge  Fanout
 -------------------------------------------------  ------------  -----  -----  -----  ----  ------
-\Counter_1:CounterUDB:sCTRLReg:ctrlreg\/control_0  controlcell1   2580   2580  69745  RISE       1
-\Counter_1:CounterUDB:prevCompare\/main_2          macrocell10    4372   6952  72871  RISE       1
+\Counter_1:CounterUDB:sCTRLReg:ctrlreg\/control_0  controlcell1   2580   2580  28079  RISE       1
+\Counter_1:CounterUDB:prevCompare\/main_2          macrocell10    4372   6952  31204  RISE       1
 
 Capture Clock Path
 pin name                                                  model name             delay     AT  edge  Fanout
@@ -1029,14 +1029,14 @@ ClockGenBlock/gen_clk_out_0                               m0s8clockgenblockcell 
 Path Begin     : \Counter_1:CounterUDB:sCTRLReg:ctrlreg\/control_2
 Path End       : \Counter_1:CounterUDB:prevCompare\/main_0
 Capture Clock  : \Counter_1:CounterUDB:prevCompare\/clock_0
-Path slack     : 74174p
+Path slack     : 32507p
 
 Capture Clock Arrival Time                         0
 + Clock path delay                                 0
-+ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   83333
++ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   41667
 - Setup time                                   -3510
 --------------------------------------------   ----- 
-End-of-path required time (ps)                 79823
+End-of-path required time (ps)                 38157
 
 Launch Clock Arrival Time                      0
 + Clock path delay                         0
@@ -1055,8 +1055,8 @@ ClockGenBlock/gen_clk_out_0                               m0s8clockgenblockcell 
 Data path
 pin name                                           model name    delay     AT  slack  edge  Fanout
 -------------------------------------------------  ------------  -----  -----  -----  ----  ------
-\Counter_1:CounterUDB:sCTRLReg:ctrlreg\/control_2  controlcell1   2580   2580  70501  RISE       1
-\Counter_1:CounterUDB:prevCompare\/main_0          macrocell10    3069   5649  74174  RISE       1
+\Counter_1:CounterUDB:sCTRLReg:ctrlreg\/control_2  controlcell1   2580   2580  28835  RISE       1
+\Counter_1:CounterUDB:prevCompare\/main_0          macrocell10    3069   5649  32507  RISE       1
 
 Capture Clock Path
 pin name                                                  model name             delay     AT  edge  Fanout
@@ -1073,14 +1073,14 @@ ClockGenBlock/gen_clk_out_0                               m0s8clockgenblockcell 
 Path Begin     : \Counter_1:CounterUDB:sCTRLReg:ctrlreg\/control_1
 Path End       : \Counter_1:CounterUDB:prevCompare\/main_1
 Capture Clock  : \Counter_1:CounterUDB:prevCompare\/clock_0
-Path slack     : 74179p
+Path slack     : 32513p
 
 Capture Clock Arrival Time                         0
 + Clock path delay                                 0
-+ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   83333
++ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   41667
 - Setup time                                   -3510
 --------------------------------------------   ----- 
-End-of-path required time (ps)                 79823
+End-of-path required time (ps)                 38157
 
 Launch Clock Arrival Time                      0
 + Clock path delay                         0
@@ -1099,8 +1099,8 @@ ClockGenBlock/gen_clk_out_0                               m0s8clockgenblockcell 
 Data path
 pin name                                           model name    delay     AT  slack  edge  Fanout
 -------------------------------------------------  ------------  -----  -----  -----  ----  ------
-\Counter_1:CounterUDB:sCTRLReg:ctrlreg\/control_1  controlcell1   2580   2580  70508  RISE       1
-\Counter_1:CounterUDB:prevCompare\/main_1          macrocell10    3064   5644  74179  RISE       1
+\Counter_1:CounterUDB:sCTRLReg:ctrlreg\/control_1  controlcell1   2580   2580  28841  RISE       1
+\Counter_1:CounterUDB:prevCompare\/main_1          macrocell10    3064   5644  32513  RISE       1
 
 Capture Clock Path
 pin name                                                  model name             delay     AT  edge  Fanout
@@ -1117,14 +1117,14 @@ ClockGenBlock/gen_clk_out_0                               m0s8clockgenblockcell 
 Path Begin     : cy_srff_1/q
 Path End       : cydff_6/main_1
 Capture Clock  : cydff_6/clock_0
-Path slack     : 75018p
+Path slack     : 33351p
 
 Capture Clock Arrival Time                         0
 + Clock path delay                                 0
-+ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   83333
++ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   41667
 - Setup time                                   -3510
 --------------------------------------------   ----- 
-End-of-path required time (ps)                 79823
+End-of-path required time (ps)                 38157
 
 Launch Clock Arrival Time                      0
 + Clock path delay                         0
@@ -1143,8 +1143,8 @@ cy_srff_1/clock_0                                         macrocell17           
 Data path
 pin name        model name   delay     AT  slack  edge  Fanout
 --------------  -----------  -----  -----  -----  ----  ------
-cy_srff_1/q     macrocell17   1250   1250  75018  RISE       1
-cydff_6/main_1  macrocell6    3555   4805  75018  RISE       1
+cy_srff_1/q     macrocell17   1250   1250  33351  RISE       1
+cydff_6/main_1  macrocell6    3555   4805  33351  RISE       1
 
 Capture Clock Path
 pin name                                                  model name             delay     AT  edge  Fanout
@@ -1161,14 +1161,14 @@ cydff_6/clock_0                                           macrocell6            
 Path Begin     : cydff_6/q
 Path End       : cydff_4/main_0
 Capture Clock  : cydff_4/clock_0
-Path slack     : 75418p
+Path slack     : 33752p
 
 Capture Clock Arrival Time                         0
 + Clock path delay                                 0
-+ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   83333
++ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   41667
 - Setup time                                   -3510
 --------------------------------------------   ----- 
-End-of-path required time (ps)                 79823
+End-of-path required time (ps)                 38157
 
 Launch Clock Arrival Time                      0
 + Clock path delay                         0
@@ -1187,8 +1187,8 @@ cydff_6/clock_0                                           macrocell6            
 Data path
 pin name        model name   delay     AT  slack  edge  Fanout
 --------------  -----------  -----  -----  -----  ----  ------
-cydff_6/q       macrocell6    1250   1250  75418  RISE       1
-cydff_4/main_0  macrocell13   3155   4405  75418  RISE       1
+cydff_6/q       macrocell6    1250   1250  33752  RISE       1
+cydff_4/main_0  macrocell13   3155   4405  33752  RISE       1
 
 Capture Clock Path
 pin name                                                  model name             delay     AT  edge  Fanout
@@ -1205,14 +1205,14 @@ cydff_4/clock_0                                           macrocell13           
 Path Begin     : cydff_4/q
 Path End       : Net_477/main_0
 Capture Clock  : Net_477/clock_0
-Path slack     : 75509p
+Path slack     : 33842p
 
 Capture Clock Arrival Time                         0
 + Clock path delay                                 0
-+ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   83333
++ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   41667
 - Setup time                                   -3510
 --------------------------------------------   ----- 
-End-of-path required time (ps)                 79823
+End-of-path required time (ps)                 38157
 
 Launch Clock Arrival Time                      0
 + Clock path delay                         0
@@ -1231,8 +1231,8 @@ cydff_4/clock_0                                           macrocell13           
 Data path
 pin name        model name   delay     AT  slack  edge  Fanout
 --------------  -----------  -----  -----  -----  ----  ------
-cydff_4/q       macrocell13   1250   1250  54921  RISE       1
-Net_477/main_0  macrocell14   3064   4314  75509  RISE       1
+cydff_4/q       macrocell13   1250   1250  13254  RISE       1
+Net_477/main_0  macrocell14   3064   4314  33842  RISE       1
 
 Capture Clock Path
 pin name                                                  model name             delay     AT  edge  Fanout
@@ -1249,14 +1249,14 @@ Net_477/clock_0                                           macrocell14           
 Path Begin     : cydff_4/q
 Path End       : \Counter_1:CounterUDB:count_stored_i\/main_1
 Capture Clock  : \Counter_1:CounterUDB:count_stored_i\/clock_0
-Path slack     : 75509p
+Path slack     : 33843p
 
 Capture Clock Arrival Time                         0
 + Clock path delay                                 0
-+ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   83333
++ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   41667
 - Setup time                                   -3510
 --------------------------------------------   ----- 
-End-of-path required time (ps)                 79823
+End-of-path required time (ps)                 38157
 
 Launch Clock Arrival Time                      0
 + Clock path delay                         0
@@ -1275,8 +1275,8 @@ cydff_4/clock_0                                           macrocell13           
 Data path
 pin name                                      model name   delay     AT  slack  edge  Fanout
 --------------------------------------------  -----------  -----  -----  -----  ----  ------
-cydff_4/q                                     macrocell13   1250   1250  54921  RISE       1
-\Counter_1:CounterUDB:count_stored_i\/main_1  macrocell11   3064   4314  75509  RISE       1
+cydff_4/q                                     macrocell13   1250   1250  13254  RISE       1
+\Counter_1:CounterUDB:count_stored_i\/main_1  macrocell11   3064   4314  33843  RISE       1
 
 Capture Clock Path
 pin name                                                  model name             delay     AT  edge  Fanout
@@ -1293,14 +1293,14 @@ ClockGenBlock/gen_clk_out_0                               m0s8clockgenblockcell 
 Path Begin     : Net_477/q
 Path End       : \Counter_1:CounterUDB:count_stored_i\/main_3
 Capture Clock  : \Counter_1:CounterUDB:count_stored_i\/clock_0
-Path slack     : 75514p
+Path slack     : 33848p
 
 Capture Clock Arrival Time                         0
 + Clock path delay                                 0
-+ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   83333
++ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   41667
 - Setup time                                   -3510
 --------------------------------------------   ----- 
-End-of-path required time (ps)                 79823
+End-of-path required time (ps)                 38157
 
 Launch Clock Arrival Time                      0
 + Clock path delay                         0
@@ -1319,8 +1319,8 @@ Net_477/clock_0                                           macrocell14           
 Data path
 pin name                                      model name   delay     AT  slack  edge  Fanout
 --------------------------------------------  -----------  -----  -----  -----  ----  ------
-Net_477/q                                     macrocell14   1250   1250  54794  RISE       1
-\Counter_1:CounterUDB:count_stored_i\/main_3  macrocell11   3059   4309  75514  RISE       1
+Net_477/q                                     macrocell14   1250   1250  13127  RISE       1
+\Counter_1:CounterUDB:count_stored_i\/main_3  macrocell11   3059   4309  33848  RISE       1
 
 Capture Clock Path
 pin name                                                  model name             delay     AT  edge  Fanout
@@ -1337,14 +1337,14 @@ ClockGenBlock/gen_clk_out_0                               m0s8clockgenblockcell 
 Path Begin     : cy_srff_1/q
 Path End       : cydff_5/main_1
 Capture Clock  : cydff_5/clock_0
-Path slack     : 75622p
+Path slack     : 33955p
 
 Capture Clock Arrival Time                         0
 + Clock path delay                                 0
-+ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   83333
++ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   41667
 - Setup time                                   -3510
 --------------------------------------------   ----- 
-End-of-path required time (ps)                 79823
+End-of-path required time (ps)                 38157
 
 Launch Clock Arrival Time                      0
 + Clock path delay                         0
@@ -1363,8 +1363,8 @@ cy_srff_1/clock_0                                         macrocell17           
 Data path
 pin name        model name   delay     AT  slack  edge  Fanout
 --------------  -----------  -----  -----  -----  ----  ------
-cy_srff_1/q     macrocell17   1250   1250  75018  RISE       1
-cydff_5/main_1  macrocell7    2951   4201  75622  RISE       1
+cy_srff_1/q     macrocell17   1250   1250  33351  RISE       1
+cydff_5/main_1  macrocell7    2951   4201  33955  RISE       1
 
 Capture Clock Path
 pin name                                                  model name             delay     AT  edge  Fanout
@@ -1381,14 +1381,14 @@ cydff_5/clock_0                                           macrocell7            
 Path Begin     : cy_srff_1/q
 Path End       : cy_srff_1/main_2
 Capture Clock  : cy_srff_1/clock_0
-Path slack     : 75630p
+Path slack     : 33963p
 
 Capture Clock Arrival Time                         0
 + Clock path delay                                 0
-+ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   83333
++ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   41667
 - Setup time                                   -3510
 --------------------------------------------   ----- 
-End-of-path required time (ps)                 79823
+End-of-path required time (ps)                 38157
 
 Launch Clock Arrival Time                      0
 + Clock path delay                         0
@@ -1407,8 +1407,8 @@ cy_srff_1/clock_0                                         macrocell17           
 Data path
 pin name          model name   delay     AT  slack  edge  Fanout
 ----------------  -----------  -----  -----  -----  ----  ------
-cy_srff_1/q       macrocell17   1250   1250  75018  RISE       1
-cy_srff_1/main_2  macrocell17   2943   4193  75630  RISE       1
+cy_srff_1/q       macrocell17   1250   1250  33351  RISE       1
+cy_srff_1/main_2  macrocell17   2943   4193  33963  RISE       1
 
 Capture Clock Path
 pin name                                                  model name             delay     AT  edge  Fanout
@@ -1425,14 +1425,14 @@ cy_srff_1/clock_0                                         macrocell17           
 Path Begin     : cydff_3/q
 Path End       : Net_553/main_0
 Capture Clock  : Net_553/clock_0
-Path slack     : 75670p
+Path slack     : 34003p
 
 Capture Clock Arrival Time                         0
 + Clock path delay                                 0
-+ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   83333
++ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   41667
 - Setup time                                   -3510
 --------------------------------------------   ----- 
-End-of-path required time (ps)                 79823
+End-of-path required time (ps)                 38157
 
 Launch Clock Arrival Time                      0
 + Clock path delay                         0
@@ -1451,8 +1451,8 @@ cydff_3/clock_0                                           macrocell12           
 Data path
 pin name        model name   delay     AT  slack  edge  Fanout
 --------------  -----------  -----  -----  -----  ----  ------
-cydff_3/q       macrocell12   1250   1250  54905  RISE       1
-Net_553/main_0  macrocell15   2903   4153  75670  RISE       1
+cydff_3/q       macrocell12   1250   1250  13238  RISE       1
+Net_553/main_0  macrocell15   2903   4153  34003  RISE       1
 
 Capture Clock Path
 pin name                                                  model name             delay     AT  edge  Fanout
@@ -1469,14 +1469,14 @@ Net_553/clock_0                                           macrocell15           
 Path Begin     : cydff_3/q
 Path End       : \Counter_1:CounterUDB:count_stored_i\/main_0
 Capture Clock  : \Counter_1:CounterUDB:count_stored_i\/clock_0
-Path slack     : 75671p
+Path slack     : 34004p
 
 Capture Clock Arrival Time                         0
 + Clock path delay                                 0
-+ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   83333
++ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   41667
 - Setup time                                   -3510
 --------------------------------------------   ----- 
-End-of-path required time (ps)                 79823
+End-of-path required time (ps)                 38157
 
 Launch Clock Arrival Time                      0
 + Clock path delay                         0
@@ -1495,8 +1495,8 @@ cydff_3/clock_0                                           macrocell12           
 Data path
 pin name                                      model name   delay     AT  slack  edge  Fanout
 --------------------------------------------  -----------  -----  -----  -----  ----  ------
-cydff_3/q                                     macrocell12   1250   1250  54905  RISE       1
-\Counter_1:CounterUDB:count_stored_i\/main_0  macrocell11   2903   4153  75671  RISE       1
+cydff_3/q                                     macrocell12   1250   1250  13238  RISE       1
+\Counter_1:CounterUDB:count_stored_i\/main_0  macrocell11   2903   4153  34004  RISE       1
 
 Capture Clock Path
 pin name                                                  model name             delay     AT  edge  Fanout
@@ -1513,14 +1513,14 @@ ClockGenBlock/gen_clk_out_0                               m0s8clockgenblockcell 
 Path Begin     : Net_553/q
 Path End       : \Counter_1:CounterUDB:count_stored_i\/main_2
 Capture Clock  : \Counter_1:CounterUDB:count_stored_i\/clock_0
-Path slack     : 75958p
+Path slack     : 34292p
 
 Capture Clock Arrival Time                         0
 + Clock path delay                                 0
-+ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   83333
++ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   41667
 - Setup time                                   -3510
 --------------------------------------------   ----- 
-End-of-path required time (ps)                 79823
+End-of-path required time (ps)                 38157
 
 Launch Clock Arrival Time                      0
 + Clock path delay                         0
@@ -1539,8 +1539,8 @@ Net_553/clock_0                                           macrocell15           
 Data path
 pin name                                      model name   delay     AT  slack  edge  Fanout
 --------------------------------------------  -----------  -----  -----  -----  ----  ------
-Net_553/q                                     macrocell15   1250   1250  55236  RISE       1
-\Counter_1:CounterUDB:count_stored_i\/main_2  macrocell11   2615   3865  75958  RISE       1
+Net_553/q                                     macrocell15   1250   1250  13570  RISE       1
+\Counter_1:CounterUDB:count_stored_i\/main_2  macrocell11   2615   3865  34292  RISE       1
 
 Capture Clock Path
 pin name                                                  model name             delay     AT  edge  Fanout
@@ -1557,14 +1557,14 @@ ClockGenBlock/gen_clk_out_0                               m0s8clockgenblockcell 
 Path Begin     : cydff_5/q
 Path End       : cydff_3/main_0
 Capture Clock  : cydff_3/clock_0
-Path slack     : 75970p
+Path slack     : 34303p
 
 Capture Clock Arrival Time                         0
 + Clock path delay                                 0
-+ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   83333
++ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   41667
 - Setup time                                   -3510
 --------------------------------------------   ----- 
-End-of-path required time (ps)                 79823
+End-of-path required time (ps)                 38157
 
 Launch Clock Arrival Time                      0
 + Clock path delay                         0
@@ -1583,8 +1583,8 @@ cydff_5/clock_0                                           macrocell7            
 Data path
 pin name        model name   delay     AT  slack  edge  Fanout
 --------------  -----------  -----  -----  -----  ----  ------
-cydff_5/q       macrocell7    1250   1250  75970  RISE       1
-cydff_3/main_0  macrocell12   2604   3854  75970  RISE       1
+cydff_5/q       macrocell7    1250   1250  34303  RISE       1
+cydff_3/main_0  macrocell12   2604   3854  34303  RISE       1
 
 Capture Clock Path
 pin name                                                  model name             delay     AT  edge  Fanout
@@ -1601,14 +1601,14 @@ cydff_3/clock_0                                           macrocell12           
 Path Begin     : cydff_6/q
 Path End       : Net_2344/main_0
 Capture Clock  : Net_2344/clock_0
-Path slack     : 76337p
+Path slack     : 34671p
 
 Capture Clock Arrival Time                         0
 + Clock path delay                                 0
-+ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   83333
++ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   41667
 - Setup time                                   -3510
 --------------------------------------------   ----- 
-End-of-path required time (ps)                 79823
+End-of-path required time (ps)                 38157
 
 Launch Clock Arrival Time                      0
 + Clock path delay                         0
@@ -1627,8 +1627,8 @@ cydff_6/clock_0                                           macrocell6            
 Data path
 pin name         model name   delay     AT  slack  edge  Fanout
 ---------------  -----------  -----  -----  -----  ----  ------
-cydff_6/q        macrocell6    1250   1250  75418  RISE       1
-Net_2344/main_0  macrocell16   2236   3486  76337  RISE       1
+cydff_6/q        macrocell6    1250   1250  33752  RISE       1
+Net_2344/main_0  macrocell16   2236   3486  34671  RISE       1
 
 Capture Clock Path
 pin name                                                  model name             delay     AT  edge  Fanout
@@ -1645,14 +1645,14 @@ Net_2344/clock_0                                          macrocell16           
 Path Begin     : cydff_5/q
 Path End       : Net_2344/clk_en
 Capture Clock  : Net_2344/clock_0
-Path slack     : 76648p
+Path slack     : 34982p
 
 Capture Clock Arrival Time                         0
 + Clock path delay                                 0
-+ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   83333
++ Cycle adjust (Clock_1:R#1 vs. Clock_1:R#2)   41667
 - Setup time                                   -2100
 --------------------------------------------   ----- 
-End-of-path required time (ps)                 81233
+End-of-path required time (ps)                 39567
 
 Launch Clock Arrival Time                      0
 + Clock path delay                         0
@@ -1671,8 +1671,8 @@ cydff_5/clock_0                                           macrocell7            
 Data path
 pin name         model name   delay     AT  slack  edge  Fanout
 ---------------  -----------  -----  -----  -----  ----  ------
-cydff_5/q        macrocell7    1250   1250  75970  RISE       1
-Net_2344/clk_en  macrocell16   3335   4585  76648  RISE       1
+cydff_5/q        macrocell7    1250   1250  34303  RISE       1
+Net_2344/clk_en  macrocell16   3335   4585  34982  RISE       1
 
 Capture Clock Path
 pin name                                                  model name             delay     AT  edge  Fanout

@@ -2,7 +2,7 @@
 --	Conversion of QuadEncoderRTOS.v to vh2:
 --
 --	Cypress Semiconductor - WARP Version 6.3 IR 41
---	Thu Oct 11 09:50:57 2018
+--	Thu Oct 11 14:14:10 2018
 --
 
 USE cypress.cypress.all;
@@ -937,7 +937,7 @@ Clock_1:cy_clock_v1_0
 		id=>"c847fefa-f921-44b2-9b2a-67fcd0450b15",
 		source_clock_id=>"",
 		divisor=>0,
-		period=>"83333333.3333333",
+		period=>"41666666.6666667",
 		is_direct=>'0',
 		is_digital=>'1')
 	PORT MAP(clock_out=>Net_2535,
