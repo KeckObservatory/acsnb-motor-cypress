@@ -47,6 +47,21 @@ CY_ISR_PROTO(SPI_SS_IsrHandler);
 #define INA219_CAL_VALUE                       (8192)
 
 /* --------------------------------------------------------------------- 
+ * PID Defines
+ * --------------------------------------------------------------------- */
+uint32 lastTime;
+float Output;
+float ITerm, lastPosition;
+float refKp, refKi, refKd;
+float kp, ki, kd;
+uint32 refSampleTime = 5; // Default to 5ms
+float outMin, outMax;
+bool inAuto = false;
+ 
+#define PID_MANUAL 0
+#define PID_AUTOMATIC 1
+
+/* --------------------------------------------------------------------- 
  * INA219 REGISTERS
  * --------------------------------------------------------------------- */
 #define INA219_REG_CONFIG                      (0x00)
@@ -360,7 +375,16 @@ void Comm_Task(void *arg) {
     
 
 
-/* PWM Subsystem */
+
+/*******************************************************************************
+* Function Name: PWM_Set
+********************************************************************************
+* Summary:
+*  Sets the duty cycle of the PWM at the output pin.
+*
+* Parameters: Duty cycle, in percent.
+* Return: None
+*******************************************************************************/
 void PWM_Set(float dutycycle) {
     
     float drive = dutycycle;    
@@ -376,20 +400,15 @@ void PWM_Set(float dutycycle) {
 }
 
 
-
-/* Global PID process variables */
-uint32 lastTime;
-float Output;
-float ITerm, lastPosition;
-float refKp, refKi, refKd;
-float kp, ki, kd;
-uint32 SampleTime = 5; // 5ms
-float outMin, outMax;
-bool inAuto = false;
- 
-#define PID_MANUAL 0
-#define PID_AUTOMATIC 1
-
+/*******************************************************************************
+* Function Name: PID_Initialize
+********************************************************************************
+* Summary:
+*  Setup and reset the PID terms.
+*
+* Parameters: None
+* Return: None
+*******************************************************************************/
 void PID_Initialize(void) {
     
     uint32 position;
@@ -407,6 +426,38 @@ void PID_Initialize(void) {
     }
 }    
 
+
+/*******************************************************************************
+* Function Name: PID_SetTunings
+********************************************************************************
+* Summary:
+*  Setup the p, i, and d gain values and scale to the sample time.
+*
+* Parameters: Sample time in ms, and Kp, Ki, Kd gains.
+* Return: None
+*******************************************************************************/
+void PID_SetTunings(uint32 newSampleTime, float newKp, float newKi, float newKd) {
+    
+    if (newSampleTime > 0) {
+    
+        float sampleTimeInSec = ((float) newSampleTime) / 1000;
+    
+        kp = newKp;
+        ki = newKi * sampleTimeInSec;
+        kd = newKd / sampleTimeInSec;        
+    }
+}
+
+
+/*******************************************************************************
+* Function Name: PID_Compute
+********************************************************************************
+* Summary:
+*  Execute a pass through the PID process to create a duty cycle output.
+*
+* Parameters: Current time and current destination.
+* Return: PWM output, in percentage.
+*******************************************************************************/
 float PID_Compute(uint32 now, uint32 setpoint) {
     
     int32 error, dPosition;
@@ -416,14 +467,19 @@ float PID_Compute(uint32 now, uint32 setpoint) {
     if(!inAuto) 
         return 0;
     
-    /* Get up-to-date current position */
+    /* Get most up-to-date current position */
     position = Counter_1_ReadCounter();     
 
     /* How much time has elapsed since the last pass? */
     timeChange = (now - lastTime);
-
-    if (timeChange >= SampleTime) {
     
+    /* Only do the PID calc if at LEAST 5ms has elapsed */
+    if (timeChange >= refSampleTime) {
+
+        /* Adjust the gains to the most recent sampling time.  Do it continuously to make sure the gains are amplified 
+           in case the cycle runs longer than the normal 5ms. */
+        PID_SetTunings(timeChange, refKp, refKi, refKd);
+        
         /* Compute all the working error variables */
         error = setpoint - position;
         ITerm += (ki * error);
@@ -456,26 +512,18 @@ float PID_Compute(uint32 now, uint32 setpoint) {
     return Output;    
 }
  
-void PID_SetTunings(float Kp, float Ki, float Kd) {
-    
-    float SampleTimeInSec = ((float) SampleTime) / 1000;
-    
-    kp = Kp;
-    ki = Ki * SampleTimeInSec;
-    kd = Kd / SampleTimeInSec;
-}
+
+
  
-void PID_SetSampleTime(uint32 NewSampleTime) {
-    
-    if (NewSampleTime > 0) {
-    
-        float ratio  = (float) NewSampleTime / (float) SampleTime;
-        ki *= ratio;
-        kd /= ratio;
-        SampleTime = (uint32) NewSampleTime;
-    }
-}
- 
+/*******************************************************************************
+* Function Name: PID_SetOutputLimits
+********************************************************************************
+* Summary:
+*  Define the output limits of the PID process.
+*
+* Parameters: Min and Max output values.
+* Return: None
+*******************************************************************************/
 void PID_SetOutputLimits(float Min, float Max) {
     
     if(Min > Max) 
@@ -488,7 +536,7 @@ void PID_SetOutputLimits(float Min, float Max) {
     /* Clip the output to the new max */
     if(Output > outMax) {
         Output = outMax;
-    } else if(Output < outMin) {
+    } else if (Output < outMin) {
         Output = outMin;
     }
 
@@ -500,6 +548,15 @@ void PID_SetOutputLimits(float Min, float Max) {
     }
 }
  
+/*******************************************************************************
+* Function Name: PID_SetMode
+********************************************************************************
+* Summary:
+*  Sets the PID into automatic or manual mode.
+*
+* Parameters: Mode, either PID_AUTOMATIC or PID_MANUAL.
+* Return: None
+*******************************************************************************/
 void PID_SetMode(uint32 Mode) {
     
     bool newAuto = (Mode == PID_AUTOMATIC);
@@ -512,6 +569,15 @@ void PID_SetMode(uint32 Mode) {
     inAuto = newAuto;
 } 
     
+/*******************************************************************************
+* Function Name: PID_SetDrive
+********************************************************************************
+* Summary:
+*  Convert the output of PID into a duty cycle for use on the PWM.
+*
+* Parameters: Percentage output to drive the PWM.
+* Return: None
+*******************************************************************************/
 void PID_SetDrive(float percent) {
     
     /* Valid percentage range coming out of the PID algorithm is -100.0 to +100.0 
@@ -521,6 +587,8 @@ void PID_SetDrive(float percent) {
     /* The duty cycle can now be written to the PWM device itself */
     PWM_Set(dutycycle);  
 }
+
+
 
 
 /*******************************************************************************
@@ -534,7 +602,8 @@ void PID_SetDrive(float percent) {
 *******************************************************************************/
 void PID_Task(void *arg) {
     
-    uint32 sleeptime = 5;
+    /* Sleep this thread 5ms at a time */
+    uint32 sleeptime = 5;    
     uint32 now;
     uint32 desired;
     bool enabled, was_enabled;
@@ -551,11 +620,11 @@ void PID_Task(void *arg) {
     refKi = 0;
     refKd = 0;
     
+    /* Setup the PID subsystem */
     PID_Initialize();
-    PID_SetTunings(refKp, refKi, refKd);
+    PID_SetTunings(sleeptime, refKp, refKi, refKd);
     PID_SetOutputLimits(-100.0, 100.0);
     PID_SetMode(PID_MANUAL);
-    PID_SetSampleTime(sleeptime);
 
     now = 0;
     desired = 0;  
@@ -566,29 +635,22 @@ void PID_Task(void *arg) {
     
     while (1) {
 
-        /* If the interrupt handler for the end of SPI transaction is moving data into the rxMessageBuffer right now, 
-           wait for it to be done. */
-        if (rxMessageLocked) {
-            
-            /* Hold off until the SPI is done!  One millisecond will definitely cover it. */
-            Sleep(1);
-            
-        } else {
+        /* If the interrupt handler for the end of SPI transaction is NOT moving data into the rxMessageBuffer 
+           right now, go ahead and use the data that's in there.  If it's getting updated we can wait until next
+           cycle, or longer, to use it since the values shouldn't change all that often or all that quickly. */
+        if (!rxMessageLocked) {
             
             /* If the rxMessage is not corrupt, use it to update PID gains and setpoint */
             if (rxMessage.msg.signature == COMM_SIGNATURE_WORD) {
             
-                /* If the PID constants are different, reset the PID. */
+                /* If the PID constants are different, update the reference copies. */
                 if ((refKp != rxMessage.msg.Kp) || (refKi != rxMessage.msg.Ki) || (refKd != rxMessage.msg.Kd)) {
                 
                     /* Update the 'reference' values passed down from the server, not to be used in-the-raw because the actual gain 
                        values are time interval adjusted */
                     refKp = rxMessage.msg.Kp;
                     refKi = rxMessage.msg.Ki;
-                    refKd = rxMessage.msg.Kd;                    
-                    
-                    /* Live-update the tuning parameters */
-                    PID_SetTunings(refKp, refKi, refKd);
+                    refKd = rxMessage.msg.Kd;                                        
                 }
                    
                 /* The enable flag and desired position are currently stacked together in one uint32 */
@@ -596,8 +658,7 @@ void PID_Task(void *arg) {
                 desired = (rxMessage.msg.setpoint & 0x00FFFFFF);
                 
                 /* If the server is asking us to jog, do that instead of PID */
-                if (!enabled) { // && (rxMessage.msg.jog != 0)) {
-                    
+                if (!enabled) {                    
                     PWM_Set(rxMessage.msg.jog + 50);
                 }
             }
@@ -611,27 +672,27 @@ void PID_Task(void *arg) {
                 // No mode change happened   
             }
             
-            /* Run the PID algorithm */
-            now = xTaskGetTickCount();
-            percent = PID_Compute(now, desired);
+        }            
             
-            /* Send the pwm back up to the BBB */
-            if (enabled) {
-                
-                /* Use the global PWM value to communicate back the percentage of drive to the server */
-                PWM = percent;
-                
-                /* Put the PID drive percentage out on the wire */
-                PID_SetDrive(percent);
-                
-            } else {
-                /* If disabled, just return 0 */
-                PWM = 0;
-            }            
+        /* Run the PID algorithm */
+        now = xTaskGetTickCount();
+        percent = PID_Compute(now, desired);
         
-        }
-
-        /* Run the PID every 5ms, which is 200Hz update rate */
+        /* Send the pwm back up to the BBB */
+        if (enabled) {
+            
+            /* Use the global PWM value to communicate back the percentage of drive to the server */
+            PWM = percent;
+            
+            /* Put the PID drive percentage out on the wire */
+            PID_SetDrive(percent);
+            
+        } else {
+            /* If disabled, just return 0 */
+            PWM = 0;
+        }            
+        
+        /* Run the loop every 5ms, which is 200Hz update rate */
         Sleep(sleeptime);
 
         /* Get our task stack usage high water mark */    
@@ -639,9 +700,6 @@ void PID_Task(void *arg) {
     }
    
 }
-
-
-
 
 
 
@@ -771,7 +829,7 @@ CY_ISR(RSTIsrHandler) {
     /* Clear pin Interrupt */
     Reset_Encoder_ClearInterrupt();
     
-    // Clear the 24b Encoder (Absolute Position Counter)
+    /* Clear the 24b Encoder (Absolute Position Counter) */
     Counter_1_WriteCounter(0);
 }
 
@@ -794,7 +852,7 @@ CY_ISR(HomeIsrHandler) {
     /* Clear pin Interrupt */
     HOME_IN_ClearInterrupt();
 
-    // Clear the 24b Encoder (Absolute Position Counter)
+    /* Clear the 24b Encoder (Absolute Position Counter) */
     Counter_1_WriteCounter(0);
 }
 
