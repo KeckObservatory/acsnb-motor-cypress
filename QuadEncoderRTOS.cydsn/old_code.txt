@@ -1,3 +1,71 @@
+CY_ISR_PROTO(WdtIsrHandler);
+
+#define WDT_COUNT0_MATCH    (0x4FFFu)
+#define WDT_COUNT1_MATCH    (0x0008u)
+    
+    
+#ifdef WATCHDOG_INTERRUPT_0_SETUP_CODE
+    /* Watchdog (WDT) counter configuration.   ILO clock is 32KHz, so 
+    about half a second period for WDT 0.   */
+    
+    #define WDT_COUNT0_MATCH    (0x4FFFu)
+    
+	/* Setup ISR for interrupts at WDT counter 0 events. */
+    isr_wdt_StartEx(WdtIsrHandler);
+
+    /* Enable global interrupts. */
+    CyGlobalIntEnable;
+	
+	/* Set WDT counter 0 to generate interrupt on match */
+	CySysWdtWriteMode(CY_SYS_WDT_COUNTER0, CY_SYS_WDT_MODE_INT);
+	CySysWdtWriteMatch(CY_SYS_WDT_COUNTER0, WDT_COUNT0_MATCH);
+	CySysWdtWriteClearOnMatch(CY_SYS_WDT_COUNTER0, 1u);
+	
+	/* Enable WDT counters 0 and 1 cascade */
+	CySysWdtWriteCascade(CY_SYS_WDT_CASCADE_01);
+    
+	/* Set WDT counter 1 to generate reset on match */
+	CySysWdtWriteMatch(CY_SYS_WDT_COUNTER1, WDT_COUNT1_MATCH);
+	CySysWdtWriteMode(CY_SYS_WDT_COUNTER1, CY_SYS_WDT_MODE_RESET);
+    CySysWdtWriteClearOnMatch(CY_SYS_WDT_COUNTER1, 1u);
+	
+	/* Enable WDT counters 0 and 1 */
+	CySysWdtEnable(CY_SYS_WDT_COUNTER0_MASK | CY_SYS_WDT_COUNTER1_MASK);
+	
+	/* Lock WDT registers and try to disable WDT counters 0 and 1 */
+	CySysWdtLock();
+	CySysWdtDisable(CY_SYS_WDT_COUNTER1_MASK);
+	CySysWdtUnlock();    
+#endif
+
+/*******************************************************************************
+* Function Name: WdtIsrHandler
+********************************************************************************
+* Summary:
+*  Interrupt handler for WDT counter 0 interrupts.  Currently not used and should
+*  never fire.
+* 
+* Parameters:
+*  None
+*
+* Return:
+*  None
+*
+*******************************************************************************/
+CY_ISR(WdtIsrHandler) {
+
+    /* Clear interrupts state */
+	CySysWdtClearInterrupt(CY_SYS_WDT_COUNTER0_INT);
+    isr_wdt_ClearPending();    
+}
+
+
+
+
+
+
+
+
 #ifdef zero
 /*******************************************************************************
 * Function Name: PID_Task

@@ -21,7 +21,6 @@
 #include "cydevice_trm.h"
 #include "cyfitter.h"
 #include "CyLib.h"
-#include "CyLFClk.h"
 #include "cyfitter_cfg.h"
 
 
@@ -239,8 +238,6 @@ static void ClockSetup(void)
 	/* CYDEV_CLK_DIVIDER_C00 Starting address: CYDEV_CLK_DIVIDER_C00 */
 	CY_SET_REG32((void *)(CYREG_CLK_DIVIDER_C00), 0x8000001Du);
 
-	(void)CyIntSetVector(9u, &CySysWdtIsr);
-	CyIntEnable(9u);
 	CY_SET_REG32((void *)(CYREG_WDT_CONFIG), 0x00000000u);
 }
 

@@ -8,6 +8,7 @@
 *  The I2C device provides readback of motor current consumption.
 *
 * History:
+* 12/18/18 PMR  Rev: B  Implement checksummed messaging and max PWM limiting
 * 10/11/18 PMR  Rev: A  Implement PWM functions for PDI control
 * 07/31/18 PMR  Rev: NC Initial Release after port from Kona Scientific code
 *******************************************************************************/
@@ -19,14 +20,17 @@
 #include <math.h>
 #include "INA219.h"
 
+/* Debugging - undefine this for a production system that needs to watchdog */
+#define DEBUG_PROBE_ATTACHED 1
+
 /* --------------------------------------------------------------------- 
  * CONSTANTS
  * --------------------------------------------------------------------- */
 
 /* Interrupt priorities (not to be confused with RTOS task priorities) */
-#define NESTED_ISR                          (1u)
-#define DEFAULT_PRIORITY                    (3u)
-#define HIGHER_PRIORITY                     (2u)
+#define NESTED_ISR                             (1u)
+#define DEFAULT_PRIORITY                       (3u)
+#define HIGHER_PRIORITY                        (2u)
 
 /* Interrupt prototypes */
 CY_ISR_PROTO(HomeIsrHandler);
@@ -34,6 +38,15 @@ CY_ISR_PROTO(RSTIsrHandler);
 CY_ISR_PROTO(SPI_IsrHandler);
 CY_ISR_PROTO(SPI_SS_IsrHandler);
 
+/* --------------------------------------------------------------------- 
+ * WDT Defines
+ *
+ * ILO clock is 32KHz (approx. 31ms/count)
+ * We will allow the CPU to stall for 2 full seconds before forcibly
+ * resetting.  That comes to 64,000 counts for that 2 seconds.
+ * --------------------------------------------------------------------- */
+#define WDT_COUNT1_REFRESH()                   CySysWdtResetCounters(CY_SYS_WDT_COUNTER1_RESET)
+#define WDT_COUNT1_MATCH_RESET                 (0xFA00u)
 
 /* --------------------------------------------------------------------- 
  * PWM Defines
@@ -46,9 +59,21 @@ CY_ISR_PROTO(SPI_SS_IsrHandler);
 #define INA219_I2C_ADDR                        (0x40)
 #define INA219_CAL_VALUE                       (8192)
 
+int8 PWM_Jog;
+int8 PWM_Max_Fwd, PWM_Max_Rev;
+
+/* Neutral PWM jog is a 50% duty cycle */
+#define PWM_JOG_NEUTRAL                        (50)
+
+/* PWM maximum current value clipped to +/- X% duty cycle around the center (50 by default, full power possible) */
+#define PWM_MAX_MAGNITUDE                      (50) 
+
 /* --------------------------------------------------------------------- 
  * PID Defines
  * --------------------------------------------------------------------- */
+bool PID_Enabled, PID_Was_Enabled;
+uint32 PID_Setpoint;
+
 uint32 lastTime;
 float Output;
 float ITerm, lastPosition;
@@ -128,6 +153,19 @@ bool inAuto = false;
 /* --------------------------------------------------------------------- 
  * GLOBALS
  * --------------------------------------------------------------------- */
+/* Coarse reporting of state back to the node box software */
+typedef enum {    
+    csUNDEFINED   = 0,  /* Invalid state */
+    csUnconfig    = 1,  /* Unconfigured, freshly rebooted */
+    csReady       = 2,  /* Configuration complete and ready for commands */
+    csMAX    
+} ConfigStates_t;
+
+#define configStateValid(s) ( ((ConfigStates_t) s > csUNDEFINED) && ((ConfigStates_t) s < csMAX) )
+
+volatile ConfigStates_t ConfigState;
+volatile uint8 ConfigSequence;
+volatile uint16 ChecksumErrors;
 volatile uint16 Current;
 volatile float PWM;
 uint8 CurrentI2Cinbuf[20];
@@ -143,63 +181,100 @@ SemaphoreHandle_t Lock;
 /* --------------------------------------------------------------------- 
  * SPI MESSAGING
  * --------------------------------------------------------------------- */
-#define COMM_SIGNATURE_BYTE 0xA5
-#define COMM_SIGNATURE_WORD 0xA5A5A5A5
+/* V2 protocol 
 
-/* Inbound message from BBB, 21 bytes long */
-typedef struct {
+   1) Messages have opcodes (configuration, position, get status)
+   2) Messages are validated by a checksum instead of an arbitrary signature pattern.
+   3) Transfer the max message size every time, regardless of all bytes used or not.
+
+*/
     
-    uint32 signature;  /* Comm signature for reliable messaging */ 
-    uint32 setpoint;   /* Setpoint (desired actuator position, 24 bits), high byte used as PID enable */
-    float Kp;          /* PID constants to be used in calculation */
+/* Set this to match the size of the status response message, 18 bytes */    
+#define MAX_MESSAGE_SIZE 30
+    
+/* Remember the last time a message came in so we can timeout moves if the node box stops 
+   talking.  5000 ticks is 1 second of not talking. */
+#define MAX_LAST_MESSAGE_TIME_TICKS 1000
+uint32 LastMessageTimeTick;
+
+/* Opcodes that can come from the node box software */
+typedef enum {
+    opUNDEFINED = 0,
+    opConfig    = 1,
+    opStatus    = 2,
+    opError     = 3,
+    opMAX       
+} rxMessage_opcodes_t;    
+
+/* Sanity check for opcodes */
+#define rxMessageOpcodeValid(op) ( ((rxMessage_opcodes_t) op > opUNDEFINED) && ((rxMessage_opcodes_t) op < opMAX) )
+
+typedef struct { 
+    uint8 checksum;        
+    uint8 size;       /* Size of the message bytes, including opcode and size and checksum */
+    uint8 opcode;     /* Operation (generic overlay for previewing opcode value) */
+} __attribute__ ((__packed__)) rxMessage_overlay_t;
+
+/* Configuration message, 17 bytes */
+typedef struct {
+    uint8 checksum;        
+    uint8 size;       /* Size of the message bytes, including opcode and size and checksum */
+    uint8 opcode;     /* Operation: 01 == config */        
+    uint8 sequence;   /* Configuration message sequence number */
+    float Kp;         /* PID constants to be used in calculation */
     float Ki;
     float Kd;
-    int8 jog;          /* Jog value, to manually move the motor; valid range 0 to 100 */    
-    //TODO uint16 checksum;
-    
-} __attribute__ ((__packed__)) rxMessage_t;
+    uint8 limit;      /* PWM duty cycle (speed) limit, +/- percent */
+} __attribute__ ((__packed__)) rxMessage_config_t;
+
+/* Status message, contains desired position and such values, 12 bytes */
+typedef struct {
+    uint8  checksum;        
+    uint8  size;       /* Size of the message bytes, including opcode and size and checksum */
+    uint8  opcode;     /* Operation: 02 == status */
+    uint8  enable;     /* Enable/disable PID algorithm */
+    uint32 setpoint;   /* Setpoint (desired actuator position) */
+    int8   jog;        /* Jog value, to manually move the motor; valid range -100 to 100 */    
+} __attribute__ ((__packed__)) rxMessage_status_t;
+   
+
 
 /* Wrap the message with an array of bytes */
 union {
-    rxMessage_t msg;
-    uint8 buf[sizeof(rxMessage_t)];
+    uint8               buf[MAX_MESSAGE_SIZE];
+    rxMessage_overlay_t overlay;
+    rxMessage_config_t  config;
+    rxMessage_status_t  status;  
 } rxMessage;
 
-/* This is not a formal RTOS locking mechanism, because you cannot take locks inside an 
-   interrupt handler.  However, we can set a flag to indicate the rxMessage is at risk
-   of changing and make sure the PID task does not act on changing data. */
-bool rxMessageLocked;
-
-/* Message back to the BBB, watch out for alignment here by packing the structure */
-typedef struct  {
-    
-    uint32 signature; /* Comm signature for reliable messaging */
-    uint16 pad1;      /* Pad byte for backwards compatibility during testing */
-    uint16 current;   /* Motor current consumption (mA) */
-    uint32 position;  /* Actual actuator position */ 
-    float pwm;        /* PWM value to drive the motor at, derived from onboard PID */     
-    //TODO uint16 checksum;  /* Message checksum */
-    
-} __attribute__ ((__packed__)) txMessage_t ;
+/* Message back to the BBB, watch out for alignment here by packing the structure (should be 18 bytes) */
+typedef struct  {  
+    uint8  checksum;   /* Message checksum */    
+    uint8  size;       /* Size of the message bytes, including opcode and size and checksum */
+    uint8  opcode;     /* Echo back of the opcode this response is for, operation: 03 == status */
+    uint8  state;      /* Enum value for current device configuration state */ 
+    uint8  sequence;   /* Echo back the config sequence number currently set */
+    uint16 checksum_errors; /* Count of checksum errors */
+    uint16 current;    /* Motor current consumption (mA) */
+    uint32 position;   /* Actual actuator position */ 
+    float pwm;         /* PWM value the motor is moving at */     
+} __attribute__ ((__packed__)) txMessage_t;
 
 /* Wrap the message with an array of bytes */
 union {    
+    uint8       buf[MAX_MESSAGE_SIZE];
     txMessage_t msg;
-    rxMessage_t dummy; /* Make sure this buffer is at LEAST as large as the rxMessage! */
-    uint8 buf[sizeof(txMessage_t)];        
 } txMessage;
-
 
 /* State machine definition for transmit side of messaging */
 typedef enum {
-    
     txmsClear,    /* Transmit message buffer is empty and needs loading */
     txmsLoaded    /* Transmit message buffer has been loaded by the message thread for sending */
-    
 } txMessageStates_t;
 
 txMessageStates_t txMessageState;
 
+    
 
 /*******************************************************************************
 * Function Name: setupFreeRTOS
@@ -321,6 +396,11 @@ void Current_Read_Task(void *arg) {
 *******************************************************************************/
 void Comm_Task(void *arg) {
  
+    rxMessage_opcodes_t opcode;
+    uint8 size;
+    uint8 i;
+    uint8 checksum;
+    
     /* Initial high water mark reading */
     uxHighWaterMark_Comm = uxTaskGetStackHighWaterMark( NULL );  
     
@@ -332,20 +412,98 @@ void Comm_Task(void *arg) {
             /* In certain states, this thread is responsible for loading the outbound messaging */
             switch (txMessageState) {
              
-                /* Buffer is clear and ready for loading */
+                /* Output buffer is clear and ready for loading, rxMessage is (probably) good and needs processing */
                 case txmsClear:
 
                     /* Take the lock, set the fields, and release the lock.  If we can't get the lock in 4ms, 
-                       we have missed this messaging cycle and just skip it */
+                       we have missed this messaging cycle have to skip it.
+                       2018-12-18 PMR: At the moment, this is the only task taking the lock so it will always succeed.
+                                       Sometime in the future we might need the lock so I am leaving it in.
+                    */
                     if( xSemaphoreTake( Lock, ( TickType_t ) 4 ) == pdTRUE ) {
+                        
+                        /* Get a few items out of the message before checking the sum */
+                        size     = rxMessage.overlay.size;
+                        opcode   = (rxMessage_opcodes_t) rxMessage.overlay.opcode;
+                        
+                        /* Make sure the size makes sense.  If we have to reset the size it's probably a corrupt message anyway. */
+                        if (size > sizeof(txMessage.buf))
+                            size = sizeof(txMessage.buf);                            
                     
-                        /* Set fields individually */
-                        txMessage.msg.signature = COMM_SIGNATURE_WORD;
-                        txMessage.msg.position = Counter_1_ReadCounter();
-                        txMessage.msg.pwm = PWM;
-                        txMessage.msg.current = Current;            
+                        /* Calculate the checksum by summing the bytes of the entire message, it should resolve to 0 if error-free */
+                        for (i = 0, checksum = 0; i < size; i++)
+                            checksum += rxMessage.buf[i]; 
 
+                        /* Checksum fault, don't try to process the messgage */
+                        if ((checksum & 0xFF) != 0) {
+                            
+                            txMessage.msg.opcode = opcode;
+                            txMessage.msg.size = sizeof(txMessage_t);
+                            ChecksumErrors++;
+                            
+                        /* Message looks fine, process it */
+                        } else {
+
+                            /* Message opcode must be valid before trying to process the message contents */
+                            if ( rxMessageOpcodeValid(opcode) ) {                            
+                            
+                                switch (opcode) {
+                                
+                                    case opConfig:
+                                        /* Special message to establish settings on the device such as PID gains */                                    
+                                    
+                                        /* Update the 'reference' values passed down from the server, not to be used in-the-raw because the actual gain 
+                                           values are time interval adjusted */
+                                        refKp = rxMessage.config.Kp;
+                                        refKi = rxMessage.config.Ki;
+                                        refKd = rxMessage.config.Kd;                                        
+                                           
+                                        /* Setup the PWM limits and stop a jog if one was in progress */
+                                        PWM_Jog = PWM_JOG_NEUTRAL;
+                                        PWM_Max_Fwd = PWM_JOG_NEUTRAL + rxMessage.config.limit;
+                                        PWM_Max_Rev = PWM_JOG_NEUTRAL - rxMessage.config.limit;                                    
+                                    
+                                        /* We have received a config message, so signal to the PID thread that processing is allowed */
+                                        ConfigState = csReady;  
+                                        ConfigSequence = rxMessage.config.sequence;
+                                        break;
+
+                                    case opStatus:
+                                        /* The normal message telling us where to go, how much to jog, enable on/off */
+                                        PID_Enabled = (bool) rxMessage.status.enable;
+                                        PID_Setpoint = rxMessage.status.setpoint;
+                                    
+                                        /* PWM jog value ranges from 0 to 100, where 0 is max-reverse current, 100 is max-forward, 50 is neutral/no movement */
+                                        PWM_Jog = rxMessage.status.jog;                                    
+                                        break;
+                                    
+                                    /* No other opcodes are valid */
+                                    default:
+                                        break;
+                                }                           
+                            }                            
+                        }
+                        
+                        /* Fill out the common reponse the same way every time, as a status response */
+                        txMessage.msg.checksum = 0;                            
+                        txMessage.msg.opcode   = opStatus;
+                        txMessage.msg.size     = sizeof(txMessage_t);
+                        txMessage.msg.state    = (uint8) ConfigState;
+                        txMessage.msg.checksum_errors = ChecksumErrors;
+                        txMessage.msg.sequence = ConfigSequence;
+                        txMessage.msg.position = Counter_1_ReadCounter();
+                        txMessage.msg.pwm      = PWM;
+                        txMessage.msg.current  = Current;                            
+                        
+                        /* Set the checksum in the response */
+                        for (i = 0, checksum = 0; i < sizeof(txMessage_t); i++)
+                            checksum += txMessage.buf[i]; 
+                            
+                        /* Take the 2's complement of the sum and put it back in the message */
+                        txMessage.msg.checksum = ~checksum + 1;
+                            
                         /* Copy the readied buffer out to the FIFO */
+                        //TODO: should we clear this here, or at the end of the transmit complete interrupt?   SPI_1_SpiUartClearTxBuffer();
                         SPI_1_SpiUartPutArray(txMessage.buf, sizeof(txMessage.buf)); 
 
                         /* Indicate it's loaded for use */
@@ -388,8 +546,15 @@ void Comm_Task(void *arg) {
 void PWM_Set(float dutycycle) {
     
     float drive = dutycycle;    
+
+    /* Clip to the configured mix/max */
+    if (drive > PWM_Max_Fwd) {
+        drive = PWM_Max_Fwd;
+    } else if (drive < PWM_Max_Rev) {
+        drive = PWM_Max_Rev;
+    }
     
-    /* Clip to the max/min of the drive */
+    /* If somehow misconfigured to go even higher, clip to the max/min of the drive */
     if (drive > 100) {
         drive = 100;
     } else if (drive < 0) {
@@ -605,8 +770,6 @@ void PID_Task(void *arg) {
     /* Sleep this thread 5ms at a time */
     uint32 sleeptime = 5;    
     uint32 now;
-    uint32 desired;
-    bool enabled, was_enabled;
     float percent; 
     
     /* Initial high water mark reading */
@@ -627,70 +790,77 @@ void PID_Task(void *arg) {
     PID_SetMode(PID_MANUAL);
 
     now = 0;
-    desired = 0;  
     
     /* Start off disabled */
-    was_enabled = false;
-    enabled = false;
+    PID_Setpoint = 0;  
+    PID_Was_Enabled = false;
+    PID_Enabled = false;
     
     while (1) {
+              
+        /* ------------------------------------------------------------------------------------ */
+        /* At the top of the PID loop, refresh the counter of the watchdog to indicate the RTOS 
+           thread is still alive.  Were the RTOS to crash or the motion thread to die, the CPU 
+           will be reset after 2 seconds. */
+        WDT_COUNT1_REFRESH();        
+        /* ------------------------------------------------------------------------------------ */
 
-        /* If the interrupt handler for the end of SPI transaction is NOT moving data into the rxMessageBuffer 
-           right now, go ahead and use the data that's in there.  If it's getting updated we can wait until next
-           cycle, or longer, to use it since the values shouldn't change all that often or all that quickly. */
-        if (!rxMessageLocked) {
+        
+        /* If the server hasn't talked to us in a while (no messages on the SPI), 
+           take preventative action and abandon any moves in progress.  When the uint32
+           overflows, "now" will be (temporarily) less than the last timestamped message,
+           so handle that too */
+        now = xTaskGetTickCount();
+        if ( (now > (LastMessageTimeTick + MAX_LAST_MESSAGE_TIME_TICKS)) ||
+             (now < LastMessageTimeTick) ) {
             
-            /* If the rxMessage is not corrupt, use it to update PID gains and setpoint */
-            if (rxMessage.msg.signature == COMM_SIGNATURE_WORD) {
+            /* Stop all motion */
+            PWM_Set(PWM_JOG_NEUTRAL);
+            PID_Enabled = false;
             
-                /* If the PID constants are different, update the reference copies. */
-                if ((refKp != rxMessage.msg.Kp) || (refKi != rxMessage.msg.Ki) || (refKd != rxMessage.msg.Kd)) {
-                
-                    /* Update the 'reference' values passed down from the server, not to be used in-the-raw because the actual gain 
-                       values are time interval adjusted */
-                    refKp = rxMessage.msg.Kp;
-                    refKi = rxMessage.msg.Ki;
-                    refKd = rxMessage.msg.Kd;                                        
-                }
-                   
-                /* The enable flag and desired position are currently stacked together in one uint32 */
-                enabled = ((rxMessage.msg.setpoint & 0xFF000000) > 0);
-                desired = (rxMessage.msg.setpoint & 0x00FFFFFF);
-                
-                /* If the server is asking us to jog, do that instead of PID */
-                if (!enabled) {                    
-                    PWM_Set(rxMessage.msg.jog + 50);
-                }
+            /* Clear the values that would drive motion on the next message arrival.  Assume the next message might be a config, 
+               in which case we want to be neutral. */
+            PWM_Jog = PWM_JOG_NEUTRAL;
+
+        /* Only run the PID algorithm if we have been configured by the nodebox software */
+        } else if (ConfigState == csReady) {
+        
+            /* If the server is asking us to jog, do that instead of PID */
+            if (!PID_Enabled) {                    
+                PWM_Set(PWM_JOG_NEUTRAL + PWM_Jog);
             }
             
             /* Handle mode switching */
-            if (!was_enabled && enabled) {
+            if (!PID_Was_Enabled && PID_Enabled) {
                 PID_SetMode(PID_AUTOMATIC);
-            } else if (!enabled && was_enabled) {
+            } else if (!PID_Enabled && PID_Was_Enabled) {
                 PID_SetMode(PID_MANUAL);                
             } else {
                 // No mode change happened   
             }
             
-        }            
+            /* Save value for next cycle */
+            PID_Was_Enabled = PID_Enabled;
             
-        /* Run the PID algorithm */
-        now = xTaskGetTickCount();
-        percent = PID_Compute(now, desired);
-        
-        /* Send the pwm back up to the BBB */
-        if (enabled) {
+                
+            /* Run the PID algorithm */
+            percent = PID_Compute(now, PID_Setpoint);
             
-            /* Use the global PWM value to communicate back the percentage of drive to the server */
-            PWM = percent;
+            /* Send the pwm back up to the BBB */
+            if (PID_Enabled) {
+                
+                /* Use the global PWM value to communicate back the percentage of drive to the server */
+                PWM = percent;
+                
+                /* Put the PID drive percentage out on the wire */
+                PID_SetDrive(percent);
+                
+            } else {
+                /* If disabled, just return 0 */
+                PWM = 0;
+            }
             
-            /* Put the PID drive percentage out on the wire */
-            PID_SetDrive(percent);
-            
-        } else {
-            /* If disabled, just return 0 */
-            PWM = 0;
-        }            
+        }
         
         /* Run the loop every 5ms, which is 200Hz update rate */
         Sleep(sleeptime);
@@ -778,6 +948,32 @@ int main(void) {
     /* Enable the global interrupt */
     CyGlobalIntEnable;
     
+    
+    
+    /********************************************************************** 
+    * Watchdog timer.  Implements the WDT1 automatic CPU reset.
+    **********************************************************************/
+
+    /* If you are using the JTAG debugging probe, turn off the watchdog by
+       defining DEBUG_PROBE_ATTACHED to something, or it will reset the CPU
+       when you hit a breakpoint. */
+
+#ifndef DEBUG_PROBE_ATTACHED
+	/* Set WDT counter 1 to generate reset on match */
+	CySysWdtWriteMatch(CY_SYS_WDT_COUNTER1, WDT_COUNT1_MATCH_RESET);
+	CySysWdtWriteMode(CY_SYS_WDT_COUNTER1, CY_SYS_WDT_MODE_RESET);
+    CySysWdtWriteClearOnMatch(CY_SYS_WDT_COUNTER1, 1u);
+	
+	/* Enable WDT counter 1 */
+	CySysWdtEnable(CY_SYS_WDT_COUNTER1_MASK);
+	
+	/* Lock WDT registers and try to disable WDT 1 */
+	CySysWdtLock();
+	CySysWdtDisable(CY_SYS_WDT_COUNTER1_MASK);
+	CySysWdtUnlock();        
+#endif    
+
+    
     /*********************************************************************** 
     * Start the various subsystems.
     ***********************************************************************/
@@ -790,14 +986,24 @@ int main(void) {
     PWM_1_Start();
     PWM_1_WritePeriod(PWM_15KHZ_PERIOD);
     PWM_Set(PWM_IDLE);   
+    
+    /* Default the jog value to neutral (no movement) */
+    PWM_Jog = PWM_JOG_NEUTRAL;
+    PWM_Max_Fwd = PWM_JOG_NEUTRAL + PWM_MAX_MAGNITUDE;
+    PWM_Max_Rev = PWM_JOG_NEUTRAL - PWM_MAX_MAGNITUDE;
    
     /* Start counting the quadrature encoding */
     Counter_1_Start();    
     Counter_1_WriteCounter(0x00800000);  // Set the encoder initially to mid range
  
     /* Set some initial values */
-    rxMessageLocked = false;
+    LastMessageTimeTick = xTaskGetTickCount();
     
+    /* Start off unconfigured */
+    ConfigState = csUnconfig;  
+    ConfigSequence = 0;
+    ChecksumErrors = 0;
+   
     /***********************************************************************
     * Start the RTOS task scheduler
     ***********************************************************************/
@@ -808,7 +1014,6 @@ int main(void) {
     ***********************************************************************/
     return 1;       
 }
-
 
 /*******************************************************************************
 * Function Name: RSTIsrHandler
@@ -870,7 +1075,6 @@ CY_ISR(HomeIsrHandler) {
 CY_ISR(SPI_SS_IsrHandler) {
     
     uint32 i;
-    bool txclear;
     
     /* Clear SPI slave select pin Interrupt */
     spi_ss_ClearInterrupt();
@@ -878,9 +1082,9 @@ CY_ISR(SPI_SS_IsrHandler) {
     /* Make sure the slave select is actually de-asserted before proceeding */
     if (!spi_ss_Read()) 
         return;
-       
-    /* Determine if the TX buffer is clear */
-    txclear = (SPI_1_SpiUartGetTxBufferSize() == 0);        
+   
+    /* Update the last message tick timer */
+    LastMessageTimeTick = xTaskGetTickCount();
 
     /* It's possible the slave select has fired and returned without transmitting any data (glitched) so
        check the messaging state before resetting the buffers */
@@ -892,51 +1096,28 @@ CY_ISR(SPI_SS_IsrHandler) {
      
         /* A message was readied for transmission */
         case txmsLoaded:
-        
-            if (txclear) {
-             
-                /* FIFO is clear and slave select deasserted, it's time to reset */ 
-                
-                /* Clear the message buffer, the comm thread will fill it in again to make sure a fresh message is heading out */
-                bzero(txMessage.buf, sizeof(txMessage.buf)); 
+         
+            /* FIFO is clear and slave select deasserted, it's time to reset */ 
+            
+            /* Clear the transmit message buffer, the comm thread will fill it in again to make sure a fresh message is heading out */
+            bzero(txMessage.buf, sizeof(txMessage.buf)); 
 
-                /* Message from the master is completely clocked in by now */     
-                rxMessageLocked = true;
-                for (i = 0; i < sizeof(rxMessage.buf); i++) {
-                    rxMessage.buf[i] = (uint8) SPI_1_SpiUartReadRxData();            
-                }
-                rxMessageLocked = false;
-                
-                /* Clear out all the bytes in the receive side so they can be filled in again */
-                SPI_1_SpiUartClearRxBuffer();   
-                
-                /* Set the state to indicate to the messaging thread that it's time to load the TX buffer again */
-                txMessageState = txmsClear;
-                
-            } else {
-
-                /* FIFO is NOT clear and slave select deasserted, this is bad because the master didn't clock all the bytes! */ 
-
-                /* Clear the partial message out */
-                SPI_1_SpiUartClearTxBuffer();
-                
-                /* Clear the message buffer, the comm thread will fill it in again to make sure a fresh message is heading out */
-                bzero(txMessage.buf, sizeof(txMessage.buf)); 
-
-                /* Invalidate the rx message */
-                rxMessage.msg.signature = 0;
-                
-                /* Clear out all the bytes in the receive side so they can be filled in again */
-                SPI_1_SpiUartClearRxBuffer();   
-                
-                /* Set the state to indicate to the messaging thread that it's time to load the TX buffer again */
-                txMessageState = txmsClear;                
+            /* Message from the master is completely clocked in by now */     
+            for (i = 0; i < sizeof(rxMessage.buf); i++) {
+                rxMessage.buf[i] = (uint8) SPI_1_SpiUartReadRxData();            
             }
-        
+            
+            /* Clear out all the bytes in the receive side so they can be filled in again */
+            SPI_1_SpiUartClearRxBuffer();  
+            
+            /* Clear out any remaining bytes in the transmit buffer, in case the message transfer was cut short */
+            SPI_1_SpiUartClearTxBuffer();
+            
+            /* Set the state to indicate to the messaging thread that it's time to load the TX buffer again */
+            txMessageState = txmsClear;        
             break;
             
-    } // End of switch block
-
+    } 
 }
 
 

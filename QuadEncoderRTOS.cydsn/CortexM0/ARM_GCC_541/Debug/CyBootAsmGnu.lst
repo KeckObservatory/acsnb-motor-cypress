@@ -8405,7 +8405,7 @@ ARM GAS  Generated_Source\PSoC4\CyBootAsmGnu.s 			page 1
  1470              	.set CYDEV_VARIABLE_VDDA, 1
  1471              	.set CYDEV_VDDA_MV, 3300
  1472              	.set CYDEV_VDDD_MV, 3300
- 1473              	.set CYDEV_WDT_GENERATE_ISR, 1
+ 1473              	.set CYDEV_WDT_GENERATE_ISR, 0
  1474              	.set CYIPBLOCK_M0S8_CTBM_VERSION, 0
  1475              	.set CYIPBLOCK_m0s8cpuss_VERSION, 0
  1476              	.set CYIPBLOCK_m0s8gpio2_VERSION, 0
