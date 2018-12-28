@@ -1,6 +1,6 @@
 // ======================================================================
 // QuadEncoderRTOS.v generated from TopDesign.cysch
-// 12/13/2018 at 10:48
+// 12/26/2018 at 15:37
 // This file is auto generated. ANY EDITS YOU MAKE MAY BE LOST WHEN THIS FILE IS REGENERATED!!!
 // ======================================================================
 
@@ -916,9 +916,94 @@ module TCPWM_P4_v2_10_3 (
 
 endmodule
 
+// Counter_v3_0(CaptureMode=0, CaptureModeSoftware=0, ClockMode=0, CompareMode=1, CompareModeSoftware=0, CompareStatusEdgeSense=true, CompareValue=128, CONTROL3=0, ControlRegRemoved=0, CyGetRegReplacementString=CY_GET_REG8, CySetRegReplacementString=CY_SET_REG8, EnableMode=0, FF16=false, FF8=false, FixedFunction=false, FixedFunctionUsed=0, InitCounterValue=0, InterruptOnCapture=false, InterruptOnCompare=false, InterruptOnOverUnderFlow=false, InterruptOnTC=false, Period=254, RegDefReplacementString=reg8, RegSizeReplacementString=uint8, ReloadOnCapture=false, ReloadOnCompare=false, ReloadOnOverUnder=true, ReloadOnReset=true, Resolution=8, RunMode=0, UDB16=false, UDB24=false, UDB32=false, UDB8=true, UDBControlReg=true, UseInterrupt=true, VerilogSectionReplacementString=sC8, CY_API_CALLBACK_HEADER_INCLUDE=, CY_COMMENT=, CY_COMPONENT_NAME=Counter_v3_0, CY_CONFIG_TITLE=Index_Counter_1, CY_CONST_CONFIG=true, CY_CONTROL_FILE=<:default:>, CY_DATASHEET_FILE=<:default:>, CY_FITTER_NAME=Index_Counter_1, CY_INSTANCE_SHORT_NAME=Index_Counter_1, CY_MAJOR_VERSION=3, CY_MINOR_VERSION=0, CY_PDL_DRIVER_NAME=, CY_PDL_DRIVER_REQ_VERSION=, CY_PDL_DRIVER_SUBGROUP=, CY_PDL_DRIVER_VARIANT=, CY_REMOVE=false, CY_SUPPRESS_API_GEN=false, CY_VERSION=PSoC Creator  4.2, INSTANCE_NAME=Index_Counter_1, )
+module Counter_v3_0_4 (
+    reset,
+    tc,
+    comp,
+    clock,
+    interrupt,
+    enable,
+    capture,
+    upCnt,
+    downCnt,
+    up_ndown,
+    count);
+    input       reset;
+    output      tc;
+    output      comp;
+    input       clock;
+    output      interrupt;
+    input       enable;
+    input       capture;
+    input       upCnt;
+    input       downCnt;
+    input       up_ndown;
+    input       count;
+
+    parameter CaptureMode = 0;
+    parameter ClockMode = 0;
+    parameter CompareMode = 1;
+    parameter CompareStatusEdgeSense = 1;
+    parameter EnableMode = 0;
+    parameter ReloadOnCapture = 0;
+    parameter ReloadOnCompare = 0;
+    parameter ReloadOnOverUnder = 1;
+    parameter ReloadOnReset = 1;
+    parameter Resolution = 8;
+    parameter RunMode = 0;
+    parameter UseInterrupt = 1;
+
+          wire  Net_95;
+          wire  Net_89;
+
+	// VirtualMux_1 (cy_virtualmux_v1_0)
+	assign Net_89 = up_ndown;
+
+    ZeroTerminal ZeroTerminal_2 (
+        .z(Net_95));
+
+    B_Counter_v3_0 CounterUDB (
+        .reset(reset),
+        .tc_out(tc),
+        .cmp_out(comp),
+        .clock(clock),
+        .irq_out(interrupt),
+        .up_ndown(Net_89),
+        .upcnt(upCnt),
+        .dwncnt(downCnt),
+        .enable(enable),
+        .capture(capture),
+        .count(count));
+    defparam CounterUDB.CaptureMode = 0;
+    defparam CounterUDB.ClockMode = 0;
+    defparam CounterUDB.CompareMode = 1;
+    defparam CounterUDB.CompareStatusEdgeSense = 1;
+    defparam CounterUDB.EnableMode = 0;
+    defparam CounterUDB.ReloadOnCapture = 0;
+    defparam CounterUDB.ReloadOnCompare = 0;
+    defparam CounterUDB.ReloadOnOverUnder = 1;
+    defparam CounterUDB.ReloadOnReset = 1;
+    defparam CounterUDB.Resolution = 8;
+    defparam CounterUDB.RunMode = 0;
+    defparam CounterUDB.UseInterrupt = 1;
+
+
+
+endmodule
+
 // top
 module top ;
 
+          wire  Net_2658;
+          wire  Net_2657;
+          wire  Net_2656;
+          wire  Net_2655;
+          wire  Net_2654;
+          wire  Net_2653;
+          wire  Net_2651;
+          wire  Net_2650;
+          wire  Net_2649;
           wire  Net_2612;
           wire  Net_2610;
           wire  Net_2609;
@@ -936,6 +1021,8 @@ module top ;
           wire  Net_2320;
           wire  Net_2319;
           wire  Net_2318;
+    electrical  SDA;
+    electrical  SCL;
           wire  Net_2317;
           wire  Net_2316;
           wire  Net_2315;
@@ -945,8 +1032,6 @@ module top ;
           wire  Net_2285;
           wire  Net_2284;
           wire  Net_2283;
-    electrical  SDA;
-    electrical  SCL;
           wire  Net_2282;
           wire  Net_2281;
           wire  Net_2280;
@@ -997,7 +1082,7 @@ module top ;
           wire  Net_629;
           wire  Net_628;
           wire  Net_630;
-          wire  Net_360;
+          wire  Net_2637;
           wire  Net_625;
           wire  Net_644;
           wire  Net_622;
@@ -1080,7 +1165,7 @@ module top ;
 		  .input_buffer_sel(2'b00))
 		INDEX_OUT
 		 (.oe(tmpOE__INDEX_OUT_net),
-		  .y({Net_360}),
+		  .y({Net_2637}),
 		  .fb({tmpFB_0__INDEX_OUT_net[0:0]}),
 		  .io({tmpIO_0__INDEX_OUT_net[0:0]}),
 		  .siovref(tmpSIOVREF__INDEX_OUT_net),
@@ -1155,7 +1240,7 @@ module top ;
 		INDEX_IN
 		 (.oe(tmpOE__INDEX_IN_net),
 		  .y({1'b0}),
-		  .fb({Net_360}),
+		  .fb({Net_2637}),
 		  .io({tmpIO_0__INDEX_IN_net[0:0]}),
 		  .siovref(tmpSIOVREF__INDEX_IN_net),
 		  .interrupt({tmpINTERRUPT_0__INDEX_IN_net[0:0]}),
@@ -1892,7 +1977,7 @@ module top ;
     reg  cy_srff_1;
     always @(posedge Net_2535)
     begin
-        cy_srff_1 <= (Net_360 | Net_644) & ~Net_625;
+        cy_srff_1 <= (Net_2637 | Net_644) & ~Net_625;
     end
     assign Net_644 = cy_srff_1;
     // -- SRFF End --
@@ -2380,6 +2465,31 @@ module top ;
         .line(Net_2611),
         .line_n(Net_2612),
         .clock(Net_2535));
+
+    Counter_v3_0_4 Index_Counter_1 (
+        .reset(1'b0),
+        .tc(Net_2650),
+        .comp(Net_2651),
+        .clock(Net_2535),
+        .interrupt(Net_2653),
+        .enable(1'b0),
+        .capture(1'b0),
+        .upCnt(1'b0),
+        .downCnt(1'b0),
+        .up_ndown(1'b1),
+        .count(Net_2637));
+    defparam Index_Counter_1.CaptureMode = 0;
+    defparam Index_Counter_1.ClockMode = 0;
+    defparam Index_Counter_1.CompareMode = 1;
+    defparam Index_Counter_1.CompareStatusEdgeSense = 1;
+    defparam Index_Counter_1.EnableMode = 0;
+    defparam Index_Counter_1.ReloadOnCapture = 0;
+    defparam Index_Counter_1.ReloadOnCompare = 0;
+    defparam Index_Counter_1.ReloadOnOverUnder = 1;
+    defparam Index_Counter_1.ReloadOnReset = 1;
+    defparam Index_Counter_1.Resolution = 8;
+    defparam Index_Counter_1.RunMode = 0;
+    defparam Index_Counter_1.UseInterrupt = 1;
 
 
 

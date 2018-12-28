@@ -49,6 +49,7 @@
 <dep name=".\Generated_Source\PSoC4\INDEX_IN_aliases.h" />
 <dep name=".\Generated_Source\PSoC4\INDEX_OUT.h" />
 <dep name=".\Generated_Source\PSoC4\INDEX_OUT_aliases.h" />
+<dep name=".\Generated_Source\PSoC4\Index_Counter_1.h" />
 <dep name=".\Generated_Source\PSoC4\LED.h" />
 <dep name=".\Generated_Source\PSoC4\LED_aliases.h" />
 <dep name=".\Generated_Source\PSoC4\PROBE.h" />
@@ -144,6 +145,7 @@
 <file name=".\Generated_Source\PSoC4\INDEX_IN_aliases.h" />
 <file name=".\Generated_Source\PSoC4\INDEX_OUT.h" />
 <file name=".\Generated_Source\PSoC4\INDEX_OUT_aliases.h" />
+<file name=".\Generated_Source\PSoC4\Index_Counter_1.h" />
 <file name=".\Generated_Source\PSoC4\LED.h" />
 <file name=".\Generated_Source\PSoC4\LED_aliases.h" />
 <file name=".\Generated_Source\PSoC4\PROBE.h" />
@@ -229,6 +231,7 @@
 <dep name=".\Generated_Source\PSoC4\INDEX_IN_aliases.h" />
 <dep name=".\Generated_Source\PSoC4\INDEX_OUT.h" />
 <dep name=".\Generated_Source\PSoC4\INDEX_OUT_aliases.h" />
+<dep name=".\Generated_Source\PSoC4\Index_Counter_1.h" />
 <dep name=".\Generated_Source\PSoC4\LED.h" />
 <dep name=".\Generated_Source\PSoC4\LED_aliases.h" />
 <dep name=".\Generated_Source\PSoC4\PROBE.h" />
@@ -323,6 +326,7 @@
 <dep name=".\Generated_Source\PSoC4\INDEX_IN_aliases.h" />
 <dep name=".\Generated_Source\PSoC4\INDEX_OUT.h" />
 <dep name=".\Generated_Source\PSoC4\INDEX_OUT_aliases.h" />
+<dep name=".\Generated_Source\PSoC4\Index_Counter_1.h" />
 <dep name=".\Generated_Source\PSoC4\LED.h" />
 <dep name=".\Generated_Source\PSoC4\LED_aliases.h" />
 <dep name=".\Generated_Source\PSoC4\PROBE.h" />
@@ -418,6 +422,7 @@
 <dep name=".\Generated_Source\PSoC4\INDEX_IN_aliases.h" />
 <dep name=".\Generated_Source\PSoC4\INDEX_OUT.h" />
 <dep name=".\Generated_Source\PSoC4\INDEX_OUT_aliases.h" />
+<dep name=".\Generated_Source\PSoC4\Index_Counter_1.h" />
 <dep name=".\Generated_Source\PSoC4\LED.h" />
 <dep name=".\Generated_Source\PSoC4\LED_aliases.h" />
 <dep name=".\Generated_Source\PSoC4\PROBE.h" />
@@ -515,6 +520,7 @@
 <dep name=".\Generated_Source\PSoC4\INDEX_IN_aliases.h" />
 <dep name=".\Generated_Source\PSoC4\INDEX_OUT.h" />
 <dep name=".\Generated_Source\PSoC4\INDEX_OUT_aliases.h" />
+<dep name=".\Generated_Source\PSoC4\Index_Counter_1.h" />
 <dep name=".\Generated_Source\PSoC4\LED.h" />
 <dep name=".\Generated_Source\PSoC4\LED_aliases.h" />
 <dep name=".\Generated_Source\PSoC4\PROBE.h" />
@@ -611,6 +617,7 @@
 <dep name=".\Generated_Source\PSoC4\INDEX_IN_aliases.h" />
 <dep name=".\Generated_Source\PSoC4\INDEX_OUT.h" />
 <dep name=".\Generated_Source\PSoC4\INDEX_OUT_aliases.h" />
+<dep name=".\Generated_Source\PSoC4\Index_Counter_1.h" />
 <dep name=".\Generated_Source\PSoC4\LED.h" />
 <dep name=".\Generated_Source\PSoC4\LED_aliases.h" />
 <dep name=".\Generated_Source\PSoC4\PROBE.h" />
@@ -706,6 +713,7 @@
 <dep name=".\Generated_Source\PSoC4\INDEX_IN_aliases.h" />
 <dep name=".\Generated_Source\PSoC4\INDEX_OUT.h" />
 <dep name=".\Generated_Source\PSoC4\INDEX_OUT_aliases.h" />
+<dep name=".\Generated_Source\PSoC4\Index_Counter_1.h" />
 <dep name=".\Generated_Source\PSoC4\LED.h" />
 <dep name=".\Generated_Source\PSoC4\LED_aliases.h" />
 <dep name=".\Generated_Source\PSoC4\PROBE.h" />
@@ -801,6 +809,7 @@
 <dep name=".\Generated_Source\PSoC4\INDEX_IN_aliases.h" />
 <dep name=".\Generated_Source\PSoC4\INDEX_OUT.h" />
 <dep name=".\Generated_Source\PSoC4\INDEX_OUT_aliases.h" />
+<dep name=".\Generated_Source\PSoC4\Index_Counter_1.h" />
 <dep name=".\Generated_Source\PSoC4\LED.h" />
 <dep name=".\Generated_Source\PSoC4\LED_aliases.h" />
 <dep name=".\Generated_Source\PSoC4\PROBE.h" />
@@ -898,6 +907,7 @@
 <dep name=".\Generated_Source\PSoC4\INDEX_IN_aliases.h" />
 <dep name=".\Generated_Source\PSoC4\INDEX_OUT.h" />
 <dep name=".\Generated_Source\PSoC4\INDEX_OUT_aliases.h" />
+<dep name=".\Generated_Source\PSoC4\Index_Counter_1.h" />
 <dep name=".\Generated_Source\PSoC4\LED.h" />
 <dep name=".\Generated_Source\PSoC4\LED_aliases.h" />
 <dep name=".\Generated_Source\PSoC4\PROBE.h" />
@@ -995,6 +1005,7 @@
 <dep name=".\Generated_Source\PSoC4\INDEX_IN_aliases.h" />
 <dep name=".\Generated_Source\PSoC4\INDEX_OUT.h" />
 <dep name=".\Generated_Source\PSoC4\INDEX_OUT_aliases.h" />
+<dep name=".\Generated_Source\PSoC4\Index_Counter_1.h" />
 <dep name=".\Generated_Source\PSoC4\LED.h" />
 <dep name=".\Generated_Source\PSoC4\LED_aliases.h" />
 <dep name=".\Generated_Source\PSoC4\PROBE.h" />
@@ -1427,6 +1438,26 @@
 <dep name=".\Generated_Source\PSoC4\INDEX_OUT_PM.c" />
 </file>
 <file name=".\Generated_Source\PSoC4\INDEX_OUT_PM.c" />
+<file name=".\CortexM0\ARM_GCC_541\Debug\Index_Counter_1.o">
+<dep name=".\Generated_Source\PSoC4\CyLFClk.h" />
+<dep name=".\Generated_Source\PSoC4\CyLib.h" />
+<dep name=".\Generated_Source\PSoC4\Index_Counter_1.h" />
+<dep name=".\Generated_Source\PSoC4\cydevice_trm.h" />
+<dep name=".\Generated_Source\PSoC4\cyfitter.h" />
+<dep name=".\Generated_Source\PSoC4\cytypes.h" />
+<dep name=".\Generated_Source\PSoC4\Index_Counter_1.c" />
+</file>
+<file name=".\Generated_Source\PSoC4\Index_Counter_1.c" />
+<file name=".\CortexM0\ARM_GCC_541\Debug\Index_Counter_1_PM.o">
+<dep name=".\Generated_Source\PSoC4\CyLFClk.h" />
+<dep name=".\Generated_Source\PSoC4\CyLib.h" />
+<dep name=".\Generated_Source\PSoC4\Index_Counter_1.h" />
+<dep name=".\Generated_Source\PSoC4\cydevice_trm.h" />
+<dep name=".\Generated_Source\PSoC4\cyfitter.h" />
+<dep name=".\Generated_Source\PSoC4\cytypes.h" />
+<dep name=".\Generated_Source\PSoC4\Index_Counter_1_PM.c" />
+</file>
+<file name=".\Generated_Source\PSoC4\Index_Counter_1_PM.c" />
 <file name=".\CortexM0\ARM_GCC_541\Debug\LED.o">
 <dep name=".\Generated_Source\PSoC4\LED.h" />
 <dep name=".\Generated_Source\PSoC4\LED_aliases.h" />
@@ -1935,6 +1966,7 @@
 <dep name=".\Generated_Source\PSoC4\INDEX_IN_aliases.h" />
 <dep name=".\Generated_Source\PSoC4\INDEX_OUT.h" />
 <dep name=".\Generated_Source\PSoC4\INDEX_OUT_aliases.h" />
+<dep name=".\Generated_Source\PSoC4\Index_Counter_1.h" />
 <dep name=".\Generated_Source\PSoC4\LED.h" />
 <dep name=".\Generated_Source\PSoC4\LED_aliases.h" />
 <dep name=".\Generated_Source\PSoC4\PROBE.h" />
@@ -3583,6 +3615,8 @@
 <dep name=".\CortexM0\ARM_GCC_541\Debug\spi_miso_PM.o" />
 <dep name=".\CortexM0\ARM_GCC_541\Debug\PROBE.o" />
 <dep name=".\CortexM0\ARM_GCC_541\Debug\PROBE_PM.o" />
+<dep name=".\CortexM0\ARM_GCC_541\Debug\Index_Counter_1.o" />
+<dep name=".\CortexM0\ARM_GCC_541\Debug\Index_Counter_1_PM.o" />
 <dep name=".\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a" />
 </file>
 </CyGuid_1173175f-1b9b-4ad4-a065-754a48a27021>
@@ -3804,6 +3838,8 @@
 <name_val_pair name="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.hex" v="-mcpu=cortex-m0 -mthumb -L Generated_Source\PSoC4 -Wl,-Map,${OutputDir}/${ProjectShortName}.map -T Generated_Source\PSoC4\cm0gcc.ld -specs=nano.specs -Wl,--gc-sections -g -ffunction-sections -Og -ffat-lto-objects" />
 <name_val_pair name="INA219.c" v="-mcpu=cortex-m0 -mthumb -I.\FreeRTOS -I. -IGenerated_Source\PSoC4 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og" />
 <name_val_pair name="Generated_Source\PSoC4\isr_wdt.c" v="-mcpu=cortex-m0 -mthumb -I.\FreeRTOS -I. -IGenerated_Source\PSoC4 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og" />
+<name_val_pair name="Generated_Source\PSoC4\Index_Counter_1.c" v="-mcpu=cortex-m0 -mthumb -I.\FreeRTOS -I. -IGenerated_Source\PSoC4 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og" />
+<name_val_pair name="Generated_Source\PSoC4\Index_Counter_1_PM.c" v="-mcpu=cortex-m0 -mthumb -I.\FreeRTOS -I. -IGenerated_Source\PSoC4 -Wa,-alh=${OutputDir}/${CompileFile}.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og" />
 </name>
 </genericCmdLineData>
 <codeGenCmdLineTag v="-.appdatapath &quot;C:\Users\prichards\AppData\Local\Cypress Semiconductor\PSoC Creator\4.2&quot; -.fdsnotice -.fdswarpdepfile=warp_dependencies.txt -.fdselabdepfile=elab_dependencies.txt -.fdsbldfile=generated_files.txt -.fdsreffile=referenced_files.txt -p C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\QuadEncoderRTOS.cyprj -d CY8C4245AXI-473 -s C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\Generated_Source\PSoC4 -- -yv2 -q10 -ygs -o2 -v3 -.fftcfgtype=LE" />
@@ -3821,7 +3857,7 @@
 <dataGuid v="769d31ea-68b1-4f0c-b90a-7c10a43ee563">
 <CyGuid_769d31ea-68b1-4f0c-b90a-7c10a43ee563 type_name="CyDesigner.Common.ProjMgmt.Model.CyLinkCustomData" version="1">
 <link_deps_times>
-<name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM0" v="131896504233009662" />
+<name_val_pair name="c9323d49-d323-40b8-9b59-cc008d68a989@Debug@CortexM0" v="131904399830976794" />
 </link_deps_times>
 </CyGuid_769d31ea-68b1-4f0c-b90a-7c10a43ee563>
 </dataGuid>
@@ -4643,6 +4679,9 @@
 <v>Generated_Source\PSoC4\PROBE_PM.c</v>
 <v>Generated_Source\PSoC4\isr_wdt.c</v>
 <v>Generated_Source\PSoC4\isr_wdt.h</v>
+<v>Generated_Source\PSoC4\Index_Counter_1.c</v>
+<v>Generated_Source\PSoC4\Index_Counter_1.h</v>
+<v>Generated_Source\PSoC4\Index_Counter_1_PM.c</v>
 </gen_list>
 <warp_dep>
 <v>C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\warp\lib\ieee\work\stdlogic.vif</v>
@@ -4652,7 +4691,7 @@
 <v>C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\warp\lib\common\stdlogic\rtlpkg.vif</v>
 <v>C:\Program Files (x86)\Cypress\PSoC Creator\4.2\PSoC Creator\warp\lib\common\stdlogic\cy_psoc3.vif</v>
 </warp_dep>
-<deps_time v="131892077431686312" />
+<deps_time v="131903482828273642" />
 <top_block v="TopDesign" />
 <last_generation v="6" />
 <pdl_path v="" />

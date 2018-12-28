@@ -1,0 +1,479 @@
+
+======================================================
+UDB 0
+------------------------------------------------------
+	PLD 0:
+		 Instances:
+			cydff_6
+			cydff_4
+			Net_583
+			Net_477
+
+		 Clock net: Net_2535_digital
+		 Set/Reset net: 
+		 Enable net: 
+
+		 Input nets:
+			Net_477
+			Net_634
+			cy_srff_1
+			cydff_3
+			cydff_4
+			cydff_6
+
+		 Output nets:
+			Net_477
+			Net_583
+			cydff_4
+			cydff_6
+
+		 Product terms:
+			!Net_477 * cydff_3
+			!cydff_3 * Net_477
+			Net_634 * cy_srff_1
+			cydff_4
+			cydff_6
+
+	PLD 1:
+		 Instances:
+			\Counter_1:CounterUDB:count_stored_i\
+
+		 Clock net: Net_2535_digital
+		 Set/Reset net: 
+		 Enable net: 
+
+		 Input nets:
+			Net_477
+			Net_553
+			cydff_3
+			cydff_4
+
+		 Output nets:
+			\Counter_1:CounterUDB:count_stored_i\
+
+		 Product terms:
+			!Net_477 * !Net_553 * !cydff_3 * cydff_4
+			!Net_477 * !Net_553 * !cydff_4 * cydff_3
+			!Net_477 * !cydff_3 * !cydff_4 * Net_553
+			!Net_477 * Net_553 * cydff_3 * cydff_4
+			!Net_553 * !cydff_3 * !cydff_4 * Net_477
+			!Net_553 * Net_477 * cydff_3 * cydff_4
+			!cydff_3 * Net_477 * Net_553 * cydff_4
+			!cydff_4 * Net_477 * Net_553 * cydff_3
+
+	Datapath:
+		 Instances:
+			\Counter_1:CounterUDB:sC24:counterdp:u0\
+
+		 Clock net: Net_2535_digital
+		 Set/Reset net: 
+		 Enable net: 
+
+		 Input nets:
+			ClockBlock_HFClk
+			Net_583
+			\Counter_1:CounterUDB:count_enable\
+			\Counter_1:CounterUDB:sC24:counterdp:u1.cmsbo__sig\
+			\Counter_1:CounterUDB:sC24:counterdp:u1.sor__sig\
+
+		 Output nets:
+			\Counter_1:CounterUDB:sC24:counterdp:u0.ce0__sig\
+			\Counter_1:CounterUDB:sC24:counterdp:u0.ce1__sig\
+			\Counter_1:CounterUDB:sC24:counterdp:u0.cfbo__sig\
+			\Counter_1:CounterUDB:sC24:counterdp:u0.cl0__sig\
+			\Counter_1:CounterUDB:sC24:counterdp:u0.cl1__sig\
+			\Counter_1:CounterUDB:sC24:counterdp:u0.co_msb__sig\
+			\Counter_1:CounterUDB:sC24:counterdp:u0.ff0__sig\
+			\Counter_1:CounterUDB:sC24:counterdp:u0.ff1__sig\
+			\Counter_1:CounterUDB:sC24:counterdp:u0.sol_msb__sig\
+			\Counter_1:CounterUDB:sC24:counterdp:u0.z0__sig\
+			\Counter_1:CounterUDB:sC24:counterdp:u0.z1__sig\
+
+	Control, status and sync:
+		 Instances:
+			\Index_Counter_1:CounterUDB:sCTRLReg:ctrlreg\ : controlcell
+
+		 Clock net: Net_2535_digital
+		 Set/Reset net: 
+		 Enable net: 
+
+		 Input nets:
+			ClockBlock_HFClk
+
+		 Output nets:
+			\Index_Counter_1:CounterUDB:control_7\
+
+	Local clock and reset nets:
+
+======================================================
+UDB 1
+------------------------------------------------------
+	PLD 0:
+		 Instances:
+			\Counter_1:CounterUDB:count_enable\
+
+		 Clock net: 
+		 Set/Reset net: 
+		 Enable net: 
+
+		 Input nets:
+			Net_477
+			Net_553
+			\Counter_1:CounterUDB:control_7\
+			\Counter_1:CounterUDB:count_stored_i\
+			cydff_3
+			cydff_4
+
+		 Output nets:
+			\Counter_1:CounterUDB:count_enable\
+
+		 Product terms:
+			!Net_477 * !Net_553 * !\Counter_1:CounterUDB:count_stored_i\ * !cydff_3 * \Counter_1:CounterUDB:control_7\ * cydff_4
+			!Net_477 * !Net_553 * !\Counter_1:CounterUDB:count_stored_i\ * !cydff_4 * \Counter_1:CounterUDB:control_7\ * cydff_3
+			!Net_477 * !\Counter_1:CounterUDB:count_stored_i\ * !cydff_3 * !cydff_4 * Net_553 * \Counter_1:CounterUDB:control_7\
+			!Net_477 * !\Counter_1:CounterUDB:count_stored_i\ * Net_553 * \Counter_1:CounterUDB:control_7\ * cydff_3 * cydff_4
+			!Net_553 * !\Counter_1:CounterUDB:count_stored_i\ * !cydff_3 * !cydff_4 * Net_477 * \Counter_1:CounterUDB:control_7\
+			!Net_553 * !\Counter_1:CounterUDB:count_stored_i\ * Net_477 * \Counter_1:CounterUDB:control_7\ * cydff_3 * cydff_4
+			!\Counter_1:CounterUDB:count_stored_i\ * !cydff_3 * Net_477 * Net_553 * \Counter_1:CounterUDB:control_7\ * cydff_4
+			!\Counter_1:CounterUDB:count_stored_i\ * !cydff_4 * Net_477 * Net_553 * \Counter_1:CounterUDB:control_7\ * cydff_3
+
+	PLD 1:
+		 Instances:
+			\Index_Counter_1:CounterUDB:status_2\
+			\Index_Counter_1:CounterUDB:count_stored_i\
+			\Index_Counter_1:CounterUDB:count_enable\
+			\Index_Counter_1:CounterUDB:overflow_reg_i\
+
+		 Clock net: Net_2535_digital
+		 Set/Reset net: 
+		 Enable net: 
+
+		 Input nets:
+			Net_2637
+			\Index_Counter_1:CounterUDB:control_7\
+			\Index_Counter_1:CounterUDB:count_stored_i\
+			\Index_Counter_1:CounterUDB:overflow_reg_i\
+			\Index_Counter_1:CounterUDB:reload\
+
+		 Output nets:
+			\Index_Counter_1:CounterUDB:count_enable\
+			\Index_Counter_1:CounterUDB:count_stored_i\
+			\Index_Counter_1:CounterUDB:overflow_reg_i\
+			\Index_Counter_1:CounterUDB:status_2\
+
+		 Product terms:
+			!\Index_Counter_1:CounterUDB:count_stored_i\ * Net_2637 * \Index_Counter_1:CounterUDB:control_7\
+			!\Index_Counter_1:CounterUDB:overflow_reg_i\ * \Index_Counter_1:CounterUDB:reload\
+			Net_2637
+			\Index_Counter_1:CounterUDB:reload\
+
+	Datapath:
+		 Instances:
+			\Counter_1:CounterUDB:sC24:counterdp:u1\
+
+		 Clock net: Net_2535_digital
+		 Set/Reset net: 
+		 Enable net: 
+
+		 Input nets:
+			ClockBlock_HFClk
+			Net_583
+			\Counter_1:CounterUDB:count_enable\
+			\Counter_1:CounterUDB:sC24:counterdp:u0.ce0__sig\
+			\Counter_1:CounterUDB:sC24:counterdp:u0.ce1__sig\
+			\Counter_1:CounterUDB:sC24:counterdp:u0.cfbo__sig\
+			\Counter_1:CounterUDB:sC24:counterdp:u0.cl0__sig\
+			\Counter_1:CounterUDB:sC24:counterdp:u0.cl1__sig\
+			\Counter_1:CounterUDB:sC24:counterdp:u0.co_msb__sig\
+			\Counter_1:CounterUDB:sC24:counterdp:u0.ff0__sig\
+			\Counter_1:CounterUDB:sC24:counterdp:u0.ff1__sig\
+			\Counter_1:CounterUDB:sC24:counterdp:u0.sol_msb__sig\
+			\Counter_1:CounterUDB:sC24:counterdp:u0.z0__sig\
+			\Counter_1:CounterUDB:sC24:counterdp:u0.z1__sig\
+			\Counter_1:CounterUDB:sC24:counterdp:u2.cmsbo__sig\
+			\Counter_1:CounterUDB:sC24:counterdp:u2.sor__sig\
+
+		 Output nets:
+			\Counter_1:CounterUDB:sC24:counterdp:u1.ce0__sig\
+			\Counter_1:CounterUDB:sC24:counterdp:u1.ce1__sig\
+			\Counter_1:CounterUDB:sC24:counterdp:u1.cfbo__sig\
+			\Counter_1:CounterUDB:sC24:counterdp:u1.cl0__sig\
+			\Counter_1:CounterUDB:sC24:counterdp:u1.cl1__sig\
+			\Counter_1:CounterUDB:sC24:counterdp:u1.cmsbo__sig\
+			\Counter_1:CounterUDB:sC24:counterdp:u1.co_msb__sig\
+			\Counter_1:CounterUDB:sC24:counterdp:u1.ff0__sig\
+			\Counter_1:CounterUDB:sC24:counterdp:u1.ff1__sig\
+			\Counter_1:CounterUDB:sC24:counterdp:u1.sol_msb__sig\
+			\Counter_1:CounterUDB:sC24:counterdp:u1.sor__sig\
+			\Counter_1:CounterUDB:sC24:counterdp:u1.z0__sig\
+			\Counter_1:CounterUDB:sC24:counterdp:u1.z1__sig\
+
+	Control, status and sync:
+		 Instances:
+			\Counter_1:CounterUDB:sCTRLReg:ctrlreg\ : controlcell
+
+		 Clock net: Net_2535_digital
+		 Set/Reset net: 
+		 Enable net: 
+
+		 Input nets:
+			ClockBlock_HFClk
+
+		 Output nets:
+			\Counter_1:CounterUDB:control_7\
+			\Counter_1:CounterUDB:ctrl_cmod_0\
+			\Counter_1:CounterUDB:ctrl_cmod_1\
+			\Counter_1:CounterUDB:ctrl_cmod_2\
+
+	Local clock and reset nets:
+
+======================================================
+UDB 2
+------------------------------------------------------
+	PLD 0:
+		 Instances:
+			\Counter_1:CounterUDB:status_2\
+			\Counter_1:CounterUDB:status_3\
+			\Counter_1:CounterUDB:overflow_reg_i\
+			\Counter_1:CounterUDB:underflow_reg_i\
+
+		 Clock net: Net_2535_digital
+		 Set/Reset net: 
+		 Enable net: 
+
+		 Input nets:
+			\Counter_1:CounterUDB:overflow\
+			\Counter_1:CounterUDB:overflow_reg_i\
+			\Counter_1:CounterUDB:status_1\
+			\Counter_1:CounterUDB:underflow_reg_i\
+
+		 Output nets:
+			\Counter_1:CounterUDB:overflow_reg_i\
+			\Counter_1:CounterUDB:status_2\
+			\Counter_1:CounterUDB:status_3\
+			\Counter_1:CounterUDB:underflow_reg_i\
+
+		 Product terms:
+			!\Counter_1:CounterUDB:overflow_reg_i\ * \Counter_1:CounterUDB:overflow\
+			!\Counter_1:CounterUDB:underflow_reg_i\ * \Counter_1:CounterUDB:status_1\
+			\Counter_1:CounterUDB:overflow\
+			\Counter_1:CounterUDB:status_1\
+
+	PLD 1:
+		 Instances:
+			\Counter_1:CounterUDB:status_0\
+			\Index_Counter_1:CounterUDB:status_0\
+			\Index_Counter_1:CounterUDB:prevCompare\
+
+		 Clock net: Net_2535_digital
+		 Set/Reset net: 
+		 Enable net: 
+
+		 Input nets:
+			\Counter_1:CounterUDB:cmp_equal\
+			\Counter_1:CounterUDB:cmp_less\
+			\Counter_1:CounterUDB:ctrl_cmod_0\
+			\Counter_1:CounterUDB:ctrl_cmod_1\
+			\Counter_1:CounterUDB:ctrl_cmod_2\
+			\Counter_1:CounterUDB:prevCompare\
+			\Index_Counter_1:CounterUDB:cmp_out_i\
+			\Index_Counter_1:CounterUDB:prevCompare\
+
+		 Output nets:
+			\Counter_1:CounterUDB:status_0\
+			\Index_Counter_1:CounterUDB:prevCompare\
+			\Index_Counter_1:CounterUDB:status_0\
+
+		 Product terms:
+			!\Counter_1:CounterUDB:cmp_equal\ * !\Counter_1:CounterUDB:cmp_less\ * !\Counter_1:CounterUDB:prevCompare\ * \Counter_1:CounterUDB:ctrl_cmod_0\ * \Counter_1:CounterUDB:ctrl_cmod_1\
+			!\Counter_1:CounterUDB:cmp_less\ * !\Counter_1:CounterUDB:prevCompare\ * \Counter_1:CounterUDB:ctrl_cmod_2\
+			!\Counter_1:CounterUDB:ctrl_cmod_0\ * !\Counter_1:CounterUDB:ctrl_cmod_2\ * !\Counter_1:CounterUDB:prevCompare\ * \Counter_1:CounterUDB:cmp_equal\
+			!\Counter_1:CounterUDB:ctrl_cmod_0\ * !\Counter_1:CounterUDB:ctrl_cmod_2\ * !\Counter_1:CounterUDB:prevCompare\ * \Counter_1:CounterUDB:cmp_less\ * \Counter_1:CounterUDB:ctrl_cmod_1\
+			!\Counter_1:CounterUDB:ctrl_cmod_1\ * !\Counter_1:CounterUDB:ctrl_cmod_2\ * !\Counter_1:CounterUDB:prevCompare\ * \Counter_1:CounterUDB:cmp_less\ * \Counter_1:CounterUDB:ctrl_cmod_0\
+			!\Index_Counter_1:CounterUDB:prevCompare\ * \Index_Counter_1:CounterUDB:cmp_out_i\
+			\Index_Counter_1:CounterUDB:cmp_out_i\
+
+	Datapath:
+		 Instances:
+			\Counter_1:CounterUDB:sC24:counterdp:u2\
+
+		 Clock net: Net_2535_digital
+		 Set/Reset net: 
+		 Enable net: 
+
+		 Input nets:
+			ClockBlock_HFClk
+			Net_583
+			\Counter_1:CounterUDB:count_enable\
+			\Counter_1:CounterUDB:sC24:counterdp:u1.ce0__sig\
+			\Counter_1:CounterUDB:sC24:counterdp:u1.ce1__sig\
+			\Counter_1:CounterUDB:sC24:counterdp:u1.cfbo__sig\
+			\Counter_1:CounterUDB:sC24:counterdp:u1.cl0__sig\
+			\Counter_1:CounterUDB:sC24:counterdp:u1.cl1__sig\
+			\Counter_1:CounterUDB:sC24:counterdp:u1.co_msb__sig\
+			\Counter_1:CounterUDB:sC24:counterdp:u1.ff0__sig\
+			\Counter_1:CounterUDB:sC24:counterdp:u1.ff1__sig\
+			\Counter_1:CounterUDB:sC24:counterdp:u1.sol_msb__sig\
+			\Counter_1:CounterUDB:sC24:counterdp:u1.z0__sig\
+			\Counter_1:CounterUDB:sC24:counterdp:u1.z1__sig\
+
+		 Output nets:
+			\Counter_1:CounterUDB:cmp_equal\
+			\Counter_1:CounterUDB:cmp_less\
+			\Counter_1:CounterUDB:overflow\
+			\Counter_1:CounterUDB:sC24:counterdp:u2.cmsbo__sig\
+			\Counter_1:CounterUDB:sC24:counterdp:u2.sor__sig\
+			\Counter_1:CounterUDB:status_1\
+			\Counter_1:CounterUDB:status_5\
+			\Counter_1:CounterUDB:status_6\
+
+	Control, status and sync:
+		 Instances:
+			\Counter_1:CounterUDB:sSTSReg:stsreg\ : statusicell
+
+		 Clock net: Net_2535_digital
+		 Set/Reset net: 
+		 Enable net: 
+
+		 Input nets:
+			\Counter_1:CounterUDB:status_0\
+			\Counter_1:CounterUDB:status_1\
+			\Counter_1:CounterUDB:status_2\
+			\Counter_1:CounterUDB:status_3\
+			\Counter_1:CounterUDB:status_5\
+			\Counter_1:CounterUDB:status_6\
+
+		 Output nets:
+
+	Local clock and reset nets:
+
+======================================================
+UDB 3
+------------------------------------------------------
+	PLD 0:
+		 Instances:
+			cy_srff_1
+			\Counter_1:CounterUDB:prevCompare\
+			cydff_5
+			__ONE__
+
+		 Clock net: Net_2535_digital
+		 Set/Reset net: 
+		 Enable net: 
+
+		 Input nets:
+			Net_2637
+			Net_630
+			Net_648
+			\Counter_1:CounterUDB:cmp_equal\
+			\Counter_1:CounterUDB:cmp_less\
+			\Counter_1:CounterUDB:ctrl_cmod_0\
+			\Counter_1:CounterUDB:ctrl_cmod_1\
+			\Counter_1:CounterUDB:ctrl_cmod_2\
+			cy_srff_1
+
+		 Output nets:
+			\Counter_1:CounterUDB:prevCompare\
+			__ONE__
+			cy_srff_1
+			cydff_5
+
+		 Product terms:
+			!\Counter_1:CounterUDB:cmp_equal\ * !\Counter_1:CounterUDB:cmp_less\ * \Counter_1:CounterUDB:ctrl_cmod_0\ * \Counter_1:CounterUDB:ctrl_cmod_1\
+			!\Counter_1:CounterUDB:cmp_less\ * \Counter_1:CounterUDB:ctrl_cmod_2\
+			!\Counter_1:CounterUDB:ctrl_cmod_0\ * !\Counter_1:CounterUDB:ctrl_cmod_2\ * \Counter_1:CounterUDB:cmp_equal\
+			!\Counter_1:CounterUDB:ctrl_cmod_0\ * !\Counter_1:CounterUDB:ctrl_cmod_2\ * \Counter_1:CounterUDB:cmp_less\ * \Counter_1:CounterUDB:ctrl_cmod_1\
+			!\Counter_1:CounterUDB:ctrl_cmod_1\ * !\Counter_1:CounterUDB:ctrl_cmod_2\ * \Counter_1:CounterUDB:cmp_less\ * \Counter_1:CounterUDB:ctrl_cmod_0\
+			Net_2637 * Net_648
+			Net_630 * cy_srff_1
+			Net_648 * cy_srff_1
+
+	PLD 1:
+		 Instances:
+			cydff_3
+			Net_553
+
+		 Clock net: Net_2535_digital
+		 Set/Reset net: 
+		 Enable net: 
+
+		 Input nets:
+			cydff_3
+			cydff_5
+
+		 Output nets:
+			Net_553
+			cydff_3
+
+		 Product terms:
+			cydff_3
+			cydff_5
+
+	Datapath:
+		 Instances:
+			\Index_Counter_1:CounterUDB:sC8:counterdp:u0\
+
+		 Clock net: Net_2535_digital
+		 Set/Reset net: 
+		 Enable net: 
+
+		 Input nets:
+			ClockBlock_HFClk
+			\Index_Counter_1:CounterUDB:count_enable\
+			\Index_Counter_1:CounterUDB:reload\
+			__ONE__
+
+		 Output nets:
+			\Index_Counter_1:CounterUDB:cmp_out_i\
+			\Index_Counter_1:CounterUDB:reload\
+			\Index_Counter_1:CounterUDB:status_1\
+			\Index_Counter_1:CounterUDB:status_5\
+			\Index_Counter_1:CounterUDB:status_6\
+
+	Control, status and sync:
+		 Instances:
+			\Index_Counter_1:CounterUDB:sSTSReg:stsreg\ : statusicell
+
+		 Clock net: Net_2535_digital
+		 Set/Reset net: 
+		 Enable net: 
+
+		 Input nets:
+			\Index_Counter_1:CounterUDB:status_0\
+			\Index_Counter_1:CounterUDB:status_1\
+			\Index_Counter_1:CounterUDB:status_2\
+			\Index_Counter_1:CounterUDB:status_5\
+			\Index_Counter_1:CounterUDB:status_6\
+
+		 Output nets:
+
+	Local clock and reset nets:
+
+======================================================
+UDB 4
+------------------------------------------------------
+	PLD 0:
+		 Instances:
+			Net_2344
+
+		 Clock net: Net_2535_digital
+		 Set/Reset net: 
+		 Enable net: cydff_5
+
+		 Input nets:
+			cydff_6
+
+		 Output nets:
+			Net_2344
+
+		 Product terms:
+			cydff_6
+
+	PLD 1:
+
+	Datapath:
+
+	Control, status and sync:
+
+	Local clock and reset nets:
+			cydff_5

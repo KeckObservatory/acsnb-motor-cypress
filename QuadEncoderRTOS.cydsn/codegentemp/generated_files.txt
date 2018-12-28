@@ -113,6 +113,9 @@
   <file name="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\codegentemp\PWM_1.c" value="SOURCE_C;CortexM0;;;;PWM_1" />
   <file name="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\codegentemp\PWM_1.h" value="HEADER;;;;;PWM_1" />
   <file name="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\codegentemp\PWM_1_PM.c" value="SOURCE_C;CortexM0;;;;PWM_1" />
+  <file name="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\codegentemp\Index_Counter_1.c" value="SOURCE_C;CortexM0;;;;Index_Counter_1" />
+  <file name="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\codegentemp\Index_Counter_1.h" value="HEADER;;;;;Index_Counter_1" />
+  <file name="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\codegentemp\Index_Counter_1_PM.c" value="SOURCE_C;CortexM0;;;;Index_Counter_1" />
   <file name="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\codegentemp\SPI_1_SCBCLK.c" value="SOURCE_C;CortexM0;;;;SPI_1_SCBCLK" />
   <file name="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\codegentemp\SPI_1_SCBCLK.h" value="HEADER;;;;;SPI_1_SCBCLK" />
   <file name="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\codegentemp\SPI_1_SCB_IRQ.c" value="SOURCE_C;CortexM0;;;;SPI_1_SCB_IRQ" />

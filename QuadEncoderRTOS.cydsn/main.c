@@ -17,6 +17,7 @@
 #include <task.h>
 #include <I2C_I2C.h>
 #include <stdbool.h>
+#include <stdlib.h>
 #include <math.h>
 #include "INA219.h"
 
@@ -59,7 +60,7 @@ CY_ISR_PROTO(SPI_SS_IsrHandler);
 #define INA219_I2C_ADDR                        (0x40)
 #define INA219_CAL_VALUE                       (8192)
 
-int8 PWM_Jog;
+volatile int8 Jog, Last_Jog;
 int8 PWM_Max_Fwd, PWM_Max_Rev;
 
 /* Neutral PWM jog is a 50% duty cycle */
@@ -85,6 +86,12 @@ bool inAuto = false;
  
 #define PID_MANUAL 0
 #define PID_AUTOMATIC 1
+
+/* --------------------------------------------------------------------- 
+ * ENCODER PROPERTIES
+ * --------------------------------------------------------------------- */
+#define ENCODER_MAX                            (0x00800000)
+#define ENCODER_COUNTS_PER_INDEX               (10000)
 
 /* --------------------------------------------------------------------- 
  * INA219 REGISTERS
@@ -163,11 +170,26 @@ typedef enum {
 
 #define configStateValid(s) ( ((ConfigStates_t) s > csUNDEFINED) && ((ConfigStates_t) s < csMAX) )
 
+/* Fault codes, these are bit encoded into a uint8 */
+typedef enum {
+    fsNONE         = 0b00000000,    /* No faults detected */
+    fsUnconfigured = 0b00000001,    /* Attempt to move an unconfigured system */
+    fsEncoder      = 0b00000010,    /* One or more encoder phases not changing during a move */
+    fsIndex        = 0b00000100,    /* Index marks not seen during a move */
+    fsCurrentRead  = 0b00001000,    /* Unable to read current from INA219 device */
+    fsChecksum     = 0b00010000,    /* Too many checksum faults */
+    fsX2           = 0b00100000,    /* */
+    fsX3           = 0b01000000,    /* */
+    fsX4           = 0b10000000     /* */
+} FaultStates_t;
+
 volatile ConfigStates_t ConfigState;
+volatile uint8 FaultState;
 volatile uint8 ConfigSequence;
 volatile uint16 ChecksumErrors;
 volatile uint16 Current;
 volatile float PWM;
+volatile uint32 PID_Last_Position;
 uint8 CurrentI2Cinbuf[20];
 
 /* Task stack information */
@@ -234,7 +256,8 @@ typedef struct {
     uint8  opcode;     /* Operation: 02 == status */
     uint8  enable;     /* Enable/disable PID algorithm */
     uint32 setpoint;   /* Setpoint (desired actuator position) */
-    int8   jog;        /* Jog value, to manually move the motor; valid range -100 to 100 */    
+    int8   jog;        /* Jog value, to manually move the motor; valid range -100 to 100 */ 
+    uint8  clearfaults;/* Set to nonzero to clear all the current faults */
 } __attribute__ ((__packed__)) rxMessage_status_t;
    
 
@@ -253,6 +276,7 @@ typedef struct  {
     uint8  size;       /* Size of the message bytes, including opcode and size and checksum */
     uint8  opcode;     /* Echo back of the opcode this response is for, operation: 03 == status */
     uint8  state;      /* Enum value for current device configuration state */ 
+    uint8  fault;      /* Bit encoded fields for current fault status */
     uint8  sequence;   /* Echo back the config sequence number currently set */
     uint16 checksum_errors; /* Count of checksum errors */
     uint16 current;    /* Motor current consumption (mA) */
@@ -305,6 +329,60 @@ void setupFreeRTOS(void) {
 
 
 /*******************************************************************************
+* Function Name: AssertFault
+********************************************************************************
+* Summary:
+*  Sets a flag that a particular fault has been detected.  Assert fsNONE to clear
+*  all faults.
+*
+* Parameters: FaultStates_t of the fault detected.
+* Return: None
+*******************************************************************************/
+void AssertFault(FaultStates_t fault) {
+ 
+    switch (fault) {
+     
+        /* Clears all asserted faults */
+        case fsNONE:
+            FaultState = fsNONE;
+            break;        
+        
+        /* Any other fault has its bit turned on in the fault status */
+        default:
+            FaultState |= fault;
+            break;        
+    }    
+}
+
+
+/*******************************************************************************
+* Function Name: ClearFault
+********************************************************************************
+* Summary:
+*  Clears a flag that a particular fault has been detected.  Assert fsNONE to clear
+*  all faults.
+*
+* Parameters: FaultStates_t of the fault to be cleared.
+* Return: None
+*******************************************************************************/
+void ClearFault(FaultStates_t fault) {
+ 
+    switch (fault) {
+     
+        /* Clears all asserted faults */
+        case fsNONE:
+            FaultState = fsNONE;
+            break;        
+        
+        /* Any other fault has its bit turned off in the fault status */
+        default:
+            FaultState &= ~fault;
+            break;        
+    }    
+}
+
+
+/*******************************************************************************
 * Function Name: Current_Read_Task
 ********************************************************************************
 * Summary:
@@ -350,6 +428,9 @@ void Current_Read_Task(void *arg) {
             byteLSB = (uint8)(INA219_CAL_VALUE & 0x00FF);
             I2C_I2CMasterWriteByte(byteLSB, 10);
             I2C_I2CMasterSendStop(10);
+        } else {
+            Current = 0;
+            AssertFault(fsCurrentRead);
         }
         
         err = I2C_I2CMasterSendStart(INA219_I2C_ADDR, 0x00, 10); // send start condition for the INA219
@@ -365,10 +446,12 @@ void Current_Read_Task(void *arg) {
             if (err == I2C_I2C_MSTR_NO_ERROR) {
                 CurrentTemp = (uint16)(CurrentI2Cinbuf[0] << 8) + CurrentI2Cinbuf[1];
             } else {
-                CurrentTemp = 0;     
+                CurrentTemp = 0;   
+                AssertFault(fsCurrentRead);
             }
         } else {
-            CurrentTemp = 0;   
+            CurrentTemp = 0; 
+            AssertFault(fsCurrentRead);
         }
 //#endif
 
@@ -459,22 +542,37 @@ void Comm_Task(void *arg) {
                                         refKd = rxMessage.config.Kd;                                        
                                            
                                         /* Setup the PWM limits and stop a jog if one was in progress */
-                                        PWM_Jog = PWM_JOG_NEUTRAL;
+                                        Jog = 0;
                                         PWM_Max_Fwd = PWM_JOG_NEUTRAL + rxMessage.config.limit;
                                         PWM_Max_Rev = PWM_JOG_NEUTRAL - rxMessage.config.limit;                                    
                                     
                                         /* We have received a config message, so signal to the PID thread that processing is allowed */
                                         ConfigState = csReady;  
                                         ConfigSequence = rxMessage.config.sequence;
+                                    
+                                        /* Clear all the faults when reconfigured */
+                                        ClearFault(fsNONE);
                                         break;
 
                                     case opStatus:
                                         /* The normal message telling us where to go, how much to jog, enable on/off */
                                         PID_Enabled = (bool) rxMessage.status.enable;
-                                        PID_Setpoint = rxMessage.status.setpoint;
+                                        
+                                        /* If we are commanded to move somewhere else, remember where we started */
+                                        if (PID_Setpoint != rxMessage.status.setpoint) {
+                                            
+                                            /* Remember where we started */
+                                            PID_Last_Position = Counter_1_ReadCounter();      
+                                            
+                                            /* Update destination */
+                                            PID_Setpoint = rxMessage.status.setpoint;
+                                            
+                                            /* Reset counting of index marks */
+                                            Index_Counter_1_WriteCounter(0);
+                                        }                                        
                                     
-                                        /* PWM jog value ranges from 0 to 100, where 0 is max-reverse current, 100 is max-forward, 50 is neutral/no movement */
-                                        PWM_Jog = rxMessage.status.jog;                                    
+                                        /* PWM jog value ranges from -50 to 50, where -50 is max-reverse current, 50 is max-forward, 0 is neutral/no movement */
+                                        Jog = rxMessage.status.jog;                                                    
                                         break;
                                     
                                     /* No other opcodes are valid */
@@ -489,6 +587,7 @@ void Comm_Task(void *arg) {
                         txMessage.msg.opcode   = opStatus;
                         txMessage.msg.size     = sizeof(txMessage_t);
                         txMessage.msg.state    = (uint8) ConfigState;
+                        txMessage.msg.fault    = (uint8) FaultState;
                         txMessage.msg.checksum_errors = ChecksumErrors;
                         txMessage.msg.sequence = ConfigSequence;
                         txMessage.msg.position = Counter_1_ReadCounter();
@@ -508,6 +607,10 @@ void Comm_Task(void *arg) {
 
                         /* Indicate it's loaded for use */
                         txMessageState = txmsLoaded;
+                        
+                        /* Clear all the faults if told to */
+                        if ((bool) rxMessage.status.clearfaults)
+                            ClearFault(fsNONE);
                     
                         /* Release the lock */
                         xSemaphoreGive( Lock );
@@ -545,7 +648,7 @@ void Comm_Task(void *arg) {
 *******************************************************************************/
 void PWM_Set(float dutycycle) {
     
-    float drive = dutycycle;    
+    float drive = dutycycle;
 
     /* Clip to the configured mix/max */
     if (drive > PWM_Max_Fwd) {
@@ -771,6 +874,8 @@ void PID_Task(void *arg) {
     uint32 sleeptime = 5;    
     uint32 now;
     float percent; 
+    int32 CurrentPosition, DeltaPosition;
+    uint32 CurrentIndexCount;
     
     /* Initial high water mark reading */
     uxHighWaterMark_PID = uxTaskGetStackHighWaterMark( NULL );
@@ -820,14 +925,50 @@ void PID_Task(void *arg) {
             
             /* Clear the values that would drive motion on the next message arrival.  Assume the next message might be a config, 
                in which case we want to be neutral. */
-            PWM_Jog = PWM_JOG_NEUTRAL;
+            Jog = 0;
 
         /* Only run the PID algorithm if we have been configured by the nodebox software */
         } else if (ConfigState == csReady) {
         
             /* If the server is asking us to jog, do that instead of PID */
-            if (!PID_Enabled) {                    
-                PWM_Set(PWM_JOG_NEUTRAL + PWM_Jog);
+            if (!PID_Enabled) {                   
+                
+                /* When we start homing, it looks like a big negative jog.  Setup to watch the index marks as we jog, 
+                   so we can assert faults if they aren't changing. */                
+                if ((Jog != Last_Jog) && (Jog != 0)) {
+                    
+                    /* Update the 'last' jog value, so we don't fall into this reset code over and over */
+                    Last_Jog = Jog;
+                    
+                    /* Remember where we started */
+                    PID_Last_Position = Counter_1_ReadCounter();      
+                    
+                    /* Reset counting of index marks */
+                    Index_Counter_1_WriteCounter(0);
+                }                
+                
+                /* Drive in the direction and speed the server told us */
+                PWM_Set(PWM_JOG_NEUTRAL + Jog);
+
+                /* Watch for stuck signals while we are moving */
+                if ( Jog != 0 ) {
+                
+                    /* If we have moved a good distance away from the origin point, compare index counts versus position counts 
+                       looking for discrepancy. */
+                    CurrentPosition = Counter_1_ReadCounter();
+                    DeltaPosition = labs( ((int32) CurrentPosition) - ((int32) PID_Last_Position) );
+                    CurrentIndexCount = Index_Counter_1_ReadCounter();
+                    
+                    /* Look for index failure: the index counter should have incremented by at least 1 by now  */
+                    if (CurrentIndexCount == 0)
+                        if (DeltaPosition > 2*ENCODER_COUNTS_PER_INDEX) 
+                            AssertFault(fsIndex);        
+                    
+                    /* Look for encoder failure: the encoders should register some amount of movement if the index has changed */
+                    if ((CurrentIndexCount > 0) && (DeltaPosition < 2))                     
+                        AssertFault(fsEncoder);
+                }
+                
             }
             
             /* Handle mode switching */
@@ -891,7 +1032,7 @@ int main(void) {
     xTaskCreate(
         PID_Task,       /* Task function */
         "PID",          /* Task name (string) */
-        64,             /* Task stack, allocated from heap (measured 8/10 to be 32 bytes) */
+        64,             /* Task stack, allocated from heap (measured 12/27 to be 24 bytes) */
         0,              /* No param passed to task function */
         2,              /* Medium priority */
         0 );            /* Not using the task handle */    
@@ -899,7 +1040,7 @@ int main(void) {
     xTaskCreate(
         Comm_Task,       /* Task function */
         "Communications", /* Task name (string) */
-        100,            /* Task stack, allocated from heap (measured 8/10 to be 76 bytes)  */
+        100,            /* Task stack, allocated from heap (measured 12/27 to be 78 bytes)  */
         0,              /* No param passed to task function */
         3,              /* High priority */
         0 );            /* Not using the task handle */    
@@ -907,7 +1048,7 @@ int main(void) {
     xTaskCreate(
         Current_Read_Task, /* Task function */
         "Read Current", /* Task name (string) */
-        64,             /* Task stack, allocated from heap (measured 8/10 to be 30 bytes) */
+        64,             /* Task stack, allocated from heap (measured 12/27 to be 40 bytes) */
         0,              /* No param passed to task function */
         1,              /* Low priority */
         0 );            /* Not using the task handle */    
@@ -988,14 +1129,19 @@ int main(void) {
     PWM_Set(PWM_IDLE);   
     
     /* Default the jog value to neutral (no movement) */
-    PWM_Jog = PWM_JOG_NEUTRAL;
+    Jog = 0;
     PWM_Max_Fwd = PWM_JOG_NEUTRAL + PWM_MAX_MAGNITUDE;
     PWM_Max_Rev = PWM_JOG_NEUTRAL - PWM_MAX_MAGNITUDE;
    
     /* Start counting the quadrature encoding */
     Counter_1_Start();    
-    Counter_1_WriteCounter(0x00800000);  // Set the encoder initially to mid range
- 
+    Counter_1_WriteCounter(ENCODER_MAX);  // Set the encoder initially to mid range
+    PID_Last_Position = ENCODER_MAX;
+    
+    /* Clear and start the index mark counter */
+    Index_Counter_1_Start();
+    Index_Counter_1_WriteCounter(0);
+     
     /* Set some initial values */
     LastMessageTimeTick = xTaskGetTickCount();
     
@@ -1036,6 +1182,9 @@ CY_ISR(RSTIsrHandler) {
     
     /* Clear the 24b Encoder (Absolute Position Counter) */
     Counter_1_WriteCounter(0);
+    
+    /* Clear the index counter */
+    Index_Counter_1_WriteCounter(0);  
 }
 
 /*******************************************************************************

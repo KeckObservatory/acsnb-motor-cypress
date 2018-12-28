@@ -66,6 +66,7 @@
 #include "PROBE.h"
 #include "PROBE_aliases.h"
 #include "PWM_1.h"
+#include "Index_Counter_1.h"
 #include "SPI_1_SCBCLK.h"
 #include "SPI_1_SCB_IRQ.h"
 #include "I2C_SCBCLK.h"

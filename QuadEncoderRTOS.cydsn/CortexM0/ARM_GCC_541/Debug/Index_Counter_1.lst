@@ -1,0 +1,2231 @@
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccr4wXPf.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m0
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"Index_Counter_1.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.Index_Counter_1_Enable,"ax",%progbits
+  20              		.align	2
+  21              		.global	Index_Counter_1_Enable
+  22              		.code	16
+  23              		.thumb_func
+  24              		.type	Index_Counter_1_Enable, %function
+  25              	Index_Counter_1_Enable:
+  26              	.LFB1:
+  27              		.file 1 "Generated_Source\\PSoC4\\Index_Counter_1.c"
+   1:Generated_Source\PSoC4/Index_Counter_1.c **** /*******************************************************************************
+   2:Generated_Source\PSoC4/Index_Counter_1.c **** * File Name: Index_Counter_1.c  
+   3:Generated_Source\PSoC4/Index_Counter_1.c **** * Version 3.0
+   4:Generated_Source\PSoC4/Index_Counter_1.c **** *
+   5:Generated_Source\PSoC4/Index_Counter_1.c **** *  Description:
+   6:Generated_Source\PSoC4/Index_Counter_1.c **** *     The Counter component consists of a 8, 16, 24 or 32-bit counter with
+   7:Generated_Source\PSoC4/Index_Counter_1.c **** *     a selectable period between 2 and 2^Width - 1.  
+   8:Generated_Source\PSoC4/Index_Counter_1.c **** *
+   9:Generated_Source\PSoC4/Index_Counter_1.c **** *   Note:
+  10:Generated_Source\PSoC4/Index_Counter_1.c **** *     None
+  11:Generated_Source\PSoC4/Index_Counter_1.c **** *
+  12:Generated_Source\PSoC4/Index_Counter_1.c **** ********************************************************************************
+  13:Generated_Source\PSoC4/Index_Counter_1.c **** * Copyright 2008-2012, Cypress Semiconductor Corporation.  All rights reserved.
+  14:Generated_Source\PSoC4/Index_Counter_1.c **** * You may use this file only in accordance with the license, terms, conditions, 
+  15:Generated_Source\PSoC4/Index_Counter_1.c **** * disclaimers, and limitations in the end user license agreement accompanying 
+  16:Generated_Source\PSoC4/Index_Counter_1.c **** * the software package with which this file was provided.
+  17:Generated_Source\PSoC4/Index_Counter_1.c **** *******************************************************************************/
+  18:Generated_Source\PSoC4/Index_Counter_1.c **** 
+  19:Generated_Source\PSoC4/Index_Counter_1.c **** #include "Index_Counter_1.h"
+  20:Generated_Source\PSoC4/Index_Counter_1.c **** 
+  21:Generated_Source\PSoC4/Index_Counter_1.c **** uint8 Index_Counter_1_initVar = 0u;
+  22:Generated_Source\PSoC4/Index_Counter_1.c **** 
+  23:Generated_Source\PSoC4/Index_Counter_1.c **** 
+  24:Generated_Source\PSoC4/Index_Counter_1.c **** /*******************************************************************************
+  25:Generated_Source\PSoC4/Index_Counter_1.c **** * Function Name: Index_Counter_1_Init
+  26:Generated_Source\PSoC4/Index_Counter_1.c **** ********************************************************************************
+  27:Generated_Source\PSoC4/Index_Counter_1.c **** * Summary:
+  28:Generated_Source\PSoC4/Index_Counter_1.c **** *     Initialize to the schematic state
+  29:Generated_Source\PSoC4/Index_Counter_1.c **** * 
+  30:Generated_Source\PSoC4/Index_Counter_1.c **** * Parameters:  
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccr4wXPf.s 			page 2
+
+
+  31:Generated_Source\PSoC4/Index_Counter_1.c **** *  void  
+  32:Generated_Source\PSoC4/Index_Counter_1.c **** *
+  33:Generated_Source\PSoC4/Index_Counter_1.c **** * Return: 
+  34:Generated_Source\PSoC4/Index_Counter_1.c **** *  void
+  35:Generated_Source\PSoC4/Index_Counter_1.c **** *
+  36:Generated_Source\PSoC4/Index_Counter_1.c **** *******************************************************************************/
+  37:Generated_Source\PSoC4/Index_Counter_1.c **** void Index_Counter_1_Init(void) 
+  38:Generated_Source\PSoC4/Index_Counter_1.c **** {
+  39:Generated_Source\PSoC4/Index_Counter_1.c ****         #if (!Index_Counter_1_UsingFixedFunction && !Index_Counter_1_ControlRegRemoved)
+  40:Generated_Source\PSoC4/Index_Counter_1.c ****             uint8 ctrl;
+  41:Generated_Source\PSoC4/Index_Counter_1.c ****         #endif /* (!Index_Counter_1_UsingFixedFunction && !Index_Counter_1_ControlRegRemoved) */
+  42:Generated_Source\PSoC4/Index_Counter_1.c ****         
+  43:Generated_Source\PSoC4/Index_Counter_1.c ****         #if(!Index_Counter_1_UsingFixedFunction) 
+  44:Generated_Source\PSoC4/Index_Counter_1.c ****             /* Interrupt State Backup for Critical Region*/
+  45:Generated_Source\PSoC4/Index_Counter_1.c ****             uint8 Index_Counter_1_interruptState;
+  46:Generated_Source\PSoC4/Index_Counter_1.c ****         #endif /* (!Index_Counter_1_UsingFixedFunction) */
+  47:Generated_Source\PSoC4/Index_Counter_1.c ****         
+  48:Generated_Source\PSoC4/Index_Counter_1.c ****         #if (Index_Counter_1_UsingFixedFunction)
+  49:Generated_Source\PSoC4/Index_Counter_1.c ****             /* Clear all bits but the enable bit (if it's already set for Timer operation */
+  50:Generated_Source\PSoC4/Index_Counter_1.c ****             Index_Counter_1_CONTROL &= Index_Counter_1_CTRL_ENABLE;
+  51:Generated_Source\PSoC4/Index_Counter_1.c ****             
+  52:Generated_Source\PSoC4/Index_Counter_1.c ****             /* Clear the mode bits for continuous run mode */
+  53:Generated_Source\PSoC4/Index_Counter_1.c ****             #if (CY_PSOC5A)
+  54:Generated_Source\PSoC4/Index_Counter_1.c ****                 Index_Counter_1_CONTROL2 &= ((uint8)(~Index_Counter_1_CTRL_MODE_MASK));
+  55:Generated_Source\PSoC4/Index_Counter_1.c ****             #endif /* (CY_PSOC5A) */
+  56:Generated_Source\PSoC4/Index_Counter_1.c ****             #if (CY_PSOC3 || CY_PSOC5LP)
+  57:Generated_Source\PSoC4/Index_Counter_1.c ****                 Index_Counter_1_CONTROL3 &= ((uint8)(~Index_Counter_1_CTRL_MODE_MASK));            
+  58:Generated_Source\PSoC4/Index_Counter_1.c ****             #endif /* (CY_PSOC3 || CY_PSOC5LP) */
+  59:Generated_Source\PSoC4/Index_Counter_1.c ****             /* Check if One Shot mode is enabled i.e. RunMode !=0*/
+  60:Generated_Source\PSoC4/Index_Counter_1.c ****             #if (Index_Counter_1_RunModeUsed != 0x0u)
+  61:Generated_Source\PSoC4/Index_Counter_1.c ****                 /* Set 3rd bit of Control register to enable one shot mode */
+  62:Generated_Source\PSoC4/Index_Counter_1.c ****                 Index_Counter_1_CONTROL |= Index_Counter_1_ONESHOT;
+  63:Generated_Source\PSoC4/Index_Counter_1.c ****             #endif /* (Index_Counter_1_RunModeUsed != 0x0u) */
+  64:Generated_Source\PSoC4/Index_Counter_1.c ****             
+  65:Generated_Source\PSoC4/Index_Counter_1.c ****             /* Set the IRQ to use the status register interrupts */
+  66:Generated_Source\PSoC4/Index_Counter_1.c ****             Index_Counter_1_CONTROL2 |= Index_Counter_1_CTRL2_IRQ_SEL;
+  67:Generated_Source\PSoC4/Index_Counter_1.c ****             
+  68:Generated_Source\PSoC4/Index_Counter_1.c ****             /* Clear and Set SYNCTC and SYNCCMP bits of RT1 register */
+  69:Generated_Source\PSoC4/Index_Counter_1.c ****             Index_Counter_1_RT1 &= ((uint8)(~Index_Counter_1_RT1_MASK));
+  70:Generated_Source\PSoC4/Index_Counter_1.c ****             Index_Counter_1_RT1 |= Index_Counter_1_SYNC;     
+  71:Generated_Source\PSoC4/Index_Counter_1.c ****                     
+  72:Generated_Source\PSoC4/Index_Counter_1.c ****             /*Enable DSI Sync all all inputs of the Timer*/
+  73:Generated_Source\PSoC4/Index_Counter_1.c ****             Index_Counter_1_RT1 &= ((uint8)(~Index_Counter_1_SYNCDSI_MASK));
+  74:Generated_Source\PSoC4/Index_Counter_1.c ****             Index_Counter_1_RT1 |= Index_Counter_1_SYNCDSI_EN;
+  75:Generated_Source\PSoC4/Index_Counter_1.c **** 
+  76:Generated_Source\PSoC4/Index_Counter_1.c ****         #else
+  77:Generated_Source\PSoC4/Index_Counter_1.c ****             #if(!Index_Counter_1_ControlRegRemoved)
+  78:Generated_Source\PSoC4/Index_Counter_1.c ****             /* Set the default compare mode defined in the parameter */
+  79:Generated_Source\PSoC4/Index_Counter_1.c ****             ctrl = Index_Counter_1_CONTROL & ((uint8)(~Index_Counter_1_CTRL_CMPMODE_MASK));
+  80:Generated_Source\PSoC4/Index_Counter_1.c ****             Index_Counter_1_CONTROL = ctrl | Index_Counter_1_DEFAULT_COMPARE_MODE;
+  81:Generated_Source\PSoC4/Index_Counter_1.c ****             
+  82:Generated_Source\PSoC4/Index_Counter_1.c ****             /* Set the default capture mode defined in the parameter */
+  83:Generated_Source\PSoC4/Index_Counter_1.c ****             ctrl = Index_Counter_1_CONTROL & ((uint8)(~Index_Counter_1_CTRL_CAPMODE_MASK));
+  84:Generated_Source\PSoC4/Index_Counter_1.c ****             
+  85:Generated_Source\PSoC4/Index_Counter_1.c ****             #if( 0 != Index_Counter_1_CAPTURE_MODE_CONF)
+  86:Generated_Source\PSoC4/Index_Counter_1.c ****                 Index_Counter_1_CONTROL = ctrl | Index_Counter_1_DEFAULT_CAPTURE_MODE;
+  87:Generated_Source\PSoC4/Index_Counter_1.c ****             #else
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccr4wXPf.s 			page 3
+
+
+  88:Generated_Source\PSoC4/Index_Counter_1.c ****                 Index_Counter_1_CONTROL = ctrl;
+  89:Generated_Source\PSoC4/Index_Counter_1.c ****             #endif /* 0 != Index_Counter_1_CAPTURE_MODE */ 
+  90:Generated_Source\PSoC4/Index_Counter_1.c ****             
+  91:Generated_Source\PSoC4/Index_Counter_1.c ****             #endif /* (!Index_Counter_1_ControlRegRemoved) */
+  92:Generated_Source\PSoC4/Index_Counter_1.c ****         #endif /* (Index_Counter_1_UsingFixedFunction) */
+  93:Generated_Source\PSoC4/Index_Counter_1.c ****         
+  94:Generated_Source\PSoC4/Index_Counter_1.c ****         /* Clear all data in the FIFO's */
+  95:Generated_Source\PSoC4/Index_Counter_1.c ****         #if (!Index_Counter_1_UsingFixedFunction)
+  96:Generated_Source\PSoC4/Index_Counter_1.c ****             Index_Counter_1_ClearFIFO();
+  97:Generated_Source\PSoC4/Index_Counter_1.c ****         #endif /* (!Index_Counter_1_UsingFixedFunction) */
+  98:Generated_Source\PSoC4/Index_Counter_1.c ****         
+  99:Generated_Source\PSoC4/Index_Counter_1.c ****         /* Set Initial values from Configuration */
+ 100:Generated_Source\PSoC4/Index_Counter_1.c ****         Index_Counter_1_WritePeriod(Index_Counter_1_INIT_PERIOD_VALUE);
+ 101:Generated_Source\PSoC4/Index_Counter_1.c ****         #if (!(Index_Counter_1_UsingFixedFunction && (CY_PSOC5A)))
+ 102:Generated_Source\PSoC4/Index_Counter_1.c ****             Index_Counter_1_WriteCounter(Index_Counter_1_INIT_COUNTER_VALUE);
+ 103:Generated_Source\PSoC4/Index_Counter_1.c ****         #endif /* (!(Index_Counter_1_UsingFixedFunction && (CY_PSOC5A))) */
+ 104:Generated_Source\PSoC4/Index_Counter_1.c ****         Index_Counter_1_SetInterruptMode(Index_Counter_1_INIT_INTERRUPTS_MASK);
+ 105:Generated_Source\PSoC4/Index_Counter_1.c ****         
+ 106:Generated_Source\PSoC4/Index_Counter_1.c ****         #if (!Index_Counter_1_UsingFixedFunction)
+ 107:Generated_Source\PSoC4/Index_Counter_1.c ****             /* Read the status register to clear the unwanted interrupts */
+ 108:Generated_Source\PSoC4/Index_Counter_1.c ****             (void)Index_Counter_1_ReadStatusRegister();
+ 109:Generated_Source\PSoC4/Index_Counter_1.c ****             /* Set the compare value (only available to non-fixed function implementation */
+ 110:Generated_Source\PSoC4/Index_Counter_1.c ****             Index_Counter_1_WriteCompare(Index_Counter_1_INIT_COMPARE_VALUE);
+ 111:Generated_Source\PSoC4/Index_Counter_1.c ****             /* Use the interrupt output of the status register for IRQ output */
+ 112:Generated_Source\PSoC4/Index_Counter_1.c ****             
+ 113:Generated_Source\PSoC4/Index_Counter_1.c ****             /* CyEnterCriticalRegion and CyExitCriticalRegion are used to mark following region cri
+ 114:Generated_Source\PSoC4/Index_Counter_1.c ****             /* Enter Critical Region*/
+ 115:Generated_Source\PSoC4/Index_Counter_1.c ****             Index_Counter_1_interruptState = CyEnterCriticalSection();
+ 116:Generated_Source\PSoC4/Index_Counter_1.c ****             
+ 117:Generated_Source\PSoC4/Index_Counter_1.c ****             Index_Counter_1_STATUS_AUX_CTRL |= Index_Counter_1_STATUS_ACTL_INT_EN_MASK;
+ 118:Generated_Source\PSoC4/Index_Counter_1.c ****             
+ 119:Generated_Source\PSoC4/Index_Counter_1.c ****             /* Exit Critical Region*/
+ 120:Generated_Source\PSoC4/Index_Counter_1.c ****             CyExitCriticalSection(Index_Counter_1_interruptState);
+ 121:Generated_Source\PSoC4/Index_Counter_1.c ****             
+ 122:Generated_Source\PSoC4/Index_Counter_1.c ****         #endif /* (!Index_Counter_1_UsingFixedFunction) */
+ 123:Generated_Source\PSoC4/Index_Counter_1.c **** }
+ 124:Generated_Source\PSoC4/Index_Counter_1.c **** 
+ 125:Generated_Source\PSoC4/Index_Counter_1.c **** 
+ 126:Generated_Source\PSoC4/Index_Counter_1.c **** /*******************************************************************************
+ 127:Generated_Source\PSoC4/Index_Counter_1.c **** * Function Name: Index_Counter_1_Enable
+ 128:Generated_Source\PSoC4/Index_Counter_1.c **** ********************************************************************************
+ 129:Generated_Source\PSoC4/Index_Counter_1.c **** * Summary:
+ 130:Generated_Source\PSoC4/Index_Counter_1.c **** *     Enable the Counter
+ 131:Generated_Source\PSoC4/Index_Counter_1.c **** * 
+ 132:Generated_Source\PSoC4/Index_Counter_1.c **** * Parameters:  
+ 133:Generated_Source\PSoC4/Index_Counter_1.c **** *  void  
+ 134:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 135:Generated_Source\PSoC4/Index_Counter_1.c **** * Return: 
+ 136:Generated_Source\PSoC4/Index_Counter_1.c **** *  void
+ 137:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 138:Generated_Source\PSoC4/Index_Counter_1.c **** * Side Effects: 
+ 139:Generated_Source\PSoC4/Index_Counter_1.c **** *   If the Enable mode is set to Hardware only then this function has no effect 
+ 140:Generated_Source\PSoC4/Index_Counter_1.c **** *   on the operation of the counter.
+ 141:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 142:Generated_Source\PSoC4/Index_Counter_1.c **** *******************************************************************************/
+ 143:Generated_Source\PSoC4/Index_Counter_1.c **** void Index_Counter_1_Enable(void) 
+ 144:Generated_Source\PSoC4/Index_Counter_1.c **** {
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccr4wXPf.s 			page 4
+
+
+  28              		.loc 1 144 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+ 145:Generated_Source\PSoC4/Index_Counter_1.c ****     /* Globally Enable the Fixed Function Block chosen */
+ 146:Generated_Source\PSoC4/Index_Counter_1.c ****     #if (Index_Counter_1_UsingFixedFunction)
+ 147:Generated_Source\PSoC4/Index_Counter_1.c ****         Index_Counter_1_GLOBAL_ENABLE |= Index_Counter_1_BLOCK_EN_MASK;
+ 148:Generated_Source\PSoC4/Index_Counter_1.c ****         Index_Counter_1_GLOBAL_STBY_ENABLE |= Index_Counter_1_BLOCK_STBY_EN_MASK;
+ 149:Generated_Source\PSoC4/Index_Counter_1.c ****     #endif /* (Index_Counter_1_UsingFixedFunction) */  
+ 150:Generated_Source\PSoC4/Index_Counter_1.c ****         
+ 151:Generated_Source\PSoC4/Index_Counter_1.c ****     /* Enable the counter from the control register  */
+ 152:Generated_Source\PSoC4/Index_Counter_1.c ****     /* If Fixed Function then make sure Mode is set correctly */
+ 153:Generated_Source\PSoC4/Index_Counter_1.c ****     /* else make sure reset is clear */
+ 154:Generated_Source\PSoC4/Index_Counter_1.c ****     #if(!Index_Counter_1_ControlRegRemoved || Index_Counter_1_UsingFixedFunction)
+ 155:Generated_Source\PSoC4/Index_Counter_1.c ****         Index_Counter_1_CONTROL |= Index_Counter_1_CTRL_ENABLE;                
+  33              		.loc 1 155 0
+  34 0000 034A     		ldr	r2, .L2
+  35 0002 1178     		ldrb	r1, [r2]
+  36 0004 8023     		movs	r3, #128
+  37 0006 5B42     		rsbs	r3, r3, #0
+  38 0008 0B43     		orrs	r3, r1
+  39 000a DBB2     		uxtb	r3, r3
+  40 000c 1370     		strb	r3, [r2]
+ 156:Generated_Source\PSoC4/Index_Counter_1.c ****     #endif /* (!Index_Counter_1_ControlRegRemoved || Index_Counter_1_UsingFixedFunction) */
+ 157:Generated_Source\PSoC4/Index_Counter_1.c ****     
+ 158:Generated_Source\PSoC4/Index_Counter_1.c **** }
+  41              		.loc 1 158 0
+  42              		@ sp needed
+  43 000e 7047     		bx	lr
+  44              	.L3:
+  45              		.align	2
+  46              	.L2:
+  47 0010 72000F40 		.word	1074724978
+  48              		.cfi_endproc
+  49              	.LFE1:
+  50              		.size	Index_Counter_1_Enable, .-Index_Counter_1_Enable
+  51              		.section	.text.Index_Counter_1_Stop,"ax",%progbits
+  52              		.align	2
+  53              		.global	Index_Counter_1_Stop
+  54              		.code	16
+  55              		.thumb_func
+  56              		.type	Index_Counter_1_Stop, %function
+  57              	Index_Counter_1_Stop:
+  58              	.LFB3:
+ 159:Generated_Source\PSoC4/Index_Counter_1.c **** 
+ 160:Generated_Source\PSoC4/Index_Counter_1.c **** 
+ 161:Generated_Source\PSoC4/Index_Counter_1.c **** /*******************************************************************************
+ 162:Generated_Source\PSoC4/Index_Counter_1.c **** * Function Name: Index_Counter_1_Start
+ 163:Generated_Source\PSoC4/Index_Counter_1.c **** ********************************************************************************
+ 164:Generated_Source\PSoC4/Index_Counter_1.c **** * Summary:
+ 165:Generated_Source\PSoC4/Index_Counter_1.c **** *  Enables the counter for operation 
+ 166:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 167:Generated_Source\PSoC4/Index_Counter_1.c **** * Parameters:  
+ 168:Generated_Source\PSoC4/Index_Counter_1.c **** *  void  
+ 169:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 170:Generated_Source\PSoC4/Index_Counter_1.c **** * Return: 
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccr4wXPf.s 			page 5
+
+
+ 171:Generated_Source\PSoC4/Index_Counter_1.c **** *  void
+ 172:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 173:Generated_Source\PSoC4/Index_Counter_1.c **** * Global variables:
+ 174:Generated_Source\PSoC4/Index_Counter_1.c **** *  Index_Counter_1_initVar: Is modified when this function is called for the  
+ 175:Generated_Source\PSoC4/Index_Counter_1.c **** *   first time. Is used to ensure that initialization happens only once.
+ 176:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 177:Generated_Source\PSoC4/Index_Counter_1.c **** *******************************************************************************/
+ 178:Generated_Source\PSoC4/Index_Counter_1.c **** void Index_Counter_1_Start(void) 
+ 179:Generated_Source\PSoC4/Index_Counter_1.c **** {
+ 180:Generated_Source\PSoC4/Index_Counter_1.c ****     if(Index_Counter_1_initVar == 0u)
+ 181:Generated_Source\PSoC4/Index_Counter_1.c ****     {
+ 182:Generated_Source\PSoC4/Index_Counter_1.c ****         Index_Counter_1_Init();
+ 183:Generated_Source\PSoC4/Index_Counter_1.c ****         
+ 184:Generated_Source\PSoC4/Index_Counter_1.c ****         Index_Counter_1_initVar = 1u; /* Clear this bit for Initialization */        
+ 185:Generated_Source\PSoC4/Index_Counter_1.c ****     }
+ 186:Generated_Source\PSoC4/Index_Counter_1.c ****     
+ 187:Generated_Source\PSoC4/Index_Counter_1.c ****     /* Enable the Counter */
+ 188:Generated_Source\PSoC4/Index_Counter_1.c ****     Index_Counter_1_Enable();        
+ 189:Generated_Source\PSoC4/Index_Counter_1.c **** }
+ 190:Generated_Source\PSoC4/Index_Counter_1.c **** 
+ 191:Generated_Source\PSoC4/Index_Counter_1.c **** 
+ 192:Generated_Source\PSoC4/Index_Counter_1.c **** /*******************************************************************************
+ 193:Generated_Source\PSoC4/Index_Counter_1.c **** * Function Name: Index_Counter_1_Stop
+ 194:Generated_Source\PSoC4/Index_Counter_1.c **** ********************************************************************************
+ 195:Generated_Source\PSoC4/Index_Counter_1.c **** * Summary:
+ 196:Generated_Source\PSoC4/Index_Counter_1.c **** * Halts the counter, but does not change any modes or disable interrupts.
+ 197:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 198:Generated_Source\PSoC4/Index_Counter_1.c **** * Parameters:  
+ 199:Generated_Source\PSoC4/Index_Counter_1.c **** *  void  
+ 200:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 201:Generated_Source\PSoC4/Index_Counter_1.c **** * Return: 
+ 202:Generated_Source\PSoC4/Index_Counter_1.c **** *  void
+ 203:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 204:Generated_Source\PSoC4/Index_Counter_1.c **** * Side Effects: If the Enable mode is set to Hardware only then this function
+ 205:Generated_Source\PSoC4/Index_Counter_1.c **** *               has no effect on the operation of the counter.
+ 206:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 207:Generated_Source\PSoC4/Index_Counter_1.c **** *******************************************************************************/
+ 208:Generated_Source\PSoC4/Index_Counter_1.c **** void Index_Counter_1_Stop(void) 
+ 209:Generated_Source\PSoC4/Index_Counter_1.c **** {
+  59              		.loc 1 209 0
+  60              		.cfi_startproc
+  61              		@ args = 0, pretend = 0, frame = 0
+  62              		@ frame_needed = 0, uses_anonymous_args = 0
+  63              		@ link register save eliminated.
+ 210:Generated_Source\PSoC4/Index_Counter_1.c ****     /* Disable Counter */
+ 211:Generated_Source\PSoC4/Index_Counter_1.c ****     #if(!Index_Counter_1_ControlRegRemoved || Index_Counter_1_UsingFixedFunction)
+ 212:Generated_Source\PSoC4/Index_Counter_1.c ****         Index_Counter_1_CONTROL &= ((uint8)(~Index_Counter_1_CTRL_ENABLE));        
+  64              		.loc 1 212 0
+  65 0000 024A     		ldr	r2, .L5
+  66 0002 1178     		ldrb	r1, [r2]
+  67 0004 7F23     		movs	r3, #127
+  68 0006 0B40     		ands	r3, r1
+  69 0008 1370     		strb	r3, [r2]
+ 213:Generated_Source\PSoC4/Index_Counter_1.c ****     #endif /* (!Index_Counter_1_ControlRegRemoved || Index_Counter_1_UsingFixedFunction) */
+ 214:Generated_Source\PSoC4/Index_Counter_1.c ****     
+ 215:Generated_Source\PSoC4/Index_Counter_1.c ****     /* Globally disable the Fixed Function Block chosen */
+ 216:Generated_Source\PSoC4/Index_Counter_1.c ****     #if (Index_Counter_1_UsingFixedFunction)
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccr4wXPf.s 			page 6
+
+
+ 217:Generated_Source\PSoC4/Index_Counter_1.c ****         Index_Counter_1_GLOBAL_ENABLE &= ((uint8)(~Index_Counter_1_BLOCK_EN_MASK));
+ 218:Generated_Source\PSoC4/Index_Counter_1.c ****         Index_Counter_1_GLOBAL_STBY_ENABLE &= ((uint8)(~Index_Counter_1_BLOCK_STBY_EN_MASK));
+ 219:Generated_Source\PSoC4/Index_Counter_1.c ****     #endif /* (Index_Counter_1_UsingFixedFunction) */
+ 220:Generated_Source\PSoC4/Index_Counter_1.c **** }
+  70              		.loc 1 220 0
+  71              		@ sp needed
+  72 000a 7047     		bx	lr
+  73              	.L6:
+  74              		.align	2
+  75              	.L5:
+  76 000c 72000F40 		.word	1074724978
+  77              		.cfi_endproc
+  78              	.LFE3:
+  79              		.size	Index_Counter_1_Stop, .-Index_Counter_1_Stop
+  80              		.section	.text.Index_Counter_1_SetInterruptMode,"ax",%progbits
+  81              		.align	2
+  82              		.global	Index_Counter_1_SetInterruptMode
+  83              		.code	16
+  84              		.thumb_func
+  85              		.type	Index_Counter_1_SetInterruptMode, %function
+  86              	Index_Counter_1_SetInterruptMode:
+  87              	.LFB4:
+ 221:Generated_Source\PSoC4/Index_Counter_1.c **** 
+ 222:Generated_Source\PSoC4/Index_Counter_1.c **** 
+ 223:Generated_Source\PSoC4/Index_Counter_1.c **** /*******************************************************************************
+ 224:Generated_Source\PSoC4/Index_Counter_1.c **** * Function Name: Index_Counter_1_SetInterruptMode
+ 225:Generated_Source\PSoC4/Index_Counter_1.c **** ********************************************************************************
+ 226:Generated_Source\PSoC4/Index_Counter_1.c **** * Summary:
+ 227:Generated_Source\PSoC4/Index_Counter_1.c **** * Configures which interrupt sources are enabled to generate the final interrupt
+ 228:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 229:Generated_Source\PSoC4/Index_Counter_1.c **** * Parameters:  
+ 230:Generated_Source\PSoC4/Index_Counter_1.c **** *  InterruptsMask: This parameter is an or'd collection of the status bits
+ 231:Generated_Source\PSoC4/Index_Counter_1.c **** *                   which will be allowed to generate the counters interrupt.   
+ 232:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 233:Generated_Source\PSoC4/Index_Counter_1.c **** * Return: 
+ 234:Generated_Source\PSoC4/Index_Counter_1.c **** *  void
+ 235:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 236:Generated_Source\PSoC4/Index_Counter_1.c **** *******************************************************************************/
+ 237:Generated_Source\PSoC4/Index_Counter_1.c **** void Index_Counter_1_SetInterruptMode(uint8 interruptsMask) 
+ 238:Generated_Source\PSoC4/Index_Counter_1.c **** {
+  88              		.loc 1 238 0
+  89              		.cfi_startproc
+  90              		@ args = 0, pretend = 0, frame = 0
+  91              		@ frame_needed = 0, uses_anonymous_args = 0
+  92              		@ link register save eliminated.
+  93              	.LVL0:
+ 239:Generated_Source\PSoC4/Index_Counter_1.c ****     Index_Counter_1_STATUS_MASK = interruptsMask;
+  94              		.loc 1 239 0
+  95 0000 014B     		ldr	r3, .L8
+  96 0002 1870     		strb	r0, [r3]
+ 240:Generated_Source\PSoC4/Index_Counter_1.c **** }
+  97              		.loc 1 240 0
+  98              		@ sp needed
+  99 0004 7047     		bx	lr
+ 100              	.L9:
+ 101 0006 C046     		.align	2
+ 102              	.L8:
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccr4wXPf.s 			page 7
+
+
+ 103 0008 80000F40 		.word	1074724992
+ 104              		.cfi_endproc
+ 105              	.LFE4:
+ 106              		.size	Index_Counter_1_SetInterruptMode, .-Index_Counter_1_SetInterruptMode
+ 107              		.section	.text.Index_Counter_1_ReadStatusRegister,"ax",%progbits
+ 108              		.align	2
+ 109              		.global	Index_Counter_1_ReadStatusRegister
+ 110              		.code	16
+ 111              		.thumb_func
+ 112              		.type	Index_Counter_1_ReadStatusRegister, %function
+ 113              	Index_Counter_1_ReadStatusRegister:
+ 114              	.LFB5:
+ 241:Generated_Source\PSoC4/Index_Counter_1.c **** 
+ 242:Generated_Source\PSoC4/Index_Counter_1.c **** 
+ 243:Generated_Source\PSoC4/Index_Counter_1.c **** /*******************************************************************************
+ 244:Generated_Source\PSoC4/Index_Counter_1.c **** * Function Name: Index_Counter_1_ReadStatusRegister
+ 245:Generated_Source\PSoC4/Index_Counter_1.c **** ********************************************************************************
+ 246:Generated_Source\PSoC4/Index_Counter_1.c **** * Summary:
+ 247:Generated_Source\PSoC4/Index_Counter_1.c **** *   Reads the status register and returns it's state. This function should use
+ 248:Generated_Source\PSoC4/Index_Counter_1.c **** *       defined types for the bit-field information as the bits in this
+ 249:Generated_Source\PSoC4/Index_Counter_1.c **** *       register may be permuteable.
+ 250:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 251:Generated_Source\PSoC4/Index_Counter_1.c **** * Parameters:  
+ 252:Generated_Source\PSoC4/Index_Counter_1.c **** *  void
+ 253:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 254:Generated_Source\PSoC4/Index_Counter_1.c **** * Return: 
+ 255:Generated_Source\PSoC4/Index_Counter_1.c **** *  (uint8) The contents of the status register
+ 256:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 257:Generated_Source\PSoC4/Index_Counter_1.c **** * Side Effects:
+ 258:Generated_Source\PSoC4/Index_Counter_1.c **** *   Status register bits may be clear on read. 
+ 259:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 260:Generated_Source\PSoC4/Index_Counter_1.c **** *******************************************************************************/
+ 261:Generated_Source\PSoC4/Index_Counter_1.c **** uint8   Index_Counter_1_ReadStatusRegister(void) 
+ 262:Generated_Source\PSoC4/Index_Counter_1.c **** {
+ 115              		.loc 1 262 0
+ 116              		.cfi_startproc
+ 117              		@ args = 0, pretend = 0, frame = 0
+ 118              		@ frame_needed = 0, uses_anonymous_args = 0
+ 119              		@ link register save eliminated.
+ 263:Generated_Source\PSoC4/Index_Counter_1.c ****     return Index_Counter_1_STATUS;
+ 120              		.loc 1 263 0
+ 121 0000 014B     		ldr	r3, .L11
+ 122 0002 1878     		ldrb	r0, [r3]
+ 123 0004 C0B2     		uxtb	r0, r0
+ 264:Generated_Source\PSoC4/Index_Counter_1.c **** }
+ 124              		.loc 1 264 0
+ 125              		@ sp needed
+ 126 0006 7047     		bx	lr
+ 127              	.L12:
+ 128              		.align	2
+ 129              	.L11:
+ 130 0008 60000F40 		.word	1074724960
+ 131              		.cfi_endproc
+ 132              	.LFE5:
+ 133              		.size	Index_Counter_1_ReadStatusRegister, .-Index_Counter_1_ReadStatusRegister
+ 134              		.section	.text.Index_Counter_1_ReadControlRegister,"ax",%progbits
+ 135              		.align	2
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccr4wXPf.s 			page 8
+
+
+ 136              		.global	Index_Counter_1_ReadControlRegister
+ 137              		.code	16
+ 138              		.thumb_func
+ 139              		.type	Index_Counter_1_ReadControlRegister, %function
+ 140              	Index_Counter_1_ReadControlRegister:
+ 141              	.LFB6:
+ 265:Generated_Source\PSoC4/Index_Counter_1.c **** 
+ 266:Generated_Source\PSoC4/Index_Counter_1.c **** 
+ 267:Generated_Source\PSoC4/Index_Counter_1.c **** #if(!Index_Counter_1_ControlRegRemoved)
+ 268:Generated_Source\PSoC4/Index_Counter_1.c **** /*******************************************************************************
+ 269:Generated_Source\PSoC4/Index_Counter_1.c **** * Function Name: Index_Counter_1_ReadControlRegister
+ 270:Generated_Source\PSoC4/Index_Counter_1.c **** ********************************************************************************
+ 271:Generated_Source\PSoC4/Index_Counter_1.c **** * Summary:
+ 272:Generated_Source\PSoC4/Index_Counter_1.c **** *   Reads the control register and returns it's state. This function should use
+ 273:Generated_Source\PSoC4/Index_Counter_1.c **** *       defined types for the bit-field information as the bits in this
+ 274:Generated_Source\PSoC4/Index_Counter_1.c **** *       register may be permuteable.
+ 275:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 276:Generated_Source\PSoC4/Index_Counter_1.c **** * Parameters:  
+ 277:Generated_Source\PSoC4/Index_Counter_1.c **** *  void
+ 278:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 279:Generated_Source\PSoC4/Index_Counter_1.c **** * Return: 
+ 280:Generated_Source\PSoC4/Index_Counter_1.c **** *  (uint8) The contents of the control register
+ 281:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 282:Generated_Source\PSoC4/Index_Counter_1.c **** *******************************************************************************/
+ 283:Generated_Source\PSoC4/Index_Counter_1.c **** uint8   Index_Counter_1_ReadControlRegister(void) 
+ 284:Generated_Source\PSoC4/Index_Counter_1.c **** {
+ 142              		.loc 1 284 0
+ 143              		.cfi_startproc
+ 144              		@ args = 0, pretend = 0, frame = 0
+ 145              		@ frame_needed = 0, uses_anonymous_args = 0
+ 146              		@ link register save eliminated.
+ 285:Generated_Source\PSoC4/Index_Counter_1.c ****     return Index_Counter_1_CONTROL;
+ 147              		.loc 1 285 0
+ 148 0000 014B     		ldr	r3, .L14
+ 149 0002 1878     		ldrb	r0, [r3]
+ 150 0004 C0B2     		uxtb	r0, r0
+ 286:Generated_Source\PSoC4/Index_Counter_1.c **** }
+ 151              		.loc 1 286 0
+ 152              		@ sp needed
+ 153 0006 7047     		bx	lr
+ 154              	.L15:
+ 155              		.align	2
+ 156              	.L14:
+ 157 0008 72000F40 		.word	1074724978
+ 158              		.cfi_endproc
+ 159              	.LFE6:
+ 160              		.size	Index_Counter_1_ReadControlRegister, .-Index_Counter_1_ReadControlRegister
+ 161              		.section	.text.Index_Counter_1_WriteControlRegister,"ax",%progbits
+ 162              		.align	2
+ 163              		.global	Index_Counter_1_WriteControlRegister
+ 164              		.code	16
+ 165              		.thumb_func
+ 166              		.type	Index_Counter_1_WriteControlRegister, %function
+ 167              	Index_Counter_1_WriteControlRegister:
+ 168              	.LFB7:
+ 287:Generated_Source\PSoC4/Index_Counter_1.c **** 
+ 288:Generated_Source\PSoC4/Index_Counter_1.c **** 
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccr4wXPf.s 			page 9
+
+
+ 289:Generated_Source\PSoC4/Index_Counter_1.c **** /*******************************************************************************
+ 290:Generated_Source\PSoC4/Index_Counter_1.c **** * Function Name: Index_Counter_1_WriteControlRegister
+ 291:Generated_Source\PSoC4/Index_Counter_1.c **** ********************************************************************************
+ 292:Generated_Source\PSoC4/Index_Counter_1.c **** * Summary:
+ 293:Generated_Source\PSoC4/Index_Counter_1.c **** *   Sets the bit-field of the control register.  This function should use
+ 294:Generated_Source\PSoC4/Index_Counter_1.c **** *       defined types for the bit-field information as the bits in this
+ 295:Generated_Source\PSoC4/Index_Counter_1.c **** *       register may be permuteable.
+ 296:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 297:Generated_Source\PSoC4/Index_Counter_1.c **** * Parameters:  
+ 298:Generated_Source\PSoC4/Index_Counter_1.c **** *  void
+ 299:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 300:Generated_Source\PSoC4/Index_Counter_1.c **** * Return: 
+ 301:Generated_Source\PSoC4/Index_Counter_1.c **** *  (uint8) The contents of the control register
+ 302:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 303:Generated_Source\PSoC4/Index_Counter_1.c **** *******************************************************************************/
+ 304:Generated_Source\PSoC4/Index_Counter_1.c **** void    Index_Counter_1_WriteControlRegister(uint8 control) 
+ 305:Generated_Source\PSoC4/Index_Counter_1.c **** {
+ 169              		.loc 1 305 0
+ 170              		.cfi_startproc
+ 171              		@ args = 0, pretend = 0, frame = 0
+ 172              		@ frame_needed = 0, uses_anonymous_args = 0
+ 173              		@ link register save eliminated.
+ 174              	.LVL1:
+ 306:Generated_Source\PSoC4/Index_Counter_1.c ****     Index_Counter_1_CONTROL = control;
+ 175              		.loc 1 306 0
+ 176 0000 014B     		ldr	r3, .L17
+ 177 0002 1870     		strb	r0, [r3]
+ 307:Generated_Source\PSoC4/Index_Counter_1.c **** }
+ 178              		.loc 1 307 0
+ 179              		@ sp needed
+ 180 0004 7047     		bx	lr
+ 181              	.L18:
+ 182 0006 C046     		.align	2
+ 183              	.L17:
+ 184 0008 72000F40 		.word	1074724978
+ 185              		.cfi_endproc
+ 186              	.LFE7:
+ 187              		.size	Index_Counter_1_WriteControlRegister, .-Index_Counter_1_WriteControlRegister
+ 188              		.section	.text.Index_Counter_1_WriteCounter,"ax",%progbits
+ 189              		.align	2
+ 190              		.global	Index_Counter_1_WriteCounter
+ 191              		.code	16
+ 192              		.thumb_func
+ 193              		.type	Index_Counter_1_WriteCounter, %function
+ 194              	Index_Counter_1_WriteCounter:
+ 195              	.LFB8:
+ 308:Generated_Source\PSoC4/Index_Counter_1.c **** 
+ 309:Generated_Source\PSoC4/Index_Counter_1.c **** #endif  /* (!Index_Counter_1_ControlRegRemoved) */
+ 310:Generated_Source\PSoC4/Index_Counter_1.c **** 
+ 311:Generated_Source\PSoC4/Index_Counter_1.c **** 
+ 312:Generated_Source\PSoC4/Index_Counter_1.c **** #if (!(Index_Counter_1_UsingFixedFunction && (CY_PSOC5A)))
+ 313:Generated_Source\PSoC4/Index_Counter_1.c **** /*******************************************************************************
+ 314:Generated_Source\PSoC4/Index_Counter_1.c **** * Function Name: Index_Counter_1_WriteCounter
+ 315:Generated_Source\PSoC4/Index_Counter_1.c **** ********************************************************************************
+ 316:Generated_Source\PSoC4/Index_Counter_1.c **** * Summary:
+ 317:Generated_Source\PSoC4/Index_Counter_1.c **** *   This funtion is used to set the counter to a specific value
+ 318:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccr4wXPf.s 			page 10
+
+
+ 319:Generated_Source\PSoC4/Index_Counter_1.c **** * Parameters:  
+ 320:Generated_Source\PSoC4/Index_Counter_1.c **** *  counter:  New counter value. 
+ 321:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 322:Generated_Source\PSoC4/Index_Counter_1.c **** * Return: 
+ 323:Generated_Source\PSoC4/Index_Counter_1.c **** *  void 
+ 324:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 325:Generated_Source\PSoC4/Index_Counter_1.c **** *******************************************************************************/
+ 326:Generated_Source\PSoC4/Index_Counter_1.c **** void Index_Counter_1_WriteCounter(uint8 counter) \
+ 327:Generated_Source\PSoC4/Index_Counter_1.c ****                                    
+ 328:Generated_Source\PSoC4/Index_Counter_1.c **** {
+ 196              		.loc 1 328 0
+ 197              		.cfi_startproc
+ 198              		@ args = 0, pretend = 0, frame = 0
+ 199              		@ frame_needed = 0, uses_anonymous_args = 0
+ 200              		@ link register save eliminated.
+ 201              	.LVL2:
+ 329:Generated_Source\PSoC4/Index_Counter_1.c ****     #if(Index_Counter_1_UsingFixedFunction)
+ 330:Generated_Source\PSoC4/Index_Counter_1.c ****         /* assert if block is already enabled */
+ 331:Generated_Source\PSoC4/Index_Counter_1.c ****         CYASSERT (0u == (Index_Counter_1_GLOBAL_ENABLE & Index_Counter_1_BLOCK_EN_MASK));
+ 332:Generated_Source\PSoC4/Index_Counter_1.c ****         /* If block is disabled, enable it and then write the counter */
+ 333:Generated_Source\PSoC4/Index_Counter_1.c ****         Index_Counter_1_GLOBAL_ENABLE |= Index_Counter_1_BLOCK_EN_MASK;
+ 334:Generated_Source\PSoC4/Index_Counter_1.c ****         CY_SET_REG16(Index_Counter_1_COUNTER_LSB_PTR, (uint16)counter);
+ 335:Generated_Source\PSoC4/Index_Counter_1.c ****         Index_Counter_1_GLOBAL_ENABLE &= ((uint8)(~Index_Counter_1_BLOCK_EN_MASK));
+ 336:Generated_Source\PSoC4/Index_Counter_1.c ****     #else
+ 337:Generated_Source\PSoC4/Index_Counter_1.c ****         CY_SET_REG8(Index_Counter_1_COUNTER_LSB_PTR, counter);
+ 202              		.loc 1 337 0
+ 203 0000 014B     		ldr	r3, .L20
+ 204 0002 1870     		strb	r0, [r3]
+ 338:Generated_Source\PSoC4/Index_Counter_1.c ****     #endif /* (Index_Counter_1_UsingFixedFunction) */
+ 339:Generated_Source\PSoC4/Index_Counter_1.c **** }
+ 205              		.loc 1 339 0
+ 206              		@ sp needed
+ 207 0004 7047     		bx	lr
+ 208              	.L21:
+ 209 0006 C046     		.align	2
+ 210              	.L20:
+ 211 0008 03000F40 		.word	1074724867
+ 212              		.cfi_endproc
+ 213              	.LFE8:
+ 214              		.size	Index_Counter_1_WriteCounter, .-Index_Counter_1_WriteCounter
+ 215              		.section	.text.Index_Counter_1_ReadCounter,"ax",%progbits
+ 216              		.align	2
+ 217              		.global	Index_Counter_1_ReadCounter
+ 218              		.code	16
+ 219              		.thumb_func
+ 220              		.type	Index_Counter_1_ReadCounter, %function
+ 221              	Index_Counter_1_ReadCounter:
+ 222              	.LFB9:
+ 340:Generated_Source\PSoC4/Index_Counter_1.c **** #endif /* (!(Index_Counter_1_UsingFixedFunction && (CY_PSOC5A))) */
+ 341:Generated_Source\PSoC4/Index_Counter_1.c **** 
+ 342:Generated_Source\PSoC4/Index_Counter_1.c **** 
+ 343:Generated_Source\PSoC4/Index_Counter_1.c **** /*******************************************************************************
+ 344:Generated_Source\PSoC4/Index_Counter_1.c **** * Function Name: Index_Counter_1_ReadCounter
+ 345:Generated_Source\PSoC4/Index_Counter_1.c **** ********************************************************************************
+ 346:Generated_Source\PSoC4/Index_Counter_1.c **** * Summary:
+ 347:Generated_Source\PSoC4/Index_Counter_1.c **** * Returns the current value of the counter.  It doesn't matter
+ 348:Generated_Source\PSoC4/Index_Counter_1.c **** * if the counter is enabled or running.
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccr4wXPf.s 			page 11
+
+
+ 349:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 350:Generated_Source\PSoC4/Index_Counter_1.c **** * Parameters:  
+ 351:Generated_Source\PSoC4/Index_Counter_1.c **** *  void:  
+ 352:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 353:Generated_Source\PSoC4/Index_Counter_1.c **** * Return: 
+ 354:Generated_Source\PSoC4/Index_Counter_1.c **** *  (uint8) The present value of the counter.
+ 355:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 356:Generated_Source\PSoC4/Index_Counter_1.c **** *******************************************************************************/
+ 357:Generated_Source\PSoC4/Index_Counter_1.c **** uint8 Index_Counter_1_ReadCounter(void) 
+ 358:Generated_Source\PSoC4/Index_Counter_1.c **** {
+ 223              		.loc 1 358 0
+ 224              		.cfi_startproc
+ 225              		@ args = 0, pretend = 0, frame = 0
+ 226              		@ frame_needed = 0, uses_anonymous_args = 0
+ 227              		@ link register save eliminated.
+ 359:Generated_Source\PSoC4/Index_Counter_1.c ****     /* Force capture by reading Accumulator */
+ 360:Generated_Source\PSoC4/Index_Counter_1.c ****     /* Must first do a software capture to be able to read the counter */
+ 361:Generated_Source\PSoC4/Index_Counter_1.c ****     /* It is up to the user code to make sure there isn't already captured data in the FIFO */
+ 362:Generated_Source\PSoC4/Index_Counter_1.c ****     #if(Index_Counter_1_UsingFixedFunction)
+ 363:Generated_Source\PSoC4/Index_Counter_1.c **** 		(void)CY_GET_REG16(Index_Counter_1_COUNTER_LSB_PTR);
+ 364:Generated_Source\PSoC4/Index_Counter_1.c **** 	#else
+ 365:Generated_Source\PSoC4/Index_Counter_1.c **** 		(void)CY_GET_REG8(Index_Counter_1_COUNTER_LSB_PTR_8BIT);
+ 228              		.loc 1 365 0
+ 229 0000 024B     		ldr	r3, .L23
+ 230 0002 1B78     		ldrb	r3, [r3]
+ 366:Generated_Source\PSoC4/Index_Counter_1.c **** 	#endif/* (Index_Counter_1_UsingFixedFunction) */
+ 367:Generated_Source\PSoC4/Index_Counter_1.c ****     
+ 368:Generated_Source\PSoC4/Index_Counter_1.c ****     /* Read the data from the FIFO (or capture register for Fixed Function)*/
+ 369:Generated_Source\PSoC4/Index_Counter_1.c ****     #if(Index_Counter_1_UsingFixedFunction)
+ 370:Generated_Source\PSoC4/Index_Counter_1.c ****         return ((uint8)CY_GET_REG16(Index_Counter_1_STATICCOUNT_LSB_PTR));
+ 371:Generated_Source\PSoC4/Index_Counter_1.c ****     #else
+ 372:Generated_Source\PSoC4/Index_Counter_1.c ****         return (CY_GET_REG8(Index_Counter_1_STATICCOUNT_LSB_PTR));
+ 231              		.loc 1 372 0
+ 232 0004 024B     		ldr	r3, .L23+4
+ 233 0006 1878     		ldrb	r0, [r3]
+ 234 0008 C0B2     		uxtb	r0, r0
+ 373:Generated_Source\PSoC4/Index_Counter_1.c ****     #endif /* (Index_Counter_1_UsingFixedFunction) */
+ 374:Generated_Source\PSoC4/Index_Counter_1.c **** }
+ 235              		.loc 1 374 0
+ 236              		@ sp needed
+ 237 000a 7047     		bx	lr
+ 238              	.L24:
+ 239              		.align	2
+ 240              	.L23:
+ 241 000c 03000F40 		.word	1074724867
+ 242 0010 43000F40 		.word	1074724931
+ 243              		.cfi_endproc
+ 244              	.LFE9:
+ 245              		.size	Index_Counter_1_ReadCounter, .-Index_Counter_1_ReadCounter
+ 246              		.section	.text.Index_Counter_1_ReadCapture,"ax",%progbits
+ 247              		.align	2
+ 248              		.global	Index_Counter_1_ReadCapture
+ 249              		.code	16
+ 250              		.thumb_func
+ 251              		.type	Index_Counter_1_ReadCapture, %function
+ 252              	Index_Counter_1_ReadCapture:
+ 253              	.LFB10:
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccr4wXPf.s 			page 12
+
+
+ 375:Generated_Source\PSoC4/Index_Counter_1.c **** 
+ 376:Generated_Source\PSoC4/Index_Counter_1.c **** 
+ 377:Generated_Source\PSoC4/Index_Counter_1.c **** /*******************************************************************************
+ 378:Generated_Source\PSoC4/Index_Counter_1.c **** * Function Name: Index_Counter_1_ReadCapture
+ 379:Generated_Source\PSoC4/Index_Counter_1.c **** ********************************************************************************
+ 380:Generated_Source\PSoC4/Index_Counter_1.c **** * Summary:
+ 381:Generated_Source\PSoC4/Index_Counter_1.c **** *   This function returns the last value captured.
+ 382:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 383:Generated_Source\PSoC4/Index_Counter_1.c **** * Parameters:  
+ 384:Generated_Source\PSoC4/Index_Counter_1.c **** *  void
+ 385:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 386:Generated_Source\PSoC4/Index_Counter_1.c **** * Return: 
+ 387:Generated_Source\PSoC4/Index_Counter_1.c **** *  (uint8) Present Capture value.
+ 388:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 389:Generated_Source\PSoC4/Index_Counter_1.c **** *******************************************************************************/
+ 390:Generated_Source\PSoC4/Index_Counter_1.c **** uint8 Index_Counter_1_ReadCapture(void) 
+ 391:Generated_Source\PSoC4/Index_Counter_1.c **** {
+ 254              		.loc 1 391 0
+ 255              		.cfi_startproc
+ 256              		@ args = 0, pretend = 0, frame = 0
+ 257              		@ frame_needed = 0, uses_anonymous_args = 0
+ 258              		@ link register save eliminated.
+ 392:Generated_Source\PSoC4/Index_Counter_1.c ****     #if(Index_Counter_1_UsingFixedFunction)
+ 393:Generated_Source\PSoC4/Index_Counter_1.c ****         return ((uint8)CY_GET_REG16(Index_Counter_1_STATICCOUNT_LSB_PTR));
+ 394:Generated_Source\PSoC4/Index_Counter_1.c ****     #else
+ 395:Generated_Source\PSoC4/Index_Counter_1.c ****         return (CY_GET_REG8(Index_Counter_1_STATICCOUNT_LSB_PTR));
+ 259              		.loc 1 395 0
+ 260 0000 014B     		ldr	r3, .L26
+ 261 0002 1878     		ldrb	r0, [r3]
+ 262 0004 C0B2     		uxtb	r0, r0
+ 396:Generated_Source\PSoC4/Index_Counter_1.c ****     #endif /* (Index_Counter_1_UsingFixedFunction) */
+ 397:Generated_Source\PSoC4/Index_Counter_1.c **** }
+ 263              		.loc 1 397 0
+ 264              		@ sp needed
+ 265 0006 7047     		bx	lr
+ 266              	.L27:
+ 267              		.align	2
+ 268              	.L26:
+ 269 0008 43000F40 		.word	1074724931
+ 270              		.cfi_endproc
+ 271              	.LFE10:
+ 272              		.size	Index_Counter_1_ReadCapture, .-Index_Counter_1_ReadCapture
+ 273              		.section	.text.Index_Counter_1_WritePeriod,"ax",%progbits
+ 274              		.align	2
+ 275              		.global	Index_Counter_1_WritePeriod
+ 276              		.code	16
+ 277              		.thumb_func
+ 278              		.type	Index_Counter_1_WritePeriod, %function
+ 279              	Index_Counter_1_WritePeriod:
+ 280              	.LFB11:
+ 398:Generated_Source\PSoC4/Index_Counter_1.c **** 
+ 399:Generated_Source\PSoC4/Index_Counter_1.c **** 
+ 400:Generated_Source\PSoC4/Index_Counter_1.c **** /*******************************************************************************
+ 401:Generated_Source\PSoC4/Index_Counter_1.c **** * Function Name: Index_Counter_1_WritePeriod
+ 402:Generated_Source\PSoC4/Index_Counter_1.c **** ********************************************************************************
+ 403:Generated_Source\PSoC4/Index_Counter_1.c **** * Summary:
+ 404:Generated_Source\PSoC4/Index_Counter_1.c **** * Changes the period of the counter.  The new period 
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccr4wXPf.s 			page 13
+
+
+ 405:Generated_Source\PSoC4/Index_Counter_1.c **** * will be loaded the next time terminal count is detected.
+ 406:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 407:Generated_Source\PSoC4/Index_Counter_1.c **** * Parameters:  
+ 408:Generated_Source\PSoC4/Index_Counter_1.c **** *  period: (uint8) A value of 0 will result in
+ 409:Generated_Source\PSoC4/Index_Counter_1.c **** *         the counter remaining at zero.  
+ 410:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 411:Generated_Source\PSoC4/Index_Counter_1.c **** * Return: 
+ 412:Generated_Source\PSoC4/Index_Counter_1.c **** *  void
+ 413:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 414:Generated_Source\PSoC4/Index_Counter_1.c **** *******************************************************************************/
+ 415:Generated_Source\PSoC4/Index_Counter_1.c **** void Index_Counter_1_WritePeriod(uint8 period) 
+ 416:Generated_Source\PSoC4/Index_Counter_1.c **** {
+ 281              		.loc 1 416 0
+ 282              		.cfi_startproc
+ 283              		@ args = 0, pretend = 0, frame = 0
+ 284              		@ frame_needed = 0, uses_anonymous_args = 0
+ 285              		@ link register save eliminated.
+ 286              	.LVL3:
+ 417:Generated_Source\PSoC4/Index_Counter_1.c ****     #if(Index_Counter_1_UsingFixedFunction)
+ 418:Generated_Source\PSoC4/Index_Counter_1.c ****         CY_SET_REG16(Index_Counter_1_PERIOD_LSB_PTR,(uint16)period);
+ 419:Generated_Source\PSoC4/Index_Counter_1.c ****     #else
+ 420:Generated_Source\PSoC4/Index_Counter_1.c ****         CY_SET_REG8(Index_Counter_1_PERIOD_LSB_PTR, period);
+ 287              		.loc 1 420 0
+ 288 0000 014B     		ldr	r3, .L29
+ 289 0002 1870     		strb	r0, [r3]
+ 421:Generated_Source\PSoC4/Index_Counter_1.c ****     #endif /* (Index_Counter_1_UsingFixedFunction) */
+ 422:Generated_Source\PSoC4/Index_Counter_1.c **** }
+ 290              		.loc 1 422 0
+ 291              		@ sp needed
+ 292 0004 7047     		bx	lr
+ 293              	.L30:
+ 294 0006 C046     		.align	2
+ 295              	.L29:
+ 296 0008 23000F40 		.word	1074724899
+ 297              		.cfi_endproc
+ 298              	.LFE11:
+ 299              		.size	Index_Counter_1_WritePeriod, .-Index_Counter_1_WritePeriod
+ 300              		.section	.text.Index_Counter_1_ReadPeriod,"ax",%progbits
+ 301              		.align	2
+ 302              		.global	Index_Counter_1_ReadPeriod
+ 303              		.code	16
+ 304              		.thumb_func
+ 305              		.type	Index_Counter_1_ReadPeriod, %function
+ 306              	Index_Counter_1_ReadPeriod:
+ 307              	.LFB12:
+ 423:Generated_Source\PSoC4/Index_Counter_1.c **** 
+ 424:Generated_Source\PSoC4/Index_Counter_1.c **** 
+ 425:Generated_Source\PSoC4/Index_Counter_1.c **** /*******************************************************************************
+ 426:Generated_Source\PSoC4/Index_Counter_1.c **** * Function Name: Index_Counter_1_ReadPeriod
+ 427:Generated_Source\PSoC4/Index_Counter_1.c **** ********************************************************************************
+ 428:Generated_Source\PSoC4/Index_Counter_1.c **** * Summary:
+ 429:Generated_Source\PSoC4/Index_Counter_1.c **** * Reads the current period value without affecting counter operation.
+ 430:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 431:Generated_Source\PSoC4/Index_Counter_1.c **** * Parameters:  
+ 432:Generated_Source\PSoC4/Index_Counter_1.c **** *  void:  
+ 433:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 434:Generated_Source\PSoC4/Index_Counter_1.c **** * Return: 
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccr4wXPf.s 			page 14
+
+
+ 435:Generated_Source\PSoC4/Index_Counter_1.c **** *  (uint8) Present period value.
+ 436:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 437:Generated_Source\PSoC4/Index_Counter_1.c **** *******************************************************************************/
+ 438:Generated_Source\PSoC4/Index_Counter_1.c **** uint8 Index_Counter_1_ReadPeriod(void) 
+ 439:Generated_Source\PSoC4/Index_Counter_1.c **** {
+ 308              		.loc 1 439 0
+ 309              		.cfi_startproc
+ 310              		@ args = 0, pretend = 0, frame = 0
+ 311              		@ frame_needed = 0, uses_anonymous_args = 0
+ 312              		@ link register save eliminated.
+ 440:Generated_Source\PSoC4/Index_Counter_1.c ****     #if(Index_Counter_1_UsingFixedFunction)
+ 441:Generated_Source\PSoC4/Index_Counter_1.c ****         return ((uint8)CY_GET_REG16(Index_Counter_1_PERIOD_LSB_PTR));
+ 442:Generated_Source\PSoC4/Index_Counter_1.c ****     #else
+ 443:Generated_Source\PSoC4/Index_Counter_1.c ****         return (CY_GET_REG8(Index_Counter_1_PERIOD_LSB_PTR));
+ 313              		.loc 1 443 0
+ 314 0000 014B     		ldr	r3, .L32
+ 315 0002 1878     		ldrb	r0, [r3]
+ 316 0004 C0B2     		uxtb	r0, r0
+ 444:Generated_Source\PSoC4/Index_Counter_1.c ****     #endif /* (Index_Counter_1_UsingFixedFunction) */
+ 445:Generated_Source\PSoC4/Index_Counter_1.c **** }
+ 317              		.loc 1 445 0
+ 318              		@ sp needed
+ 319 0006 7047     		bx	lr
+ 320              	.L33:
+ 321              		.align	2
+ 322              	.L32:
+ 323 0008 23000F40 		.word	1074724899
+ 324              		.cfi_endproc
+ 325              	.LFE12:
+ 326              		.size	Index_Counter_1_ReadPeriod, .-Index_Counter_1_ReadPeriod
+ 327              		.section	.text.Index_Counter_1_WriteCompare,"ax",%progbits
+ 328              		.align	2
+ 329              		.global	Index_Counter_1_WriteCompare
+ 330              		.code	16
+ 331              		.thumb_func
+ 332              		.type	Index_Counter_1_WriteCompare, %function
+ 333              	Index_Counter_1_WriteCompare:
+ 334              	.LFB13:
+ 446:Generated_Source\PSoC4/Index_Counter_1.c **** 
+ 447:Generated_Source\PSoC4/Index_Counter_1.c **** 
+ 448:Generated_Source\PSoC4/Index_Counter_1.c **** #if (!Index_Counter_1_UsingFixedFunction)
+ 449:Generated_Source\PSoC4/Index_Counter_1.c **** /*******************************************************************************
+ 450:Generated_Source\PSoC4/Index_Counter_1.c **** * Function Name: Index_Counter_1_WriteCompare
+ 451:Generated_Source\PSoC4/Index_Counter_1.c **** ********************************************************************************
+ 452:Generated_Source\PSoC4/Index_Counter_1.c **** * Summary:
+ 453:Generated_Source\PSoC4/Index_Counter_1.c **** * Changes the compare value.  The compare output will 
+ 454:Generated_Source\PSoC4/Index_Counter_1.c **** * reflect the new value on the next UDB clock.  The compare output will be 
+ 455:Generated_Source\PSoC4/Index_Counter_1.c **** * driven high when the present counter value compares true based on the 
+ 456:Generated_Source\PSoC4/Index_Counter_1.c **** * configured compare mode setting. 
+ 457:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 458:Generated_Source\PSoC4/Index_Counter_1.c **** * Parameters:  
+ 459:Generated_Source\PSoC4/Index_Counter_1.c **** *  Compare:  New compare value. 
+ 460:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 461:Generated_Source\PSoC4/Index_Counter_1.c **** * Return: 
+ 462:Generated_Source\PSoC4/Index_Counter_1.c **** *  void
+ 463:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 464:Generated_Source\PSoC4/Index_Counter_1.c **** *******************************************************************************/
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccr4wXPf.s 			page 15
+
+
+ 465:Generated_Source\PSoC4/Index_Counter_1.c **** void Index_Counter_1_WriteCompare(uint8 compare) \
+ 466:Generated_Source\PSoC4/Index_Counter_1.c ****                                    
+ 467:Generated_Source\PSoC4/Index_Counter_1.c **** {
+ 335              		.loc 1 467 0
+ 336              		.cfi_startproc
+ 337              		@ args = 0, pretend = 0, frame = 0
+ 338              		@ frame_needed = 0, uses_anonymous_args = 0
+ 339              		@ link register save eliminated.
+ 340              	.LVL4:
+ 468:Generated_Source\PSoC4/Index_Counter_1.c ****     #if(Index_Counter_1_UsingFixedFunction)
+ 469:Generated_Source\PSoC4/Index_Counter_1.c ****         CY_SET_REG16(Index_Counter_1_COMPARE_LSB_PTR, (uint16)compare);
+ 470:Generated_Source\PSoC4/Index_Counter_1.c ****     #else
+ 471:Generated_Source\PSoC4/Index_Counter_1.c ****         CY_SET_REG8(Index_Counter_1_COMPARE_LSB_PTR, compare);
+ 341              		.loc 1 471 0
+ 342 0000 014B     		ldr	r3, .L35
+ 343 0002 1870     		strb	r0, [r3]
+ 472:Generated_Source\PSoC4/Index_Counter_1.c ****     #endif /* (Index_Counter_1_UsingFixedFunction) */
+ 473:Generated_Source\PSoC4/Index_Counter_1.c **** }
+ 344              		.loc 1 473 0
+ 345              		@ sp needed
+ 346 0004 7047     		bx	lr
+ 347              	.L36:
+ 348 0006 C046     		.align	2
+ 349              	.L35:
+ 350 0008 33000F40 		.word	1074724915
+ 351              		.cfi_endproc
+ 352              	.LFE13:
+ 353              		.size	Index_Counter_1_WriteCompare, .-Index_Counter_1_WriteCompare
+ 354              		.section	.text.Index_Counter_1_ReadCompare,"ax",%progbits
+ 355              		.align	2
+ 356              		.global	Index_Counter_1_ReadCompare
+ 357              		.code	16
+ 358              		.thumb_func
+ 359              		.type	Index_Counter_1_ReadCompare, %function
+ 360              	Index_Counter_1_ReadCompare:
+ 361              	.LFB14:
+ 474:Generated_Source\PSoC4/Index_Counter_1.c **** 
+ 475:Generated_Source\PSoC4/Index_Counter_1.c **** 
+ 476:Generated_Source\PSoC4/Index_Counter_1.c **** /*******************************************************************************
+ 477:Generated_Source\PSoC4/Index_Counter_1.c **** * Function Name: Index_Counter_1_ReadCompare
+ 478:Generated_Source\PSoC4/Index_Counter_1.c **** ********************************************************************************
+ 479:Generated_Source\PSoC4/Index_Counter_1.c **** * Summary:
+ 480:Generated_Source\PSoC4/Index_Counter_1.c **** * Returns the compare value.
+ 481:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 482:Generated_Source\PSoC4/Index_Counter_1.c **** * Parameters:  
+ 483:Generated_Source\PSoC4/Index_Counter_1.c **** *  void:
+ 484:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 485:Generated_Source\PSoC4/Index_Counter_1.c **** * Return: 
+ 486:Generated_Source\PSoC4/Index_Counter_1.c **** *  (uint8) Present compare value.
+ 487:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 488:Generated_Source\PSoC4/Index_Counter_1.c **** *******************************************************************************/
+ 489:Generated_Source\PSoC4/Index_Counter_1.c **** uint8 Index_Counter_1_ReadCompare(void) 
+ 490:Generated_Source\PSoC4/Index_Counter_1.c **** {
+ 362              		.loc 1 490 0
+ 363              		.cfi_startproc
+ 364              		@ args = 0, pretend = 0, frame = 0
+ 365              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccr4wXPf.s 			page 16
+
+
+ 366              		@ link register save eliminated.
+ 491:Generated_Source\PSoC4/Index_Counter_1.c ****     return (CY_GET_REG8(Index_Counter_1_COMPARE_LSB_PTR));
+ 367              		.loc 1 491 0
+ 368 0000 014B     		ldr	r3, .L38
+ 369 0002 1878     		ldrb	r0, [r3]
+ 370 0004 C0B2     		uxtb	r0, r0
+ 492:Generated_Source\PSoC4/Index_Counter_1.c **** }
+ 371              		.loc 1 492 0
+ 372              		@ sp needed
+ 373 0006 7047     		bx	lr
+ 374              	.L39:
+ 375              		.align	2
+ 376              	.L38:
+ 377 0008 33000F40 		.word	1074724915
+ 378              		.cfi_endproc
+ 379              	.LFE14:
+ 380              		.size	Index_Counter_1_ReadCompare, .-Index_Counter_1_ReadCompare
+ 381              		.section	.text.Index_Counter_1_ClearFIFO,"ax",%progbits
+ 382              		.align	2
+ 383              		.global	Index_Counter_1_ClearFIFO
+ 384              		.code	16
+ 385              		.thumb_func
+ 386              		.type	Index_Counter_1_ClearFIFO, %function
+ 387              	Index_Counter_1_ClearFIFO:
+ 388              	.LFB15:
+ 493:Generated_Source\PSoC4/Index_Counter_1.c **** 
+ 494:Generated_Source\PSoC4/Index_Counter_1.c **** 
+ 495:Generated_Source\PSoC4/Index_Counter_1.c **** #if (Index_Counter_1_COMPARE_MODE_SOFTWARE)
+ 496:Generated_Source\PSoC4/Index_Counter_1.c **** /*******************************************************************************
+ 497:Generated_Source\PSoC4/Index_Counter_1.c **** * Function Name: Index_Counter_1_SetCompareMode
+ 498:Generated_Source\PSoC4/Index_Counter_1.c **** ********************************************************************************
+ 499:Generated_Source\PSoC4/Index_Counter_1.c **** * Summary:
+ 500:Generated_Source\PSoC4/Index_Counter_1.c **** *  Sets the software controlled Compare Mode.
+ 501:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 502:Generated_Source\PSoC4/Index_Counter_1.c **** * Parameters:
+ 503:Generated_Source\PSoC4/Index_Counter_1.c **** *  compareMode:  Compare Mode Enumerated Type.
+ 504:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 505:Generated_Source\PSoC4/Index_Counter_1.c **** * Return:
+ 506:Generated_Source\PSoC4/Index_Counter_1.c **** *  void
+ 507:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 508:Generated_Source\PSoC4/Index_Counter_1.c **** *******************************************************************************/
+ 509:Generated_Source\PSoC4/Index_Counter_1.c **** void Index_Counter_1_SetCompareMode(uint8 compareMode) 
+ 510:Generated_Source\PSoC4/Index_Counter_1.c **** {
+ 511:Generated_Source\PSoC4/Index_Counter_1.c ****     /* Clear the compare mode bits in the control register */
+ 512:Generated_Source\PSoC4/Index_Counter_1.c ****     Index_Counter_1_CONTROL &= ((uint8)(~Index_Counter_1_CTRL_CMPMODE_MASK));
+ 513:Generated_Source\PSoC4/Index_Counter_1.c ****     
+ 514:Generated_Source\PSoC4/Index_Counter_1.c ****     /* Write the new setting */
+ 515:Generated_Source\PSoC4/Index_Counter_1.c ****     Index_Counter_1_CONTROL |= compareMode;
+ 516:Generated_Source\PSoC4/Index_Counter_1.c **** }
+ 517:Generated_Source\PSoC4/Index_Counter_1.c **** #endif  /* (Index_Counter_1_COMPARE_MODE_SOFTWARE) */
+ 518:Generated_Source\PSoC4/Index_Counter_1.c **** 
+ 519:Generated_Source\PSoC4/Index_Counter_1.c **** 
+ 520:Generated_Source\PSoC4/Index_Counter_1.c **** #if (Index_Counter_1_CAPTURE_MODE_SOFTWARE)
+ 521:Generated_Source\PSoC4/Index_Counter_1.c **** /*******************************************************************************
+ 522:Generated_Source\PSoC4/Index_Counter_1.c **** * Function Name: Index_Counter_1_SetCaptureMode
+ 523:Generated_Source\PSoC4/Index_Counter_1.c **** ********************************************************************************
+ 524:Generated_Source\PSoC4/Index_Counter_1.c **** * Summary:
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccr4wXPf.s 			page 17
+
+
+ 525:Generated_Source\PSoC4/Index_Counter_1.c **** *  Sets the software controlled Capture Mode.
+ 526:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 527:Generated_Source\PSoC4/Index_Counter_1.c **** * Parameters:
+ 528:Generated_Source\PSoC4/Index_Counter_1.c **** *  captureMode:  Capture Mode Enumerated Type.
+ 529:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 530:Generated_Source\PSoC4/Index_Counter_1.c **** * Return:
+ 531:Generated_Source\PSoC4/Index_Counter_1.c **** *  void
+ 532:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 533:Generated_Source\PSoC4/Index_Counter_1.c **** *******************************************************************************/
+ 534:Generated_Source\PSoC4/Index_Counter_1.c **** void Index_Counter_1_SetCaptureMode(uint8 captureMode) 
+ 535:Generated_Source\PSoC4/Index_Counter_1.c **** {
+ 536:Generated_Source\PSoC4/Index_Counter_1.c ****     /* Clear the capture mode bits in the control register */
+ 537:Generated_Source\PSoC4/Index_Counter_1.c ****     Index_Counter_1_CONTROL &= ((uint8)(~Index_Counter_1_CTRL_CAPMODE_MASK));
+ 538:Generated_Source\PSoC4/Index_Counter_1.c ****     
+ 539:Generated_Source\PSoC4/Index_Counter_1.c ****     /* Write the new setting */
+ 540:Generated_Source\PSoC4/Index_Counter_1.c ****     Index_Counter_1_CONTROL |= ((uint8)((uint8)captureMode << Index_Counter_1_CTRL_CAPMODE0_SHIFT))
+ 541:Generated_Source\PSoC4/Index_Counter_1.c **** }
+ 542:Generated_Source\PSoC4/Index_Counter_1.c **** #endif  /* (Index_Counter_1_CAPTURE_MODE_SOFTWARE) */
+ 543:Generated_Source\PSoC4/Index_Counter_1.c **** 
+ 544:Generated_Source\PSoC4/Index_Counter_1.c **** 
+ 545:Generated_Source\PSoC4/Index_Counter_1.c **** /*******************************************************************************
+ 546:Generated_Source\PSoC4/Index_Counter_1.c **** * Function Name: Index_Counter_1_ClearFIFO
+ 547:Generated_Source\PSoC4/Index_Counter_1.c **** ********************************************************************************
+ 548:Generated_Source\PSoC4/Index_Counter_1.c **** * Summary:
+ 549:Generated_Source\PSoC4/Index_Counter_1.c **** *   This function clears all capture data from the capture FIFO
+ 550:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 551:Generated_Source\PSoC4/Index_Counter_1.c **** * Parameters:  
+ 552:Generated_Source\PSoC4/Index_Counter_1.c **** *  void:
+ 553:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 554:Generated_Source\PSoC4/Index_Counter_1.c **** * Return: 
+ 555:Generated_Source\PSoC4/Index_Counter_1.c **** *  None
+ 556:Generated_Source\PSoC4/Index_Counter_1.c **** *
+ 557:Generated_Source\PSoC4/Index_Counter_1.c **** *******************************************************************************/
+ 558:Generated_Source\PSoC4/Index_Counter_1.c **** void Index_Counter_1_ClearFIFO(void) 
+ 559:Generated_Source\PSoC4/Index_Counter_1.c **** {
+ 389              		.loc 1 559 0
+ 390              		.cfi_startproc
+ 391              		@ args = 0, pretend = 0, frame = 0
+ 392              		@ frame_needed = 0, uses_anonymous_args = 0
+ 393 0000 10B5     		push	{r4, lr}
+ 394              		.cfi_def_cfa_offset 8
+ 395              		.cfi_offset 4, -8
+ 396              		.cfi_offset 14, -4
+ 560:Generated_Source\PSoC4/Index_Counter_1.c **** 
+ 561:Generated_Source\PSoC4/Index_Counter_1.c ****     while(0u != (Index_Counter_1_ReadStatusRegister() & Index_Counter_1_STATUS_FIFONEMP))
+ 397              		.loc 1 561 0
+ 398 0002 01E0     		b	.L41
+ 399              	.L42:
+ 562:Generated_Source\PSoC4/Index_Counter_1.c ****     {
+ 563:Generated_Source\PSoC4/Index_Counter_1.c ****         (void)Index_Counter_1_ReadCapture();
+ 400              		.loc 1 563 0
+ 401 0004 FFF7FEFF 		bl	Index_Counter_1_ReadCapture
+ 402              	.LVL5:
+ 403              	.L41:
+ 561:Generated_Source\PSoC4/Index_Counter_1.c ****     {
+ 404              		.loc 1 561 0
+ 405 0008 FFF7FEFF 		bl	Index_Counter_1_ReadStatusRegister
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccr4wXPf.s 			page 18
+
+
+ 406              	.LVL6:
+ 407 000c 4306     		lsls	r3, r0, #25
+ 408 000e F9D4     		bmi	.L42
+ 564:Generated_Source\PSoC4/Index_Counter_1.c ****     }
+ 565:Generated_Source\PSoC4/Index_Counter_1.c **** 
+ 566:Generated_Source\PSoC4/Index_Counter_1.c **** }
+ 409              		.loc 1 566 0
+ 410              		@ sp needed
+ 411 0010 10BD     		pop	{r4, pc}
+ 412              		.cfi_endproc
+ 413              	.LFE15:
+ 414              		.size	Index_Counter_1_ClearFIFO, .-Index_Counter_1_ClearFIFO
+ 415 0012 C046     		.section	.text.Index_Counter_1_Init,"ax",%progbits
+ 416              		.align	2
+ 417              		.global	Index_Counter_1_Init
+ 418              		.code	16
+ 419              		.thumb_func
+ 420              		.type	Index_Counter_1_Init, %function
+ 421              	Index_Counter_1_Init:
+ 422              	.LFB0:
+  38:Generated_Source\PSoC4/Index_Counter_1.c ****         #if (!Index_Counter_1_UsingFixedFunction && !Index_Counter_1_ControlRegRemoved)
+ 423              		.loc 1 38 0
+ 424              		.cfi_startproc
+ 425              		@ args = 0, pretend = 0, frame = 0
+ 426              		@ frame_needed = 0, uses_anonymous_args = 0
+ 427 0000 10B5     		push	{r4, lr}
+ 428              		.cfi_def_cfa_offset 8
+ 429              		.cfi_offset 4, -8
+ 430              		.cfi_offset 14, -4
+  79:Generated_Source\PSoC4/Index_Counter_1.c ****             Index_Counter_1_CONTROL = ctrl | Index_Counter_1_DEFAULT_COMPARE_MODE;
+ 431              		.loc 1 79 0
+ 432 0002 1349     		ldr	r1, .L44
+ 433 0004 0B78     		ldrb	r3, [r1]
+ 434 0006 0722     		movs	r2, #7
+ 435 0008 9343     		bics	r3, r2
+ 436              	.LVL7:
+  80:Generated_Source\PSoC4/Index_Counter_1.c ****             
+ 437              		.loc 1 80 0
+ 438 000a 0122     		movs	r2, #1
+ 439 000c 1343     		orrs	r3, r2
+ 440              	.LVL8:
+ 441 000e DBB2     		uxtb	r3, r3
+ 442 0010 0B70     		strb	r3, [r1]
+  83:Generated_Source\PSoC4/Index_Counter_1.c ****             
+ 443              		.loc 1 83 0
+ 444 0012 0B78     		ldrb	r3, [r1]
+ 445 0014 0322     		movs	r2, #3
+ 446 0016 9343     		bics	r3, r2
+ 447              	.LVL9:
+  88:Generated_Source\PSoC4/Index_Counter_1.c ****             #endif /* 0 != Index_Counter_1_CAPTURE_MODE */ 
+ 448              		.loc 1 88 0
+ 449 0018 0B70     		strb	r3, [r1]
+  96:Generated_Source\PSoC4/Index_Counter_1.c ****         #endif /* (!Index_Counter_1_UsingFixedFunction) */
+ 450              		.loc 1 96 0
+ 451 001a FFF7FEFF 		bl	Index_Counter_1_ClearFIFO
+ 452              	.LVL10:
+ 100:Generated_Source\PSoC4/Index_Counter_1.c ****         #if (!(Index_Counter_1_UsingFixedFunction && (CY_PSOC5A)))
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccr4wXPf.s 			page 19
+
+
+ 453              		.loc 1 100 0
+ 454 001e FE20     		movs	r0, #254
+ 455 0020 FFF7FEFF 		bl	Index_Counter_1_WritePeriod
+ 456              	.LVL11:
+ 102:Generated_Source\PSoC4/Index_Counter_1.c ****         #endif /* (!(Index_Counter_1_UsingFixedFunction && (CY_PSOC5A))) */
+ 457              		.loc 1 102 0
+ 458 0024 0020     		movs	r0, #0
+ 459 0026 FFF7FEFF 		bl	Index_Counter_1_WriteCounter
+ 460              	.LVL12:
+ 104:Generated_Source\PSoC4/Index_Counter_1.c ****         
+ 461              		.loc 1 104 0
+ 462 002a 0020     		movs	r0, #0
+ 463 002c FFF7FEFF 		bl	Index_Counter_1_SetInterruptMode
+ 464              	.LVL13:
+ 108:Generated_Source\PSoC4/Index_Counter_1.c ****             /* Set the compare value (only available to non-fixed function implementation */
+ 465              		.loc 1 108 0
+ 466 0030 FFF7FEFF 		bl	Index_Counter_1_ReadStatusRegister
+ 467              	.LVL14:
+ 110:Generated_Source\PSoC4/Index_Counter_1.c ****             /* Use the interrupt output of the status register for IRQ output */
+ 468              		.loc 1 110 0
+ 469 0034 8020     		movs	r0, #128
+ 470 0036 FFF7FEFF 		bl	Index_Counter_1_WriteCompare
+ 471              	.LVL15:
+ 115:Generated_Source\PSoC4/Index_Counter_1.c ****             
+ 472              		.loc 1 115 0
+ 473 003a FFF7FEFF 		bl	CyEnterCriticalSection
+ 474              	.LVL16:
+ 117:Generated_Source\PSoC4/Index_Counter_1.c ****             
+ 475              		.loc 1 117 0
+ 476 003e 054A     		ldr	r2, .L44+4
+ 477 0040 1178     		ldrb	r1, [r2]
+ 478 0042 1023     		movs	r3, #16
+ 479 0044 0B43     		orrs	r3, r1
+ 480 0046 DBB2     		uxtb	r3, r3
+ 481 0048 1370     		strb	r3, [r2]
+ 120:Generated_Source\PSoC4/Index_Counter_1.c ****             
+ 482              		.loc 1 120 0
+ 483 004a FFF7FEFF 		bl	CyExitCriticalSection
+ 484              	.LVL17:
+ 123:Generated_Source\PSoC4/Index_Counter_1.c **** 
+ 485              		.loc 1 123 0
+ 486              		@ sp needed
+ 487 004e 10BD     		pop	{r4, pc}
+ 488              	.L45:
+ 489              		.align	2
+ 490              	.L44:
+ 491 0050 72000F40 		.word	1074724978
+ 492 0054 90000F40 		.word	1074725008
+ 493              		.cfi_endproc
+ 494              	.LFE0:
+ 495              		.size	Index_Counter_1_Init, .-Index_Counter_1_Init
+ 496              		.section	.text.Index_Counter_1_Start,"ax",%progbits
+ 497              		.align	2
+ 498              		.global	Index_Counter_1_Start
+ 499              		.code	16
+ 500              		.thumb_func
+ 501              		.type	Index_Counter_1_Start, %function
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccr4wXPf.s 			page 20
+
+
+ 502              	Index_Counter_1_Start:
+ 503              	.LFB2:
+ 179:Generated_Source\PSoC4/Index_Counter_1.c ****     if(Index_Counter_1_initVar == 0u)
+ 504              		.loc 1 179 0
+ 505              		.cfi_startproc
+ 506              		@ args = 0, pretend = 0, frame = 0
+ 507              		@ frame_needed = 0, uses_anonymous_args = 0
+ 508 0000 10B5     		push	{r4, lr}
+ 509              		.cfi_def_cfa_offset 8
+ 510              		.cfi_offset 4, -8
+ 511              		.cfi_offset 14, -4
+ 180:Generated_Source\PSoC4/Index_Counter_1.c ****     {
+ 512              		.loc 1 180 0
+ 513 0002 064B     		ldr	r3, .L48
+ 514 0004 1B78     		ldrb	r3, [r3]
+ 515 0006 002B     		cmp	r3, #0
+ 516 0008 04D1     		bne	.L47
+ 182:Generated_Source\PSoC4/Index_Counter_1.c ****         
+ 517              		.loc 1 182 0
+ 518 000a FFF7FEFF 		bl	Index_Counter_1_Init
+ 519              	.LVL18:
+ 184:Generated_Source\PSoC4/Index_Counter_1.c ****     }
+ 520              		.loc 1 184 0
+ 521 000e 0122     		movs	r2, #1
+ 522 0010 024B     		ldr	r3, .L48
+ 523 0012 1A70     		strb	r2, [r3]
+ 524              	.L47:
+ 188:Generated_Source\PSoC4/Index_Counter_1.c **** }
+ 525              		.loc 1 188 0
+ 526 0014 FFF7FEFF 		bl	Index_Counter_1_Enable
+ 527              	.LVL19:
+ 189:Generated_Source\PSoC4/Index_Counter_1.c **** 
+ 528              		.loc 1 189 0
+ 529              		@ sp needed
+ 530 0018 10BD     		pop	{r4, pc}
+ 531              	.L49:
+ 532 001a C046     		.align	2
+ 533              	.L48:
+ 534 001c 00000000 		.word	.LANCHOR0
+ 535              		.cfi_endproc
+ 536              	.LFE2:
+ 537              		.size	Index_Counter_1_Start, .-Index_Counter_1_Start
+ 538              		.global	Index_Counter_1_initVar
+ 539              		.bss
+ 540              		.set	.LANCHOR0,. + 0
+ 541              		.type	Index_Counter_1_initVar, %object
+ 542              		.size	Index_Counter_1_initVar, 1
+ 543              	Index_Counter_1_initVar:
+ 544 0000 00       		.space	1
+ 545              		.text
+ 546              	.Letext0:
+ 547              		.file 2 "Generated_Source\\PSoC4\\cytypes.h"
+ 548              		.file 3 "Generated_Source\\PSoC4\\CyLib.h"
+ 549              		.section	.debug_info,"",%progbits
+ 550              	.Ldebug_info0:
+ 551 0000 23030000 		.4byte	0x323
+ 552 0004 0400     		.2byte	0x4
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccr4wXPf.s 			page 21
+
+
+ 553 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 554 000a 04       		.byte	0x4
+ 555 000b 01       		.uleb128 0x1
+ 556 000c 01020000 		.4byte	.LASF41
+ 557 0010 0C       		.byte	0xc
+ 558 0011 10030000 		.4byte	.LASF42
+ 559 0015 EA000000 		.4byte	.LASF43
+ 560 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 561 001d 00000000 		.4byte	0
+ 562 0021 00000000 		.4byte	.Ldebug_line0
+ 563 0025 02       		.uleb128 0x2
+ 564 0026 01       		.byte	0x1
+ 565 0027 06       		.byte	0x6
+ 566 0028 AD030000 		.4byte	.LASF0
+ 567 002c 02       		.uleb128 0x2
+ 568 002d 01       		.byte	0x1
+ 569 002e 08       		.byte	0x8
+ 570 002f 2B010000 		.4byte	.LASF1
+ 571 0033 02       		.uleb128 0x2
+ 572 0034 02       		.byte	0x2
+ 573 0035 05       		.byte	0x5
+ 574 0036 39030000 		.4byte	.LASF2
+ 575 003a 02       		.uleb128 0x2
+ 576 003b 02       		.byte	0x2
+ 577 003c 07       		.byte	0x7
+ 578 003d 64000000 		.4byte	.LASF3
+ 579 0041 02       		.uleb128 0x2
+ 580 0042 04       		.byte	0x4
+ 581 0043 05       		.byte	0x5
+ 582 0044 7D030000 		.4byte	.LASF4
+ 583 0048 02       		.uleb128 0x2
+ 584 0049 04       		.byte	0x4
+ 585 004a 07       		.byte	0x7
+ 586 004b D2000000 		.4byte	.LASF5
+ 587 004f 02       		.uleb128 0x2
+ 588 0050 08       		.byte	0x8
+ 589 0051 05       		.byte	0x5
+ 590 0052 DA020000 		.4byte	.LASF6
+ 591 0056 02       		.uleb128 0x2
+ 592 0057 08       		.byte	0x8
+ 593 0058 07       		.byte	0x7
+ 594 0059 A1000000 		.4byte	.LASF7
+ 595 005d 03       		.uleb128 0x3
+ 596 005e 04       		.byte	0x4
+ 597 005f 05       		.byte	0x5
+ 598 0060 696E7400 		.ascii	"int\000"
+ 599 0064 02       		.uleb128 0x2
+ 600 0065 04       		.byte	0x4
+ 601 0066 07       		.byte	0x7
+ 602 0067 AA010000 		.4byte	.LASF8
+ 603 006b 04       		.uleb128 0x4
+ 604 006c E4000000 		.4byte	.LASF12
+ 605 0070 02       		.byte	0x2
+ 606 0071 E401     		.2byte	0x1e4
+ 607 0073 2C000000 		.4byte	0x2c
+ 608 0077 02       		.uleb128 0x2
+ 609 0078 04       		.byte	0x4
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccr4wXPf.s 			page 22
+
+
+ 610 0079 04       		.byte	0x4
+ 611 007a 93000000 		.4byte	.LASF9
+ 612 007e 02       		.uleb128 0x2
+ 613 007f 08       		.byte	0x8
+ 614 0080 04       		.byte	0x4
+ 615 0081 39010000 		.4byte	.LASF10
+ 616 0085 02       		.uleb128 0x2
+ 617 0086 01       		.byte	0x1
+ 618 0087 08       		.byte	0x8
+ 619 0088 0B030000 		.4byte	.LASF11
+ 620 008c 04       		.uleb128 0x4
+ 621 008d CD000000 		.4byte	.LASF13
+ 622 0091 02       		.byte	0x2
+ 623 0092 8E02     		.2byte	0x28e
+ 624 0094 98000000 		.4byte	0x98
+ 625 0098 05       		.uleb128 0x5
+ 626 0099 6B000000 		.4byte	0x6b
+ 627 009d 02       		.uleb128 0x2
+ 628 009e 08       		.byte	0x8
+ 629 009f 04       		.byte	0x4
+ 630 00a0 A1030000 		.4byte	.LASF14
+ 631 00a4 02       		.uleb128 0x2
+ 632 00a5 04       		.byte	0x4
+ 633 00a6 07       		.byte	0x7
+ 634 00a7 D1020000 		.4byte	.LASF15
+ 635 00ab 06       		.uleb128 0x6
+ 636 00ac C1030000 		.4byte	.LASF16
+ 637 00b0 01       		.byte	0x1
+ 638 00b1 8F       		.byte	0x8f
+ 639 00b2 00000000 		.4byte	.LFB1
+ 640 00b6 14000000 		.4byte	.LFE1-.LFB1
+ 641 00ba 01       		.uleb128 0x1
+ 642 00bb 9C       		.byte	0x9c
+ 643 00bc 06       		.uleb128 0x6
+ 644 00bd EC010000 		.4byte	.LASF17
+ 645 00c1 01       		.byte	0x1
+ 646 00c2 D0       		.byte	0xd0
+ 647 00c3 00000000 		.4byte	.LFB3
+ 648 00c7 10000000 		.4byte	.LFE3-.LFB3
+ 649 00cb 01       		.uleb128 0x1
+ 650 00cc 9C       		.byte	0x9c
+ 651 00cd 07       		.uleb128 0x7
+ 652 00ce D8030000 		.4byte	.LASF20
+ 653 00d2 01       		.byte	0x1
+ 654 00d3 ED       		.byte	0xed
+ 655 00d4 00000000 		.4byte	.LFB4
+ 656 00d8 0C000000 		.4byte	.LFE4-.LFB4
+ 657 00dc 01       		.uleb128 0x1
+ 658 00dd 9C       		.byte	0x9c
+ 659 00de F0000000 		.4byte	0xf0
+ 660 00e2 08       		.uleb128 0x8
+ 661 00e3 1C010000 		.4byte	.LASF22
+ 662 00e7 01       		.byte	0x1
+ 663 00e8 ED       		.byte	0xed
+ 664 00e9 6B000000 		.4byte	0x6b
+ 665 00ed 01       		.uleb128 0x1
+ 666 00ee 50       		.byte	0x50
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccr4wXPf.s 			page 23
+
+
+ 667 00ef 00       		.byte	0
+ 668 00f0 09       		.uleb128 0x9
+ 669 00f1 E8020000 		.4byte	.LASF18
+ 670 00f5 01       		.byte	0x1
+ 671 00f6 0501     		.2byte	0x105
+ 672 00f8 6B000000 		.4byte	0x6b
+ 673 00fc 00000000 		.4byte	.LFB5
+ 674 0100 0C000000 		.4byte	.LFE5-.LFB5
+ 675 0104 01       		.uleb128 0x1
+ 676 0105 9C       		.byte	0x9c
+ 677 0106 09       		.uleb128 0x9
+ 678 0107 1C000000 		.4byte	.LASF19
+ 679 010b 01       		.byte	0x1
+ 680 010c 1B01     		.2byte	0x11b
+ 681 010e 6B000000 		.4byte	0x6b
+ 682 0112 00000000 		.4byte	.LFB6
+ 683 0116 0C000000 		.4byte	.LFE6-.LFB6
+ 684 011a 01       		.uleb128 0x1
+ 685 011b 9C       		.byte	0x9c
+ 686 011c 0A       		.uleb128 0xa
+ 687 011d 94020000 		.4byte	.LASF21
+ 688 0121 01       		.byte	0x1
+ 689 0122 3001     		.2byte	0x130
+ 690 0124 00000000 		.4byte	.LFB7
+ 691 0128 0C000000 		.4byte	.LFE7-.LFB7
+ 692 012c 01       		.uleb128 0x1
+ 693 012d 9C       		.byte	0x9c
+ 694 012e 41010000 		.4byte	0x141
+ 695 0132 0B       		.uleb128 0xb
+ 696 0133 75030000 		.4byte	.LASF23
+ 697 0137 01       		.byte	0x1
+ 698 0138 3001     		.2byte	0x130
+ 699 013a 6B000000 		.4byte	0x6b
+ 700 013e 01       		.uleb128 0x1
+ 701 013f 50       		.byte	0x50
+ 702 0140 00       		.byte	0
+ 703 0141 0A       		.uleb128 0xa
+ 704 0142 5C010000 		.4byte	.LASF24
+ 705 0146 01       		.byte	0x1
+ 706 0147 4601     		.2byte	0x146
+ 707 0149 00000000 		.4byte	.LFB8
+ 708 014d 0C000000 		.4byte	.LFE8-.LFB8
+ 709 0151 01       		.uleb128 0x1
+ 710 0152 9C       		.byte	0x9c
+ 711 0153 66010000 		.4byte	0x166
+ 712 0157 0B       		.uleb128 0xb
+ 713 0158 99000000 		.4byte	.LASF25
+ 714 015c 01       		.byte	0x1
+ 715 015d 4601     		.2byte	0x146
+ 716 015f 6B000000 		.4byte	0x6b
+ 717 0163 01       		.uleb128 0x1
+ 718 0164 50       		.byte	0x50
+ 719 0165 00       		.byte	0
+ 720 0166 09       		.uleb128 0x9
+ 721 0167 59030000 		.4byte	.LASF26
+ 722 016b 01       		.byte	0x1
+ 723 016c 6501     		.2byte	0x165
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccr4wXPf.s 			page 24
+
+
+ 724 016e 6B000000 		.4byte	0x6b
+ 725 0172 00000000 		.4byte	.LFB9
+ 726 0176 14000000 		.4byte	.LFE9-.LFB9
+ 727 017a 01       		.uleb128 0x1
+ 728 017b 9C       		.byte	0x9c
+ 729 017c 09       		.uleb128 0x9
+ 730 017d 00000000 		.4byte	.LASF27
+ 731 0181 01       		.byte	0x1
+ 732 0182 8601     		.2byte	0x186
+ 733 0184 6B000000 		.4byte	0x6b
+ 734 0188 00000000 		.4byte	.LFB10
+ 735 018c 0C000000 		.4byte	.LFE10-.LFB10
+ 736 0190 01       		.uleb128 0x1
+ 737 0191 9C       		.byte	0x9c
+ 738 0192 0A       		.uleb128 0xa
+ 739 0193 77000000 		.4byte	.LASF28
+ 740 0197 01       		.byte	0x1
+ 741 0198 9F01     		.2byte	0x19f
+ 742 019a 00000000 		.4byte	.LFB11
+ 743 019e 0C000000 		.4byte	.LFE11-.LFB11
+ 744 01a2 01       		.uleb128 0x1
+ 745 01a3 9C       		.byte	0x9c
+ 746 01a4 B7010000 		.4byte	0x1b7
+ 747 01a8 0B       		.uleb128 0xb
+ 748 01a9 40000000 		.4byte	.LASF29
+ 749 01ad 01       		.byte	0x1
+ 750 01ae 9F01     		.2byte	0x19f
+ 751 01b0 6B000000 		.4byte	0x6b
+ 752 01b4 01       		.uleb128 0x1
+ 753 01b5 50       		.byte	0x50
+ 754 01b6 00       		.byte	0
+ 755 01b7 09       		.uleb128 0x9
+ 756 01b8 86030000 		.4byte	.LASF30
+ 757 01bc 01       		.byte	0x1
+ 758 01bd B601     		.2byte	0x1b6
+ 759 01bf 6B000000 		.4byte	0x6b
+ 760 01c3 00000000 		.4byte	.LFB12
+ 761 01c7 0C000000 		.4byte	.LFE12-.LFB12
+ 762 01cb 01       		.uleb128 0x1
+ 763 01cc 9C       		.byte	0x9c
+ 764 01cd 0A       		.uleb128 0xa
+ 765 01ce 47000000 		.4byte	.LASF31
+ 766 01d2 01       		.byte	0x1
+ 767 01d3 D101     		.2byte	0x1d1
+ 768 01d5 00000000 		.4byte	.LFB13
+ 769 01d9 0C000000 		.4byte	.LFE13-.LFB13
+ 770 01dd 01       		.uleb128 0x1
+ 771 01de 9C       		.byte	0x9c
+ 772 01df F2010000 		.4byte	0x1f2
+ 773 01e3 0B       		.uleb128 0xb
+ 774 01e4 B9030000 		.4byte	.LASF32
+ 775 01e8 01       		.byte	0x1
+ 776 01e9 D101     		.2byte	0x1d1
+ 777 01eb 6B000000 		.4byte	0x6b
+ 778 01ef 01       		.uleb128 0x1
+ 779 01f0 50       		.byte	0x50
+ 780 01f1 00       		.byte	0
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccr4wXPf.s 			page 25
+
+
+ 781 01f2 09       		.uleb128 0x9
+ 782 01f3 40010000 		.4byte	.LASF33
+ 783 01f7 01       		.byte	0x1
+ 784 01f8 E901     		.2byte	0x1e9
+ 785 01fa 6B000000 		.4byte	0x6b
+ 786 01fe 00000000 		.4byte	.LFB14
+ 787 0202 0C000000 		.4byte	.LFE14-.LFB14
+ 788 0206 01       		.uleb128 0x1
+ 789 0207 9C       		.byte	0x9c
+ 790 0208 0A       		.uleb128 0xa
+ 791 0209 79010000 		.4byte	.LASF34
+ 792 020d 01       		.byte	0x1
+ 793 020e 2E02     		.2byte	0x22e
+ 794 0210 00000000 		.4byte	.LFB15
+ 795 0214 12000000 		.4byte	.LFE15-.LFB15
+ 796 0218 01       		.uleb128 0x1
+ 797 0219 9C       		.byte	0x9c
+ 798 021a 31020000 		.4byte	0x231
+ 799 021e 0C       		.uleb128 0xc
+ 800 021f 08000000 		.4byte	.LVL5
+ 801 0223 7C010000 		.4byte	0x17c
+ 802 0227 0C       		.uleb128 0xc
+ 803 0228 0C000000 		.4byte	.LVL6
+ 804 022c F0000000 		.4byte	0xf0
+ 805 0230 00       		.byte	0
+ 806 0231 07       		.uleb128 0x7
+ 807 0232 B8000000 		.4byte	.LASF35
+ 808 0236 01       		.byte	0x1
+ 809 0237 25       		.byte	0x25
+ 810 0238 00000000 		.4byte	.LFB0
+ 811 023c 58000000 		.4byte	.LFE0-.LFB0
+ 812 0240 01       		.uleb128 0x1
+ 813 0241 9C       		.byte	0x9c
+ 814 0242 D7020000 		.4byte	0x2d7
+ 815 0246 0D       		.uleb128 0xd
+ 816 0247 8F020000 		.4byte	.LASF36
+ 817 024b 01       		.byte	0x1
+ 818 024c 28       		.byte	0x28
+ 819 024d 6B000000 		.4byte	0x6b
+ 820 0251 00000000 		.4byte	.LLST0
+ 821 0255 0D       		.uleb128 0xd
+ 822 0256 CD010000 		.4byte	.LASF37
+ 823 025a 01       		.byte	0x1
+ 824 025b 2D       		.byte	0x2d
+ 825 025c 6B000000 		.4byte	0x6b
+ 826 0260 1E000000 		.4byte	.LLST1
+ 827 0264 0C       		.uleb128 0xc
+ 828 0265 1E000000 		.4byte	.LVL10
+ 829 0269 08020000 		.4byte	0x208
+ 830 026d 0E       		.uleb128 0xe
+ 831 026e 24000000 		.4byte	.LVL11
+ 832 0272 92010000 		.4byte	0x192
+ 833 0276 81020000 		.4byte	0x281
+ 834 027a 0F       		.uleb128 0xf
+ 835 027b 01       		.uleb128 0x1
+ 836 027c 50       		.byte	0x50
+ 837 027d 02       		.uleb128 0x2
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccr4wXPf.s 			page 26
+
+
+ 838 027e 09       		.byte	0x9
+ 839 027f FE       		.byte	0xfe
+ 840 0280 00       		.byte	0
+ 841 0281 0E       		.uleb128 0xe
+ 842 0282 2A000000 		.4byte	.LVL12
+ 843 0286 41010000 		.4byte	0x141
+ 844 028a 94020000 		.4byte	0x294
+ 845 028e 0F       		.uleb128 0xf
+ 846 028f 01       		.uleb128 0x1
+ 847 0290 50       		.byte	0x50
+ 848 0291 01       		.uleb128 0x1
+ 849 0292 30       		.byte	0x30
+ 850 0293 00       		.byte	0
+ 851 0294 0E       		.uleb128 0xe
+ 852 0295 30000000 		.4byte	.LVL13
+ 853 0299 CD000000 		.4byte	0xcd
+ 854 029d A7020000 		.4byte	0x2a7
+ 855 02a1 0F       		.uleb128 0xf
+ 856 02a2 01       		.uleb128 0x1
+ 857 02a3 50       		.byte	0x50
+ 858 02a4 01       		.uleb128 0x1
+ 859 02a5 30       		.byte	0x30
+ 860 02a6 00       		.byte	0
+ 861 02a7 0C       		.uleb128 0xc
+ 862 02a8 34000000 		.4byte	.LVL14
+ 863 02ac F0000000 		.4byte	0xf0
+ 864 02b0 0E       		.uleb128 0xe
+ 865 02b1 3A000000 		.4byte	.LVL15
+ 866 02b5 CD010000 		.4byte	0x1cd
+ 867 02b9 C4020000 		.4byte	0x2c4
+ 868 02bd 0F       		.uleb128 0xf
+ 869 02be 01       		.uleb128 0x1
+ 870 02bf 50       		.byte	0x50
+ 871 02c0 02       		.uleb128 0x2
+ 872 02c1 09       		.byte	0x9
+ 873 02c2 80       		.byte	0x80
+ 874 02c3 00       		.byte	0
+ 875 02c4 0C       		.uleb128 0xc
+ 876 02c5 3E000000 		.4byte	.LVL16
+ 877 02c9 10030000 		.4byte	0x310
+ 878 02cd 0C       		.uleb128 0xc
+ 879 02ce 4E000000 		.4byte	.LVL17
+ 880 02d2 1B030000 		.4byte	0x31b
+ 881 02d6 00       		.byte	0
+ 882 02d7 07       		.uleb128 0x7
+ 883 02d8 43030000 		.4byte	.LASF38
+ 884 02dc 01       		.byte	0x1
+ 885 02dd B2       		.byte	0xb2
+ 886 02de 00000000 		.4byte	.LFB2
+ 887 02e2 20000000 		.4byte	.LFE2-.LFB2
+ 888 02e6 01       		.uleb128 0x1
+ 889 02e7 9C       		.byte	0x9c
+ 890 02e8 FF020000 		.4byte	0x2ff
+ 891 02ec 0C       		.uleb128 0xc
+ 892 02ed 0E000000 		.4byte	.LVL18
+ 893 02f1 31020000 		.4byte	0x231
+ 894 02f5 0C       		.uleb128 0xc
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccr4wXPf.s 			page 27
+
+
+ 895 02f6 18000000 		.4byte	.LVL19
+ 896 02fa AB000000 		.4byte	0xab
+ 897 02fe 00       		.byte	0
+ 898 02ff 10       		.uleb128 0x10
+ 899 0300 B9020000 		.4byte	.LASF44
+ 900 0304 01       		.byte	0x1
+ 901 0305 15       		.byte	0x15
+ 902 0306 6B000000 		.4byte	0x6b
+ 903 030a 05       		.uleb128 0x5
+ 904 030b 03       		.byte	0x3
+ 905 030c 00000000 		.4byte	Index_Counter_1_initVar
+ 906 0310 11       		.uleb128 0x11
+ 907 0311 93010000 		.4byte	.LASF39
+ 908 0315 93010000 		.4byte	.LASF39
+ 909 0319 03       		.byte	0x3
+ 910 031a E5       		.byte	0xe5
+ 911 031b 11       		.uleb128 0x11
+ 912 031c B7010000 		.4byte	.LASF40
+ 913 0320 B7010000 		.4byte	.LASF40
+ 914 0324 03       		.byte	0x3
+ 915 0325 E6       		.byte	0xe6
+ 916 0326 00       		.byte	0
+ 917              		.section	.debug_abbrev,"",%progbits
+ 918              	.Ldebug_abbrev0:
+ 919 0000 01       		.uleb128 0x1
+ 920 0001 11       		.uleb128 0x11
+ 921 0002 01       		.byte	0x1
+ 922 0003 25       		.uleb128 0x25
+ 923 0004 0E       		.uleb128 0xe
+ 924 0005 13       		.uleb128 0x13
+ 925 0006 0B       		.uleb128 0xb
+ 926 0007 03       		.uleb128 0x3
+ 927 0008 0E       		.uleb128 0xe
+ 928 0009 1B       		.uleb128 0x1b
+ 929 000a 0E       		.uleb128 0xe
+ 930 000b 55       		.uleb128 0x55
+ 931 000c 17       		.uleb128 0x17
+ 932 000d 11       		.uleb128 0x11
+ 933 000e 01       		.uleb128 0x1
+ 934 000f 10       		.uleb128 0x10
+ 935 0010 17       		.uleb128 0x17
+ 936 0011 00       		.byte	0
+ 937 0012 00       		.byte	0
+ 938 0013 02       		.uleb128 0x2
+ 939 0014 24       		.uleb128 0x24
+ 940 0015 00       		.byte	0
+ 941 0016 0B       		.uleb128 0xb
+ 942 0017 0B       		.uleb128 0xb
+ 943 0018 3E       		.uleb128 0x3e
+ 944 0019 0B       		.uleb128 0xb
+ 945 001a 03       		.uleb128 0x3
+ 946 001b 0E       		.uleb128 0xe
+ 947 001c 00       		.byte	0
+ 948 001d 00       		.byte	0
+ 949 001e 03       		.uleb128 0x3
+ 950 001f 24       		.uleb128 0x24
+ 951 0020 00       		.byte	0
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccr4wXPf.s 			page 28
+
+
+ 952 0021 0B       		.uleb128 0xb
+ 953 0022 0B       		.uleb128 0xb
+ 954 0023 3E       		.uleb128 0x3e
+ 955 0024 0B       		.uleb128 0xb
+ 956 0025 03       		.uleb128 0x3
+ 957 0026 08       		.uleb128 0x8
+ 958 0027 00       		.byte	0
+ 959 0028 00       		.byte	0
+ 960 0029 04       		.uleb128 0x4
+ 961 002a 16       		.uleb128 0x16
+ 962 002b 00       		.byte	0
+ 963 002c 03       		.uleb128 0x3
+ 964 002d 0E       		.uleb128 0xe
+ 965 002e 3A       		.uleb128 0x3a
+ 966 002f 0B       		.uleb128 0xb
+ 967 0030 3B       		.uleb128 0x3b
+ 968 0031 05       		.uleb128 0x5
+ 969 0032 49       		.uleb128 0x49
+ 970 0033 13       		.uleb128 0x13
+ 971 0034 00       		.byte	0
+ 972 0035 00       		.byte	0
+ 973 0036 05       		.uleb128 0x5
+ 974 0037 35       		.uleb128 0x35
+ 975 0038 00       		.byte	0
+ 976 0039 49       		.uleb128 0x49
+ 977 003a 13       		.uleb128 0x13
+ 978 003b 00       		.byte	0
+ 979 003c 00       		.byte	0
+ 980 003d 06       		.uleb128 0x6
+ 981 003e 2E       		.uleb128 0x2e
+ 982 003f 00       		.byte	0
+ 983 0040 3F       		.uleb128 0x3f
+ 984 0041 19       		.uleb128 0x19
+ 985 0042 03       		.uleb128 0x3
+ 986 0043 0E       		.uleb128 0xe
+ 987 0044 3A       		.uleb128 0x3a
+ 988 0045 0B       		.uleb128 0xb
+ 989 0046 3B       		.uleb128 0x3b
+ 990 0047 0B       		.uleb128 0xb
+ 991 0048 27       		.uleb128 0x27
+ 992 0049 19       		.uleb128 0x19
+ 993 004a 11       		.uleb128 0x11
+ 994 004b 01       		.uleb128 0x1
+ 995 004c 12       		.uleb128 0x12
+ 996 004d 06       		.uleb128 0x6
+ 997 004e 40       		.uleb128 0x40
+ 998 004f 18       		.uleb128 0x18
+ 999 0050 9742     		.uleb128 0x2117
+ 1000 0052 19       		.uleb128 0x19
+ 1001 0053 00       		.byte	0
+ 1002 0054 00       		.byte	0
+ 1003 0055 07       		.uleb128 0x7
+ 1004 0056 2E       		.uleb128 0x2e
+ 1005 0057 01       		.byte	0x1
+ 1006 0058 3F       		.uleb128 0x3f
+ 1007 0059 19       		.uleb128 0x19
+ 1008 005a 03       		.uleb128 0x3
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccr4wXPf.s 			page 29
+
+
+ 1009 005b 0E       		.uleb128 0xe
+ 1010 005c 3A       		.uleb128 0x3a
+ 1011 005d 0B       		.uleb128 0xb
+ 1012 005e 3B       		.uleb128 0x3b
+ 1013 005f 0B       		.uleb128 0xb
+ 1014 0060 27       		.uleb128 0x27
+ 1015 0061 19       		.uleb128 0x19
+ 1016 0062 11       		.uleb128 0x11
+ 1017 0063 01       		.uleb128 0x1
+ 1018 0064 12       		.uleb128 0x12
+ 1019 0065 06       		.uleb128 0x6
+ 1020 0066 40       		.uleb128 0x40
+ 1021 0067 18       		.uleb128 0x18
+ 1022 0068 9742     		.uleb128 0x2117
+ 1023 006a 19       		.uleb128 0x19
+ 1024 006b 01       		.uleb128 0x1
+ 1025 006c 13       		.uleb128 0x13
+ 1026 006d 00       		.byte	0
+ 1027 006e 00       		.byte	0
+ 1028 006f 08       		.uleb128 0x8
+ 1029 0070 05       		.uleb128 0x5
+ 1030 0071 00       		.byte	0
+ 1031 0072 03       		.uleb128 0x3
+ 1032 0073 0E       		.uleb128 0xe
+ 1033 0074 3A       		.uleb128 0x3a
+ 1034 0075 0B       		.uleb128 0xb
+ 1035 0076 3B       		.uleb128 0x3b
+ 1036 0077 0B       		.uleb128 0xb
+ 1037 0078 49       		.uleb128 0x49
+ 1038 0079 13       		.uleb128 0x13
+ 1039 007a 02       		.uleb128 0x2
+ 1040 007b 18       		.uleb128 0x18
+ 1041 007c 00       		.byte	0
+ 1042 007d 00       		.byte	0
+ 1043 007e 09       		.uleb128 0x9
+ 1044 007f 2E       		.uleb128 0x2e
+ 1045 0080 00       		.byte	0
+ 1046 0081 3F       		.uleb128 0x3f
+ 1047 0082 19       		.uleb128 0x19
+ 1048 0083 03       		.uleb128 0x3
+ 1049 0084 0E       		.uleb128 0xe
+ 1050 0085 3A       		.uleb128 0x3a
+ 1051 0086 0B       		.uleb128 0xb
+ 1052 0087 3B       		.uleb128 0x3b
+ 1053 0088 05       		.uleb128 0x5
+ 1054 0089 27       		.uleb128 0x27
+ 1055 008a 19       		.uleb128 0x19
+ 1056 008b 49       		.uleb128 0x49
+ 1057 008c 13       		.uleb128 0x13
+ 1058 008d 11       		.uleb128 0x11
+ 1059 008e 01       		.uleb128 0x1
+ 1060 008f 12       		.uleb128 0x12
+ 1061 0090 06       		.uleb128 0x6
+ 1062 0091 40       		.uleb128 0x40
+ 1063 0092 18       		.uleb128 0x18
+ 1064 0093 9742     		.uleb128 0x2117
+ 1065 0095 19       		.uleb128 0x19
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccr4wXPf.s 			page 30
+
+
+ 1066 0096 00       		.byte	0
+ 1067 0097 00       		.byte	0
+ 1068 0098 0A       		.uleb128 0xa
+ 1069 0099 2E       		.uleb128 0x2e
+ 1070 009a 01       		.byte	0x1
+ 1071 009b 3F       		.uleb128 0x3f
+ 1072 009c 19       		.uleb128 0x19
+ 1073 009d 03       		.uleb128 0x3
+ 1074 009e 0E       		.uleb128 0xe
+ 1075 009f 3A       		.uleb128 0x3a
+ 1076 00a0 0B       		.uleb128 0xb
+ 1077 00a1 3B       		.uleb128 0x3b
+ 1078 00a2 05       		.uleb128 0x5
+ 1079 00a3 27       		.uleb128 0x27
+ 1080 00a4 19       		.uleb128 0x19
+ 1081 00a5 11       		.uleb128 0x11
+ 1082 00a6 01       		.uleb128 0x1
+ 1083 00a7 12       		.uleb128 0x12
+ 1084 00a8 06       		.uleb128 0x6
+ 1085 00a9 40       		.uleb128 0x40
+ 1086 00aa 18       		.uleb128 0x18
+ 1087 00ab 9742     		.uleb128 0x2117
+ 1088 00ad 19       		.uleb128 0x19
+ 1089 00ae 01       		.uleb128 0x1
+ 1090 00af 13       		.uleb128 0x13
+ 1091 00b0 00       		.byte	0
+ 1092 00b1 00       		.byte	0
+ 1093 00b2 0B       		.uleb128 0xb
+ 1094 00b3 05       		.uleb128 0x5
+ 1095 00b4 00       		.byte	0
+ 1096 00b5 03       		.uleb128 0x3
+ 1097 00b6 0E       		.uleb128 0xe
+ 1098 00b7 3A       		.uleb128 0x3a
+ 1099 00b8 0B       		.uleb128 0xb
+ 1100 00b9 3B       		.uleb128 0x3b
+ 1101 00ba 05       		.uleb128 0x5
+ 1102 00bb 49       		.uleb128 0x49
+ 1103 00bc 13       		.uleb128 0x13
+ 1104 00bd 02       		.uleb128 0x2
+ 1105 00be 18       		.uleb128 0x18
+ 1106 00bf 00       		.byte	0
+ 1107 00c0 00       		.byte	0
+ 1108 00c1 0C       		.uleb128 0xc
+ 1109 00c2 898201   		.uleb128 0x4109
+ 1110 00c5 00       		.byte	0
+ 1111 00c6 11       		.uleb128 0x11
+ 1112 00c7 01       		.uleb128 0x1
+ 1113 00c8 31       		.uleb128 0x31
+ 1114 00c9 13       		.uleb128 0x13
+ 1115 00ca 00       		.byte	0
+ 1116 00cb 00       		.byte	0
+ 1117 00cc 0D       		.uleb128 0xd
+ 1118 00cd 34       		.uleb128 0x34
+ 1119 00ce 00       		.byte	0
+ 1120 00cf 03       		.uleb128 0x3
+ 1121 00d0 0E       		.uleb128 0xe
+ 1122 00d1 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccr4wXPf.s 			page 31
+
+
+ 1123 00d2 0B       		.uleb128 0xb
+ 1124 00d3 3B       		.uleb128 0x3b
+ 1125 00d4 0B       		.uleb128 0xb
+ 1126 00d5 49       		.uleb128 0x49
+ 1127 00d6 13       		.uleb128 0x13
+ 1128 00d7 02       		.uleb128 0x2
+ 1129 00d8 17       		.uleb128 0x17
+ 1130 00d9 00       		.byte	0
+ 1131 00da 00       		.byte	0
+ 1132 00db 0E       		.uleb128 0xe
+ 1133 00dc 898201   		.uleb128 0x4109
+ 1134 00df 01       		.byte	0x1
+ 1135 00e0 11       		.uleb128 0x11
+ 1136 00e1 01       		.uleb128 0x1
+ 1137 00e2 31       		.uleb128 0x31
+ 1138 00e3 13       		.uleb128 0x13
+ 1139 00e4 01       		.uleb128 0x1
+ 1140 00e5 13       		.uleb128 0x13
+ 1141 00e6 00       		.byte	0
+ 1142 00e7 00       		.byte	0
+ 1143 00e8 0F       		.uleb128 0xf
+ 1144 00e9 8A8201   		.uleb128 0x410a
+ 1145 00ec 00       		.byte	0
+ 1146 00ed 02       		.uleb128 0x2
+ 1147 00ee 18       		.uleb128 0x18
+ 1148 00ef 9142     		.uleb128 0x2111
+ 1149 00f1 18       		.uleb128 0x18
+ 1150 00f2 00       		.byte	0
+ 1151 00f3 00       		.byte	0
+ 1152 00f4 10       		.uleb128 0x10
+ 1153 00f5 34       		.uleb128 0x34
+ 1154 00f6 00       		.byte	0
+ 1155 00f7 03       		.uleb128 0x3
+ 1156 00f8 0E       		.uleb128 0xe
+ 1157 00f9 3A       		.uleb128 0x3a
+ 1158 00fa 0B       		.uleb128 0xb
+ 1159 00fb 3B       		.uleb128 0x3b
+ 1160 00fc 0B       		.uleb128 0xb
+ 1161 00fd 49       		.uleb128 0x49
+ 1162 00fe 13       		.uleb128 0x13
+ 1163 00ff 3F       		.uleb128 0x3f
+ 1164 0100 19       		.uleb128 0x19
+ 1165 0101 02       		.uleb128 0x2
+ 1166 0102 18       		.uleb128 0x18
+ 1167 0103 00       		.byte	0
+ 1168 0104 00       		.byte	0
+ 1169 0105 11       		.uleb128 0x11
+ 1170 0106 2E       		.uleb128 0x2e
+ 1171 0107 00       		.byte	0
+ 1172 0108 3F       		.uleb128 0x3f
+ 1173 0109 19       		.uleb128 0x19
+ 1174 010a 3C       		.uleb128 0x3c
+ 1175 010b 19       		.uleb128 0x19
+ 1176 010c 6E       		.uleb128 0x6e
+ 1177 010d 0E       		.uleb128 0xe
+ 1178 010e 03       		.uleb128 0x3
+ 1179 010f 0E       		.uleb128 0xe
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccr4wXPf.s 			page 32
+
+
+ 1180 0110 3A       		.uleb128 0x3a
+ 1181 0111 0B       		.uleb128 0xb
+ 1182 0112 3B       		.uleb128 0x3b
+ 1183 0113 0B       		.uleb128 0xb
+ 1184 0114 00       		.byte	0
+ 1185 0115 00       		.byte	0
+ 1186 0116 00       		.byte	0
+ 1187              		.section	.debug_loc,"",%progbits
+ 1188              	.Ldebug_loc0:
+ 1189              	.LLST0:
+ 1190 0000 0A000000 		.4byte	.LVL7
+ 1191 0004 0E000000 		.4byte	.LVL8
+ 1192 0008 0100     		.2byte	0x1
+ 1193 000a 53       		.byte	0x53
+ 1194 000b 18000000 		.4byte	.LVL9
+ 1195 000f 1D000000 		.4byte	.LVL10-1
+ 1196 0013 0100     		.2byte	0x1
+ 1197 0015 53       		.byte	0x53
+ 1198 0016 00000000 		.4byte	0
+ 1199 001a 00000000 		.4byte	0
+ 1200              	.LLST1:
+ 1201 001e 3E000000 		.4byte	.LVL16
+ 1202 0022 4D000000 		.4byte	.LVL17-1
+ 1203 0026 0100     		.2byte	0x1
+ 1204 0028 50       		.byte	0x50
+ 1205 0029 00000000 		.4byte	0
+ 1206 002d 00000000 		.4byte	0
+ 1207              		.section	.debug_aranges,"",%progbits
+ 1208 0000 94000000 		.4byte	0x94
+ 1209 0004 0200     		.2byte	0x2
+ 1210 0006 00000000 		.4byte	.Ldebug_info0
+ 1211 000a 04       		.byte	0x4
+ 1212 000b 00       		.byte	0
+ 1213 000c 0000     		.2byte	0
+ 1214 000e 0000     		.2byte	0
+ 1215 0010 00000000 		.4byte	.LFB1
+ 1216 0014 14000000 		.4byte	.LFE1-.LFB1
+ 1217 0018 00000000 		.4byte	.LFB3
+ 1218 001c 10000000 		.4byte	.LFE3-.LFB3
+ 1219 0020 00000000 		.4byte	.LFB4
+ 1220 0024 0C000000 		.4byte	.LFE4-.LFB4
+ 1221 0028 00000000 		.4byte	.LFB5
+ 1222 002c 0C000000 		.4byte	.LFE5-.LFB5
+ 1223 0030 00000000 		.4byte	.LFB6
+ 1224 0034 0C000000 		.4byte	.LFE6-.LFB6
+ 1225 0038 00000000 		.4byte	.LFB7
+ 1226 003c 0C000000 		.4byte	.LFE7-.LFB7
+ 1227 0040 00000000 		.4byte	.LFB8
+ 1228 0044 0C000000 		.4byte	.LFE8-.LFB8
+ 1229 0048 00000000 		.4byte	.LFB9
+ 1230 004c 14000000 		.4byte	.LFE9-.LFB9
+ 1231 0050 00000000 		.4byte	.LFB10
+ 1232 0054 0C000000 		.4byte	.LFE10-.LFB10
+ 1233 0058 00000000 		.4byte	.LFB11
+ 1234 005c 0C000000 		.4byte	.LFE11-.LFB11
+ 1235 0060 00000000 		.4byte	.LFB12
+ 1236 0064 0C000000 		.4byte	.LFE12-.LFB12
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccr4wXPf.s 			page 33
+
+
+ 1237 0068 00000000 		.4byte	.LFB13
+ 1238 006c 0C000000 		.4byte	.LFE13-.LFB13
+ 1239 0070 00000000 		.4byte	.LFB14
+ 1240 0074 0C000000 		.4byte	.LFE14-.LFB14
+ 1241 0078 00000000 		.4byte	.LFB15
+ 1242 007c 12000000 		.4byte	.LFE15-.LFB15
+ 1243 0080 00000000 		.4byte	.LFB0
+ 1244 0084 58000000 		.4byte	.LFE0-.LFB0
+ 1245 0088 00000000 		.4byte	.LFB2
+ 1246 008c 20000000 		.4byte	.LFE2-.LFB2
+ 1247 0090 00000000 		.4byte	0
+ 1248 0094 00000000 		.4byte	0
+ 1249              		.section	.debug_ranges,"",%progbits
+ 1250              	.Ldebug_ranges0:
+ 1251 0000 00000000 		.4byte	.LFB1
+ 1252 0004 14000000 		.4byte	.LFE1
+ 1253 0008 00000000 		.4byte	.LFB3
+ 1254 000c 10000000 		.4byte	.LFE3
+ 1255 0010 00000000 		.4byte	.LFB4
+ 1256 0014 0C000000 		.4byte	.LFE4
+ 1257 0018 00000000 		.4byte	.LFB5
+ 1258 001c 0C000000 		.4byte	.LFE5
+ 1259 0020 00000000 		.4byte	.LFB6
+ 1260 0024 0C000000 		.4byte	.LFE6
+ 1261 0028 00000000 		.4byte	.LFB7
+ 1262 002c 0C000000 		.4byte	.LFE7
+ 1263 0030 00000000 		.4byte	.LFB8
+ 1264 0034 0C000000 		.4byte	.LFE8
+ 1265 0038 00000000 		.4byte	.LFB9
+ 1266 003c 14000000 		.4byte	.LFE9
+ 1267 0040 00000000 		.4byte	.LFB10
+ 1268 0044 0C000000 		.4byte	.LFE10
+ 1269 0048 00000000 		.4byte	.LFB11
+ 1270 004c 0C000000 		.4byte	.LFE11
+ 1271 0050 00000000 		.4byte	.LFB12
+ 1272 0054 0C000000 		.4byte	.LFE12
+ 1273 0058 00000000 		.4byte	.LFB13
+ 1274 005c 0C000000 		.4byte	.LFE13
+ 1275 0060 00000000 		.4byte	.LFB14
+ 1276 0064 0C000000 		.4byte	.LFE14
+ 1277 0068 00000000 		.4byte	.LFB15
+ 1278 006c 12000000 		.4byte	.LFE15
+ 1279 0070 00000000 		.4byte	.LFB0
+ 1280 0074 58000000 		.4byte	.LFE0
+ 1281 0078 00000000 		.4byte	.LFB2
+ 1282 007c 20000000 		.4byte	.LFE2
+ 1283 0080 00000000 		.4byte	0
+ 1284 0084 00000000 		.4byte	0
+ 1285              		.section	.debug_line,"",%progbits
+ 1286              	.Ldebug_line0:
+ 1287 0000 94010000 		.section	.debug_str,"MS",%progbits,1
+ 1287      02005700 
+ 1287      00000201 
+ 1287      FB0E0D00 
+ 1287      01010101 
+ 1288              	.LASF27:
+ 1289 0000 496E6465 		.ascii	"Index_Counter_1_ReadCapture\000"
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccr4wXPf.s 			page 34
+
+
+ 1289      785F436F 
+ 1289      756E7465 
+ 1289      725F315F 
+ 1289      52656164 
+ 1290              	.LASF19:
+ 1291 001c 496E6465 		.ascii	"Index_Counter_1_ReadControlRegister\000"
+ 1291      785F436F 
+ 1291      756E7465 
+ 1291      725F315F 
+ 1291      52656164 
+ 1292              	.LASF29:
+ 1293 0040 70657269 		.ascii	"period\000"
+ 1293      6F6400
+ 1294              	.LASF31:
+ 1295 0047 496E6465 		.ascii	"Index_Counter_1_WriteCompare\000"
+ 1295      785F436F 
+ 1295      756E7465 
+ 1295      725F315F 
+ 1295      57726974 
+ 1296              	.LASF3:
+ 1297 0064 73686F72 		.ascii	"short unsigned int\000"
+ 1297      7420756E 
+ 1297      7369676E 
+ 1297      65642069 
+ 1297      6E7400
+ 1298              	.LASF28:
+ 1299 0077 496E6465 		.ascii	"Index_Counter_1_WritePeriod\000"
+ 1299      785F436F 
+ 1299      756E7465 
+ 1299      725F315F 
+ 1299      57726974 
+ 1300              	.LASF9:
+ 1301 0093 666C6F61 		.ascii	"float\000"
+ 1301      7400
+ 1302              	.LASF25:
+ 1303 0099 636F756E 		.ascii	"counter\000"
+ 1303      74657200 
+ 1304              	.LASF7:
+ 1305 00a1 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1305      206C6F6E 
+ 1305      6720756E 
+ 1305      7369676E 
+ 1305      65642069 
+ 1306              	.LASF35:
+ 1307 00b8 496E6465 		.ascii	"Index_Counter_1_Init\000"
+ 1307      785F436F 
+ 1307      756E7465 
+ 1307      725F315F 
+ 1307      496E6974 
+ 1308              	.LASF13:
+ 1309 00cd 72656738 		.ascii	"reg8\000"
+ 1309      00
+ 1310              	.LASF5:
+ 1311 00d2 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1311      20756E73 
+ 1311      69676E65 
+ 1311      6420696E 
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccr4wXPf.s 			page 35
+
+
+ 1311      7400
+ 1312              	.LASF12:
+ 1313 00e4 75696E74 		.ascii	"uint8\000"
+ 1313      3800
+ 1314              	.LASF43:
+ 1315 00ea 433A5C70 		.ascii	"C:\\proj\\acsnb-motor-cypress\\QuadEncoderRTOS.cyds"
+ 1315      726F6A5C 
+ 1315      6163736E 
+ 1315      622D6D6F 
+ 1315      746F722D 
+ 1316 011a 6E00     		.ascii	"n\000"
+ 1317              	.LASF22:
+ 1318 011c 696E7465 		.ascii	"interruptsMask\000"
+ 1318      72727570 
+ 1318      74734D61 
+ 1318      736B00
+ 1319              	.LASF1:
+ 1320 012b 756E7369 		.ascii	"unsigned char\000"
+ 1320      676E6564 
+ 1320      20636861 
+ 1320      7200
+ 1321              	.LASF10:
+ 1322 0139 646F7562 		.ascii	"double\000"
+ 1322      6C6500
+ 1323              	.LASF33:
+ 1324 0140 496E6465 		.ascii	"Index_Counter_1_ReadCompare\000"
+ 1324      785F436F 
+ 1324      756E7465 
+ 1324      725F315F 
+ 1324      52656164 
+ 1325              	.LASF24:
+ 1326 015c 496E6465 		.ascii	"Index_Counter_1_WriteCounter\000"
+ 1326      785F436F 
+ 1326      756E7465 
+ 1326      725F315F 
+ 1326      57726974 
+ 1327              	.LASF34:
+ 1328 0179 496E6465 		.ascii	"Index_Counter_1_ClearFIFO\000"
+ 1328      785F436F 
+ 1328      756E7465 
+ 1328      725F315F 
+ 1328      436C6561 
+ 1329              	.LASF39:
+ 1330 0193 4379456E 		.ascii	"CyEnterCriticalSection\000"
+ 1330      74657243 
+ 1330      72697469 
+ 1330      63616C53 
+ 1330      65637469 
+ 1331              	.LASF8:
+ 1332 01aa 756E7369 		.ascii	"unsigned int\000"
+ 1332      676E6564 
+ 1332      20696E74 
+ 1332      00
+ 1333              	.LASF40:
+ 1334 01b7 43794578 		.ascii	"CyExitCriticalSection\000"
+ 1334      69744372 
+ 1334      69746963 
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccr4wXPf.s 			page 36
+
+
+ 1334      616C5365 
+ 1334      6374696F 
+ 1335              	.LASF37:
+ 1336 01cd 496E6465 		.ascii	"Index_Counter_1_interruptState\000"
+ 1336      785F436F 
+ 1336      756E7465 
+ 1336      725F315F 
+ 1336      696E7465 
+ 1337              	.LASF17:
+ 1338 01ec 496E6465 		.ascii	"Index_Counter_1_Stop\000"
+ 1338      785F436F 
+ 1338      756E7465 
+ 1338      725F315F 
+ 1338      53746F70 
+ 1339              	.LASF41:
+ 1340 0201 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1340      43313120 
+ 1340      352E342E 
+ 1340      31203230 
+ 1340      31363036 
+ 1341 0234 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
+ 1341      20726576 
+ 1341      6973696F 
+ 1341      6E203233 
+ 1341      37373135 
+ 1342 0267 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 1342      66756E63 
+ 1342      74696F6E 
+ 1342      2D736563 
+ 1342      74696F6E 
+ 1343              	.LASF36:
+ 1344 028f 6374726C 		.ascii	"ctrl\000"
+ 1344      00
+ 1345              	.LASF21:
+ 1346 0294 496E6465 		.ascii	"Index_Counter_1_WriteControlRegister\000"
+ 1346      785F436F 
+ 1346      756E7465 
+ 1346      725F315F 
+ 1346      57726974 
+ 1347              	.LASF44:
+ 1348 02b9 496E6465 		.ascii	"Index_Counter_1_initVar\000"
+ 1348      785F436F 
+ 1348      756E7465 
+ 1348      725F315F 
+ 1348      696E6974 
+ 1349              	.LASF15:
+ 1350 02d1 73697A65 		.ascii	"sizetype\000"
+ 1350      74797065 
+ 1350      00
+ 1351              	.LASF6:
+ 1352 02da 6C6F6E67 		.ascii	"long long int\000"
+ 1352      206C6F6E 
+ 1352      6720696E 
+ 1352      7400
+ 1353              	.LASF18:
+ 1354 02e8 496E6465 		.ascii	"Index_Counter_1_ReadStatusRegister\000"
+ 1354      785F436F 
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccr4wXPf.s 			page 37
+
+
+ 1354      756E7465 
+ 1354      725F315F 
+ 1354      52656164 
+ 1355              	.LASF11:
+ 1356 030b 63686172 		.ascii	"char\000"
+ 1356      00
+ 1357              	.LASF42:
+ 1358 0310 47656E65 		.ascii	"Generated_Source\\PSoC4\\Index_Counter_1.c\000"
+ 1358      72617465 
+ 1358      645F536F 
+ 1358      75726365 
+ 1358      5C50536F 
+ 1359              	.LASF2:
+ 1360 0339 73686F72 		.ascii	"short int\000"
+ 1360      7420696E 
+ 1360      7400
+ 1361              	.LASF38:
+ 1362 0343 496E6465 		.ascii	"Index_Counter_1_Start\000"
+ 1362      785F436F 
+ 1362      756E7465 
+ 1362      725F315F 
+ 1362      53746172 
+ 1363              	.LASF26:
+ 1364 0359 496E6465 		.ascii	"Index_Counter_1_ReadCounter\000"
+ 1364      785F436F 
+ 1364      756E7465 
+ 1364      725F315F 
+ 1364      52656164 
+ 1365              	.LASF23:
+ 1366 0375 636F6E74 		.ascii	"control\000"
+ 1366      726F6C00 
+ 1367              	.LASF4:
+ 1368 037d 6C6F6E67 		.ascii	"long int\000"
+ 1368      20696E74 
+ 1368      00
+ 1369              	.LASF30:
+ 1370 0386 496E6465 		.ascii	"Index_Counter_1_ReadPeriod\000"
+ 1370      785F436F 
+ 1370      756E7465 
+ 1370      725F315F 
+ 1370      52656164 
+ 1371              	.LASF14:
+ 1372 03a1 6C6F6E67 		.ascii	"long double\000"
+ 1372      20646F75 
+ 1372      626C6500 
+ 1373              	.LASF0:
+ 1374 03ad 7369676E 		.ascii	"signed char\000"
+ 1374      65642063 
+ 1374      68617200 
+ 1375              	.LASF32:
+ 1376 03b9 636F6D70 		.ascii	"compare\000"
+ 1376      61726500 
+ 1377              	.LASF16:
+ 1378 03c1 496E6465 		.ascii	"Index_Counter_1_Enable\000"
+ 1378      785F436F 
+ 1378      756E7465 
+ 1378      725F315F 
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccr4wXPf.s 			page 38
+
+
+ 1378      456E6162 
+ 1379              	.LASF20:
+ 1380 03d8 496E6465 		.ascii	"Index_Counter_1_SetInterruptMode\000"
+ 1380      785F436F 
+ 1380      756E7465 
+ 1380      725F315F 
+ 1380      53657449 
+ 1381              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
