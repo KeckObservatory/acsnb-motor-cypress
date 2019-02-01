@@ -929,6 +929,11 @@ void PID_Task(void *arg) {
 
         /* Only run the PID algorithm if we have been configured by the nodebox software */
         } else if (ConfigState == csReady) {
+            
+            /* Enable the drive outputs for the home and index once configured, otherwise they
+               can screw up the boot pins on the BeagleBoneBlack */
+            HOME_OUT_SetDriveMode(HOME_OUT_DM_STRONG); 
+            INDEX_OUT_SetDriveMode(INDEX_OUT_DM_STRONG); 
         
             /* If the server is asking us to jog, do that instead of PID */
             if (!PID_Enabled) {                   
@@ -1027,7 +1032,16 @@ int main(void) {
     
     uint8 s;
     setupFreeRTOS();
-        
+
+    /* DISABLE the drive outputs for the home and index immediately upon booting the 
+       microprocessor   There is a race condition here: unless the actuator is on a home
+       flag or index mark, a 1 will be written to each output.  Depending on which 
+       Cypress device this is, it could end up going to one of the boot pins of the Beagle
+       Bone Black device.  Undesirable results can result: corrupt serial output on the
+       console, inabulity to boot from eMMC, or even a complete failure to power on. */
+    HOME_OUT_SetDriveMode(HOME_OUT_DM_DIG_HIZ); 
+    INDEX_OUT_SetDriveMode(INDEX_OUT_DM_DIG_HIZ); 
+
     /* Create LED task, which will control the intensity of the LEDs */
     xTaskCreate(
         PID_Task,       /* Task function */
