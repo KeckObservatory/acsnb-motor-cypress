@@ -2,7 +2,7 @@
 --	Conversion of QuadEncoderRTOS.v to vh2:
 --
 --	Cypress Semiconductor - WARP Version 6.3 IR 41
---	Wed Dec 26 15:37:58 2018
+--	Tue Feb 05 15:43:25 2019
 --
 
 USE cypress.cypress.all;
