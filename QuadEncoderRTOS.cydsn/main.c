@@ -8,6 +8,7 @@
 *  The I2C device provides readback of motor current consumption.
 *
 * History:
+* 02/07/19 PMR  Rev: 0-0-2 implement revision numbering in protocol
 * 12/18/18 PMR  Rev: B  Implement checksummed messaging and max PWM limiting
 * 10/11/18 PMR  Rev: A  Implement PWM functions for PDI control
 * 07/31/18 PMR  Rev: NC Initial Release after port from Kona Scientific code
@@ -20,6 +21,11 @@
 #include <stdlib.h>
 #include <math.h>
 #include "INA219.h"
+
+/* Firmware revision is 0-0-2 (as of 2019-02-07 PMR) */
+#define FIRMWARE_REV_0 0
+#define FIRMWARE_REV_1 0
+#define FIRMWARE_REV_2 2
 
 /* Debugging - undefine this for a production system that needs to watchdog */
 #define DEBUG_PROBE_ATTACHED 1
@@ -273,6 +279,9 @@ union {
 /* Message back to the BBB, watch out for alignment here by packing the structure (should be 18 bytes) */
 typedef struct  {  
     uint8  checksum;   /* Message checksum */    
+    uint8  version0;   /* Version byte 0 */ 
+    uint8  version1;   /* Version byte 1 */
+    uint8  version2;   /* Version byte 2 */
     uint8  size;       /* Size of the message bytes, including opcode and size and checksum */
     uint8  opcode;     /* Echo back of the opcode this response is for, operation: 03 == status */
     uint8  state;      /* Enum value for current device configuration state */ 
@@ -583,9 +592,12 @@ void Comm_Task(void *arg) {
                         }
                         
                         /* Fill out the common reponse the same way every time, as a status response */
-                        txMessage.msg.checksum = 0;                            
-                        txMessage.msg.opcode   = opStatus;
+                        txMessage.msg.checksum = 0;
+                        txMessage.msg.version0 = FIRMWARE_REV_0;
+                        txMessage.msg.version1 = FIRMWARE_REV_1;
+                        txMessage.msg.version2 = FIRMWARE_REV_2;
                         txMessage.msg.size     = sizeof(txMessage_t);
+                        txMessage.msg.opcode   = opStatus;
                         txMessage.msg.state    = (uint8) ConfigState;
                         txMessage.msg.fault    = (uint8) FaultState;
                         txMessage.msg.checksum_errors = ChecksumErrors;
