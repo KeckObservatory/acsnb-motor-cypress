@@ -239,60 +239,6 @@
 <VisibleNodeIds>
 <v>QEncRT</v>
 <v>QEncRT\QuadEncoderRTOS</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\Clock_1.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\Cm0Start.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\Counter_1.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\Counter_1_PM.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\croutine.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\cy_em_eeprom.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\CyBootAsmGnu.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\cyfitter_cfg.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\CyFlash.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\CyLFClk.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\CyLib.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\cymetadata.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\cyPm.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\cyutils.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\Direction.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\Direction_PM.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\event_groups.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\heap_1.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\HOME_IN.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\HOME_IN_PM.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\HOME_OUT.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\HOME_OUT_PM.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_BOOT.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_I2C.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_I2C_BOOT.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_I2C_INT.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_I2C_MASTER.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_PM.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_SCB_IRQ.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_SCBCLK.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_scl.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_scl_PM.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_sda.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_sda_PM.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\INA219.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\Index_Counter_1.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\Index_Counter_1_PM.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\INDEX_IN.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\INDEX_IN_PM.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\INDEX_OUT.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\INDEX_OUT_PM.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\isr_home.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\isr_rst_encoder.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\isr_spi_ss.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\LED.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\LED_PM.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\list.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\main.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\phiA.lst</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 </TreeStates>

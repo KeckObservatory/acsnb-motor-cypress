@@ -204,7 +204,7 @@ volatile ConfigStates_t ConfigState;
 volatile uint8 FaultState;
 volatile uint8 ConfigSequence;
 volatile uint16 ChecksumErrors;
-volatile uint16 Current;
+volatile int16 Current;
 volatile float PWM;
 uint8 CurrentI2Cinbuf[20];
 
@@ -298,7 +298,7 @@ typedef struct  {
     uint8  fault;      /* Bit encoded fields for current fault status */
     uint8  sequence;   /* Echo back the config sequence number currently set */
     uint16 checksum_errors; /* Count of checksum errors */
-    uint16 current;    /* Motor current consumption (mA) */
+    int16 current;     /* Motor current consumption (mA) */
     int32 position;    /* Actual actuator position, signed value */ 
     float pwm;         /* PWM value the motor is moving at */     
 } __attribute__ ((__packed__)) txMessage_t;
@@ -421,7 +421,7 @@ void Current_Read_Task(void *arg) {
     volatile uint32 err;
     uint8 byteMSB;
     uint8 byteLSB;
-    volatile uint16 CurrentTemp;
+    volatile int16 CurrentTemp;
     
     
     /* Initial high water mark reading */
@@ -459,9 +459,9 @@ void Current_Read_Task(void *arg) {
             /* Read back the value for the current usage */
             err = I2C_I2CMasterReadBuf(INA219_I2C_ADDR, CurrentI2Cinbuf, 5, 1);
             
-            /* Reassemble the current value into a 16 bit value */
+            /* Reassemble the current value into a signed 16 bit value */
             if (err == I2C_I2C_MSTR_NO_ERROR) {
-                CurrentTemp = (uint16)(CurrentI2Cinbuf[0] << 8) + CurrentI2Cinbuf[1];
+                CurrentTemp = (int16)(CurrentI2Cinbuf[0] << 8) + CurrentI2Cinbuf[1];
             } else {
                 CurrentTemp = 0;   
                 AssertFault(fsCurrentRead);
