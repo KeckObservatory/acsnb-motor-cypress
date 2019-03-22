@@ -1,5 +1,5 @@
 # QuadEncoderRTOS
-# 2019-02-08 02:49:01Z
+# 2019-03-13 21:10:25Z
 
 # IO_2@[IOP=(3)][IoId=(2)] is reserved: SWDDebugEnabled
 dont_use_io iocell 3 2
@@ -29,7 +29,7 @@ set_io "spi_ss(0)" iocell 0 7
 set_io "spi_mosi(0)" iocell 0 4
 set_io "spi_clk(0)" iocell 0 6
 set_io "spi_miso(0)" iocell 0 5
-set_io "PROBE(0)" iocell 1 1
+set_io "PROBE(0)" iocell 1 7
 set_location "\Counter_1:CounterUDB:status_0\" 0 1 1 0
 set_location "\Counter_1:CounterUDB:status_2\" 1 0 0 1
 set_location "\Counter_1:CounterUDB:status_3\" 1 0 0 2

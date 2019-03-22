@@ -8,6 +8,7 @@
 *  The I2C device provides readback of motor current consumption.
 *
 * History:
+* 03/22/19 PMR  Rev: 0-0-3 add PID separate I limit and simplify limiting code
 * 02/07/19 PMR  Rev: 0-0-2 implement revision numbering in protocol
 * 12/18/18 PMR  Rev: B  Implement checksummed messaging and max PWM limiting
 * 10/11/18 PMR  Rev: A  Implement PWM functions for PDI control
@@ -22,10 +23,10 @@
 #include <math.h>
 #include "INA219.h"
 
-/* Firmware revision is 0-0-2 (as of 2019-02-07 PMR) */
+/* Firmware revision is 0-0-3 (as of 2019-03-21 PMR) */
 #define FIRMWARE_REV_0 0
 #define FIRMWARE_REV_1 0
-#define FIRMWARE_REV_2 2
+#define FIRMWARE_REV_2 3
 
 /* Debugging - undefine this for a production system that needs to watchdog */
 #define DEBUG_PROBE_ATTACHED 1
@@ -58,16 +59,14 @@ CY_ISR_PROTO(SPI_SS_IsrHandler);
 /* --------------------------------------------------------------------- 
  * PWM Defines
  * --------------------------------------------------------------------- */
-#define PWM_15KHZ_PERIOD 1600
-#define PWM_PCT_TO_COMPARE(x) trunc((float) x * (PWM_15KHZ_PERIOD/100))
-#define PWM_IDLE 50.0
+#define PWM_15KHZ_PERIOD                       (1600)
+#define PWM_PCT_TO_COMPARE(x)                  trunc((float) x * (PWM_15KHZ_PERIOD/100))
+#define PWM_IDLE                               (50.0)
 
 /* TI INA219 Zero-Drift, Bidirectional Current/Power Monitor With I2C Interface */
 #define INA219_I2C_ADDR                        (0x40)
 #define INA219_CAL_VALUE                       (8192)
 
-volatile int8 Jog, Last_Jog;
-int8 PWM_Max_Fwd, PWM_Max_Rev;
 
 /* Neutral PWM jog is a 50% duty cycle */
 #define PWM_JOG_NEUTRAL                        (50)
@@ -78,25 +77,37 @@ int8 PWM_Max_Fwd, PWM_Max_Rev;
 /* --------------------------------------------------------------------- 
  * PID Defines
  * --------------------------------------------------------------------- */
+#define PID_MANUAL                             (0)
+#define PID_AUTOMATIC                          (1)
+bool inAuto = false;
+
+volatile int8 Jog, LastJog;
 bool PID_Enabled, PID_Was_Enabled;
 uint32 PID_Setpoint;
-
 uint32 lastTime;
 float Output;
-float ITerm, lastPosition;
+float ITerm;
+volatile int32 Position, LastPosition;
 float refKp, refKi, refKd;
 float kp, ki, kd;
 uint32 refSampleTime = 5; // Default to 5ms
-float outMin, outMax;
-bool inAuto = false;
- 
-#define PID_MANUAL 0
-#define PID_AUTOMATIC 1
+float outMax_Total, outMax_ITerm;
+float pwmLimit, pwmMax, pwmMin;    
 
 /* --------------------------------------------------------------------- 
  * ENCODER PROPERTIES
+ *
+ * The encoder counts up and down in Counter_1, which is unsigned 24 bit
+ *
+ * Note: the negative boundary is defined as 1,048,576 counts of underflow
+ * in the Counter_1 value.  This allows us to start at max travel, reset 
+ * encoder to 0 and count negative the full travel before hitting the home
+ * flag and resetting the counter to 0 again.
+ *
+ * (0x800000 - 0x700000 is 0x100000 or 1.048M, >3x the entire actuator travel)
  * --------------------------------------------------------------------- */
 #define ENCODER_MAX                            (0x00800000)
+#define ENCODER_NEGATIVE_BOUNDARY              (0x00700000)
 #define ENCODER_COUNTS_PER_INDEX               (10000)
 
 /* --------------------------------------------------------------------- 
@@ -195,7 +206,6 @@ volatile uint8 ConfigSequence;
 volatile uint16 ChecksumErrors;
 volatile uint16 Current;
 volatile float PWM;
-volatile uint32 PID_Last_Position;
 uint8 CurrentI2Cinbuf[20];
 
 /* Task stack information */
@@ -214,14 +224,13 @@ SemaphoreHandle_t Lock;
    1) Messages have opcodes (configuration, position, get status)
    2) Messages are validated by a checksum instead of an arbitrary signature pattern.
    3) Transfer the max message size every time, regardless of all bytes used or not.
-
 */
     
 /* Set this to match the size of the status response message, 18 bytes */    
 #define MAX_MESSAGE_SIZE 30
     
 /* Remember the last time a message came in so we can timeout moves if the node box stops 
-   talking.  5000 ticks is 1 second of not talking. */
+   talking.  1000 ticks is 1 second of not talking. */
 #define MAX_LAST_MESSAGE_TIME_TICKS 1000
 uint32 LastMessageTimeTick;
 
@@ -243,7 +252,7 @@ typedef struct {
     uint8 opcode;     /* Operation (generic overlay for previewing opcode value) */
 } __attribute__ ((__packed__)) rxMessage_overlay_t;
 
-/* Configuration message, 17 bytes */
+/* Configuration message, 18 bytes */
 typedef struct {
     uint8 checksum;        
     uint8 size;       /* Size of the message bytes, including opcode and size and checksum */
@@ -252,7 +261,8 @@ typedef struct {
     float Kp;         /* PID constants to be used in calculation */
     float Ki;
     float Kd;
-    uint8 limit;      /* PWM duty cycle (speed) limit, +/- percent */
+    uint8 limit_Total;/* Total drive output limit, +/- percentage */
+    uint8 limit_ITerm;/* PID I term output limit, also +/- percentage */
 } __attribute__ ((__packed__)) rxMessage_config_t;
 
 /* Status message, contains desired position and such values, 12 bytes */
@@ -283,13 +293,13 @@ typedef struct  {
     uint8  version1;   /* Version byte 1 */
     uint8  version2;   /* Version byte 2 */
     uint8  size;       /* Size of the message bytes, including opcode and size and checksum */
-    uint8  opcode;     /* Echo back of the opcode this response is for, operation: 03 == status */
+    uint8  opcode;     /* Echo back of the opcode this response is for, operation: 02 == status */
     uint8  state;      /* Enum value for current device configuration state */ 
     uint8  fault;      /* Bit encoded fields for current fault status */
     uint8  sequence;   /* Echo back the config sequence number currently set */
     uint16 checksum_errors; /* Count of checksum errors */
     uint16 current;    /* Motor current consumption (mA) */
-    uint32 position;   /* Actual actuator position */ 
+    int32 position;    /* Actual actuator position, signed value */ 
     float pwm;         /* PWM value the motor is moving at */     
 } __attribute__ ((__packed__)) txMessage_t;
 
@@ -307,7 +317,13 @@ typedef enum {
 
 txMessageStates_t txMessageState;
 
-    
+
+/******************************************************************************/
+/* Function prototypes */
+int32 GetPosition(void);
+/******************************************************************************/
+
+
 
 /*******************************************************************************
 * Function Name: setupFreeRTOS
@@ -402,14 +418,11 @@ void ClearFault(FaultStates_t fault) {
 *******************************************************************************/
 void Current_Read_Task(void *arg) {
     
-//#ifdef zero
     volatile uint32 err;
     uint8 byteMSB;
     uint8 byteLSB;
-//#endif
-
     volatile uint16 CurrentTemp;
-    uint8 foo = 0;
+    
     
     /* Initial high water mark reading */
     uxHighWaterMark_Current = uxTaskGetStackHighWaterMark( NULL );
@@ -417,15 +430,9 @@ void Current_Read_Task(void *arg) {
     //TODO Init_INA(INA219_I2C_ADDR);
     
     while (1) {
-        LED_Write(foo);
-        PROBE_Write(foo);
 
-        if (foo) { foo = 0; } else { foo = 1; }
-        
         //TODO CurrentTemp = getCurrent_raw(INA219_I2C_ADDR);
         
-        
-//#ifdef zero        
         err = I2C_I2CMasterSendStart(INA219_I2C_ADDR, 0x00, 10); // send start condition for the INA219
         if (err == I2C_I2C_MSTR_NO_ERROR) {
             
@@ -437,6 +444,7 @@ void Current_Read_Task(void *arg) {
             byteLSB = (uint8)(INA219_CAL_VALUE & 0x00FF);
             I2C_I2CMasterWriteByte(byteLSB, 10);
             I2C_I2CMasterSendStop(10);
+            
         } else {
             Current = 0;
             AssertFault(fsCurrentRead);
@@ -462,8 +470,6 @@ void Current_Read_Task(void *arg) {
             CurrentTemp = 0; 
             AssertFault(fsCurrentRead);
         }
-//#endif
-
 
         /* Perform the assignment as one operation, to make it as atomic as possible (may need more work here) */
         Current = CurrentTemp;
@@ -492,11 +498,13 @@ void Comm_Task(void *arg) {
     uint8 size;
     uint8 i;
     uint8 checksum;
+    uint8 limit;
     
     /* Initial high water mark reading */
     uxHighWaterMark_Comm = uxTaskGetStackHighWaterMark( NULL );  
     
     while (1) {
+        //PROBE_Write(1);
         
         /* If the SPI is moving data out right now, skip any touching of the message buffer */
         if (!SPI_1_SpiIsBusBusy()) {
@@ -550,10 +558,31 @@ void Comm_Task(void *arg) {
                                         refKi = rxMessage.config.Ki;
                                         refKd = rxMessage.config.Kd;                                        
                                            
-                                        /* Setup the PWM limits and stop a jog if one was in progress */
+                                        /* Setup the output limits and stop a jog if one was in progress */
                                         Jog = 0;
-                                        PWM_Max_Fwd = PWM_JOG_NEUTRAL + rxMessage.config.limit;
-                                        PWM_Max_Rev = PWM_JOG_NEUTRAL - rxMessage.config.limit;                                    
+                                    
+                                        /* Clip the limits to 100% duty cycle */
+                                        limit = rxMessage.config.limit_Total;
+                                        if (limit > 100)
+                                            limit = 100;
+                                    
+                                        outMax_Total = limit;                                        
+                                        
+                                        limit = rxMessage.config.limit_ITerm;                                        
+                                        if (limit > 100)
+                                            limit = 100;
+                                        
+                                        outMax_ITerm = limit;
+                                        
+                                        /* Convert the configured output maximum also into a PWM value, because the duty cycle
+                                        could be set from manual control of the PWM.  
+
+                                        outMax_Total ranges from 0 to 100% of power delivery, which means we need to 
+                                        convert it into a value symmetrically above and below the "neutral" center 
+                                        point value of 50 */    
+                                        pwmLimit = (outMax_Total/100 * 50);
+                                        pwmMax = 50 + pwmLimit;
+                                        pwmMin = 50 - pwmLimit;
                                     
                                         /* We have received a config message, so signal to the PID thread that processing is allowed */
                                         ConfigState = csReady;  
@@ -571,7 +600,7 @@ void Comm_Task(void *arg) {
                                         if (PID_Setpoint != rxMessage.status.setpoint) {
                                             
                                             /* Remember where we started */
-                                            PID_Last_Position = Counter_1_ReadCounter();      
+                                            LastPosition = GetPosition();
                                             
                                             /* Update destination */
                                             PID_Setpoint = rxMessage.status.setpoint;
@@ -602,7 +631,7 @@ void Comm_Task(void *arg) {
                         txMessage.msg.fault    = (uint8) FaultState;
                         txMessage.msg.checksum_errors = ChecksumErrors;
                         txMessage.msg.sequence = ConfigSequence;
-                        txMessage.msg.position = Counter_1_ReadCounter();
+                        txMessage.msg.position = Position;
                         txMessage.msg.pwm      = PWM;
                         txMessage.msg.current  = Current;                            
                         
@@ -638,6 +667,8 @@ void Comm_Task(void *arg) {
             
         }
         
+        //PROBE_Write(0);
+        
         /* Quick sleep, a whole messaging sequence will take maybe 1.5ms */
         Sleep(1);
         
@@ -655,29 +686,56 @@ void Comm_Task(void *arg) {
 * Summary:
 *  Sets the duty cycle of the PWM at the output pin.
 *
-* Parameters: Duty cycle, in percent.
+* Parameters: Duty cycle, in percent.  A value of 50 is "neutral", values up 
+*             to 100 is forward drive, and below 50 down to 0 is backward drive.
 * Return: None
 *******************************************************************************/
 void PWM_Set(float dutycycle) {
     
     float drive = dutycycle;
-
-    /* Clip to the configured mix/max */
-    if (drive > PWM_Max_Fwd) {
-        drive = PWM_Max_Fwd;
-    } else if (drive < PWM_Max_Rev) {
-        drive = PWM_Max_Rev;
-    }
     
-    /* If somehow misconfigured to go even higher, clip to the max/min of the drive */
-    if (drive > 100) {
-        drive = 100;
-    } else if (drive < 0) {
-        drive = 0;
+    /* Clip to the max PWM drive +/- around 50 */
+    if (drive > pwmMax) {
+        drive = pwmMax;
+    } else if (drive < pwmMin) {
+        drive = pwmMin;
     }
     
     PWM_1_WriteCompare(PWM_PCT_TO_COMPARE(drive));    
 }
+
+/*******************************************************************************
+* Function Name: GetPosition
+********************************************************************************
+* Summary:
+*  Get the physical position value and compensate for negative locations.
+*
+* Parameters: None
+* Return: int32 (signed!) position value
+*******************************************************************************/
+int32 GetPosition(void) {
+    
+    uint32 RawPosition;
+    int32 result;
+    
+    /* Get up-to-date position from the 24 bit unsigned counter*/
+    RawPosition = Counter_1_ReadCounter();   
+    
+    /* If the raw position is higher than some extremely high number, treat it as 
+       underflow and make that into a negative value */
+    if (RawPosition > ENCODER_NEGATIVE_BOUNDARY) {
+        
+        result = (int32) ((-1) * (ENCODER_MAX - RawPosition));
+        
+    } else {
+     
+        /* Value is "positive", treat it normally */
+        result = (int32) RawPosition;
+    }
+    
+    return result;
+}
+
 
 
 /*******************************************************************************
@@ -691,19 +749,13 @@ void PWM_Set(float dutycycle) {
 *******************************************************************************/
 void PID_Initialize(void) {
     
-    uint32 position;
+    /* Get up-to-date position */
+    Position = GetPosition();
+    LastPosition = Position;
     
-    /* Get up-to-date current position */
-    position = Counter_1_ReadCounter();     
-
-    lastPosition = position;
-    ITerm = Output;
-    
-    if (ITerm > outMax) {
-        ITerm = outMax;
-    } else if (ITerm < outMin) {
-        ITerm = outMin;
-    }
+    /* 2019-03-13 PMR: Init to zero instead of the output value, since we are not
+       switching from manual to auto frequently */
+    ITerm = 0;
 }    
 
 
@@ -742,13 +794,12 @@ float PID_Compute(uint32 now, uint32 setpoint) {
     
     int32 error, dPosition;
     uint32 timeChange;
-    uint32 position;
         
     if(!inAuto) 
         return 0;
     
     /* Get most up-to-date current position */
-    position = Counter_1_ReadCounter();     
+    Position = GetPosition();
 
     /* How much time has elapsed since the last pass? */
     timeChange = (now - lastTime);
@@ -761,71 +812,35 @@ float PID_Compute(uint32 now, uint32 setpoint) {
         PID_SetTunings(timeChange, refKp, refKi, refKd);
         
         /* Compute all the working error variables */
-        error = setpoint - position;
+        error = setpoint - Position;
         ITerm += (ki * error);
         
-        /* Clip the I term at the output max (windup guard) */
-        if (ITerm > outMax) {
-            ITerm = outMax;
-        } else if (ITerm < outMin) {
-            ITerm = outMin;
+        /* Clip the I term at a max value for just that term (windup guard) */
+        if (ITerm > outMax_ITerm) {
+            ITerm = outMax_ITerm;
+        } else if (ITerm < -outMax_ITerm) {
+            ITerm = -outMax_ITerm;
         }
         
         /* Calculate the error term */
-        dPosition = (position - lastPosition);
+        dPosition = (Position - LastPosition);
 
         /* Compute PID Output */
         Output = (kp * error) + ITerm - (kd * dPosition);
         
         /* Clip the output */
-        if (Output> outMax) {
-            Output = outMax;
-        } else if (Output < outMin) {
-            Output = outMin;
+        if (Output> outMax_Total) {
+            Output = outMax_Total;
+        } else if (Output < -outMax_Total) {
+            Output = -outMax_Total;
         }
 
         /* Remember some variables for next time */
-        lastPosition = position;
+        LastPosition = Position;
         lastTime = now;        
     }
     
     return Output;    
-}
- 
-
-
- 
-/*******************************************************************************
-* Function Name: PID_SetOutputLimits
-********************************************************************************
-* Summary:
-*  Define the output limits of the PID process.
-*
-* Parameters: Min and Max output values.
-* Return: None
-*******************************************************************************/
-void PID_SetOutputLimits(float Min, float Max) {
-    
-    if(Min > Max) 
-        return;
-
-    /* Update the global min/max */
-    outMin = Min;
-    outMax = Max;
-
-    /* Clip the output to the new max */
-    if(Output > outMax) {
-        Output = outMax;
-    } else if (Output < outMin) {
-        Output = outMin;
-    }
-
-    /* Clip the I term to the new max */
-    if (ITerm > outMax) {
-        ITerm = outMax;
-    } else if (ITerm < outMin) {
-        ITerm = outMin;
-    }
 }
  
 /*******************************************************************************
@@ -859,7 +874,7 @@ void PID_SetMode(uint32 Mode) {
 * Return: None
 *******************************************************************************/
 void PID_SetDrive(float percent) {
-    
+
     /* Valid percentage range coming out of the PID algorithm is -100.0 to +100.0 
        which needs to be translated into a duty cycle value of 0.0 to 100.0 */
     float dutycycle = (percent + 100) / 2;    
@@ -902,10 +917,19 @@ void PID_Task(void *arg) {
     
     /* Setup the PID subsystem */
     PID_Initialize();
-    PID_SetTunings(sleeptime, refKp, refKi, refKd);
-    PID_SetOutputLimits(-100.0, 100.0);
+    PID_SetTunings(sleeptime, refKp, refKi, refKd);    
     PID_SetMode(PID_MANUAL);
+    
+    /* Initially default to 100% output max until config tells us otherwise */
+    outMax_Total = 100;
+    outMax_ITerm = 100;
 
+    /* Init the PWM limits the same way, full maximums */
+    pwmLimit = 50;   // This is a + or - value
+    pwmMax = PWM_JOG_NEUTRAL + pwmLimit;
+    pwmMin = PWM_JOG_NEUTRAL - pwmLimit;    
+    
+    /* Start counting time at 0ms */
     now = 0;
     
     /* Start off disabled */
@@ -914,6 +938,8 @@ void PID_Task(void *arg) {
     PID_Enabled = false;
     
     while (1) {
+        
+        PROBE_Write(1);
               
         /* ------------------------------------------------------------------------------------ */
         /* At the top of the PID loop, refresh the counter of the watchdog to indicate the RTOS 
@@ -952,13 +978,13 @@ void PID_Task(void *arg) {
                 
                 /* When we start homing, it looks like a big negative jog.  Setup to watch the index marks as we jog, 
                    so we can assert faults if they aren't changing. */                
-                if ((Jog != Last_Jog) && (Jog != 0)) {
+                if ((Jog != LastJog) && (Jog != 0)) {
                     
                     /* Update the 'last' jog value, so we don't fall into this reset code over and over */
-                    Last_Jog = Jog;
+                    LastJog = Jog;
                     
                     /* Remember where we started */
-                    PID_Last_Position = Counter_1_ReadCounter();      
+                    LastPosition = GetPosition();
                     
                     /* Reset counting of index marks */
                     Index_Counter_1_WriteCounter(0);
@@ -972,8 +998,8 @@ void PID_Task(void *arg) {
                 
                     /* If we have moved a good distance away from the origin point, compare index counts versus position counts 
                        looking for discrepancy. */
-                    CurrentPosition = Counter_1_ReadCounter();
-                    DeltaPosition = labs( ((int32) CurrentPosition) - ((int32) PID_Last_Position) );
+                    CurrentPosition = GetPosition();
+                    DeltaPosition = labs( CurrentPosition - LastPosition );
                     CurrentIndexCount = Index_Counter_1_ReadCounter();
                     
                     /* Look for index failure: the index counter should have incremented by at least 1 by now  */
@@ -1020,6 +1046,8 @@ void PID_Task(void *arg) {
             
         }
         
+        PROBE_Write(0);
+        
         /* Run the loop every 5ms, which is 200Hz update rate */
         Sleep(sleeptime);
 
@@ -1060,7 +1088,7 @@ int main(void) {
         "PID",          /* Task name (string) */
         64,             /* Task stack, allocated from heap (measured 12/27 to be 24 bytes) */
         0,              /* No param passed to task function */
-        2,              /* Medium priority */
+        3,              /* Medium priority */
         0 );            /* Not using the task handle */    
     
     xTaskCreate(
@@ -1068,7 +1096,7 @@ int main(void) {
         "Communications", /* Task name (string) */
         100,            /* Task stack, allocated from heap (measured 12/27 to be 78 bytes)  */
         0,              /* No param passed to task function */
-        3,              /* High priority */
+        2,              /* High priority */
         0 );            /* Not using the task handle */    
 
     xTaskCreate(
@@ -1156,13 +1184,11 @@ int main(void) {
     
     /* Default the jog value to neutral (no movement) */
     Jog = 0;
-    PWM_Max_Fwd = PWM_JOG_NEUTRAL + PWM_MAX_MAGNITUDE;
-    PWM_Max_Rev = PWM_JOG_NEUTRAL - PWM_MAX_MAGNITUDE;
    
     /* Start counting the quadrature encoding */
     Counter_1_Start();    
     Counter_1_WriteCounter(ENCODER_MAX);  // Set the encoder initially to mid range
-    PID_Last_Position = ENCODER_MAX;
+    LastPosition = ENCODER_MAX;
     
     /* Clear and start the index mark counter */
     Index_Counter_1_Start();
@@ -1294,5 +1320,4 @@ CY_ISR(SPI_SS_IsrHandler) {
             
     } 
 }
-
 

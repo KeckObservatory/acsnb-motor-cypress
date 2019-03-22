@@ -34,6 +34,7 @@
       <Data key="20b2e241-8805-4a26-8b90-0e9f839ef849" value="PWM_OUT" />
       <Data key="43ec2fa1-bf22-4b71-9477-b6ca7b97f0b0/23b8206d-1c77-4e61-be4a-b4037d5de5fc" value="UART_tx" />
       <Data key="43ec2fa1-bf22-4b71-9477-b6ca7b97f0b0/78e33e5d-45ea-4b75-88d5-73274e8a7ce4" value="UART_rx" />
+      <Data key="49d31d63-2050-4591-811e-8111091172df" value="PROBE2" />
       <Data key="52f31aa9-2f0a-497d-9a1f-1424095e13e6" value="LCD_RST" />
       <Data key="61ba33cc-f846-4389-b365-a573ba688ccf" value="HOME_IN" />
       <Data key="88da7a03-3ce7-4fb7-badc-aec021f74a01" value="spi_clk" />
@@ -1440,7 +1441,7 @@
     </Group>
     <Group key="c0188285-e1f3-4a8b-83c9-6a40e68ea3dd">
       <Group key="0">
-        <Data key="Port Format" value="1,1" />
+        <Data key="Port Format" value="1,7" />
       </Group>
     </Group>
     <Group key="d5a91840-d314-4159-8286-cda8779a928d">
@@ -1468,7 +1469,11 @@
         <Data key="Port Format" value="2,5" />
       </Group>
     </Group>
-    <Group key="UnAssigned Pins" />
+    <Group key="UnAssigned Pins">
+      <Group key="49d31d63-2050-4591-811e-8111091172df">
+        <Data key="0" value="131969849972798655" />
+      </Group>
+    </Group>
     <Group key="Unlocked Pins">
       <Group key="3b79d1e0-e222-470b-b01f-6509d9e61fec">
         <Group key="0">

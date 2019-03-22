@@ -62,6 +62,6 @@ set_location "Reset_Encoder" logicalport -1 -1 2
 set_io "phiB(0)" iocell 0 0
 set_io "spi_miso(0)" iocell 0 5
 set_io "LED(0)" iocell 1 6
-set_io "PROBE(0)" iocell 1 1
+set_io "PROBE(0)" iocell 1 7
 set_io "spi_mosi(0)" iocell 0 4
 set_location "ClockBlock" m0s8clockblockcell -1 -1 0

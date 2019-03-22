@@ -1,5 +1,5 @@
 -- Project:   QuadEncoderRTOS
--- Generated: 02/07/2019 16:49:01
+-- Generated: 03/13/2019 11:10:24
 -- PSoC Creator  4.2
 
 ENTITY QuadEncoderRTOS IS
@@ -247,7 +247,7 @@ ARCHITECTURE __DEFAULT__ OF QuadEncoderRTOS IS
     ATTRIBUTE lib_model OF spi_miso(0) : LABEL IS "iocell16";
     ATTRIBUTE Location OF spi_miso(0) : LABEL IS "P0[5]";
     ATTRIBUTE lib_model OF PROBE(0) : LABEL IS "iocell17";
-    ATTRIBUTE Location OF PROBE(0) : LABEL IS "P1[1]";
+    ATTRIBUTE Location OF PROBE(0) : LABEL IS "P1[7]";
     ATTRIBUTE lib_model OF \Counter_1:CounterUDB:status_0\ : LABEL IS "macrocell1";
     ATTRIBUTE Location OF \Counter_1:CounterUDB:status_0\ : LABEL IS "U(0,1)";
     ATTRIBUTE lib_model OF \Counter_1:CounterUDB:status_2\ : LABEL IS "macrocell2";
