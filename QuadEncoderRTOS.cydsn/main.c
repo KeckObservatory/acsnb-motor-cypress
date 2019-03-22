@@ -498,7 +498,7 @@ void Comm_Task(void *arg) {
     uint8 size;
     uint8 i;
     uint8 checksum;
-    uint8 limit;
+    uint8 limit;    
     
     /* Initial high water mark reading */
     uxHighWaterMark_Comm = uxTaskGetStackHighWaterMark( NULL );  
@@ -620,6 +620,9 @@ void Comm_Task(void *arg) {
                             }                            
                         }
                         
+                        /* Get a fresh copy of the position information */
+                        Position = GetPosition();
+                        
                         /* Fill out the common reponse the same way every time, as a status response */
                         txMessage.msg.checksum = 0;
                         txMessage.msg.version0 = FIRMWARE_REV_0;
@@ -733,6 +736,8 @@ int32 GetPosition(void) {
         result = (int32) RawPosition;
     }
     
+    /* Update the master copy of position information */
+    Position = result;
     return result;
 }
 
