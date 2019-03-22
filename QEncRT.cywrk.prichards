@@ -65,7 +65,55 @@
 <v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4</v>
 <v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\phiA</v>
 </ExpandedNodeIds>
-<VisibleNodeIds />
+<VisibleNodeIds>
+<v>QEncRT</v>
+<v>QEncRT\QuadEncoderRTOS</v>
+<v>QEncRT\QuadEncoderRTOS\TopDesign</v>
+<v>QEncRT\QuadEncoderRTOS\QuadEncoderRTOS.cydwr</v>
+<v>QEncRT\QuadEncoderRTOS\QuadEncoderRTOS.cydwr\Pins</v>
+<v>QEncRT\QuadEncoderRTOS\QuadEncoderRTOS.cydwr\Analog</v>
+<v>QEncRT\QuadEncoderRTOS\QuadEncoderRTOS.cydwr\Clocks</v>
+<v>QEncRT\QuadEncoderRTOS\QuadEncoderRTOS.cydwr\Interrupts</v>
+<v>QEncRT\QuadEncoderRTOS\QuadEncoderRTOS.cydwr\System</v>
+<v>QEncRT\QuadEncoderRTOS\QuadEncoderRTOS.cydwr\Directives</v>
+<v>QEncRT\QuadEncoderRTOS\QuadEncoderRTOS.cydwr\Flash Security</v>
+<v>QEncRT\QuadEncoderRTOS\FreeRTOS ARM Cortex-M0</v>
+<v>QEncRT\QuadEncoderRTOS\FreeRTOS Core Source</v>
+<v>QEncRT\QuadEncoderRTOS\Header Files</v>
+<v>QEncRT\QuadEncoderRTOS\Header Files\FreeRTOSConfig.h</v>
+<v>QEncRT\QuadEncoderRTOS\Header Files\INA219.h</v>
+<v>QEncRT\QuadEncoderRTOS\Source Files</v>
+<v>QEncRT\QuadEncoderRTOS\Source Files\INA219.c</v>
+<v>QEncRT\QuadEncoderRTOS\Source Files\main.c</v>
+<v>QEncRT\QuadEncoderRTOS\Source Files\old_code.txt</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\Clock_1</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\Counter_1</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\cy_boot</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\cy_lfclk</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\Direction</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\Em_EEPROM_Dynamic</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\HOME_IN</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\HOME_OUT</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\I2C</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\I2C_SCB_IRQ</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\I2C_SCBCLK</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\I2C_scl</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\I2C_sda</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\Index_Counter_1</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\INDEX_IN</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\INDEX_OUT</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\isr_home</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\isr_rst_encoder</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\isr_spi_ss</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\LED</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\phiA</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\phiA\phiA.c</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\phiA\phiA.h</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\phiA\phiA_aliases.h</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\phiA\phiA_PM.c</v>
+</VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="QEncRT">
 <ExpandedNodeIds>
@@ -74,7 +122,12 @@
 <v>QEncRT\QuadEncoderRTOS\TopDesign</v>
 <v>QEncRT\QuadEncoderRTOS\TopDesign\TopDesign.cysch</v>
 </ExpandedNodeIds>
-<VisibleNodeIds />
+<VisibleNodeIds>
+<v>QEncRT</v>
+<v>QEncRT\QuadEncoderRTOS</v>
+<v>QEncRT\QuadEncoderRTOS\TopDesign</v>
+<v>QEncRT\QuadEncoderRTOS\TopDesign\TopDesign.cysch</v>
+</VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
 <ExpandedNodeIds>
@@ -174,7 +227,55 @@
 <v>QEncRT\QuadEncoderRTOS\QuadEncoderRTOS.rpt</v>
 <v>QEncRT\QuadEncoderRTOS\QuadEncoderRTOS_timing.html</v>
 </ExpandedNodeIds>
-<VisibleNodeIds />
+<VisibleNodeIds>
+<v>QEncRT</v>
+<v>QEncRT\QuadEncoderRTOS</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\Clock_1.lst</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\Cm0Start.lst</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\Counter_1.lst</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\Counter_1_PM.lst</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\croutine.lst</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\cy_em_eeprom.lst</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\CyBootAsmGnu.lst</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\cyfitter_cfg.lst</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\CyFlash.lst</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\CyLFClk.lst</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\CyLib.lst</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\cymetadata.lst</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\cyPm.lst</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\cyutils.lst</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\Direction.lst</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\Direction_PM.lst</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\event_groups.lst</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\heap_1.lst</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\HOME_IN.lst</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\HOME_IN_PM.lst</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\HOME_OUT.lst</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\HOME_OUT_PM.lst</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C.lst</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_BOOT.lst</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_I2C.lst</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_I2C_BOOT.lst</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_I2C_INT.lst</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_I2C_MASTER.lst</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_PM.lst</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_SCB_IRQ.lst</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_SCBCLK.lst</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_scl.lst</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_scl_PM.lst</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_sda.lst</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_sda_PM.lst</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\INA219.lst</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\Index_Counter_1.lst</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\Index_Counter_1_PM.lst</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\INDEX_IN.lst</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\INDEX_IN_PM.lst</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\INDEX_OUT.lst</v>
+</VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 </TreeStates>
 <TreeKeysV2>
@@ -214,7 +315,38 @@
 <v>QEncRT\QuadEncoderRTOS\xor_v1_0</v>
 <v>QEncRT\QuadEncoderRTOS\xor_v1_0\xor_v1_0.pdf</v>
 </ExpandedNodeIds>
-<VisibleNodeIds />
+<VisibleNodeIds>
+<v>QEncRT</v>
+<v>QEncRT\QuadEncoderRTOS</v>
+<v>QEncRT\QuadEncoderRTOS\PSoC 4 Architecture TRM</v>
+<v>QEncRT\QuadEncoderRTOS\PSoC 4200 Family Datasheet</v>
+<v>QEncRT\QuadEncoderRTOS\System Reference Guides</v>
+<v>QEncRT\QuadEncoderRTOS\System Reference Guides\cy_boot_v5_70</v>
+<v>QEncRT\QuadEncoderRTOS\System Reference Guides\cy_lfclk_v1_20</v>
+<v>QEncRT\QuadEncoderRTOS\and_v1_0</v>
+<v>QEncRT\QuadEncoderRTOS\and_v1_0\and_v1_0.pdf</v>
+<v>QEncRT\QuadEncoderRTOS\Counter_v3_0</v>
+<v>QEncRT\QuadEncoderRTOS\Counter_v3_0\Counter_v3_0.pdf</v>
+<v>QEncRT\QuadEncoderRTOS\cy_clock_v2_20.pdf</v>
+<v>QEncRT\QuadEncoderRTOS\cy_isr_v1_70</v>
+<v>QEncRT\QuadEncoderRTOS\cy_isr_v1_70\cy_isr_v1_70.pdf</v>
+<v>QEncRT\QuadEncoderRTOS\cy_pins_v2_20</v>
+<v>QEncRT\QuadEncoderRTOS\cy_pins_v2_20\cy_pins_v2_20.pdf</v>
+<v>QEncRT\QuadEncoderRTOS\cy_srff_v1_0.pdf</v>
+<v>QEncRT\QuadEncoderRTOS\cydff_v1_30</v>
+<v>QEncRT\QuadEncoderRTOS\cydff_v1_30\cydff_v1_30.pdf</v>
+<v>QEncRT\QuadEncoderRTOS\not_v1_0.pdf</v>
+<v>QEncRT\QuadEncoderRTOS\Power_v1_0.pdf</v>
+<v>QEncRT\QuadEncoderRTOS\Resistor_v1_0</v>
+<v>QEncRT\QuadEncoderRTOS\Resistor_v1_0\Resistor_v1_0.pdf</v>
+<v>QEncRT\QuadEncoderRTOS\SCB_P4_v4_0</v>
+<v>QEncRT\QuadEncoderRTOS\SCB_P4_v4_0\SCB_P4_v4_0.pdf</v>
+<v>QEncRT\QuadEncoderRTOS\TCPWM_P4_v2_10.pdf</v>
+<v>QEncRT\QuadEncoderRTOS\TestPoint_v1_0</v>
+<v>QEncRT\QuadEncoderRTOS\TestPoint_v1_0\TestPoint_v1_0.pdf</v>
+<v>QEncRT\QuadEncoderRTOS\xor_v1_0</v>
+<v>QEncRT\QuadEncoderRTOS\xor_v1_0\xor_v1_0.pdf</v>
+</VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 </TreeStatesV2>
 </CyGuid_1b906a0f-a7b6-4e4d-a428-82f98b53cb35>

@@ -1087,13 +1087,16 @@ int main(void) {
     HOME_OUT_SetDriveMode(HOME_OUT_DM_DIG_HIZ); 
     INDEX_OUT_SetDriveMode(INDEX_OUT_DM_DIG_HIZ); 
 
-    /* Create LED task, which will control the intensity of the LEDs */
+    /* Create tasks.  Priority value is set such that higher numbers have higher priority.
+    https://www.freertos.org/RTOS-task-priority.html
+    */
+    
     xTaskCreate(
         PID_Task,       /* Task function */
         "PID",          /* Task name (string) */
         64,             /* Task stack, allocated from heap (measured 12/27 to be 24 bytes) */
         0,              /* No param passed to task function */
-        3,              /* Medium priority */
+        3,              /* High priority */
         0 );            /* Not using the task handle */    
     
     xTaskCreate(
@@ -1101,7 +1104,7 @@ int main(void) {
         "Communications", /* Task name (string) */
         100,            /* Task stack, allocated from heap (measured 12/27 to be 78 bytes)  */
         0,              /* No param passed to task function */
-        2,              /* High priority */
+        2,              /* Medium priority */
         0 );            /* Not using the task handle */    
 
     xTaskCreate(
