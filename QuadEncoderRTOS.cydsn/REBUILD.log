@@ -1,4 +1,4 @@
---------------- Rebuild Started: 02/07/2019 16:48:56 Project: QuadEncoderRTOS, Configuration: ARM GCC 5.4-2016-q2-update Debug ---------------
+--------------- Rebuild Started: 04/05/2019 18:04:56 Project: QuadEncoderRTOS, Configuration: ARM GCC 5.4-2016-q2-update Debug ---------------
 Deleting file ".\CortexM0\ARM_GCC_541\Debug\main.o"
 Deleting file ".\CortexM0\ARM_GCC_541\Debug\INA219.o"
 Deleting file ".\CortexM0\ARM_GCC_541\Debug\port.o"
@@ -198,6 +198,6 @@ No ELF section .cychecksum found, creating one
 Application checksum calculated and stored in ELF section .cychecksum
 Checksum calculated and stored in ELF section .cymeta
 cyelftool.exe -S C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.elf
-Flash used: 17854 of 32768 bytes (54.5 %).
-SRAM used: 3624 of 4096 bytes (88.5 %). Stack: 512 bytes. Heap: 128 bytes.
---------------- Rebuild Succeeded: 02/07/2019 16:49:16 ---------------
+Flash used: 17870 of 32768 bytes (54.5 %).
+SRAM used: 3640 of 4096 bytes (88.9 %). Stack: 512 bytes. Heap: 128 bytes.
+--------------- Rebuild Succeeded: 04/05/2019 18:05:15 ---------------

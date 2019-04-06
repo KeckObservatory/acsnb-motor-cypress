@@ -23,10 +23,10 @@
 #include <math.h>
 #include "INA219.h"
 
-/* Firmware revision is 0-0-3 (as of 2019-03-21 PMR) */
+/* Firmware revision is 0-0-4 (as of 2019-04-04 PMR) */
 #define FIRMWARE_REV_0 0
 #define FIRMWARE_REV_1 0
-#define FIRMWARE_REV_2 3
+#define FIRMWARE_REV_2 4
 
 /* Debugging - undefine this for a production system that needs to watchdog */
 #define DEBUG_PROBE_ATTACHED 1
@@ -79,11 +79,13 @@ CY_ISR_PROTO(SPI_SS_IsrHandler);
  * --------------------------------------------------------------------- */
 #define PID_MANUAL                             (0)
 #define PID_AUTOMATIC                          (1)
+#define PID_EFFECTIVE_SETPOINT_DELTA_DEFAULT   (25)
 bool inAuto = false;
 
 volatile int8 Jog, LastJog;
 bool PID_Enabled, PID_Was_Enabled;
-uint32 PID_Setpoint;
+int32 PID_Setpoint, PID_EffectiveSetpoint;
+uint8 PID_EffSetDelta;
 uint32 lastTime;
 float Output;
 float ITerm;
@@ -252,7 +254,7 @@ typedef struct {
     uint8 opcode;     /* Operation (generic overlay for previewing opcode value) */
 } __attribute__ ((__packed__)) rxMessage_overlay_t;
 
-/* Configuration message, 18 bytes */
+/* Configuration message, 19 bytes */
 typedef struct {
     uint8 checksum;        
     uint8 size;       /* Size of the message bytes, including opcode and size and checksum */
@@ -263,6 +265,7 @@ typedef struct {
     float Kd;
     uint8 limit_Total;/* Total drive output limit, +/- percentage */
     uint8 limit_ITerm;/* PID I term output limit, also +/- percentage */
+    uint8 effsetdelta;/* PID effective setpoint increment delta, nominally 25 steps */
 } __attribute__ ((__packed__)) rxMessage_config_t;
 
 /* Status message, contains desired position and such values, 12 bytes */
@@ -271,7 +274,7 @@ typedef struct {
     uint8  size;       /* Size of the message bytes, including opcode and size and checksum */
     uint8  opcode;     /* Operation: 02 == status */
     uint8  enable;     /* Enable/disable PID algorithm */
-    uint32 setpoint;   /* Setpoint (desired actuator position) */
+    int32 setpoint;    /* Setpoint (desired actuator position) */
     int8   jog;        /* Jog value, to manually move the motor; valid range -100 to 100 */ 
     uint8  clearfaults;/* Set to nonzero to clear all the current faults */
 } __attribute__ ((__packed__)) rxMessage_status_t;
@@ -556,7 +559,10 @@ void Comm_Task(void *arg) {
                                            values are time interval adjusted */
                                         refKp = rxMessage.config.Kp;
                                         refKi = rxMessage.config.Ki;
-                                        refKd = rxMessage.config.Kd;                                        
+                                        refKd = rxMessage.config.Kd;      
+                                    
+                                        /* PID effective setpoint increment delta value */                                      
+                                        PID_EffSetDelta = rxMessage.config.effsetdelta;
                                            
                                         /* Setup the output limits and stop a jog if one was in progress */
                                         Jog = 0;
@@ -604,6 +610,10 @@ void Comm_Task(void *arg) {
                                             
                                             /* Update destination */
                                             PID_Setpoint = rxMessage.status.setpoint;
+                                            
+                                            /* Initialize the effective setpoint to be equal to where we are right now,
+                                            it will be incremented/decremented when the PID algorithm runs next time.*/
+                                            PID_EffectiveSetpoint = LastPosition;                                                
                                             
                                             /* Reset counting of index marks */
                                             Index_Counter_1_WriteCounter(0);
@@ -805,7 +815,7 @@ float PID_Compute(uint32 now, uint32 setpoint) {
     
     /* Get most up-to-date current position */
     Position = GetPosition();
-
+    
     /* How much time has elapsed since the last pass? */
     timeChange = (now - lastTime);
     
@@ -939,6 +949,8 @@ void PID_Task(void *arg) {
     
     /* Start off disabled */
     PID_Setpoint = 0;  
+    PID_EffectiveSetpoint = 0;
+    PID_EffSetDelta = PID_EFFECTIVE_SETPOINT_DELTA_DEFAULT;
     PID_Was_Enabled = false;
     PID_Enabled = false;
     
@@ -1031,13 +1043,34 @@ void PID_Task(void *arg) {
             /* Save value for next cycle */
             PID_Was_Enabled = PID_Enabled;
             
-                
-            /* Run the PID algorithm */
-            percent = PID_Compute(now, PID_Setpoint);
+            /* Calculate the effective setpoint, which is defined as N (nominally 25) counts closer to the 
+            actual setpoint, incremented once per cycle of this algorithm.  
+        
+            Consider a move of +2000 counts from position 0 to 2000: 
             
-            /* Send the pwm back up to the BBB */
+            1) The setpoint will change to 2000.
+            2) The effective setpoint is initialized to the current position, plus 25 counts = 2025.
+            3) Calculate the PID and return.
+            4) The next time PID_Compute is called, increment the effective setpoint by 25 counts = 2050.
+            5) Calculate the PID and return.
+            6) Repeat steps 4 and 5 until the effective setpoint equals the actual setpoint.             
+            */
+
             if (PID_Enabled) {
                 
+                if (PID_EffSetDelta == 0) {
+                    PID_EffectiveSetpoint = PID_Setpoint;
+                } else if ( labs(PID_EffectiveSetpoint - PID_Setpoint) <= (2 * PID_EffSetDelta) ) {
+                    PID_EffectiveSetpoint = PID_Setpoint;                                                
+                } else if (PID_Setpoint > PID_EffectiveSetpoint) {
+                    PID_EffectiveSetpoint = (PID_EffectiveSetpoint + PID_EffSetDelta);
+                } else {
+                    PID_EffectiveSetpoint = (PID_EffectiveSetpoint - PID_EffSetDelta);
+                }
+                
+                /* Run the PID algorithm against the effective setpoint */
+                percent = PID_Compute(now, PID_EffectiveSetpoint);
+            
                 /* Use the global PWM value to communicate back the percentage of drive to the server */
                 PWM = percent;
                 
