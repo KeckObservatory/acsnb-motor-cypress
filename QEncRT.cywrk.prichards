@@ -13,7 +13,7 @@
 <v>Output</v>
 </TreeKeys>
 <TreeStates>
-<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\phiA\phiA.c">
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="QEncRT\QuadEncoderRTOS\Source Files\INA219.c">
 <ExpandedNodeIds>
 <v>QEncRT</v>
 <v>QEncRT\QuadEncoderRTOS</v>
@@ -302,12 +302,11 @@
 <name v=".\QuadEncoderRTOS.cydsn\TopDesign\TopDesign.cysch" />
 <name v=".\QuadEncoderRTOS.cydsn\QuadEncoderRTOS.cydwr" />
 <name v=".\QuadEncoderRTOS.cydsn\main.c" />
-<name v=".\QuadEncoderRTOS.cydsn\Generated_Source\PSoC4\HOME_OUT.c" />
-<name v=".\QuadEncoderRTOS.cydsn\Generated_Source\PSoC4\HOME_OUT.h" />
 <name v=".\QuadEncoderRTOS.cydsn\FreeRTOSConfig.h" />
 <name v=".\QuadEncoderRTOS.cydsn\Generated_Source\PSoC4\phiA.c" />
-<name v=".\QuadEncoderRTOS.cydsn\old_code.txt" />
 <name v=".\QuadEncoderRTOS.cydsn\FreeRTOS\source\tasks.c" />
+<name v=".\QuadEncoderRTOS.cydsn\INA219.h" />
+<name v=".\QuadEncoderRTOS.cydsn\INA219.c" />
 </OpenDocs>
 <OpenDocsLayout><![CDATA[<?xml version="1.0"?><!--
 
@@ -315,7 +314,7 @@
   Copyright (c) 2001-2016 Actipro Software LLC.  All rights reserved.
   http://www.actiprosoftware.com
 
---><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="922, 612" SelectedTabbedMdiWindow="2c7cb87e-327b-42e6-bd18-619eca5ef281"><DocumentWindow Key="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\TopDesign\TopDesign.cysch" Guid="4d832ef0-ff6c-4864-bc9e-147c4718d1a9" /><DocumentWindow Key="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\QuadEncoderRTOS.cydwr" Guid="59f07ce3-58d0-4c01-99ef-9f9dbefad178" /><DocumentWindow Key="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\main.c" Guid="2c7cb87e-327b-42e6-bd18-619eca5ef281" /><DocumentWindow Key="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\Generated_Source\PSoC4\HOME_OUT.c" Guid="bd6d2fb2-5042-4016-9f85-7a173a5a62b7" /><DocumentWindow Key="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\Generated_Source\PSoC4\HOME_OUT.h" Guid="2fc2b8a8-f85d-43d4-a859-04927af655ce" /><DocumentWindow Key="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\FreeRTOSConfig.h" Guid="b3cc04cc-1f67-4704-8b20-9da4994c8ed3" /><DocumentWindow Key="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\Generated_Source\PSoC4\phiA.c" Guid="a6fb3d5a-c748-41ee-b138-f666f9251f47" /><DocumentWindow Key="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\old_code.txt" Guid="ced488d2-864a-425f-8813-32a131e168c5" /><DocumentWindow Key="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\FreeRTOS\source\tasks.c" Guid="046b6639-d2e5-406a-894e-4a2fdf7364d2" /><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="525addd1-d875-45f6-8608-a6eb08ec165e" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
+--><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="922, 614" SelectedTabbedMdiWindow="2c7cb87e-327b-42e6-bd18-619eca5ef281"><DocumentWindow Key="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\TopDesign\TopDesign.cysch" Guid="4d832ef0-ff6c-4864-bc9e-147c4718d1a9" /><DocumentWindow Key="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\QuadEncoderRTOS.cydwr" Guid="59f07ce3-58d0-4c01-99ef-9f9dbefad178" /><DocumentWindow Key="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\main.c" Guid="2c7cb87e-327b-42e6-bd18-619eca5ef281" /><DocumentWindow Key="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\FreeRTOSConfig.h" Guid="b3cc04cc-1f67-4704-8b20-9da4994c8ed3" /><DocumentWindow Key="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\Generated_Source\PSoC4\phiA.c" Guid="a6fb3d5a-c748-41ee-b138-f666f9251f47" /><DocumentWindow Key="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\FreeRTOS\source\tasks.c" Guid="046b6639-d2e5-406a-894e-4a2fdf7364d2" /><DocumentWindow Key="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\INA219.h" Guid="41ca38ec-a7d0-43db-9f6f-f4c7db091aa3" /><DocumentWindow Key="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\INA219.c" Guid="4806633b-e8ec-436e-b62b-40825a19a3f5" /><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="525addd1-d875-45f6-8608-a6eb08ec165e" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
 <config v="" />
 <AutoUpdate v="true" />
 </CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21>

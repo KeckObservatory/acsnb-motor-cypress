@@ -23,10 +23,10 @@
 #include <math.h>
 #include "INA219.h"
 
-/* Firmware revision is 0-0-4 (as of 2019-04-04 PMR) */
+/* Firmware revision as of 2019-05-09 PMR */
 #define FIRMWARE_REV_0 0
 #define FIRMWARE_REV_1 0
-#define FIRMWARE_REV_2 4
+#define FIRMWARE_REV_2 5
 
 /* Debugging - undefine this for a production system that needs to watchdog */
 #define DEBUG_PROBE_ATTACHED 1
@@ -106,10 +106,10 @@ float pwmLimit, pwmMax, pwmMin;
  * encoder to 0 and count negative the full travel before hitting the home
  * flag and resetting the counter to 0 again.
  *
- * (0x800000 - 0x700000 is 0x100000 or 1.048M, >3x the entire actuator travel)
+ * (0x100000 or 1.048M is >3x the entire actuator travel)
  * --------------------------------------------------------------------- */
-#define ENCODER_MAX                            (0x00800000)
-#define ENCODER_NEGATIVE_BOUNDARY              (0x00700000)
+#define ENCODER_MAX                            (0xFFFFFF)             
+#define ENCODER_NEGATIVE_BOUNDARY              (0xFFFFFF - 0x100000)  
 #define ENCODER_COUNTS_PER_INDEX               (10000)
 
 /* --------------------------------------------------------------------- 
@@ -728,8 +728,8 @@ void PWM_Set(float dutycycle) {
 *******************************************************************************/
 int32 GetPosition(void) {
     
-    uint32 RawPosition;
-    int32 result;
+    static volatile uint32 RawPosition;
+    static volatile int32 result;
     
     /* Get up-to-date position from the 24 bit unsigned counter*/
     RawPosition = Counter_1_ReadCounter();   
@@ -738,7 +738,7 @@ int32 GetPosition(void) {
        underflow and make that into a negative value */
     if (RawPosition > ENCODER_NEGATIVE_BOUNDARY) {
         
-        result = (int32) ((-1) * (ENCODER_MAX - RawPosition));
+        result = (-1) * ((int32) ENCODER_MAX - (int32) RawPosition);
         
     } else {
      
@@ -767,6 +767,10 @@ void PID_Initialize(void) {
     /* Get up-to-date position */
     Position = GetPosition();
     LastPosition = Position;
+    
+    /* Initialize the effective setpoint to be equal to where we are right now,
+    it will be incremented/decremented when the PID algorithm runs next time */
+    PID_EffectiveSetpoint = LastPosition;
     
     /* 2019-03-13 PMR: Init to zero instead of the output value, since we are not
        switching from manual to auto frequently */
