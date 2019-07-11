@@ -8,6 +8,8 @@
 *  The I2C device provides readback of motor current consumption.
 *
 * History:
+* 07/09/19 PMR  Rev: 0-0-6 fix tuning of INA219 and inhibit encoder report during homing
+* 05/09/19 PMR  Rev: 0-0-5 multiple shaper and PID fixes; let encoder go negative
 * 03/22/19 PMR  Rev: 0-0-3 add PID separate I limit and simplify limiting code
 * 02/07/19 PMR  Rev: 0-0-2 implement revision numbering in protocol
 * 12/18/18 PMR  Rev: B  Implement checksummed messaging and max PWM limiting
@@ -23,10 +25,10 @@
 #include <math.h>
 #include "INA219.h"
 
-/* Firmware revision as of 2019-05-09 PMR */
+/* Firmware revision as of 2019-07-10 PMR */
 #define FIRMWARE_REV_0 0
 #define FIRMWARE_REV_1 0
-#define FIRMWARE_REV_2 5
+#define FIRMWARE_REV_2 6
 
 /* Debugging - undefine this for a production system that needs to watchdog */
 #define DEBUG_PROBE_ATTACHED 1
@@ -95,6 +97,7 @@ float kp, ki, kd;
 uint32 refSampleTime = 5; // Default to 5ms
 float outMax_Total, outMax_ITerm;
 float pwmLimit, pwmMax, pwmMin;    
+bool homingDone = true;
 
 /* --------------------------------------------------------------------- 
  * ENCODER PROPERTIES
@@ -111,60 +114,6 @@ float pwmLimit, pwmMax, pwmMin;
 #define ENCODER_MAX                            (0xFFFFFF)             
 #define ENCODER_NEGATIVE_BOUNDARY              (0xFFFFFF - 0x100000)  
 #define ENCODER_COUNTS_PER_INDEX               (10000)
-
-/* --------------------------------------------------------------------- 
- * INA219 REGISTERS
- * --------------------------------------------------------------------- */
-#define INA219_REG_CONFIG                      (0x00)
-#define INA219_REG_SHUNTVOLTAGE                (0x01)
-#define INA219_REG_BUSVOLTAGE                  (0x02)
-#define INA219_REG_POWER                       (0x03)
-#define INA219_REG_CURRENT                     (0x04)
-#define INA219_REG_CALIBRATION                 (0x05)
-
-/* ****************************
- * INA219 CONFIG REGISTER (R/W)
- * **************************** */
-#define INA219_CONFIG_RESET                    (0x8000)  // Reset Bit
-
-#define INA219_CONFIG_BVOLTAGERANGE_MASK       (0x2000)  // Bus Voltage Range Mask
-#define INA219_CONFIG_BVOLTAGERANGE_16V        (0x0000)  // 0-16V Range
-#define INA219_CONFIG_BVOLTAGERANGE_32V        (0x2000)  // 0-32V Range
-
-#define INA219_CONFIG_GAIN_MASK                (0x1800)  // Gain Mask
-#define INA219_CONFIG_GAIN_1_40MV              (0x0000)  // Gain 1, 40mV Range
-#define INA219_CONFIG_GAIN_2_80MV              (0x0800)  // Gain 2, 80mV Range
-#define INA219_CONFIG_GAIN_4_160MV             (0x1000)  // Gain 4, 160mV Range
-#define INA219_CONFIG_GAIN_8_320MV             (0x1800)  // Gain 8, 320mV Range
-
-#define INA219_CONFIG_BADCRES_MASK             (0x0780)  // Bus ADC Resolution Mask
-#define INA219_CONFIG_BADCRES_9BIT             (0x0080)  // 9-bit bus res = 0..511
-#define INA219_CONFIG_BADCRES_10BIT            (0x0100)  // 10-bit bus res = 0..1023
-#define INA219_CONFIG_BADCRES_11BIT            (0x0200)  // 11-bit bus res = 0..2047
-#define INA219_CONFIG_BADCRES_12BIT            (0x0400)  // 12-bit bus res = 0..4097
-
-#define INA219_CONFIG_SADCRES_MASK             (0x0078)  // Shunt ADC Resolution and Averaging Mask
-#define INA219_CONFIG_SADCRES_9BIT_1S_84US     (0x0000)  // 1 x 9-bit shunt sample
-#define INA219_CONFIG_SADCRES_10BIT_1S_148US   (0x0008)  // 1 x 10-bit shunt sample
-#define INA219_CONFIG_SADCRES_11BIT_1S_276US   (0x0010)  // 1 x 11-bit shunt sample
-#define INA219_CONFIG_SADCRES_12BIT_1S_532US   (0x0018)  // 1 x 12-bit shunt sample
-#define INA219_CONFIG_SADCRES_12BIT_2S_1060US  (0x0048)	 // 2 x 12-bit shunt samples averaged together
-#define INA219_CONFIG_SADCRES_12BIT_4S_2130US  (0x0050)  // 4 x 12-bit shunt samples averaged together
-#define INA219_CONFIG_SADCRES_12BIT_8S_4260US  (0x0058)  // 8 x 12-bit shunt samples averaged together
-#define INA219_CONFIG_SADCRES_12BIT_16S_8510US (0x0060)  // 16 x 12-bit shunt samples averaged together
-#define INA219_CONFIG_SADCRES_12BIT_32S_17MS   (0x0068)  // 32 x 12-bit shunt samples averaged together
-#define INA219_CONFIG_SADCRES_12BIT_64S_34MS   (0x0070)  // 64 x 12-bit shunt samples averaged together
-#define INA219_CONFIG_SADCRES_12BIT_128S_69MS  (0x0078)  // 128 x 12-bit shunt samples averaged together
-
-#define INA219_CONFIG_MODE_MASK                (0x0007)  // Operating Mode Mask
-#define INA219_CONFIG_MODE_POWERDOWN           (0x0000)
-#define INA219_CONFIG_MODE_SVOLT_TRIGGERED     (0x0001)
-#define INA219_CONFIG_MODE_BVOLT_TRIGGERED     (0x0002)
-#define INA219_CONFIG_MODE_SANDBVOLT_TRIGGERED (0x0003)
-#define INA219_CONFIG_MODE_ADCOFF              (0x0004)
-#define INA219_CONFIG_MODE_SVOLT_CONTINUOUS    (0x0005)
-#define INA219_CONFIG_MODE_BVOLT_CONTINUOUS    (0x0006)
-#define INA219_CONFIG_MODE_SANDBVOLT_CONTINUOUS (0x0007)	
 
 
 /* --------------------------------------------------------------------- 
@@ -422,68 +371,27 @@ void ClearFault(FaultStates_t fault) {
 void Current_Read_Task(void *arg) {
     
     volatile uint32 err;
-    uint8 byteMSB;
-    uint8 byteLSB;
-    volatile int16 CurrentTemp;
-    
+    float CurrentTemp;
     
     /* Initial high water mark reading */
     uxHighWaterMark_Current = uxTaskGetStackHighWaterMark( NULL );
     
-    //TODO Init_INA(INA219_I2C_ADDR);
+    /* Start I2C for Current Monitor */
+    I2C_Start();
+    Init_INA(INA219_I2C_ADDR);
     
     while (1) {
-
-        //TODO CurrentTemp = getCurrent_raw(INA219_I2C_ADDR);
+        CurrentTemp = getCurrent_mA(INA219_I2C_ADDR);
+                
+        Current = (int16_t) CurrentTemp;
+        //AssertFault(fsCurrentRead);
         
-        err = I2C_I2CMasterSendStart(INA219_I2C_ADDR, 0x00, 10); // send start condition for the INA219
-        if (err == I2C_I2C_MSTR_NO_ERROR) {
-            
-            I2C_I2CMasterWriteByte(INA219_REG_CALIBRATION, 10);
-            
-            byteMSB = (uint8)((INA219_CAL_VALUE & 0xFF00) >> 8);
-            I2C_I2CMasterWriteByte(byteMSB, 10);
-            
-            byteLSB = (uint8)(INA219_CAL_VALUE & 0x00FF);
-            I2C_I2CMasterWriteByte(byteLSB, 10);
-            I2C_I2CMasterSendStop(10);
-            
-        } else {
-            Current = 0;
-            AssertFault(fsCurrentRead);
-        }
-        
-        err = I2C_I2CMasterSendStart(INA219_I2C_ADDR, 0x00, 10); // send start condition for the INA219
-        if (err == I2C_I2C_MSTR_NO_ERROR) {
-            
-            I2C_I2CMasterWriteByte(INA219_REG_CURRENT, 10);
-            I2C_I2CMasterSendStop(10);
-            
-            /* Read back the value for the current usage */
-            err = I2C_I2CMasterReadBuf(INA219_I2C_ADDR, CurrentI2Cinbuf, 5, 1);
-            
-            /* Reassemble the current value into a signed 16 bit value */
-            if (err == I2C_I2C_MSTR_NO_ERROR) {
-                CurrentTemp = (int16)(CurrentI2Cinbuf[0] << 8) + CurrentI2Cinbuf[1];
-            } else {
-                CurrentTemp = 0;   
-                AssertFault(fsCurrentRead);
-            }
-        } else {
-            CurrentTemp = 0; 
-            AssertFault(fsCurrentRead);
-        }
-
-        /* Perform the assignment as one operation, to make it as atomic as possible (may need more work here) */
-        Current = CurrentTemp;
-
         /* Read the current at 2Hz */        
         Sleep(500);
         
         /* Get our task stack usage high water mark */    
-        uxHighWaterMark_Current = uxTaskGetStackHighWaterMark( NULL );
+        uxHighWaterMark_Current = uxTaskGetStackHighWaterMark( NULL );   
     }
-   
 }
 
 /*******************************************************************************
@@ -1023,14 +931,20 @@ void PID_Task(void *arg) {
                     DeltaPosition = labs( CurrentPosition - LastPosition );
                     CurrentIndexCount = Index_Counter_1_ReadCounter();
                     
-                    /* Look for index failure: the index counter should have incremented by at least 1 by now  */
-                    if (CurrentIndexCount == 0)
-                        if (DeltaPosition > 2*ENCODER_COUNTS_PER_INDEX) 
-                            AssertFault(fsIndex);        
+                    /* Look for index failure: the index counter should have incremented by at least 1 by now but only if 
+                       homing is complete */
+                    if (homingDone) {
+                        if (CurrentIndexCount == 0)
+                            if (DeltaPosition > 2*ENCODER_COUNTS_PER_INDEX) 
+                                AssertFault(fsIndex);        
+                    }
                     
-                    /* Look for encoder failure: the encoders should register some amount of movement if the index has changed */
-                    if ((CurrentIndexCount > 0) && (DeltaPosition < 2))                     
-                        AssertFault(fsEncoder);
+                    /* Look for encoder failure: the encoders should register some amount of movement if the index has changed,
+                       but only if homing is totally done */
+                    if (homingDone) {
+                        if ((CurrentIndexCount > 0) && (DeltaPosition < 2))                     
+                            AssertFault(fsEncoder);
+                    }
                 }
                 
             }
@@ -1229,6 +1143,9 @@ int main(void) {
     
     /* Default the jog value to neutral (no movement) */
     Jog = 0;
+    
+    /* Set a flag that homing is not done yet, since we just booted */
+    homingDone = false;
    
     /* Start counting the quadrature encoding */
     Counter_1_Start();    
@@ -1282,6 +1199,9 @@ CY_ISR(RSTIsrHandler) {
     
     /* Clear the index counter */
     Index_Counter_1_WriteCounter(0);  
+    
+    /* When we hit the index mark, homing is complete */
+    homingDone = true;    
 }
 
 /*******************************************************************************
@@ -1305,6 +1225,9 @@ CY_ISR(HomeIsrHandler) {
 
     /* Clear the 24b Encoder (Absolute Position Counter) */
     Counter_1_WriteCounter(0);
+    
+    /* Set a flag that homing is not done yet until the next index position */
+    homingDone = false;
 }
 
 

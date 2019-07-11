@@ -103,12 +103,11 @@
 *        Function Prototypes
 ***************************************/
 
-void I2C_INA_SendData(uint8 reg, uint8 data1, uint8 data2) CYREENTRANT;
-void LCD_INA_Write(unsigned char *outData, int line);
 void Init_INA(uint32 INA_Addr);
-void I2C_INA_SendSequence(void) CYREENTRANT;
-void I2C_INA_ReadSequence(void) CYREENTRANT;
-void I2C_INA_ReadData(uint8 readreg) CYREENTRANT;
+uint32 I2C_INA_SendData(uint8 reg, uint8 data1, uint8 data2) CYREENTRANT;
+uint32 I2C_INA_SendSequence(void) CYREENTRANT;
+uint32 I2C_INA_ReadSequence(void) CYREENTRANT;
+uint32 I2C_INA_ReadData(uint8 readreg) CYREENTRANT;
 int16_t getCurrent_raw(uint32 INA_addr); 
 float getCurrent_mA(uint32 INA_Addr); 
 int16_t getBusVoltage_raw(uint32 INA_Addr);
