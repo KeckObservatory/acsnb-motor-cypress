@@ -97,6 +97,27 @@
 <v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\HOME_IN</v>
 <v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\HOME_OUT</v>
 <v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\I2C</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\I2C_SCB_IRQ</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\I2C_SCBCLK</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\I2C_scl</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\I2C_sda</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\Index_Counter_1</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\INDEX_IN</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\INDEX_OUT</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\isr_home</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\isr_rst_encoder</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\isr_spi_ss</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\LED</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\phiA</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\phiA\phiA.c</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\phiA\phiA.h</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\phiA\phiA_aliases.h</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\phiA\phiA_PM.c</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\phiB</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\PROBE</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\PWM_1</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\PWM_OUT</v>
+<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\Reset_Encoder</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="QEncRT">
