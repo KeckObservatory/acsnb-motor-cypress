@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: isr_rst_encoder.h
-* Version 1.70
+* Version 1.71
 *
 *  Description:
 *   Provides the function definitions for the Interrupt Controller.

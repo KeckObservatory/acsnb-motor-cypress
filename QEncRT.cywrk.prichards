@@ -107,17 +107,6 @@
 <v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\isr_home</v>
 <v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\isr_rst_encoder</v>
 <v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\isr_spi_ss</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\LED</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\phiA</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\phiA\phiA.c</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\phiA\phiA.h</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\phiA\phiA_aliases.h</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\phiA\phiA_PM.c</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\phiB</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\PROBE</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\PWM_1</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\PWM_OUT</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\Reset_Encoder</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="QEncRT">
@@ -249,15 +238,15 @@
 <v>QEncRT\QuadEncoderRTOS\PSoC 4 Architecture TRM</v>
 <v>QEncRT\QuadEncoderRTOS\PSoC 4200 Family Datasheet</v>
 <v>QEncRT\QuadEncoderRTOS\System Reference Guides</v>
-<v>QEncRT\QuadEncoderRTOS\System Reference Guides\cy_boot_v5_70</v>
+<v>QEncRT\QuadEncoderRTOS\System Reference Guides\cy_boot_v6_10</v>
 <v>QEncRT\QuadEncoderRTOS\System Reference Guides\cy_lfclk_v1_20</v>
 <v>QEncRT\QuadEncoderRTOS\and_v1_0</v>
 <v>QEncRT\QuadEncoderRTOS\and_v1_0\and_v1_0.pdf</v>
 <v>QEncRT\QuadEncoderRTOS\Counter_v3_0</v>
 <v>QEncRT\QuadEncoderRTOS\Counter_v3_0\Counter_v3_0.pdf</v>
 <v>QEncRT\QuadEncoderRTOS\cy_clock_v2_20.pdf</v>
-<v>QEncRT\QuadEncoderRTOS\cy_isr_v1_70</v>
-<v>QEncRT\QuadEncoderRTOS\cy_isr_v1_70\cy_isr_v1_70.pdf</v>
+<v>QEncRT\QuadEncoderRTOS\cy_isr_v1_71</v>
+<v>QEncRT\QuadEncoderRTOS\cy_isr_v1_71\cy_isr_v1_71.pdf</v>
 <v>QEncRT\QuadEncoderRTOS\cy_pins_v2_20</v>
 <v>QEncRT\QuadEncoderRTOS\cy_pins_v2_20\cy_pins_v2_20.pdf</v>
 <v>QEncRT\QuadEncoderRTOS\cy_srff_v1_0.pdf</v>
@@ -281,15 +270,15 @@
 <v>QEncRT\QuadEncoderRTOS\PSoC 4 Architecture TRM</v>
 <v>QEncRT\QuadEncoderRTOS\PSoC 4200 Family Datasheet</v>
 <v>QEncRT\QuadEncoderRTOS\System Reference Guides</v>
-<v>QEncRT\QuadEncoderRTOS\System Reference Guides\cy_boot_v5_70</v>
+<v>QEncRT\QuadEncoderRTOS\System Reference Guides\cy_boot_v6_10</v>
 <v>QEncRT\QuadEncoderRTOS\System Reference Guides\cy_lfclk_v1_20</v>
 <v>QEncRT\QuadEncoderRTOS\and_v1_0</v>
 <v>QEncRT\QuadEncoderRTOS\and_v1_0\and_v1_0.pdf</v>
 <v>QEncRT\QuadEncoderRTOS\Counter_v3_0</v>
 <v>QEncRT\QuadEncoderRTOS\Counter_v3_0\Counter_v3_0.pdf</v>
 <v>QEncRT\QuadEncoderRTOS\cy_clock_v2_20.pdf</v>
-<v>QEncRT\QuadEncoderRTOS\cy_isr_v1_70</v>
-<v>QEncRT\QuadEncoderRTOS\cy_isr_v1_70\cy_isr_v1_70.pdf</v>
+<v>QEncRT\QuadEncoderRTOS\cy_isr_v1_71</v>
+<v>QEncRT\QuadEncoderRTOS\cy_isr_v1_71\cy_isr_v1_71.pdf</v>
 <v>QEncRT\QuadEncoderRTOS\cy_pins_v2_20</v>
 <v>QEncRT\QuadEncoderRTOS\cy_pins_v2_20\cy_pins_v2_20.pdf</v>
 <v>QEncRT\QuadEncoderRTOS\cy_srff_v1_0.pdf</v>
@@ -325,6 +314,7 @@
 <name v=".\QuadEncoderRTOS.cydsn\main.c" />
 <name v=".\QuadEncoderRTOS.cydsn\INA219.h" />
 <name v=".\QuadEncoderRTOS.cydsn\INA219.c" />
+<name v=".\QuadEncoderRTOS.cydsn\Generated_Source\PSoC4\Counter_1.c" />
 </OpenDocs>
 <OpenDocsLayout><![CDATA[<?xml version="1.0"?><!--
 
@@ -332,7 +322,7 @@
   Copyright (c) 2001-2016 Actipro Software LLC.  All rights reserved.
   http://www.actiprosoftware.com
 
---><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="922, 615" SelectedTabbedMdiWindow="2c7cb87e-327b-42e6-bd18-619eca5ef281"><DocumentWindow Key="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\TopDesign\TopDesign.cysch" Guid="4d832ef0-ff6c-4864-bc9e-147c4718d1a9" /><DocumentWindow Key="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\QuadEncoderRTOS.cydwr" Guid="59f07ce3-58d0-4c01-99ef-9f9dbefad178" /><DocumentWindow Key="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\main.c" Guid="2c7cb87e-327b-42e6-bd18-619eca5ef281" /><DocumentWindow Key="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\INA219.h" Guid="41ca38ec-a7d0-43db-9f6f-f4c7db091aa3" /><DocumentWindow Key="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\INA219.c" Guid="4806633b-e8ec-436e-b62b-40825a19a3f5" /><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="525addd1-d875-45f6-8608-a6eb08ec165e" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
+--><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="1255, 796" SelectedTabbedMdiWindow="2c7cb87e-327b-42e6-bd18-619eca5ef281"><DocumentWindow Key="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\TopDesign\TopDesign.cysch" Guid="4d832ef0-ff6c-4864-bc9e-147c4718d1a9" /><DocumentWindow Key="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\QuadEncoderRTOS.cydwr" Guid="59f07ce3-58d0-4c01-99ef-9f9dbefad178" /><DocumentWindow Key="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\main.c" Guid="2c7cb87e-327b-42e6-bd18-619eca5ef281" /><DocumentWindow Key="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\INA219.h" Guid="41ca38ec-a7d0-43db-9f6f-f4c7db091aa3" /><DocumentWindow Key="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\INA219.c" Guid="4806633b-e8ec-436e-b62b-40825a19a3f5" /><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="525addd1-d875-45f6-8608-a6eb08ec165e" /><DocumentWindow Key="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\Generated_Source\PSoC4\Counter_1.c" Guid="656715d3-9a6a-417f-8591-e2d732b231ab" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
 <config v="" />
 <AutoUpdate v="true" />
 </CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21>

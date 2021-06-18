@@ -8,6 +8,7 @@
 *  The I2C device provides readback of motor current consumption.
 *
 * History:
+* 07/09/20 PMR  Rev: 0-0-7 implement zeroing the encoder value
 * 07/09/19 PMR  Rev: 0-0-6 fix tuning of INA219 and inhibit encoder report during homing
 * 05/09/19 PMR  Rev: 0-0-5 multiple shaper and PID fixes; let encoder go negative
 * 03/22/19 PMR  Rev: 0-0-3 add PID separate I limit and simplify limiting code
@@ -25,10 +26,10 @@
 #include <math.h>
 #include "INA219.h"
 
-/* Firmware revision as of 2019-07-10 PMR */
+/* Firmware revision as of 2020-07-09 PMR */
 #define FIRMWARE_REV_0 0
 #define FIRMWARE_REV_1 0
-#define FIRMWARE_REV_2 6
+#define FIRMWARE_REV_2 7
 
 /* Debugging - undefine this for a production system that needs to watchdog */
 #define DEBUG_PROBE_ATTACHED 1
@@ -190,7 +191,7 @@ typedef enum {
     opUNDEFINED = 0,
     opConfig    = 1,
     opStatus    = 2,
-    opError     = 3,
+    opSetEnc    = 3,
     opMAX       
 } rxMessage_opcodes_t;    
 
@@ -223,11 +224,18 @@ typedef struct {
     uint8  size;       /* Size of the message bytes, including opcode and size and checksum */
     uint8  opcode;     /* Operation: 02 == status */
     uint8  enable;     /* Enable/disable PID algorithm */
-    int32 setpoint;    /* Setpoint (desired actuator position) */
+    int32  setpoint;   /* Setpoint (desired actuator position) */
     int8   jog;        /* Jog value, to manually move the motor; valid range -100 to 100 */ 
     uint8  clearfaults;/* Set to nonzero to clear all the current faults */
 } __attribute__ ((__packed__)) rxMessage_status_t;
    
+/* Clear message, contains new encoder position, 7 bytes */
+typedef struct {
+    uint8  checksum;        
+    uint8  size;       /* Size of the message bytes, including opcode and size and checksum */
+    uint8  opcode;     /* Operation: 03 == set encoders */
+    int32  setpoint;   /* Setpoint (force an actuator logical position) */
+} __attribute__ ((__packed__)) rxMessage_setenc_t;
 
 
 /* Wrap the message with an array of bytes */
@@ -236,6 +244,7 @@ union {
     rxMessage_overlay_t overlay;
     rxMessage_config_t  config;
     rxMessage_status_t  status;  
+    rxMessage_setenc_t  setenc;
 } rxMessage;
 
 /* Message back to the BBB, watch out for alignment here by packing the structure (should be 18 bytes) */
@@ -370,7 +379,6 @@ void ClearFault(FaultStates_t fault) {
 *******************************************************************************/
 void Current_Read_Task(void *arg) {
     
-    volatile uint32 err;
     float CurrentTemp;
     
     /* Initial high water mark reading */
@@ -531,6 +539,12 @@ void Comm_Task(void *arg) {
                                         Jog = rxMessage.status.jog;                                                    
                                         break;
                                     
+                                    case opSetEnc:
+                                        /* The message is telling us what to arbitrarily set the encoder values to */
+                                        Counter_1_WriteCounter(rxMessage.status.setpoint);   
+                                        LastPosition = rxMessage.status.setpoint;
+                                        break;                                        
+                                        
                                     /* No other opcodes are valid */
                                     default:
                                         break;

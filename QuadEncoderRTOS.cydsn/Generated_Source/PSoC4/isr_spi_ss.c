@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: isr_spi_ss.c  
-* Version 1.70
+* Version 1.71
 *
 *  Description:
 *   API for controlling the state of an interrupt.
@@ -252,7 +252,7 @@ void isr_spi_ss_SetPriority(uint8 priority)
     uint32 priorityOffset = ((isr_spi_ss__INTC_NUMBER % 4u) * 8u) + 6u;
     
 	interruptState = CyEnterCriticalSection();
-    *isr_spi_ss_INTC_PRIOR = (*isr_spi_ss_INTC_PRIOR & (uint32)(~isr_spi_ss__INTC_PRIOR_MASK)) |
+    *isr_spi_ss_INTC_PRIOR = (*isr_spi_ss_INTC_PRIOR & (uint32)(~(uint32)isr_spi_ss__INTC_PRIOR_MASK)) |
                                     ((uint32)priority << priorityOffset);
 	CyExitCriticalSection(interruptState);
 }

@@ -2,7 +2,7 @@
 --	Conversion of QuadEncoderRTOS.v to vh2:
 --
 --	Cypress Semiconductor - WARP Version 6.3 IR 41
---	Thu Jul 09 14:24:22 2020
+--	Fri Jun 18 09:54:03 2021
 --
 
 USE cypress.cypress.all;
@@ -73,16 +73,16 @@ SIGNAL Net_2310 : bit;
 SIGNAL Net_2295 : bit;
 SIGNAL Net_2294 : bit;
 SIGNAL \SPI_1:Net_1028\ : bit;
-SIGNAL Net_2291 : bit;
 SIGNAL Net_2300 : bit;
 SIGNAL Net_2301 : bit;
 SIGNAL Net_2302 : bit;
 SIGNAL Net_2303 : bit;
 SIGNAL Net_2304 : bit;
 SIGNAL Net_2305 : bit;
+SIGNAL Net_2291 : bit;
+SIGNAL Net_2311 : bit;
 SIGNAL Net_2381 : bit;
 SIGNAL Net_2308 : bit;
-SIGNAL Net_2311 : bit;
 SIGNAL tmpOE__LED_net_0 : bit;
 SIGNAL tmpFB_0__LED_net_0 : bit;
 SIGNAL tmpIO_0__LED_net_0 : bit;
@@ -133,16 +133,16 @@ SIGNAL \I2C:miso_s_wire\ : bit;
 SIGNAL Net_2272 : bit;
 SIGNAL Net_2271 : bit;
 SIGNAL \I2C:Net_1028\ : bit;
-SIGNAL Net_2268 : bit;
 SIGNAL Net_2277 : bit;
 SIGNAL Net_2278 : bit;
 SIGNAL Net_2279 : bit;
 SIGNAL Net_2280 : bit;
 SIGNAL Net_2281 : bit;
 SIGNAL Net_2282 : bit;
+SIGNAL Net_2268 : bit;
+SIGNAL Net_2288 : bit;
 SIGNAL Net_2283 : bit;
 SIGNAL Net_2285 : bit;
-SIGNAL Net_2288 : bit;
 SIGNAL cydff_5 : bit;
 SIGNAL Net_628 : bit;
 SIGNAL Net_479 : bit;

@@ -25,7 +25,7 @@
       <Tool Name="postbuild" Command="" Options="" />
     </Toolchain>
   </Toolchains>
-  <Project Name="QuadEncoderRTOS" Path="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn" Version="5.70" Type="Normal">
+  <Project Name="QuadEncoderRTOS" Path="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn" Version="6.10" Type="Normal">
     <CMSIS_SVD_File>QuadEncoderRTOS.svd</CMSIS_SVD_File>
     <Datasheet />
     <LinkerFiles>

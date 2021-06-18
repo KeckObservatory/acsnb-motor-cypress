@@ -1,6 +1,6 @@
 -- Project:   QuadEncoderRTOS
--- Generated: 07/09/2020 14:24:23
--- PSoC Creator  4.3
+-- Generated: 06/18/2021 09:54:05
+-- PSoC Creator  4.4
 
 ENTITY QuadEncoderRTOS IS
     PORT(
