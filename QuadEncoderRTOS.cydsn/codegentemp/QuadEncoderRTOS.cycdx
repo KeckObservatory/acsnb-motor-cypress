@@ -1,16 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <blockRegMap version="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://cypress.com/xsd/cyblockregmap cyblockregmap.xsd" xmlns="http://cypress.com/xsd/cyblockregmap">
-  <block name="and_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="and_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="not_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="PWM_OUT" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="isr_home" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="cy_srff_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="Reset_Encoder" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="cydff_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="Direction" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="cydff_7" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="not_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="and_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="spi_ss" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="isr_spi_ss" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="PWM_OUT" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="isr_rst_encoder" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="Direction" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="Reset_Encoder" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="and_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="cy_srff_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="cydff_7" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="isr_brms" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="Timer_BRMS" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false">
+    <block name="VMux_count" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="VMux_reload" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="VMux_start" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="VMux_stop" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="VMux_capture" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="VMux_clock" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <block name="cy_m0s8_tcpwm_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+    <register name="COUNTER" address="0x40050108" bitWidth="32" desc="Current counter value" hidden="false" />
+    <register name="CC" address="0x4005010C" bitWidth="32" desc="Compare / capture value" hidden="false" />
+    <register name="CC_BUF" address="0x40050110" bitWidth="32" desc="Compare / capture buffer value" hidden="false" />
+    <register name="PERIOD" address="0x40050114" bitWidth="32" desc="Period value" hidden="false" />
+    <register name="PERIOD_BUF" address="0x40050118" bitWidth="32" desc="Period buffer value" hidden="false" />
+  </block>
+  <block name="Clock_5kHz" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="Em_EEPROM_Dynamic" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="cy_lfclk" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="cy_boot" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="spi_miso" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="spi_clk" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="spi_mosi" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="Index_Counter_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false">
     <block name="ZeroTerminal_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
     <block name="VirtualMux_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
@@ -73,18 +96,7 @@
     <register name="PERIOD" address="0x40050194" bitWidth="32" desc="Period value" hidden="false" />
     <register name="PERIOD_BUF" address="0x40050198" bitWidth="32" desc="Period buffer value" hidden="false" />
   </block>
-  <block name="cy_boot" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="Em_EEPROM_Dynamic" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="cy_lfclk" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="PROBE" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="spi_ss" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="isr_spi_ss" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="spi_mosi" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="spi_miso" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="spi_clk" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="cydff_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="HOME_IN" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="VCC_LCD" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="SPI_1" BASE="0x0" SIZE="0x0" desc="Serial Communication Block" visible="true" hidden="false">
     <block name="clock_VM" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
     <block name="sclk_s_VM" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
@@ -423,15 +435,26 @@
       <field name="BREAK_DETECT" from="11" to="11" access="RW" resetVal="" desc="Logical and of corresponding request and mask bits" hidden="false" />
     </register>
   </block>
+  <block name="HOME_IN" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="VCC_LCD" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="phiB" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="Clock_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="LED" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="TP_9" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="INDEX_IN" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="INDEX_OUT" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="cydff_6" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="INDEX_IN" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="TP_9" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="TP_8" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="HOME_OUT" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="xor_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="cydff_4" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="cydff_3" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="cydff_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="cydff_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="xor_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="R1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="R2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
+  <block name="phiA" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="Counter_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false">
     <block name="ZeroTerminal_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
     <block name="VirtualMux_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
@@ -480,13 +503,7 @@
       </field>
     </register>
   </block>
-  <block name="cydff_4" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="xor_1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="xor_2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="cydff_5" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="phiA" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="phiB" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
-  <block name="R2" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
   <block name="I2C" BASE="0x0" SIZE="0x0" desc="Serial Communication Block" visible="true" hidden="false">
     <block name="sclk_s_VM" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
     <block name="clock_VM" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
@@ -827,5 +844,4 @@
       <field name="BREAK_DETECT" from="11" to="11" access="RW" resetVal="" desc="Logical and of corresponding request and mask bits" hidden="false" />
     </register>
   </block>
-  <block name="R1" BASE="0x0" SIZE="0x0" desc="" visible="true" hidden="false" />
 </blockRegMap>

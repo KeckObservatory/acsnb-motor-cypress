@@ -13,9 +13,23 @@
 <v>Output</v>
 </TreeKeys>
 <TreeStates>
-<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="QEncRT\QuadEncoderRTOS">
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="QEncRT\QuadEncoderRTOS\Source Files\INA219.c">
 <ExpandedNodeIds>
 <v>QEncRT</v>
+<v>QEncRT\ACSNB Motion Capture\TopDesign</v>
+<v>QEncRT\ACSNB Motion Capture\ACSNB Motion Capture.cydwr</v>
+<v>QEncRT\ACSNB Motion Capture\ACSNB Motion Capture.cydwr\Pins</v>
+<v>QEncRT\ACSNB Motion Capture\ACSNB Motion Capture.cydwr\Analog</v>
+<v>QEncRT\ACSNB Motion Capture\ACSNB Motion Capture.cydwr\Clocks</v>
+<v>QEncRT\ACSNB Motion Capture\ACSNB Motion Capture.cydwr\Interrupts</v>
+<v>QEncRT\ACSNB Motion Capture\ACSNB Motion Capture.cydwr\System</v>
+<v>QEncRT\ACSNB Motion Capture\ACSNB Motion Capture.cydwr\Directives</v>
+<v>QEncRT\ACSNB Motion Capture\ACSNB Motion Capture.cydwr\Flash Security</v>
+<v>QEncRT\ACSNB Motion Capture\Header Files</v>
+<v>QEncRT\ACSNB Motion Capture\Header Files\cyapicallbacks.h</v>
+<v>QEncRT\ACSNB Motion Capture\Source Files</v>
+<v>QEncRT\ACSNB Motion Capture\Source Files\main.c</v>
+<v>QEncRT\ACSNB Motion Capture\Generated_Source\PSoC4</v>
 <v>QEncRT\QuadEncoderRTOS</v>
 <v>QEncRT\QuadEncoderRTOS\TopDesign</v>
 <v>QEncRT\QuadEncoderRTOS\QuadEncoderRTOS.cydwr</v>
@@ -26,47 +40,18 @@
 <v>QEncRT\QuadEncoderRTOS\QuadEncoderRTOS.cydwr\System</v>
 <v>QEncRT\QuadEncoderRTOS\QuadEncoderRTOS.cydwr\Directives</v>
 <v>QEncRT\QuadEncoderRTOS\QuadEncoderRTOS.cydwr\Flash Security</v>
-<v>QEncRT\QuadEncoderRTOS\FreeRTOS ARM Cortex-M0\croutine.h</v>
-<v>QEncRT\QuadEncoderRTOS\FreeRTOS ARM Cortex-M0\deprecated_definitions.h</v>
-<v>QEncRT\QuadEncoderRTOS\FreeRTOS ARM Cortex-M0\event_groups.h</v>
-<v>QEncRT\QuadEncoderRTOS\FreeRTOS ARM Cortex-M0\FreeRTOS.h</v>
-<v>QEncRT\QuadEncoderRTOS\FreeRTOS ARM Cortex-M0\heap_1.c</v>
-<v>QEncRT\QuadEncoderRTOS\FreeRTOS ARM Cortex-M0\list.h</v>
-<v>QEncRT\QuadEncoderRTOS\FreeRTOS ARM Cortex-M0\message_buffer.h</v>
-<v>QEncRT\QuadEncoderRTOS\FreeRTOS ARM Cortex-M0\mpu_prototypes.h</v>
-<v>QEncRT\QuadEncoderRTOS\FreeRTOS ARM Cortex-M0\mpu_wrappers.h</v>
-<v>QEncRT\QuadEncoderRTOS\FreeRTOS ARM Cortex-M0\port.c</v>
-<v>QEncRT\QuadEncoderRTOS\FreeRTOS ARM Cortex-M0\portable.h</v>
-<v>QEncRT\QuadEncoderRTOS\FreeRTOS ARM Cortex-M0\portmacro.h</v>
-<v>QEncRT\QuadEncoderRTOS\FreeRTOS ARM Cortex-M0\projdefs.h</v>
-<v>QEncRT\QuadEncoderRTOS\FreeRTOS ARM Cortex-M0\queue.h</v>
-<v>QEncRT\QuadEncoderRTOS\FreeRTOS ARM Cortex-M0\semphr.h</v>
-<v>QEncRT\QuadEncoderRTOS\FreeRTOS ARM Cortex-M0\stack_macros.h</v>
-<v>QEncRT\QuadEncoderRTOS\FreeRTOS ARM Cortex-M0\StackMacros.h</v>
-<v>QEncRT\QuadEncoderRTOS\FreeRTOS ARM Cortex-M0\stream_buffer.h</v>
-<v>QEncRT\QuadEncoderRTOS\FreeRTOS ARM Cortex-M0\task.h</v>
-<v>QEncRT\QuadEncoderRTOS\FreeRTOS ARM Cortex-M0\timers.h</v>
-<v>QEncRT\QuadEncoderRTOS\FreeRTOS Core Source\croutine.c</v>
-<v>QEncRT\QuadEncoderRTOS\FreeRTOS Core Source\event_groups.c</v>
-<v>QEncRT\QuadEncoderRTOS\FreeRTOS Core Source\list.c</v>
-<v>QEncRT\QuadEncoderRTOS\FreeRTOS Core Source\queue.c</v>
-<v>QEncRT\QuadEncoderRTOS\FreeRTOS Core Source\readme.txt</v>
-<v>QEncRT\QuadEncoderRTOS\FreeRTOS Core Source\stream_buffer.c</v>
-<v>QEncRT\QuadEncoderRTOS\FreeRTOS Core Source\tasks.c</v>
-<v>QEncRT\QuadEncoderRTOS\FreeRTOS Core Source\timers.c</v>
 <v>QEncRT\QuadEncoderRTOS\Header Files</v>
-<v>QEncRT\QuadEncoderRTOS\Header Files\FreeRTOSConfig.h</v>
 <v>QEncRT\QuadEncoderRTOS\Header Files\INA219.h</v>
 <v>QEncRT\QuadEncoderRTOS\Source Files</v>
 <v>QEncRT\QuadEncoderRTOS\Source Files\INA219.c</v>
 <v>QEncRT\QuadEncoderRTOS\Source Files\main.c</v>
 <v>QEncRT\QuadEncoderRTOS\Source Files\old_code.txt</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source</v>
 <v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4</v>
 <v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\phiA</v>
 </ExpandedNodeIds>
 <VisibleNodeIds>
 <v>QEncRT</v>
+<v>QEncRT\ACSNB Motion Capture</v>
 <v>QEncRT\QuadEncoderRTOS</v>
 <v>QEncRT\QuadEncoderRTOS\TopDesign</v>
 <v>QEncRT\QuadEncoderRTOS\QuadEncoderRTOS.cydwr</v>
@@ -77,47 +62,30 @@
 <v>QEncRT\QuadEncoderRTOS\QuadEncoderRTOS.cydwr\System</v>
 <v>QEncRT\QuadEncoderRTOS\QuadEncoderRTOS.cydwr\Directives</v>
 <v>QEncRT\QuadEncoderRTOS\QuadEncoderRTOS.cydwr\Flash Security</v>
-<v>QEncRT\QuadEncoderRTOS\FreeRTOS ARM Cortex-M0</v>
-<v>QEncRT\QuadEncoderRTOS\FreeRTOS Core Source</v>
 <v>QEncRT\QuadEncoderRTOS\Header Files</v>
-<v>QEncRT\QuadEncoderRTOS\Header Files\FreeRTOSConfig.h</v>
 <v>QEncRT\QuadEncoderRTOS\Header Files\INA219.h</v>
 <v>QEncRT\QuadEncoderRTOS\Source Files</v>
 <v>QEncRT\QuadEncoderRTOS\Source Files\INA219.c</v>
 <v>QEncRT\QuadEncoderRTOS\Source Files\main.c</v>
 <v>QEncRT\QuadEncoderRTOS\Source Files\old_code.txt</v>
 <v>QEncRT\QuadEncoderRTOS\Generated_Source</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\Clock_1</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\Counter_1</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\cy_boot</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\cy_lfclk</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\Direction</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\Em_EEPROM_Dynamic</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\HOME_IN</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\HOME_OUT</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\I2C</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\I2C_SCB_IRQ</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\I2C_SCBCLK</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\I2C_scl</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\I2C_sda</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\Index_Counter_1</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\INDEX_IN</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\INDEX_OUT</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\isr_home</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\isr_rst_encoder</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\isr_spi_ss</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="QEncRT">
 <ExpandedNodeIds>
 <v>QEncRT</v>
+<v>QEncRT\ACSNB Motion Capture</v>
+<v>QEncRT\ACSNB Motion Capture\TopDesign</v>
+<v>QEncRT\ACSNB Motion Capture\TopDesign\TopDesign.cysch</v>
 <v>QEncRT\QuadEncoderRTOS</v>
 <v>QEncRT\QuadEncoderRTOS\TopDesign</v>
 <v>QEncRT\QuadEncoderRTOS\TopDesign\TopDesign.cysch</v>
 </ExpandedNodeIds>
 <VisibleNodeIds>
 <v>QEncRT</v>
+<v>QEncRT\ACSNB Motion Capture</v>
+<v>QEncRT\ACSNB Motion Capture\TopDesign</v>
+<v>QEncRT\ACSNB Motion Capture\TopDesign\TopDesign.cysch</v>
 <v>QEncRT\QuadEncoderRTOS</v>
 <v>QEncRT\QuadEncoderRTOS\TopDesign</v>
 <v>QEncRT\QuadEncoderRTOS\TopDesign\TopDesign.cysch</v>
@@ -126,16 +94,73 @@
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
 <ExpandedNodeIds>
 <v>QEncRT</v>
+<v>QEncRT\ACSNB Motion Capture</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\ADC_SAR_Seq_1.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\ADC_SAR_Seq_1_INT.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\ADC_SAR_Seq_1_intClock.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\ADC_SAR_Seq_1_IRQ.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\ADC_SAR_Seq_1_PM.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\ADC0.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\ADC0_PM.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\Clock_1.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\Clock_1kHz.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\Cm0Start.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\Counter_1.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\Counter_1_PM.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\cy_em_eeprom.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\CyBootAsmGnu.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\cyfitter_cfg.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\CyFlash.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\CyLFClk.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\CyLib.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\cymetadata.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\cyPm.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\cyutils.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\INDEX_IN.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\INDEX_IN_PM.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\isr_1ms.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\isr_adc0.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\LED1.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\LED1_PM.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\main.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\phiA.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\phiA_PM.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\phiB.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\phiB_PM.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\Timer_1ms.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\Timer_1ms_PM.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\UART.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\UART_BOOT.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\UART_PM.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\UART_rx.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\UART_rx_PM.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\UART_SCBCLK.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\UART_SPI_UART.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\UART_SPI_UART_INT.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\UART_tx.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\UART_tx_PM.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\UART_UART.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\UART_UART_BOOT.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\ACSNB Motion Capture.elf</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\ACSNB Motion Capture.hex</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\ACSNB Motion Capture.map</v>
+<v>QEncRT\ACSNB Motion Capture\ACSNB Motion Capture.gpdsc</v>
+<v>QEncRT\ACSNB Motion Capture\ACSNB Motion Capture.rpt</v>
+<v>QEncRT\ACSNB Motion Capture\ACSNB Motion Capture_timing.html</v>
 <v>QEncRT\QuadEncoderRTOS</v>
 <v>QEncRT\QuadEncoderRTOS\CortexM0</v>
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541</v>
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug</v>
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files</v>
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\Clock_1.lst</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\Clock_5kHz.lst</v>
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\Cm0Start.lst</v>
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\Counter_1.lst</v>
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\Counter_1_PM.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\croutine.lst</v>
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\cy_em_eeprom.lst</v>
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\CyBootAsmGnu.lst</v>
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\cyfitter_cfg.lst</v>
@@ -147,8 +172,6 @@
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\cyutils.lst</v>
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\Direction.lst</v>
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\Direction_PM.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\event_groups.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\heap_1.lst</v>
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\HOME_IN.lst</v>
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\HOME_IN_PM.lst</v>
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\HOME_OUT.lst</v>
@@ -173,25 +196,23 @@
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\INDEX_IN_PM.lst</v>
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\INDEX_OUT.lst</v>
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\INDEX_OUT_PM.lst</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\isr_brms.lst</v>
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\isr_home.lst</v>
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\isr_rst_encoder.lst</v>
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\isr_spi_ss.lst</v>
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\LED.lst</v>
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\LED_PM.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\list.lst</v>
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\main.lst</v>
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\phiA.lst</v>
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\phiA_PM.lst</v>
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\phiB.lst</v>
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\phiB_PM.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\port.lst</v>
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\PROBE.lst</v>
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\PROBE_PM.lst</v>
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\PWM_1.lst</v>
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\PWM_1_PM.lst</v>
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\PWM_OUT.lst</v>
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\PWM_OUT_PM.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\queue.lst</v>
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\Reset_Encoder.lst</v>
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\Reset_Encoder_PM.lst</v>
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\SPI_1.lst</v>
@@ -211,9 +232,8 @@
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\spi_mosi_PM.lst</v>
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\spi_ss.lst</v>
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\spi_ss_PM.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\stream_buffer.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\tasks.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\timers.lst</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\Timer_BRMS.lst</v>
+<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\Timer_BRMS_PM.lst</v>
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.elf</v>
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.hex</v>
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.map</v>
@@ -223,7 +243,59 @@
 </ExpandedNodeIds>
 <VisibleNodeIds>
 <v>QEncRT</v>
-<v>QEncRT\QuadEncoderRTOS</v>
+<v>QEncRT\ACSNB Motion Capture</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\ADC_SAR_Seq_1.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\ADC_SAR_Seq_1_INT.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\ADC_SAR_Seq_1_intClock.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\ADC_SAR_Seq_1_IRQ.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\ADC_SAR_Seq_1_PM.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\ADC0.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\ADC0_PM.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\Clock_1.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\Clock_1kHz.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\Cm0Start.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\Counter_1.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\Counter_1_PM.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\cy_em_eeprom.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\CyBootAsmGnu.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\cyfitter_cfg.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\CyFlash.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\CyLFClk.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\CyLib.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\cymetadata.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\cyPm.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\cyutils.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\INDEX_IN.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\INDEX_IN_PM.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\isr_1ms.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\isr_adc0.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\LED1.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\LED1_PM.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\main.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\phiA.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\phiA_PM.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\phiB.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\phiB_PM.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\Timer_1ms.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\Timer_1ms_PM.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\UART.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\UART_BOOT.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\UART_PM.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\UART_rx.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\UART_rx_PM.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\UART_SCBCLK.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\UART_SPI_UART.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\UART_SPI_UART_INT.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\UART_tx.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\UART_tx_PM.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\UART_UART.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\Listing Files\UART_UART_BOOT.lst</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\ACSNB Motion Capture.elf</v>
+<v>QEncRT\ACSNB Motion Capture\CortexM0\ARM_GCC_541\Debug\ACSNB Motion Capture.hex</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 </TreeStates>
@@ -234,6 +306,28 @@
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="QEncRT">
 <ExpandedNodeIds>
 <v>QEncRT</v>
+<v>QEncRT\ACSNB Motion Capture</v>
+<v>QEncRT\ACSNB Motion Capture\PSoC 4 Architecture TRM</v>
+<v>QEncRT\ACSNB Motion Capture\PSoC 4200 Family Datasheet</v>
+<v>QEncRT\ACSNB Motion Capture\System Reference Guides</v>
+<v>QEncRT\ACSNB Motion Capture\System Reference Guides\cy_boot_v6_10</v>
+<v>QEncRT\ACSNB Motion Capture\System Reference Guides\cy_lfclk_v1_20</v>
+<v>QEncRT\ACSNB Motion Capture\ADC_SAR_SEQ_P4_v2_50.pdf</v>
+<v>QEncRT\ACSNB Motion Capture\and_v1_0</v>
+<v>QEncRT\ACSNB Motion Capture\and_v1_0\and_v1_0.pdf</v>
+<v>QEncRT\ACSNB Motion Capture\Counter_v3_0.pdf</v>
+<v>QEncRT\ACSNB Motion Capture\cy_clock_v2_20</v>
+<v>QEncRT\ACSNB Motion Capture\cy_clock_v2_20\cy_clock_v2_20.pdf</v>
+<v>QEncRT\ACSNB Motion Capture\cy_isr_v1_70.pdf</v>
+<v>QEncRT\ACSNB Motion Capture\cy_isr_v1_71.pdf</v>
+<v>QEncRT\ACSNB Motion Capture\cy_pins_v2_20</v>
+<v>QEncRT\ACSNB Motion Capture\cy_pins_v2_20\cy_pins_v2_20.pdf</v>
+<v>QEncRT\ACSNB Motion Capture\cydff_v1_30</v>
+<v>QEncRT\ACSNB Motion Capture\cydff_v1_30\cydff_v1_30.pdf</v>
+<v>QEncRT\ACSNB Motion Capture\SCB_P4_v4_0.pdf</v>
+<v>QEncRT\ACSNB Motion Capture\TCPWM_P4_v2_10.pdf</v>
+<v>QEncRT\ACSNB Motion Capture\xor_v1_0</v>
+<v>QEncRT\ACSNB Motion Capture\xor_v1_0\xor_v1_0.pdf</v>
 <v>QEncRT\QuadEncoderRTOS</v>
 <v>QEncRT\QuadEncoderRTOS\PSoC 4 Architecture TRM</v>
 <v>QEncRT\QuadEncoderRTOS\PSoC 4200 Family Datasheet</v>
@@ -244,7 +338,8 @@
 <v>QEncRT\QuadEncoderRTOS\and_v1_0\and_v1_0.pdf</v>
 <v>QEncRT\QuadEncoderRTOS\Counter_v3_0</v>
 <v>QEncRT\QuadEncoderRTOS\Counter_v3_0\Counter_v3_0.pdf</v>
-<v>QEncRT\QuadEncoderRTOS\cy_clock_v2_20.pdf</v>
+<v>QEncRT\QuadEncoderRTOS\cy_clock_v2_20</v>
+<v>QEncRT\QuadEncoderRTOS\cy_clock_v2_20\cy_clock_v2_20.pdf</v>
 <v>QEncRT\QuadEncoderRTOS\cy_isr_v1_71</v>
 <v>QEncRT\QuadEncoderRTOS\cy_isr_v1_71\cy_isr_v1_71.pdf</v>
 <v>QEncRT\QuadEncoderRTOS\cy_pins_v2_20</v>
@@ -258,7 +353,8 @@
 <v>QEncRT\QuadEncoderRTOS\Resistor_v1_0\Resistor_v1_0.pdf</v>
 <v>QEncRT\QuadEncoderRTOS\SCB_P4_v4_0</v>
 <v>QEncRT\QuadEncoderRTOS\SCB_P4_v4_0\SCB_P4_v4_0.pdf</v>
-<v>QEncRT\QuadEncoderRTOS\TCPWM_P4_v2_10.pdf</v>
+<v>QEncRT\QuadEncoderRTOS\TCPWM_P4_v2_10</v>
+<v>QEncRT\QuadEncoderRTOS\TCPWM_P4_v2_10\TCPWM_P4_v2_10.pdf</v>
 <v>QEncRT\QuadEncoderRTOS\TestPoint_v1_0</v>
 <v>QEncRT\QuadEncoderRTOS\TestPoint_v1_0\TestPoint_v1_0.pdf</v>
 <v>QEncRT\QuadEncoderRTOS\xor_v1_0</v>
@@ -266,6 +362,28 @@
 </ExpandedNodeIds>
 <VisibleNodeIds>
 <v>QEncRT</v>
+<v>QEncRT\ACSNB Motion Capture</v>
+<v>QEncRT\ACSNB Motion Capture\PSoC 4 Architecture TRM</v>
+<v>QEncRT\ACSNB Motion Capture\PSoC 4200 Family Datasheet</v>
+<v>QEncRT\ACSNB Motion Capture\System Reference Guides</v>
+<v>QEncRT\ACSNB Motion Capture\System Reference Guides\cy_boot_v6_10</v>
+<v>QEncRT\ACSNB Motion Capture\System Reference Guides\cy_lfclk_v1_20</v>
+<v>QEncRT\ACSNB Motion Capture\ADC_SAR_SEQ_P4_v2_50.pdf</v>
+<v>QEncRT\ACSNB Motion Capture\and_v1_0</v>
+<v>QEncRT\ACSNB Motion Capture\and_v1_0\and_v1_0.pdf</v>
+<v>QEncRT\ACSNB Motion Capture\Counter_v3_0.pdf</v>
+<v>QEncRT\ACSNB Motion Capture\cy_clock_v2_20</v>
+<v>QEncRT\ACSNB Motion Capture\cy_clock_v2_20\cy_clock_v2_20.pdf</v>
+<v>QEncRT\ACSNB Motion Capture\cy_isr_v1_70.pdf</v>
+<v>QEncRT\ACSNB Motion Capture\cy_isr_v1_71.pdf</v>
+<v>QEncRT\ACSNB Motion Capture\cy_pins_v2_20</v>
+<v>QEncRT\ACSNB Motion Capture\cy_pins_v2_20\cy_pins_v2_20.pdf</v>
+<v>QEncRT\ACSNB Motion Capture\cydff_v1_30</v>
+<v>QEncRT\ACSNB Motion Capture\cydff_v1_30\cydff_v1_30.pdf</v>
+<v>QEncRT\ACSNB Motion Capture\SCB_P4_v4_0.pdf</v>
+<v>QEncRT\ACSNB Motion Capture\TCPWM_P4_v2_10.pdf</v>
+<v>QEncRT\ACSNB Motion Capture\xor_v1_0</v>
+<v>QEncRT\ACSNB Motion Capture\xor_v1_0\xor_v1_0.pdf</v>
 <v>QEncRT\QuadEncoderRTOS</v>
 <v>QEncRT\QuadEncoderRTOS\PSoC 4 Architecture TRM</v>
 <v>QEncRT\QuadEncoderRTOS\PSoC 4200 Family Datasheet</v>
@@ -276,7 +394,8 @@
 <v>QEncRT\QuadEncoderRTOS\and_v1_0\and_v1_0.pdf</v>
 <v>QEncRT\QuadEncoderRTOS\Counter_v3_0</v>
 <v>QEncRT\QuadEncoderRTOS\Counter_v3_0\Counter_v3_0.pdf</v>
-<v>QEncRT\QuadEncoderRTOS\cy_clock_v2_20.pdf</v>
+<v>QEncRT\QuadEncoderRTOS\cy_clock_v2_20</v>
+<v>QEncRT\QuadEncoderRTOS\cy_clock_v2_20\cy_clock_v2_20.pdf</v>
 <v>QEncRT\QuadEncoderRTOS\cy_isr_v1_71</v>
 <v>QEncRT\QuadEncoderRTOS\cy_isr_v1_71\cy_isr_v1_71.pdf</v>
 <v>QEncRT\QuadEncoderRTOS\cy_pins_v2_20</v>
@@ -290,7 +409,8 @@
 <v>QEncRT\QuadEncoderRTOS\Resistor_v1_0\Resistor_v1_0.pdf</v>
 <v>QEncRT\QuadEncoderRTOS\SCB_P4_v4_0</v>
 <v>QEncRT\QuadEncoderRTOS\SCB_P4_v4_0\SCB_P4_v4_0.pdf</v>
-<v>QEncRT\QuadEncoderRTOS\TCPWM_P4_v2_10.pdf</v>
+<v>QEncRT\QuadEncoderRTOS\TCPWM_P4_v2_10</v>
+<v>QEncRT\QuadEncoderRTOS\TCPWM_P4_v2_10\TCPWM_P4_v2_10.pdf</v>
 <v>QEncRT\QuadEncoderRTOS\TestPoint_v1_0</v>
 <v>QEncRT\QuadEncoderRTOS\TestPoint_v1_0\TestPoint_v1_0.pdf</v>
 <v>QEncRT\QuadEncoderRTOS\xor_v1_0</v>
@@ -309,12 +429,11 @@
 </CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997>
 <Unloaded />
 <OpenDocs>
-<name v=".\QuadEncoderRTOS.cydsn\TopDesign\TopDesign.cysch" />
 <name v=".\QuadEncoderRTOS.cydsn\QuadEncoderRTOS.cydwr" />
 <name v=".\QuadEncoderRTOS.cydsn\main.c" />
-<name v=".\QuadEncoderRTOS.cydsn\INA219.h" />
-<name v=".\QuadEncoderRTOS.cydsn\INA219.c" />
-<name v=".\QuadEncoderRTOS.cydsn\Generated_Source\PSoC4\Counter_1.c" />
+<name v=".\QuadEncoderRTOS.cydsn\TopDesign\TopDesign.cysch" />
+<name v="..\acsnb-motion-capture\Workspace01\ACSNB Motion Capture.cydsn\TopDesign\TopDesign.cysch" />
+<name v="..\acsnb-motion-capture\Workspace01\ACSNB Motion Capture.cydsn\main.c" />
 </OpenDocs>
 <OpenDocsLayout><![CDATA[<?xml version="1.0"?><!--
 
@@ -322,7 +441,7 @@
   Copyright (c) 2001-2016 Actipro Software LLC.  All rights reserved.
   http://www.actiprosoftware.com
 
---><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="1255, 796" SelectedTabbedMdiWindow="2c7cb87e-327b-42e6-bd18-619eca5ef281"><DocumentWindow Key="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\TopDesign\TopDesign.cysch" Guid="4d832ef0-ff6c-4864-bc9e-147c4718d1a9" /><DocumentWindow Key="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\QuadEncoderRTOS.cydwr" Guid="59f07ce3-58d0-4c01-99ef-9f9dbefad178" /><DocumentWindow Key="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\main.c" Guid="2c7cb87e-327b-42e6-bd18-619eca5ef281" /><DocumentWindow Key="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\INA219.h" Guid="41ca38ec-a7d0-43db-9f6f-f4c7db091aa3" /><DocumentWindow Key="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\INA219.c" Guid="4806633b-e8ec-436e-b62b-40825a19a3f5" /><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="525addd1-d875-45f6-8608-a6eb08ec165e" /><DocumentWindow Key="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\Generated_Source\PSoC4\Counter_1.c" Guid="656715d3-9a6a-417f-8591-e2d732b231ab" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
+--><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="1465, 852" SelectedTabbedMdiWindow="2c7cb87e-327b-42e6-bd18-619eca5ef281"><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="525addd1-d875-45f6-8608-a6eb08ec165e" /><DocumentWindow Key="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\QuadEncoderRTOS.cydwr" Guid="59f07ce3-58d0-4c01-99ef-9f9dbefad178" /><DocumentWindow Key="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\main.c" Guid="2c7cb87e-327b-42e6-bd18-619eca5ef281" /><DocumentWindow Key="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\TopDesign\TopDesign.cysch" Guid="4d832ef0-ff6c-4864-bc9e-147c4718d1a9" /><DocumentWindow Key="C:\proj\acsnb-motion-capture\Workspace01\ACSNB Motion Capture.cydsn\TopDesign\TopDesign.cysch" Guid="80bd97b8-0dfb-4e4e-8a26-94e887c210ad" /><DocumentWindow Key="C:\proj\acsnb-motion-capture\Workspace01\ACSNB Motion Capture.cydsn\main.c" Guid="03a4cc3f-243b-4d57-a4dd-c253e0d8d50d" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
 <config v="" />
 <AutoUpdate v="true" />
 </CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21>

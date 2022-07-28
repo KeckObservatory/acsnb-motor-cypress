@@ -116,6 +116,13 @@
   <file name="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\codegentemp\Index_Counter_1.c" value="SOURCE_C;CortexM0;;;;Index_Counter_1" />
   <file name="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\codegentemp\Index_Counter_1.h" value="HEADER;;;;;Index_Counter_1" />
   <file name="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\codegentemp\Index_Counter_1_PM.c" value="SOURCE_C;CortexM0;;;;Index_Counter_1" />
+  <file name="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\codegentemp\Clock_5kHz.c" value="SOURCE_C;CortexM0;;;;Clock_5kHz" />
+  <file name="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\codegentemp\Clock_5kHz.h" value="HEADER;;;;;Clock_5kHz" />
+  <file name="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\codegentemp\Timer_BRMS.c" value="SOURCE_C;CortexM0;;;;Timer_BRMS" />
+  <file name="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\codegentemp\Timer_BRMS.h" value="HEADER;;;;;Timer_BRMS" />
+  <file name="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\codegentemp\Timer_BRMS_PM.c" value="SOURCE_C;CortexM0;;;;Timer_BRMS" />
+  <file name="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\codegentemp\isr_brms.c" value="SOURCE_C;CortexM0;;;;isr_brms" />
+  <file name="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\codegentemp\isr_brms.h" value="HEADER;;;;;isr_brms" />
   <file name="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\codegentemp\SPI_1_SCBCLK.c" value="SOURCE_C;CortexM0;;;;SPI_1_SCBCLK" />
   <file name="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\codegentemp\SPI_1_SCBCLK.h" value="HEADER;;;;;SPI_1_SCBCLK" />
   <file name="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\codegentemp\SPI_1_SCB_IRQ.c" value="SOURCE_C;CortexM0;;;;SPI_1_SCB_IRQ" />

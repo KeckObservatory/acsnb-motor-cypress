@@ -38,35 +38,7 @@
         <Files Root="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn">
           <File BuildType="BUILD" Toolchain="">main.c</File>
           <File BuildType="BUILD" Toolchain="">INA219.c</File>
-          <File BuildType="BUILD" Toolchain="">FreeRTOSConfig.h</File>
           <File BuildType="BUILD" Toolchain="">INA219.h</File>
-          <File BuildType="BUILD" Toolchain="">FreeRTOS\portmacro.h</File>
-          <File BuildType="BUILD" Toolchain="">FreeRTOS\projdefs.h</File>
-          <File BuildType="BUILD" Toolchain="">FreeRTOS\queue.h</File>
-          <File BuildType="BUILD" Toolchain="">FreeRTOS\semphr.h</File>
-          <File BuildType="BUILD" Toolchain="">FreeRTOS\stack_macros.h</File>
-          <File BuildType="BUILD" Toolchain="">FreeRTOS\StackMacros.h</File>
-          <File BuildType="BUILD" Toolchain="">FreeRTOS\stream_buffer.h</File>
-          <File BuildType="BUILD" Toolchain="">FreeRTOS\task.h</File>
-          <File BuildType="BUILD" Toolchain="">FreeRTOS\timers.h</File>
-          <File BuildType="BUILD" Toolchain="">FreeRTOS\croutine.h</File>
-          <File BuildType="BUILD" Toolchain="">FreeRTOS\deprecated_definitions.h</File>
-          <File BuildType="BUILD" Toolchain="">FreeRTOS\event_groups.h</File>
-          <File BuildType="BUILD" Toolchain="">FreeRTOS\FreeRTOS.h</File>
-          <File BuildType="BUILD" Toolchain="">FreeRTOS\list.h</File>
-          <File BuildType="BUILD" Toolchain="">FreeRTOS\message_buffer.h</File>
-          <File BuildType="BUILD" Toolchain="">FreeRTOS\mpu_prototypes.h</File>
-          <File BuildType="BUILD" Toolchain="">FreeRTOS\mpu_wrappers.h</File>
-          <File BuildType="BUILD" Toolchain="">FreeRTOS\port.c</File>
-          <File BuildType="BUILD" Toolchain="">FreeRTOS\portable.h</File>
-          <File BuildType="BUILD" Toolchain="">FreeRTOS\heap_1.c</File>
-          <File BuildType="BUILD" Toolchain="">FreeRTOS\source\stream_buffer.c</File>
-          <File BuildType="BUILD" Toolchain="">FreeRTOS\source\tasks.c</File>
-          <File BuildType="BUILD" Toolchain="">FreeRTOS\source\timers.c</File>
-          <File BuildType="BUILD" Toolchain="">FreeRTOS\source\croutine.c</File>
-          <File BuildType="BUILD" Toolchain="">FreeRTOS\source\event_groups.c</File>
-          <File BuildType="BUILD" Toolchain="">FreeRTOS\source\list.c</File>
-          <File BuildType="BUILD" Toolchain="">FreeRTOS\source\queue.c</File>
         </Files>
       </Folder>
       <Folder BuildType="STRICT" Path="C:\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\Generated_Source\PSoC4">
@@ -233,6 +205,13 @@
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\Index_Counter_1.c</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\Index_Counter_1.h</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\Index_Counter_1_PM.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\Timer_BRMS.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\Timer_BRMS.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\Timer_BRMS_PM.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\isr_brms.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\isr_brms.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\Clock_5kHz.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\Clock_5kHz.h</File>
         </Files>
       </Folder>
       <Folder BuildType="EXCLUDE" Path=".\codegentemp">

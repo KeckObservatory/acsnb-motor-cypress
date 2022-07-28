@@ -2,7 +2,7 @@
 --	Conversion of QuadEncoderRTOS.v to vh2:
 --
 --	Cypress Semiconductor - WARP Version 6.3 IR 41
---	Fri Jun 18 09:54:03 2021
+--	Thu Jul 28 09:27:33 2022
 --
 
 USE cypress.cypress.all;
@@ -576,6 +576,19 @@ SIGNAL \Index_Counter_1:CounterUDB:sC8:counterdp:f1_bus_stat_reg\ : bit;
 ATTRIBUTE port_state_att of \Index_Counter_1:CounterUDB:sC8:counterdp:f1_bus_stat_reg\:SIGNAL IS 2;
 SIGNAL \Index_Counter_1:CounterUDB:sC8:counterdp:f1_blk_stat_reg\ : bit;
 ATTRIBUTE port_state_att of \Index_Counter_1:CounterUDB:sC8:counterdp:f1_blk_stat_reg\:SIGNAL IS 2;
+SIGNAL Net_2664 : bit;
+SIGNAL \Timer_BRMS:Net_81\ : bit;
+SIGNAL \Timer_BRMS:Net_75\ : bit;
+SIGNAL \Timer_BRMS:Net_69\ : bit;
+SIGNAL \Timer_BRMS:Net_66\ : bit;
+SIGNAL \Timer_BRMS:Net_82\ : bit;
+SIGNAL \Timer_BRMS:Net_72\ : bit;
+SIGNAL Net_2673 : bit;
+SIGNAL Net_2669 : bit;
+SIGNAL Net_2663 : bit;
+SIGNAL Net_2667 : bit;
+SIGNAL Net_2668 : bit;
+SIGNAL Net_2674 : bit;
 SIGNAL cydff_6D : bit;
 SIGNAL cydff_5D : bit;
 SIGNAL \Counter_1:CounterUDB:prevCapture\\D\ : bit;
@@ -2380,6 +2393,34 @@ PROBE:cy_psoc3_pins_v1_10
 		pi=>(zero, zero, zero, zero,
 			zero, zero, zero, zero),
 		po=>open);
+Clock_5kHz:cy_clock_v1_0
+	GENERIC MAP(cy_registers=>"",
+		id=>"e0e852fc-f6fa-4072-9cf6-9ff7f2e36bbc",
+		source_clock_id=>"",
+		divisor=>0,
+		period=>"200000000000",
+		is_direct=>'0',
+		is_digital=>'0')
+	PORT MAP(clock_out=>Net_2664,
+		dig_domain_out=>open);
+\Timer_BRMS:cy_m0s8_tcpwm_1\:cy_m0s8_tcpwm_v1_0
+	GENERIC MAP(cy_registers=>"")
+	PORT MAP(clock=>Net_2664,
+		capture=>zero,
+		count=>tmpOE__INDEX_OUT_net_0,
+		reload=>zero,
+		stop=>zero,
+		start=>zero,
+		underflow=>Net_2673,
+		overflow=>Net_2669,
+		compare_match=>Net_2663,
+		line_out=>Net_2667,
+		line_out_compl=>Net_2668,
+		interrupt=>Net_2674);
+isr_brms:cy_isr_v1_0
+	GENERIC MAP(int_type=>"01",
+		is_nmi=>'0')
+	PORT MAP(int_signal=>Net_2674);
 cydff_6:cy_dff
 	PORT MAP(d=>Net_629,
 		clk=>Net_2535,

@@ -539,7 +539,7 @@ function getElementsByClass(rootNode, elemName, className)
 <tr> <td class="prop"> Project :</td>
 <td class="proptext"> QuadEncoderRTOS</td></tr>
 <tr> <td class="prop"> Build Time :</td>
-<td class="proptext"> 06/18/21 09:54:06</td></tr>
+<td class="proptext"> 07/28/22 09:27:37</td></tr>
 <tr> <td class="prop"> Device :</td>
 <td class="proptext"> CY8C4245AXI-473</td></tr>
 <tr> <td class="prop"> Temperature :</td>
@@ -593,6 +593,14 @@ Clock Summary Section</span>
  <td class = "text_info"> </td>
 </tr>
 <tr> 
+ <td class = "text_info">Clock_5kHz(FFB)</td>
+ <td class = "text_info">Clock_5kHz(FFB)</td>
+ <td class = "number">5.000&nbsp;kHz</td>
+ <td class = "number">5.000&nbsp;kHz</td>
+ <td class = "number"> N/A </td>
+ <td class = "text_info"> </td>
+</tr>
+<tr> 
  <td class = "text_info">CyHFClk</td>
  <td class = "text_info">CyHFClk</td>
  <td class = "number">48.000&nbsp;MHz</td>
@@ -609,11 +617,19 @@ Clock Summary Section</span>
  <td class = "text_info"> </td>
 </tr>
 <tr> 
+ <td class = "text_info">Clock_5kHz</td>
+ <td class = "text_info">CyHFClk</td>
+ <td class = "number">5.000&nbsp;kHz</td>
+ <td class = "number">5.000&nbsp;kHz</td>
+ <td class = "number"> N/A </td>
+ <td class = "text_info"> </td>
+</tr>
+<tr> 
  <td class = "text_info">Clock_1</td>
  <td class = "text_info">CyHFClk</td>
  <td class = "number">24.000&nbsp;MHz</td>
  <td class = "number">24.000&nbsp;MHz</td>
- <td class = "number">34.245&nbsp;MHz</td>
+ <td class = "number">34.249&nbsp;MHz</td>
  <td class = "text_info"></td>
 </tr>
 <tr> 
@@ -724,9 +740,9 @@ Destination Clock : Clock_1 : Positive edge(Required Frequency 24&nbsp;MHz)</spa
 <tr> 
  <td class = "text_info">\Counter_1:CounterUDB:sCTRLReg:ctrlreg\/control_7</td>
  <td class = "text_info">\Counter_1:CounterUDB:sC24:counterdp:u2\/ci</td>
- <td class = "number">34.245&nbsp;MHz</td>
- <td class = "number">29.201</td>
- <td class = "number">12.466</td>
+ <td class = "number">34.249&nbsp;MHz</td>
+ <td class = "number">29.198</td>
+ <td class = "number">12.469</td>
  <td class = "text_info"></td>
 </tr>
 <tr class="sta_path">
@@ -760,7 +776,7 @@ Destination Clock : Clock_1 : Positive edge(Required Frequency 24&nbsp;MHz)</spa
  <td class = "text_info">\Counter_1:CounterUDB:control_7\</td>
  <td class = "text_info">\Counter_1:CounterUDB:sCTRLReg:ctrlreg\/control_7</td>
  <td class = "text_info">\Counter_1:CounterUDB:count_enable\/main_0</td>
- <td class = "number">2.345</td>
+ <td class = "number">2.342</td>
 </tr>
 <tr> 
  <td class = "text_info">macrocell4</td>
@@ -839,7 +855,7 @@ Destination Clock : Clock_1 : Positive edge(Required Frequency 24&nbsp;MHz)</spa
 </td>
 </tr>
 <tr> 
- <td class = "text_info">Net_477/q</td>
+ <td class = "text_info">cydff_3/q</td>
  <td class = "text_info">\Counter_1:CounterUDB:sC24:counterdp:u2\/ci</td>
  <td class = "number">34.717&nbsp;MHz</td>
  <td class = "number">28.804</td>
@@ -862,21 +878,21 @@ Destination Clock : Clock_1 : Positive edge(Required Frequency 24&nbsp;MHz)</spa
 </thead> 
 <tbody>
 <tr> 
- <td class = "text_info">macrocell18</td>
+ <td class = "text_info">macrocell16</td>
  <td class = "text_info">U(0,1)</td>
  <td class = "number">1</td>
- <td class = "text_info">Net_477</td>
- <td class = "text_info">Net_477/clock_0</td>
- <td class = "text_info">Net_477/q</td>
+ <td class = "text_info">cydff_3</td>
+ <td class = "text_info">cydff_3/clock_0</td>
+ <td class = "text_info">cydff_3/q</td>
  <td class = "number">1.250</td>
 </tr>
 <tr> 
  <td class = "text_info">Route</td>
  <td class = "text_info"> </td>
  <td class = "number">1</td>
- <td class = "text_info">Net_477</td>
- <td class = "text_info">Net_477/q</td>
- <td class = "text_info">\Counter_1:CounterUDB:count_enable\/main_5</td>
+ <td class = "text_info">cydff_3</td>
+ <td class = "text_info">cydff_3/q</td>
+ <td class = "text_info">\Counter_1:CounterUDB:count_enable\/main_2</td>
  <td class = "number">3.278</td>
 </tr>
 <tr> 
@@ -884,7 +900,7 @@ Destination Clock : Clock_1 : Positive edge(Required Frequency 24&nbsp;MHz)</spa
  <td class = "text_info">U(1,1)</td>
  <td class = "number">1</td>
  <td class = "text_info">\Counter_1:CounterUDB:count_enable\</td>
- <td class = "text_info">\Counter_1:CounterUDB:count_enable\/main_5</td>
+ <td class = "text_info">\Counter_1:CounterUDB:count_enable\/main_2</td>
  <td class = "text_info">\Counter_1:CounterUDB:count_enable\/q</td>
  <td class = "number">3.350</td>
 </tr>
@@ -956,7 +972,7 @@ Destination Clock : Clock_1 : Positive edge(Required Frequency 24&nbsp;MHz)</spa
 </td>
 </tr>
 <tr> 
- <td class = "text_info">Net_477/q</td>
+ <td class = "text_info">cydff_3/q</td>
  <td class = "text_info">\Counter_1:CounterUDB:sC24:counterdp:u2\/ci</td>
  <td class = "number">34.764&nbsp;MHz</td>
  <td class = "number">28.765</td>
@@ -979,21 +995,21 @@ Destination Clock : Clock_1 : Positive edge(Required Frequency 24&nbsp;MHz)</spa
 </thead> 
 <tbody>
 <tr> 
- <td class = "text_info">macrocell18</td>
+ <td class = "text_info">macrocell16</td>
  <td class = "text_info">U(0,1)</td>
  <td class = "number">1</td>
- <td class = "text_info">Net_477</td>
- <td class = "text_info">Net_477/clock_0</td>
- <td class = "text_info">Net_477/q</td>
+ <td class = "text_info">cydff_3</td>
+ <td class = "text_info">cydff_3/clock_0</td>
+ <td class = "text_info">cydff_3/q</td>
  <td class = "number">1.250</td>
 </tr>
 <tr> 
  <td class = "text_info">Route</td>
  <td class = "text_info"> </td>
  <td class = "number">1</td>
- <td class = "text_info">Net_477</td>
- <td class = "text_info">Net_477/q</td>
- <td class = "text_info">Net_583/main_1</td>
+ <td class = "text_info">cydff_3</td>
+ <td class = "text_info">cydff_3/q</td>
+ <td class = "text_info">Net_583/main_0</td>
  <td class = "number">3.282</td>
 </tr>
 <tr> 
@@ -1001,7 +1017,7 @@ Destination Clock : Clock_1 : Positive edge(Required Frequency 24&nbsp;MHz)</spa
  <td class = "text_info">U(0,1)</td>
  <td class = "number">1</td>
  <td class = "text_info">Net_583</td>
- <td class = "text_info">Net_583/main_1</td>
+ <td class = "text_info">Net_583/main_0</td>
  <td class = "text_info">Net_583/q</td>
  <td class = "number">3.350</td>
 </tr>
@@ -1073,128 +1089,11 @@ Destination Clock : Clock_1 : Positive edge(Required Frequency 24&nbsp;MHz)</spa
 </td>
 </tr>
 <tr> 
- <td class = "text_info">cydff_3/q</td>
+ <td class = "text_info">cydff_4/q</td>
  <td class = "text_info">\Counter_1:CounterUDB:sC24:counterdp:u2\/ci</td>
  <td class = "number">34.925&nbsp;MHz</td>
  <td class = "number">28.633</td>
  <td class = "number">13.034</td>
- <td class = "text_info"></td>
-</tr>
-<tr class="sta_path">
-<td class="sta_path"  colspan="6">
-<table class="sta_path">
- <thead> 
-<tr> 
-<th>Type</th>
-<th>Location</th>
-<th>Fanout</th>
-<th>Instance/Net</th>
-<th>Source</th>
-<th>Dest</th>
-<th>Delay (ns)</th>
-</tr>
-</thead> 
-<tbody>
-<tr> 
- <td class = "text_info">macrocell16</td>
- <td class = "text_info">U(0,1)</td>
- <td class = "number">1</td>
- <td class = "text_info">cydff_3</td>
- <td class = "text_info">cydff_3/clock_0</td>
- <td class = "text_info">cydff_3/q</td>
- <td class = "number">1.250</td>
-</tr>
-<tr> 
- <td class = "text_info">Route</td>
- <td class = "text_info"> </td>
- <td class = "number">1</td>
- <td class = "text_info">cydff_3</td>
- <td class = "text_info">cydff_3/q</td>
- <td class = "text_info">\Counter_1:CounterUDB:count_enable\/main_2</td>
- <td class = "number">3.107</td>
-</tr>
-<tr> 
- <td class = "text_info">macrocell4</td>
- <td class = "text_info">U(1,1)</td>
- <td class = "number">1</td>
- <td class = "text_info">\Counter_1:CounterUDB:count_enable\</td>
- <td class = "text_info">\Counter_1:CounterUDB:count_enable\/main_2</td>
- <td class = "text_info">\Counter_1:CounterUDB:count_enable\/q</td>
- <td class = "number">3.350</td>
-</tr>
-<tr> 
- <td class = "text_info">Route</td>
- <td class = "text_info"> </td>
- <td class = "number">1</td>
- <td class = "text_info">\Counter_1:CounterUDB:count_enable\</td>
- <td class = "text_info">\Counter_1:CounterUDB:count_enable\/q</td>
- <td class = "text_info">\Counter_1:CounterUDB:sC24:counterdp:u0\/cs_addr_1</td>
- <td class = "number">2.816</td>
-</tr>
-<tr> 
- <td class = "text_info">datapathcell1</td>
- <td class = "text_info">U(0,1)</td>
- <td class = "number">1</td>
- <td class = "text_info">\Counter_1:CounterUDB:sC24:counterdp:u0\</td>
- <td class = "text_info">\Counter_1:CounterUDB:sC24:counterdp:u0\/cs_addr_1</td>
- <td class = "text_info">\Counter_1:CounterUDB:sC24:counterdp:u0\/co_msb</td>
- <td class = "number">9.710</td>
-</tr>
-<tr> 
- <td class = "text_info">Route</td>
- <td class = "text_info"> </td>
- <td class = "number">1</td>
- <td class = "text_info">\Counter_1:CounterUDB:sC24:counterdp:u0.co_msb__sig\</td>
- <td class = "text_info">\Counter_1:CounterUDB:sC24:counterdp:u0\/co_msb</td>
- <td class = "text_info">\Counter_1:CounterUDB:sC24:counterdp:u1\/ci</td>
- <td class = "number">0.000</td>
-</tr>
-<tr> 
- <td class = "text_info">datapathcell2</td>
- <td class = "text_info">U(1,1)</td>
- <td class = "number">1</td>
- <td class = "text_info">\Counter_1:CounterUDB:sC24:counterdp:u1\</td>
- <td class = "text_info">\Counter_1:CounterUDB:sC24:counterdp:u1\/ci</td>
- <td class = "text_info">\Counter_1:CounterUDB:sC24:counterdp:u1\/co_msb</td>
- <td class = "number">3.310</td>
-</tr>
-<tr> 
- <td class = "text_info">Route</td>
- <td class = "text_info"> </td>
- <td class = "number">1</td>
- <td class = "text_info">\Counter_1:CounterUDB:sC24:counterdp:u1.co_msb__sig\</td>
- <td class = "text_info">\Counter_1:CounterUDB:sC24:counterdp:u1\/co_msb</td>
- <td class = "text_info">\Counter_1:CounterUDB:sC24:counterdp:u2\/ci</td>
- <td class = "number">0.000</td>
-</tr>
-<tr> 
- <td class = "text_info">datapathcell3</td>
- <td class = "text_info">U(1,0)</td>
- <td class = "number">1</td>
- <td class = "text_info">\Counter_1:CounterUDB:sC24:counterdp:u2\</td>
- <td class = "text_info"></td>
- <td class = "text_info">SETUP</td>
- <td class = "number">5.090</td>
-</tr>
-<tr> 
- <td class = "text_info">Clock</td>
- <td class = "text_info"> </td>
- <td class = "text_info"></td>
- <td class = "text_info"></td>
- <td class = "text_info"></td>
- <td class = "text_info">Skew</td>
- <td class = "number">0.000</td>
-</tr>
-</tbody>
- </table> 
-</td>
-</tr>
-<tr> 
- <td class = "text_info">cydff_4/q</td>
- <td class = "text_info">\Counter_1:CounterUDB:sC24:counterdp:u2\/ci</td>
- <td class = "number">34.948&nbsp;MHz</td>
- <td class = "number">28.614</td>
- <td class = "number">13.053</td>
  <td class = "text_info"></td>
 </tr>
 <tr class="sta_path">
@@ -1228,7 +1127,7 @@ Destination Clock : Clock_1 : Positive edge(Required Frequency 24&nbsp;MHz)</spa
  <td class = "text_info">cydff_4</td>
  <td class = "text_info">cydff_4/q</td>
  <td class = "text_info">\Counter_1:CounterUDB:count_enable\/main_3</td>
- <td class = "number">3.088</td>
+ <td class = "number">3.107</td>
 </tr>
 <tr> 
  <td class = "text_info">macrocell4</td>
@@ -1307,11 +1206,11 @@ Destination Clock : Clock_1 : Positive edge(Required Frequency 24&nbsp;MHz)</spa
 </td>
 </tr>
 <tr> 
- <td class = "text_info">cydff_3/q</td>
+ <td class = "text_info">Net_477/q</td>
  <td class = "text_info">\Counter_1:CounterUDB:sC24:counterdp:u2\/ci</td>
- <td class = "number">34.974&nbsp;MHz</td>
- <td class = "number">28.593</td>
- <td class = "number">13.074</td>
+ <td class = "number">35.012&nbsp;MHz</td>
+ <td class = "number">28.562</td>
+ <td class = "number">13.105</td>
  <td class = "text_info"></td>
 </tr>
 <tr class="sta_path">
@@ -1330,29 +1229,29 @@ Destination Clock : Clock_1 : Positive edge(Required Frequency 24&nbsp;MHz)</spa
 </thead> 
 <tbody>
 <tr> 
- <td class = "text_info">macrocell16</td>
+ <td class = "text_info">macrocell18</td>
  <td class = "text_info">U(0,1)</td>
  <td class = "number">1</td>
- <td class = "text_info">cydff_3</td>
- <td class = "text_info">cydff_3/clock_0</td>
- <td class = "text_info">cydff_3/q</td>
+ <td class = "text_info">Net_477</td>
+ <td class = "text_info">Net_477/clock_0</td>
+ <td class = "text_info">Net_477/q</td>
  <td class = "number">1.250</td>
 </tr>
 <tr> 
  <td class = "text_info">Route</td>
  <td class = "text_info"> </td>
  <td class = "number">1</td>
- <td class = "text_info">cydff_3</td>
- <td class = "text_info">cydff_3/q</td>
- <td class = "text_info">Net_583/main_0</td>
- <td class = "number">3.110</td>
+ <td class = "text_info">Net_477</td>
+ <td class = "text_info">Net_477/q</td>
+ <td class = "text_info">Net_583/main_1</td>
+ <td class = "number">3.079</td>
 </tr>
 <tr> 
  <td class = "text_info">macrocell5</td>
  <td class = "text_info">U(0,1)</td>
  <td class = "number">1</td>
  <td class = "text_info">Net_583</td>
- <td class = "text_info">Net_583/main_0</td>
+ <td class = "text_info">Net_583/main_1</td>
  <td class = "text_info">Net_583/q</td>
  <td class = "number">3.350</td>
 </tr>
@@ -1371,6 +1270,123 @@ Destination Clock : Clock_1 : Positive edge(Required Frequency 24&nbsp;MHz)</spa
  <td class = "number">1</td>
  <td class = "text_info">\Counter_1:CounterUDB:sC24:counterdp:u0\</td>
  <td class = "text_info">\Counter_1:CounterUDB:sC24:counterdp:u0\/cs_addr_2</td>
+ <td class = "text_info">\Counter_1:CounterUDB:sC24:counterdp:u0\/co_msb</td>
+ <td class = "number">9.710</td>
+</tr>
+<tr> 
+ <td class = "text_info">Route</td>
+ <td class = "text_info"> </td>
+ <td class = "number">1</td>
+ <td class = "text_info">\Counter_1:CounterUDB:sC24:counterdp:u0.co_msb__sig\</td>
+ <td class = "text_info">\Counter_1:CounterUDB:sC24:counterdp:u0\/co_msb</td>
+ <td class = "text_info">\Counter_1:CounterUDB:sC24:counterdp:u1\/ci</td>
+ <td class = "number">0.000</td>
+</tr>
+<tr> 
+ <td class = "text_info">datapathcell2</td>
+ <td class = "text_info">U(1,1)</td>
+ <td class = "number">1</td>
+ <td class = "text_info">\Counter_1:CounterUDB:sC24:counterdp:u1\</td>
+ <td class = "text_info">\Counter_1:CounterUDB:sC24:counterdp:u1\/ci</td>
+ <td class = "text_info">\Counter_1:CounterUDB:sC24:counterdp:u1\/co_msb</td>
+ <td class = "number">3.310</td>
+</tr>
+<tr> 
+ <td class = "text_info">Route</td>
+ <td class = "text_info"> </td>
+ <td class = "number">1</td>
+ <td class = "text_info">\Counter_1:CounterUDB:sC24:counterdp:u1.co_msb__sig\</td>
+ <td class = "text_info">\Counter_1:CounterUDB:sC24:counterdp:u1\/co_msb</td>
+ <td class = "text_info">\Counter_1:CounterUDB:sC24:counterdp:u2\/ci</td>
+ <td class = "number">0.000</td>
+</tr>
+<tr> 
+ <td class = "text_info">datapathcell3</td>
+ <td class = "text_info">U(1,0)</td>
+ <td class = "number">1</td>
+ <td class = "text_info">\Counter_1:CounterUDB:sC24:counterdp:u2\</td>
+ <td class = "text_info"></td>
+ <td class = "text_info">SETUP</td>
+ <td class = "number">5.090</td>
+</tr>
+<tr> 
+ <td class = "text_info">Clock</td>
+ <td class = "text_info"> </td>
+ <td class = "text_info"></td>
+ <td class = "text_info"></td>
+ <td class = "text_info"></td>
+ <td class = "text_info">Skew</td>
+ <td class = "number">0.000</td>
+</tr>
+</tbody>
+ </table> 
+</td>
+</tr>
+<tr> 
+ <td class = "text_info">Net_477/q</td>
+ <td class = "text_info">\Counter_1:CounterUDB:sC24:counterdp:u2\/ci</td>
+ <td class = "number">35.117&nbsp;MHz</td>
+ <td class = "number">28.476</td>
+ <td class = "number">13.191</td>
+ <td class = "text_info"></td>
+</tr>
+<tr class="sta_path">
+<td class="sta_path"  colspan="6">
+<table class="sta_path">
+ <thead> 
+<tr> 
+<th>Type</th>
+<th>Location</th>
+<th>Fanout</th>
+<th>Instance/Net</th>
+<th>Source</th>
+<th>Dest</th>
+<th>Delay (ns)</th>
+</tr>
+</thead> 
+<tbody>
+<tr> 
+ <td class = "text_info">macrocell18</td>
+ <td class = "text_info">U(0,1)</td>
+ <td class = "number">1</td>
+ <td class = "text_info">Net_477</td>
+ <td class = "text_info">Net_477/clock_0</td>
+ <td class = "text_info">Net_477/q</td>
+ <td class = "number">1.250</td>
+</tr>
+<tr> 
+ <td class = "text_info">Route</td>
+ <td class = "text_info"> </td>
+ <td class = "number">1</td>
+ <td class = "text_info">Net_477</td>
+ <td class = "text_info">Net_477/q</td>
+ <td class = "text_info">\Counter_1:CounterUDB:count_enable\/main_5</td>
+ <td class = "number">2.950</td>
+</tr>
+<tr> 
+ <td class = "text_info">macrocell4</td>
+ <td class = "text_info">U(1,1)</td>
+ <td class = "number">1</td>
+ <td class = "text_info">\Counter_1:CounterUDB:count_enable\</td>
+ <td class = "text_info">\Counter_1:CounterUDB:count_enable\/main_5</td>
+ <td class = "text_info">\Counter_1:CounterUDB:count_enable\/q</td>
+ <td class = "number">3.350</td>
+</tr>
+<tr> 
+ <td class = "text_info">Route</td>
+ <td class = "text_info"> </td>
+ <td class = "number">1</td>
+ <td class = "text_info">\Counter_1:CounterUDB:count_enable\</td>
+ <td class = "text_info">\Counter_1:CounterUDB:count_enable\/q</td>
+ <td class = "text_info">\Counter_1:CounterUDB:sC24:counterdp:u0\/cs_addr_1</td>
+ <td class = "number">2.816</td>
+</tr>
+<tr> 
+ <td class = "text_info">datapathcell1</td>
+ <td class = "text_info">U(0,1)</td>
+ <td class = "number">1</td>
+ <td class = "text_info">\Counter_1:CounterUDB:sC24:counterdp:u0\</td>
+ <td class = "text_info">\Counter_1:CounterUDB:sC24:counterdp:u0\/cs_addr_1</td>
  <td class = "text_info">\Counter_1:CounterUDB:sC24:counterdp:u0\/co_msb</td>
  <td class = "number">9.710</td>
 </tr>
@@ -1660,9 +1676,9 @@ Destination Clock : Clock_1 : Positive edge(Required Frequency 24&nbsp;MHz)</spa
 <tr> 
  <td class = "text_info">\Counter_1:CounterUDB:sCTRLReg:ctrlreg\/control_7</td>
  <td class = "text_info">\Counter_1:CounterUDB:sC24:counterdp:u1\/ci</td>
- <td class = "number">38.623&nbsp;MHz</td>
- <td class = "number">25.891</td>
- <td class = "number">15.776</td>
+ <td class = "number">38.628&nbsp;MHz</td>
+ <td class = "number">25.888</td>
+ <td class = "number">15.779</td>
  <td class = "text_info"></td>
 </tr>
 <tr class="sta_path">
@@ -1696,7 +1712,7 @@ Destination Clock : Clock_1 : Positive edge(Required Frequency 24&nbsp;MHz)</spa
  <td class = "text_info">\Counter_1:CounterUDB:control_7\</td>
  <td class = "text_info">\Counter_1:CounterUDB:sCTRLReg:ctrlreg\/control_7</td>
  <td class = "text_info">\Counter_1:CounterUDB:count_enable\/main_0</td>
- <td class = "number">2.345</td>
+ <td class = "number">2.342</td>
 </tr>
 <tr> 
  <td class = "text_info">macrocell4</td>
@@ -1759,9 +1775,9 @@ Destination Clock : Clock_1 : Positive edge(Required Frequency 24&nbsp;MHz)</spa
 <tr> 
  <td class = "text_info">\Counter_1:CounterUDB:sCTRLReg:ctrlreg\/control_7</td>
  <td class = "text_info">\Counter_1:CounterUDB:sC24:counterdp:u2\/ci</td>
- <td class = "number">38.625&nbsp;MHz</td>
- <td class = "number">25.890</td>
- <td class = "number">15.777</td>
+ <td class = "number">38.629&nbsp;MHz</td>
+ <td class = "number">25.887</td>
+ <td class = "number">15.780</td>
  <td class = "text_info"></td>
 </tr>
 <tr class="sta_path">
@@ -1795,7 +1811,7 @@ Destination Clock : Clock_1 : Positive edge(Required Frequency 24&nbsp;MHz)</spa
  <td class = "text_info">\Counter_1:CounterUDB:control_7\</td>
  <td class = "text_info">\Counter_1:CounterUDB:sCTRLReg:ctrlreg\/control_7</td>
  <td class = "text_info">\Counter_1:CounterUDB:count_enable\/main_0</td>
- <td class = "number">2.345</td>
+ <td class = "number">2.342</td>
 </tr>
 <tr> 
  <td class = "text_info">macrocell4</td>
@@ -2014,67 +2030,6 @@ Destination Clock : Clock_1 : Positive edge</span>
 </td>
 </tr>
 <tr> 
- <td class = "text_info">cydff_5/q</td>
- <td class = "text_info">cydff_3/main_0</td>
- <td class = "number">3.549</td>
- <td class = "text_info"></td>
-</tr>
-<tr class="sta_path">
-<td class="sta_path"  colspan="4">
-<table class="sta_path">
- <thead> 
-<tr> 
-<th>Type</th>
-<th>Location</th>
-<th>Fanout</th>
-<th>Instance/Net</th>
-<th>Source</th>
-<th>Dest</th>
-<th>Delay (ns)</th>
-</tr>
-</thead> 
-<tbody>
-<tr> 
- <td class = "text_info">macrocell11</td>
- <td class = "text_info">U(0,1)</td>
- <td class = "number">1</td>
- <td class = "text_info">cydff_5</td>
- <td class = "text_info">cydff_5/clock_0</td>
- <td class = "text_info">cydff_5/q</td>
- <td class = "number">1.250</td>
-</tr>
-<tr> 
- <td class = "text_info">Route</td>
- <td class = "text_info"></td>
- <td class = "number">1</td>
- <td class = "text_info">cydff_5</td>
- <td class = "text_info">cydff_5/q</td>
- <td class = "text_info">cydff_3/main_0</td>
- <td class = "number">2.299</td>
-</tr>
-<tr> 
- <td class = "text_info">macrocell16</td>
- <td class = "text_info">U(0,1)</td>
- <td class = "number">1</td>
- <td class = "text_info">cydff_3</td>
- <td class = "text_info"> </td>
- <td class = "text_info">HOLD</td>
- <td class = "number">0.000</td>
-</tr>
-<tr> 
- <td class = "text_info">Clock</td>
- <td class = "text_info"> </td>
- <td class = "text_info"></td>
- <td class = "text_info"></td>
- <td class = "text_info"></td>
- <td class = "text_info">Skew</td>
- <td class = "number">0.000</td>
-</tr>
-</tbody>
- </table> 
-</td>
-</tr>
-<tr> 
  <td class = "text_info">cy_srff_1/q</td>
  <td class = "text_info">cy_srff_1/main_2</td>
  <td class = "number">3.769</td>
@@ -2199,7 +2154,7 @@ Destination Clock : Clock_1 : Positive edge</span>
 <tr> 
  <td class = "text_info">cydff_6/q</td>
  <td class = "text_info">cydff_4/main_0</td>
- <td class = "number">3.877</td>
+ <td class = "number">3.879</td>
  <td class = "text_info"></td>
 </tr>
 <tr class="sta_path">
@@ -2233,7 +2188,7 @@ Destination Clock : Clock_1 : Positive edge</span>
  <td class = "text_info">cydff_6</td>
  <td class = "text_info">cydff_6/q</td>
  <td class = "text_info">cydff_4/main_0</td>
- <td class = "number">2.627</td>
+ <td class = "number">2.629</td>
 </tr>
 <tr> 
  <td class = "text_info">macrocell17</td>
@@ -2258,9 +2213,70 @@ Destination Clock : Clock_1 : Positive edge</span>
 </td>
 </tr>
 <tr> 
+ <td class = "text_info">cydff_5/q</td>
+ <td class = "text_info">cydff_3/main_0</td>
+ <td class = "number">3.889</td>
+ <td class = "text_info"></td>
+</tr>
+<tr class="sta_path">
+<td class="sta_path"  colspan="4">
+<table class="sta_path">
+ <thead> 
+<tr> 
+<th>Type</th>
+<th>Location</th>
+<th>Fanout</th>
+<th>Instance/Net</th>
+<th>Source</th>
+<th>Dest</th>
+<th>Delay (ns)</th>
+</tr>
+</thead> 
+<tbody>
+<tr> 
+ <td class = "text_info">macrocell11</td>
+ <td class = "text_info">U(0,1)</td>
+ <td class = "number">1</td>
+ <td class = "text_info">cydff_5</td>
+ <td class = "text_info">cydff_5/clock_0</td>
+ <td class = "text_info">cydff_5/q</td>
+ <td class = "number">1.250</td>
+</tr>
+<tr> 
+ <td class = "text_info">Route</td>
+ <td class = "text_info"></td>
+ <td class = "number">1</td>
+ <td class = "text_info">cydff_5</td>
+ <td class = "text_info">cydff_5/q</td>
+ <td class = "text_info">cydff_3/main_0</td>
+ <td class = "number">2.639</td>
+</tr>
+<tr> 
+ <td class = "text_info">macrocell16</td>
+ <td class = "text_info">U(0,1)</td>
+ <td class = "number">1</td>
+ <td class = "text_info">cydff_3</td>
+ <td class = "text_info"> </td>
+ <td class = "text_info">HOLD</td>
+ <td class = "number">0.000</td>
+</tr>
+<tr> 
+ <td class = "text_info">Clock</td>
+ <td class = "text_info"> </td>
+ <td class = "text_info"></td>
+ <td class = "text_info"></td>
+ <td class = "text_info"></td>
+ <td class = "text_info">Skew</td>
+ <td class = "number">0.000</td>
+</tr>
+</tbody>
+ </table> 
+</td>
+</tr>
+<tr> 
  <td class = "text_info">cydff_4/q</td>
- <td class = "text_info">Net_477/main_0</td>
- <td class = "number">4.194</td>
+ <td class = "text_info">\Counter_1:CounterUDB:count_stored_i\/main_1</td>
+ <td class = "number">4.220</td>
  <td class = "text_info"></td>
 </tr>
 <tr class="sta_path">
@@ -2293,68 +2309,7 @@ Destination Clock : Clock_1 : Positive edge</span>
  <td class = "number">1</td>
  <td class = "text_info">cydff_4</td>
  <td class = "text_info">cydff_4/q</td>
- <td class = "text_info">Net_477/main_0</td>
- <td class = "number">2.944</td>
-</tr>
-<tr> 
- <td class = "text_info">macrocell18</td>
- <td class = "text_info">U(0,1)</td>
- <td class = "number">1</td>
- <td class = "text_info">Net_477</td>
- <td class = "text_info"> </td>
- <td class = "text_info">HOLD</td>
- <td class = "number">0.000</td>
-</tr>
-<tr> 
- <td class = "text_info">Clock</td>
- <td class = "text_info"> </td>
- <td class = "text_info"></td>
- <td class = "text_info"></td>
- <td class = "text_info"></td>
- <td class = "text_info">Skew</td>
- <td class = "number">0.000</td>
-</tr>
-</tbody>
- </table> 
-</td>
-</tr>
-<tr> 
- <td class = "text_info">cydff_3/q</td>
- <td class = "text_info">\Counter_1:CounterUDB:count_stored_i\/main_0</td>
- <td class = "number">4.220</td>
- <td class = "text_info"></td>
-</tr>
-<tr class="sta_path">
-<td class="sta_path"  colspan="4">
-<table class="sta_path">
- <thead> 
-<tr> 
-<th>Type</th>
-<th>Location</th>
-<th>Fanout</th>
-<th>Instance/Net</th>
-<th>Source</th>
-<th>Dest</th>
-<th>Delay (ns)</th>
-</tr>
-</thead> 
-<tbody>
-<tr> 
- <td class = "text_info">macrocell16</td>
- <td class = "text_info">U(0,1)</td>
- <td class = "number">1</td>
- <td class = "text_info">cydff_3</td>
- <td class = "text_info">cydff_3/clock_0</td>
- <td class = "text_info">cydff_3/q</td>
- <td class = "number">1.250</td>
-</tr>
-<tr> 
- <td class = "text_info">Route</td>
- <td class = "text_info"></td>
- <td class = "number">1</td>
- <td class = "text_info">cydff_3</td>
- <td class = "text_info">cydff_3/q</td>
- <td class = "text_info">\Counter_1:CounterUDB:count_stored_i\/main_0</td>
+ <td class = "text_info">\Counter_1:CounterUDB:count_stored_i\/main_1</td>
  <td class = "number">2.970</td>
 </tr>
 <tr> 
@@ -2380,9 +2335,70 @@ Destination Clock : Clock_1 : Positive edge</span>
 </td>
 </tr>
 <tr> 
+ <td class = "text_info">Net_477/q</td>
+ <td class = "text_info">\Counter_1:CounterUDB:count_stored_i\/main_3</td>
+ <td class = "number">4.335</td>
+ <td class = "text_info"></td>
+</tr>
+<tr class="sta_path">
+<td class="sta_path"  colspan="4">
+<table class="sta_path">
+ <thead> 
+<tr> 
+<th>Type</th>
+<th>Location</th>
+<th>Fanout</th>
+<th>Instance/Net</th>
+<th>Source</th>
+<th>Dest</th>
+<th>Delay (ns)</th>
+</tr>
+</thead> 
+<tbody>
+<tr> 
+ <td class = "text_info">macrocell18</td>
+ <td class = "text_info">U(0,1)</td>
+ <td class = "number">1</td>
+ <td class = "text_info">Net_477</td>
+ <td class = "text_info">Net_477/clock_0</td>
+ <td class = "text_info">Net_477/q</td>
+ <td class = "number">1.250</td>
+</tr>
+<tr> 
+ <td class = "text_info">Route</td>
+ <td class = "text_info"></td>
+ <td class = "number">1</td>
+ <td class = "text_info">Net_477</td>
+ <td class = "text_info">Net_477/q</td>
+ <td class = "text_info">\Counter_1:CounterUDB:count_stored_i\/main_3</td>
+ <td class = "number">3.085</td>
+</tr>
+<tr> 
+ <td class = "text_info">macrocell15</td>
+ <td class = "text_info">U(1,1)</td>
+ <td class = "number">1</td>
+ <td class = "text_info">\Counter_1:CounterUDB:count_stored_i\</td>
+ <td class = "text_info"> </td>
+ <td class = "text_info">HOLD</td>
+ <td class = "number">0.000</td>
+</tr>
+<tr> 
+ <td class = "text_info">Clock</td>
+ <td class = "text_info"> </td>
+ <td class = "text_info"></td>
+ <td class = "text_info"></td>
+ <td class = "text_info"></td>
+ <td class = "text_info">Skew</td>
+ <td class = "number">0.000</td>
+</tr>
+</tbody>
+ </table> 
+</td>
+</tr>
+<tr> 
  <td class = "text_info">cydff_4/q</td>
- <td class = "text_info">\Counter_1:CounterUDB:count_stored_i\/main_1</td>
- <td class = "number">4.347</td>
+ <td class = "text_info">Net_477/main_0</td>
+ <td class = "number">4.360</td>
  <td class = "text_info"></td>
 </tr>
 <tr class="sta_path">
@@ -2415,14 +2431,14 @@ Destination Clock : Clock_1 : Positive edge</span>
  <td class = "number">1</td>
  <td class = "text_info">cydff_4</td>
  <td class = "text_info">cydff_4/q</td>
- <td class = "text_info">\Counter_1:CounterUDB:count_stored_i\/main_1</td>
- <td class = "number">3.097</td>
+ <td class = "text_info">Net_477/main_0</td>
+ <td class = "number">3.110</td>
 </tr>
 <tr> 
- <td class = "text_info">macrocell15</td>
- <td class = "text_info">U(1,1)</td>
+ <td class = "text_info">macrocell18</td>
+ <td class = "text_info">U(0,1)</td>
  <td class = "number">1</td>
- <td class = "text_info">\Counter_1:CounterUDB:count_stored_i\</td>
+ <td class = "text_info">Net_477</td>
  <td class = "text_info"> </td>
  <td class = "text_info">HOLD</td>
  <td class = "number">0.000</td>
@@ -2443,7 +2459,7 @@ Destination Clock : Clock_1 : Positive edge</span>
 <tr> 
  <td class = "text_info">cydff_3/q</td>
  <td class = "text_info">Net_553/main_0</td>
- <td class = "number">4.360</td>
+ <td class = "number">4.532</td>
  <td class = "text_info"></td>
 </tr>
 <tr class="sta_path">
@@ -2477,7 +2493,7 @@ Destination Clock : Clock_1 : Positive edge</span>
  <td class = "text_info">cydff_3</td>
  <td class = "text_info">cydff_3/q</td>
  <td class = "text_info">Net_553/main_0</td>
- <td class = "number">3.110</td>
+ <td class = "number">3.282</td>
 </tr>
 <tr> 
  <td class = "text_info">macrocell19</td>
@@ -2795,78 +2811,9 @@ Clock_1</span>
 </td>
 </tr>
 <tr> 
- <td class = "text_info">phiB(0)_PAD</td>
- <td class = "text_info">cydff_6/main_0</td>
- <td class = "number">22.150</td>
-</tr>
-<tr class="sta_path">
-<td class="sta_path"  colspan="3">
-<table class="sta_path">
- <thead> 
-<tr> 
-<th>Type</th>
-<th>Location</th>
-<th>Fanout</th>
-<th>Instance/Net</th>
-<th>Source</th>
-<th>Dest</th>
-<th>Delay (ns)</th>
-</tr>
-</thead> 
-<tbody>
-<tr> 
- <td class = "text_info">Route</td>
- <td class = "text_info"></td>
- <td class = "number">1</td>
- <td class = "text_info">phiB(0)_PAD</td>
- <td class = "text_info">phiB(0)_PAD</td>
- <td class = "text_info">phiB(0)/pad_in</td>
- <td class = "number">0.000</td>
-</tr>
-<tr> 
- <td class = "text_info">iocell6</td>
- <td class = "text_info">P0[0]</td>
- <td class = "number">1</td>
- <td class = "text_info">phiB(0)</td>
- <td class = "text_info">phiB(0)/pad_in</td>
- <td class = "text_info">phiB(0)/fb</td>
- <td class = "number">13.097</td>
-</tr>
-<tr> 
- <td class = "text_info">Route</td>
- <td class = "text_info"></td>
- <td class = "number">1</td>
- <td class = "text_info">Net_634</td>
- <td class = "text_info">phiB(0)/fb</td>
- <td class = "text_info">cydff_6/main_0</td>
- <td class = "number">5.543</td>
-</tr>
-<tr> 
- <td class = "text_info">macrocell10</td>
- <td class = "text_info">U(0,1)</td>
- <td class = "number">1</td>
- <td class = "text_info">cydff_6</td>
- <td class = "text_info"> </td>
- <td class = "text_info">SETUP</td>
- <td class = "number">3.510</td>
-</tr>
-<tr> 
- <td class = "text_info">Clock</td>
- <td class = "text_info"> </td>
- <td class = "text_info"></td>
- <td class = "text_info"></td>
- <td class = "text_info"></td>
- <td class = "text_info">Clock path delay</td>
- <td class = "number">0.000</td>
-</tr>
-</tbody>
- </table> 
-</td>
-</tr>
-<tr> 
  <td class = "text_info">phiA(0)_PAD</td>
  <td class = "text_info">cydff_5/main_0</td>
- <td class = "number">22.070</td>
+ <td class = "number">22.903</td>
 </tr>
 <tr class="sta_path">
 <td class="sta_path"  colspan="3">
@@ -2908,13 +2855,82 @@ Clock_1</span>
  <td class = "text_info">Net_630</td>
  <td class = "text_info">phiA(0)/fb</td>
  <td class = "text_info">cydff_5/main_0</td>
- <td class = "number">4.743</td>
+ <td class = "number">5.576</td>
 </tr>
 <tr> 
  <td class = "text_info">macrocell11</td>
  <td class = "text_info">U(0,1)</td>
  <td class = "number">1</td>
  <td class = "text_info">cydff_5</td>
+ <td class = "text_info"> </td>
+ <td class = "text_info">SETUP</td>
+ <td class = "number">3.510</td>
+</tr>
+<tr> 
+ <td class = "text_info">Clock</td>
+ <td class = "text_info"> </td>
+ <td class = "text_info"></td>
+ <td class = "text_info"></td>
+ <td class = "text_info"></td>
+ <td class = "text_info">Clock path delay</td>
+ <td class = "number">0.000</td>
+</tr>
+</tbody>
+ </table> 
+</td>
+</tr>
+<tr> 
+ <td class = "text_info">phiB(0)_PAD</td>
+ <td class = "text_info">cydff_6/main_0</td>
+ <td class = "number">22.066</td>
+</tr>
+<tr class="sta_path">
+<td class="sta_path"  colspan="3">
+<table class="sta_path">
+ <thead> 
+<tr> 
+<th>Type</th>
+<th>Location</th>
+<th>Fanout</th>
+<th>Instance/Net</th>
+<th>Source</th>
+<th>Dest</th>
+<th>Delay (ns)</th>
+</tr>
+</thead> 
+<tbody>
+<tr> 
+ <td class = "text_info">Route</td>
+ <td class = "text_info"></td>
+ <td class = "number">1</td>
+ <td class = "text_info">phiB(0)_PAD</td>
+ <td class = "text_info">phiB(0)_PAD</td>
+ <td class = "text_info">phiB(0)/pad_in</td>
+ <td class = "number">0.000</td>
+</tr>
+<tr> 
+ <td class = "text_info">iocell6</td>
+ <td class = "text_info">P0[0]</td>
+ <td class = "number">1</td>
+ <td class = "text_info">phiB(0)</td>
+ <td class = "text_info">phiB(0)/pad_in</td>
+ <td class = "text_info">phiB(0)/fb</td>
+ <td class = "number">13.097</td>
+</tr>
+<tr> 
+ <td class = "text_info">Route</td>
+ <td class = "text_info"></td>
+ <td class = "number">1</td>
+ <td class = "text_info">Net_634</td>
+ <td class = "text_info">phiB(0)/fb</td>
+ <td class = "text_info">cydff_6/main_0</td>
+ <td class = "number">5.459</td>
+</tr>
+<tr> 
+ <td class = "text_info">macrocell10</td>
+ <td class = "text_info">U(0,1)</td>
+ <td class = "number">1</td>
+ <td class = "text_info">cydff_6</td>
  <td class = "text_info"> </td>
  <td class = "text_info">SETUP</td>
  <td class = "number">3.510</td>

@@ -880,6 +880,17 @@
 .set INDEX_IN__PS, CYREG_PRT0_PS
 .set INDEX_IN__SHIFT, 3
 
+/* isr_brms */
+.set isr_brms__INTC_CLR_EN_REG, CYREG_CM0_ICER
+.set isr_brms__INTC_CLR_PD_REG, CYREG_CM0_ICPR
+.set isr_brms__INTC_MASK, 0x10000
+.set isr_brms__INTC_NUMBER, 16
+.set isr_brms__INTC_PRIOR_MASK, 0xC0
+.set isr_brms__INTC_PRIOR_NUM, 3
+.set isr_brms__INTC_PRIOR_REG, CYREG_CM0_IPR4
+.set isr_brms__INTC_SET_EN_REG, CYREG_CM0_ISER
+.set isr_brms__INTC_SET_PD_REG, CYREG_CM0_ISPR
+
 /* isr_home */
 .set isr_home__INTC_CLR_EN_REG, CYREG_CM0_ICER
 .set isr_home__INTC_CLR_PD_REG, CYREG_CM0_ICPR
@@ -1245,6 +1256,45 @@
 .set INDEX_OUT__PORT, 2
 .set INDEX_OUT__PS, CYREG_PRT2_PS
 .set INDEX_OUT__SHIFT, 3
+
+/* Clock_5kHz */
+.set Clock_5kHz__DIVIDER_MASK, 0x0000FFFF
+.set Clock_5kHz__ENABLE, CYREG_CLK_DIVIDER_A01
+.set Clock_5kHz__ENABLE_MASK, 0x80000000
+.set Clock_5kHz__MASK, 0x80000000
+.set Clock_5kHz__REGISTER, CYREG_CLK_DIVIDER_A01
+
+/* Timer_BRMS */
+.set Timer_BRMS_cy_m0s8_tcpwm_1__CC, CYREG_TCPWM_CNT0_CC
+.set Timer_BRMS_cy_m0s8_tcpwm_1__CC_BUFF, CYREG_TCPWM_CNT0_CC_BUFF
+.set Timer_BRMS_cy_m0s8_tcpwm_1__COUNTER, CYREG_TCPWM_CNT0_COUNTER
+.set Timer_BRMS_cy_m0s8_tcpwm_1__CTRL, CYREG_TCPWM_CNT0_CTRL
+.set Timer_BRMS_cy_m0s8_tcpwm_1__INTR, CYREG_TCPWM_CNT0_INTR
+.set Timer_BRMS_cy_m0s8_tcpwm_1__INTR_MASK, CYREG_TCPWM_CNT0_INTR_MASK
+.set Timer_BRMS_cy_m0s8_tcpwm_1__INTR_MASKED, CYREG_TCPWM_CNT0_INTR_MASKED
+.set Timer_BRMS_cy_m0s8_tcpwm_1__INTR_SET, CYREG_TCPWM_CNT0_INTR_SET
+.set Timer_BRMS_cy_m0s8_tcpwm_1__PERIOD, CYREG_TCPWM_CNT0_PERIOD
+.set Timer_BRMS_cy_m0s8_tcpwm_1__PERIOD_BUFF, CYREG_TCPWM_CNT0_PERIOD_BUFF
+.set Timer_BRMS_cy_m0s8_tcpwm_1__STATUS, CYREG_TCPWM_CNT0_STATUS
+.set Timer_BRMS_cy_m0s8_tcpwm_1__TCPWM_CMD, CYREG_TCPWM_CMD
+.set Timer_BRMS_cy_m0s8_tcpwm_1__TCPWM_CMDCAPTURE_MASK, 0x01
+.set Timer_BRMS_cy_m0s8_tcpwm_1__TCPWM_CMDCAPTURE_SHIFT, 0
+.set Timer_BRMS_cy_m0s8_tcpwm_1__TCPWM_CMDRELOAD_MASK, 0x100
+.set Timer_BRMS_cy_m0s8_tcpwm_1__TCPWM_CMDRELOAD_SHIFT, 8
+.set Timer_BRMS_cy_m0s8_tcpwm_1__TCPWM_CMDSTART_MASK, 0x1000000
+.set Timer_BRMS_cy_m0s8_tcpwm_1__TCPWM_CMDSTART_SHIFT, 24
+.set Timer_BRMS_cy_m0s8_tcpwm_1__TCPWM_CMDSTOP_MASK, 0x10000
+.set Timer_BRMS_cy_m0s8_tcpwm_1__TCPWM_CMDSTOP_SHIFT, 16
+.set Timer_BRMS_cy_m0s8_tcpwm_1__TCPWM_CTRL, CYREG_TCPWM_CTRL
+.set Timer_BRMS_cy_m0s8_tcpwm_1__TCPWM_CTRL_MASK, 0x01
+.set Timer_BRMS_cy_m0s8_tcpwm_1__TCPWM_CTRL_SHIFT, 0
+.set Timer_BRMS_cy_m0s8_tcpwm_1__TCPWM_INTR_CAUSE, CYREG_TCPWM_INTR_CAUSE
+.set Timer_BRMS_cy_m0s8_tcpwm_1__TCPWM_INTR_CAUSE_MASK, 0x01
+.set Timer_BRMS_cy_m0s8_tcpwm_1__TCPWM_INTR_CAUSE_SHIFT, 0
+.set Timer_BRMS_cy_m0s8_tcpwm_1__TCPWM_NUMBER, 0
+.set Timer_BRMS_cy_m0s8_tcpwm_1__TR_CTRL0, CYREG_TCPWM_CNT0_TR_CTRL0
+.set Timer_BRMS_cy_m0s8_tcpwm_1__TR_CTRL1, CYREG_TCPWM_CNT0_TR_CTRL1
+.set Timer_BRMS_cy_m0s8_tcpwm_1__TR_CTRL2, CYREG_TCPWM_CNT0_TR_CTRL2
 
 /* isr_spi_ss */
 .set isr_spi_ss__INTC_CLR_EN_REG, CYREG_CM0_ICER

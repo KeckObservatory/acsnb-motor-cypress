@@ -1,5 +1,5 @@
 -- Project:   QuadEncoderRTOS
--- Generated: 06/18/2021 09:54:04
+-- Generated: 07/28/2022 09:27:34
 -- PSoC Creator  4.4
 
 ENTITY QuadEncoderRTOS IS
@@ -65,6 +65,14 @@ ARCHITECTURE __DEFAULT__ OF QuadEncoderRTOS IS
     SIGNAL Net_2611 : bit;
     SIGNAL Net_2612 : bit;
     SIGNAL Net_2637 : bit;
+    SIGNAL Net_2663 : bit;
+    SIGNAL Net_2664_ff9 : bit;
+    ATTRIBUTE global_signal OF Net_2664_ff9 : SIGNAL IS true;
+    SIGNAL Net_2667 : bit;
+    SIGNAL Net_2668 : bit;
+    SIGNAL Net_2669 : bit;
+    SIGNAL Net_2673 : bit;
+    SIGNAL Net_2674 : bit;
     SIGNAL Net_477 : bit;
     SIGNAL Net_553 : bit;
     SIGNAL Net_583 : bit;
@@ -659,7 +667,8 @@ BEGIN
             ff_div_2 => \SPI_1:Net_847_ff2\,
             ff_div_8 => Net_2535_ff8,
             udb_div_0 => dclk_to_genclk,
-            ff_div_3 => \I2C:Net_847_ff3\);
+            ff_div_3 => \I2C:Net_847_ff3\,
+            ff_div_9 => Net_2664_ff9);
 
     INDEX_OUT:logicalport
         GENERIC MAP(
@@ -2691,6 +2700,31 @@ BEGIN
             f0_bus_stat_comb => \Index_Counter_1:CounterUDB:status_6\,
             f0_blk_stat_comb => \Index_Counter_1:CounterUDB:status_5\,
             busclk => ClockBlock_HFClk);
+
+    \Timer_BRMS:cy_m0s8_tcpwm_1\:m0s8tcpwmcell
+        GENERIC MAP(
+            cy_registers => "")
+        PORT MAP(
+            clock => Net_2664_ff9,
+            capture => '0',
+            count => '1',
+            reload => '0',
+            stop => '0',
+            start => '0',
+            tr_underflow => Net_2673,
+            tr_overflow => Net_2669,
+            tr_compare_match => Net_2663,
+            line => Net_2667,
+            line_compl => Net_2668,
+            interrupt => Net_2674);
+
+    isr_brms:interrupt
+        GENERIC MAP(
+            int_type => "01",
+            is_nmi => 0)
+        PORT MAP(
+            interrupt => Net_2674,
+            clock => ClockBlock_HFClk);
 
     cydff_6:macrocell
         GENERIC MAP(

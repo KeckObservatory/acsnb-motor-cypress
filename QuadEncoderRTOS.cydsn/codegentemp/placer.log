@@ -6,7 +6,7 @@
 
 #Build Date:         Sep  9 2019 11:47:43
 
-#File Generated:     Jun 18 2021 09:54:04
+#File Generated:     Jul 28 2022 09:27:34
 
 #Purpose:            
 
@@ -76,9 +76,11 @@ analysis after routing.
 ######################################################################
                      Clock Summary 
 ======================================================================
-Number of clocks: 12
+Number of clocks: 14
 Clock: Clock_1              | Frequency:  32.2 MHz | Target:  24.0 MHz
 Clock: Clock_1(FFB)         | Frequency: N/A       | Target:  24.0 MHz
+Clock: Clock_5kHz           | Frequency: N/A       | Target:   0.0 MHz
+Clock: Clock_5kHz(FFB)      | Frequency: N/A       | Target:   0.0 MHz
 Clock: CyHFClk              | Frequency: N/A       | Target:  48.0 MHz
 Clock: CyILO                | Frequency: N/A       | Target:   0.0 MHz
 Clock: CyIMO                | Frequency: N/A       | Target:  48.0 MHz
@@ -100,9 +102,11 @@ Phase 7
 ######################################################################
                      Clock Summary 
 ======================================================================
-Number of clocks: 12
+Number of clocks: 14
 Clock: Clock_1              | Frequency:  32.2 MHz | Target:  24.0 MHz
 Clock: Clock_1(FFB)         | Frequency: N/A       | Target:  24.0 MHz
+Clock: Clock_5kHz           | Frequency: N/A       | Target:   0.0 MHz
+Clock: Clock_5kHz(FFB)      | Frequency: N/A       | Target:   0.0 MHz
 Clock: CyHFClk              | Frequency: N/A       | Target:  48.0 MHz
 Clock: CyILO                | Frequency: N/A       | Target:   0.0 MHz
 Clock: CyIMO                | Frequency: N/A       | Target:  48.0 MHz
@@ -117,7 +121,7 @@ Clock: SPI_1_SCBCLK(FFB)    | Frequency: N/A       | Target:  48.0 MHz
 ======================================================================
                      End of Clock Summary
 ######################################################################
-D2088: Phase 7, elapsed time : 0.1 (sec)
+D2088: Phase 7, elapsed time : 0.2 (sec)
 
 Final Design Statistics
     Number of Combinational MCs 	:	9
@@ -147,9 +151,11 @@ analysis after routing.
 ######################################################################
                      Clock Summary 
 ======================================================================
-Number of clocks: 12
+Number of clocks: 14
 Clock: Clock_1              | Frequency:  32.8 MHz | Target:  26.3 MHz
 Clock: Clock_1(FFB)         | Frequency: N/A       | Target:  24.0 MHz
+Clock: Clock_5kHz           | Frequency: N/A       | Target:   0.0 MHz
+Clock: Clock_5kHz(FFB)      | Frequency: N/A       | Target:   0.0 MHz
 Clock: CyHFClk              | Frequency: N/A       | Target:  48.0 MHz
 Clock: CyILO                | Frequency: N/A       | Target:   0.0 MHz
 Clock: CyIMO                | Frequency: N/A       | Target:  48.0 MHz
@@ -170,5 +176,5 @@ D2088: Phase 8, elapsed time : 0.0 (sec)
 
 D2054: Placement of the design completed successfully
 
-I2076: Total run-time: 0.3 sec.
+I2076: Total run-time: 0.8 sec.
 

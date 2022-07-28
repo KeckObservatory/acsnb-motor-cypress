@@ -1,5 +1,5 @@
 -- Project:   QuadEncoderRTOS
--- Generated: 06/18/2021 09:54:05
+-- Generated: 07/28/2022 09:27:35
 -- PSoC Creator  4.4
 
 ENTITY QuadEncoderRTOS IS
@@ -66,8 +66,16 @@ ARCHITECTURE __DEFAULT__ OF QuadEncoderRTOS IS
     SIGNAL Net_2611 : bit;
     SIGNAL Net_2612 : bit;
     SIGNAL Net_2637 : bit;
+    SIGNAL Net_2663 : bit;
+    SIGNAL Net_2664_ff9 : bit;
+    ATTRIBUTE global_signal OF Net_2664_ff9 : SIGNAL IS true;
+    SIGNAL Net_2667 : bit;
+    SIGNAL Net_2668 : bit;
+    SIGNAL Net_2669 : bit;
+    SIGNAL Net_2673 : bit;
+    SIGNAL Net_2674 : bit;
     SIGNAL Net_477 : bit;
-    ATTRIBUTE placement_force OF Net_477 : SIGNAL IS "U(0,1,A)2";
+    ATTRIBUTE placement_force OF Net_477 : SIGNAL IS "U(0,1,A)1";
     SIGNAL Net_553 : bit;
     ATTRIBUTE placement_force OF Net_553 : SIGNAL IS "U(0,1,A)3";
     SIGNAL Net_583 : bit;
@@ -136,7 +144,7 @@ ARCHITECTURE __DEFAULT__ OF QuadEncoderRTOS IS
     SIGNAL \Index_Counter_1:CounterUDB:count_enable\ : bit;
     ATTRIBUTE placement_force OF \Index_Counter_1:CounterUDB:count_enable\ : SIGNAL IS "U(1,0,B)2";
     SIGNAL \Index_Counter_1:CounterUDB:count_stored_i\ : bit;
-    ATTRIBUTE placement_force OF \Index_Counter_1:CounterUDB:count_stored_i\ : SIGNAL IS "U(1,0,B)1";
+    ATTRIBUTE placement_force OF \Index_Counter_1:CounterUDB:count_stored_i\ : SIGNAL IS "U(1,0,B)0";
     SIGNAL \Index_Counter_1:CounterUDB:overflow_reg_i\ : bit;
     ATTRIBUTE placement_force OF \Index_Counter_1:CounterUDB:overflow_reg_i\ : SIGNAL IS "U(0,0,B)1";
     SIGNAL \Index_Counter_1:CounterUDB:prevCompare\ : bit;
@@ -165,15 +173,15 @@ ARCHITECTURE __DEFAULT__ OF QuadEncoderRTOS IS
     SIGNAL __ZERO__ : bit;
     ATTRIBUTE GROUND OF __ZERO__ : SIGNAL IS true;
     SIGNAL cy_srff_1 : bit;
-    ATTRIBUTE placement_force OF cy_srff_1 : SIGNAL IS "U(1,0,B)3";
+    ATTRIBUTE placement_force OF cy_srff_1 : SIGNAL IS "U(1,0,B)1";
     SIGNAL cydff_3 : bit;
-    ATTRIBUTE placement_force OF cydff_3 : SIGNAL IS "U(0,1,B)1";
+    ATTRIBUTE placement_force OF cydff_3 : SIGNAL IS "U(0,1,A)2";
     SIGNAL cydff_4 : bit;
-    ATTRIBUTE placement_force OF cydff_4 : SIGNAL IS "U(0,1,A)1";
+    ATTRIBUTE placement_force OF cydff_4 : SIGNAL IS "U(0,1,B)2";
     SIGNAL cydff_5 : bit;
     ATTRIBUTE placement_force OF cydff_5 : SIGNAL IS "U(0,1,B)3";
     SIGNAL cydff_6 : bit;
-    ATTRIBUTE placement_force OF cydff_6 : SIGNAL IS "U(0,1,B)2";
+    ATTRIBUTE placement_force OF cydff_6 : SIGNAL IS "U(0,1,B)1";
     SIGNAL dclk_to_genclk : bit;
     SIGNAL phiA(0)__PA : bit;
     SIGNAL phiB(0)__PA : bit;
@@ -290,6 +298,8 @@ ARCHITECTURE __DEFAULT__ OF QuadEncoderRTOS IS
     ATTRIBUTE Location OF \Index_Counter_1:CounterUDB:sSTSReg:stsreg\ : LABEL IS "U(0,1)";
     ATTRIBUTE lib_model OF \Index_Counter_1:CounterUDB:sC8:counterdp:u0\ : LABEL IS "datapathcell4";
     ATTRIBUTE Location OF \Index_Counter_1:CounterUDB:sC8:counterdp:u0\ : LABEL IS "U(0,0)";
+    ATTRIBUTE Location OF \Timer_BRMS:cy_m0s8_tcpwm_1\ : LABEL IS "F(TCPWM,0)";
+    ATTRIBUTE Location OF isr_brms : LABEL IS "[IntrContainer=(0)][IntrId=(16)]";
     ATTRIBUTE lib_model OF cydff_6 : LABEL IS "macrocell10";
     ATTRIBUTE Location OF cydff_6 : LABEL IS "U(0,1)";
     ATTRIBUTE lib_model OF cydff_5 : LABEL IS "macrocell11";
@@ -705,9 +715,10 @@ BEGIN
             lfclk => ClockBlock_LFClk,
             dsi_in_0 => ClockBlock_Routed1,
             ff_div_2 => \I2C:Net_847_ff3\,
-            ff_div_8 => open,
+            ff_div_8 => Net_2664_ff9,
             udb_div_0 => dclk_to_genclk,
             ff_div_3 => \SPI_1:Net_847_ff2\,
+            ff_div_9 => open,
             ff_div_10 => Net_2535_ff8);
 
     INDEX_OUT:logicalport
@@ -2740,6 +2751,31 @@ BEGIN
             f0_bus_stat_comb => \Index_Counter_1:CounterUDB:status_6\,
             f0_blk_stat_comb => \Index_Counter_1:CounterUDB:status_5\,
             busclk => ClockBlock_HFClk);
+
+    \Timer_BRMS:cy_m0s8_tcpwm_1\:m0s8tcpwmcell
+        GENERIC MAP(
+            cy_registers => "")
+        PORT MAP(
+            clock => Net_2664_ff9,
+            capture => '0',
+            count => '1',
+            reload => '0',
+            stop => '0',
+            start => '0',
+            tr_underflow => Net_2673,
+            tr_overflow => Net_2669,
+            tr_compare_match => Net_2663,
+            line => Net_2667,
+            line_compl => Net_2668,
+            interrupt => Net_2674);
+
+    isr_brms:interrupt
+        GENERIC MAP(
+            int_type => "01",
+            is_nmi => 0)
+        PORT MAP(
+            interrupt => Net_2674,
+            clock => ClockBlock_HFClk);
 
     cydff_6:macrocell
         GENERIC MAP(
