@@ -8,6 +8,7 @@
 *  The I2C device provides readback of motor current consumption.
 *
 * History:
+* 02/08/23 PMR  Rev: 0-2-0 rework PID algorithm based on Galil findings
 * 07/27/22 PMR  Rev: 0-1-0 convert FreeRTOS to binary-rate-monotonic-scheduler (BRMS)
 * 07/09/20 PMR  Rev: 0-0-7 implement zeroing the encoder value
 * 07/09/19 PMR  Rev: 0-0-6 fix tuning of INA219 and inhibit encoder report during homing
@@ -22,15 +23,19 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <math.h>
+#include "pid.h"
 #include "INA219.h"
 
-/* Firmware revision as of 2022-07-27 PMR */
+/* Firmware revision as of 2023-02-08 */
 #define FIRMWARE_REV_0 0
-#define FIRMWARE_REV_1 1
+#define FIRMWARE_REV_1 2
 #define FIRMWARE_REV_2 0
 
 /* Debugging - undefine this for a production system that needs to watchdog */
 #define DEBUG_PROBE_ATTACHED 1
+
+/* ACS Test set: the drives are wired backwards! */
+#define DRIVE_POLARITY -1
 
 /* --------------------------------------------------------------------- 
  * CONSTANTS
@@ -63,8 +68,10 @@ CY_ISR_PROTO(BRMS_Interrupt);
  * --------------------------------------------------------------------- */
 #define PWM_15KHZ_PERIOD                       (1600)
 //#define PWM_PCT_TO_COMPARE(x)                  trunc((float) x * (PWM_15KHZ_PERIOD/100))
-#define PWM_PCT_TO_COMPARE(x)                  trunc((float) x * 16)
-#define PWM_IDLE                               (50.0)
+//#define PWM_PCT_TO_COMPARE(x)                  trunc((float) x * 16)
+//#define PWM_IDLE                               (50)
+//#define PWM_NEUTRAL                            (PWM_15KHZ_PERIOD / 2)
+#define PWM_NEUTRAL                            (0)
 
 /* TI INA219 Zero-Drift, Bidirectional Current/Power Monitor With I2C Interface */
 #define INA219_I2C_ADDR                        (0x40)
@@ -84,25 +91,46 @@ CY_ISR_PROTO(BRMS_Interrupt);
 #define PID_EFFECTIVE_SETPOINT_DELTA_DEFAULT   (25)
 bool inAuto = false;
 
-volatile int8 Jog, LastJog;
+volatile int8_t Jog, LastJog;
 bool PID_Enabled, PID_Was_Enabled;
-int32 PID_Setpoint, PID_EffectiveSetpoint;
-uint8 PID_EffSetDelta;
-uint32 lastTime;
+int32_t PID_Setpoint, PID_EffectiveSetpoint;
+uint8_t PID_EffSetDelta;
+uint32_t lastTime;
+
+uint32_t refSampleTime = 5; // Default to 5ms
+volatile int32_t Position, LastPosition;
+
+#ifdef FP_CONVERT
 float Output;
 float ITerm;
-volatile int32 Position, LastPosition;
 float kp, ki, kd; // PID values
-uint32 refSampleTime = 5; // Default to 5ms
 float outMax_Total, outMax_ITerm;
 float pwmLimit, pwmMax, pwmMin;    
+volatile float PWM;
+#endif
+
+int32_t Output;
+int32_t ITerm;
+
+#define OVERRIDE_PID_CONSTANTS 1
+uint32_t kp = 20; // Proportional constant
+uint32_t ki = 10; // Integral constant
+uint32_t kd = 0; // Derivative constant
+
+int32_t outMax_Total, outMax_ITerm;
+int32_t pwmLimit, pwmMax, pwmMin;    
+volatile int32_t PWM;
+
 bool homingDone = true;
 
 /* --------------------------------------------------------------------- 
  * Timekeeping defines
  * --------------------------------------------------------------------- */
-volatile uint64 UptimeMicrosecondsAccumulator = 0;
-volatile uint64 UptimeSeconds = 0;
+volatile uint64_t UptimeMicroseconds = 0;
+volatile uint64_t UptimeMicrosecondsAccumulator = 0;
+volatile uint64_t UptimeMilliseconds = 0;
+volatile uint64_t UptimeMillisecondsAccumulator = 0;
+volatile uint64_t UptimeSeconds = 0;
 
 /* --------------------------------------------------------------------- 
  * ENCODER PROPERTIES
@@ -133,7 +161,7 @@ typedef enum {
 
 #define configStateValid(s) ( ((ConfigStates_t) s > csUNDEFINED) && ((ConfigStates_t) s < csMAX) )
 
-/* Fault codes, these are bit encoded into a uint8 */
+/* Fault codes, these are bit encoded into a uint8_t */
 typedef enum {
     fsNONE         = 0b00000000,    /* No faults detected */
     fsUnconfigured = 0b00000001,    /* Attempt to move an unconfigured system */
@@ -147,12 +175,11 @@ typedef enum {
 } FaultStates_t;
 
 volatile ConfigStates_t ConfigState;
-volatile uint8 FaultState;
-volatile uint8 ConfigSequence;
-volatile uint16 ChecksumErrors;
-volatile int16 Current;
-volatile float PWM;
-uint8 CurrentI2Cinbuf[20];
+volatile uint8_t FaultState;
+volatile uint8_t ConfigSequence;
+volatile uint16_t ChecksumErrors;
+volatile int16_t MotorCurrent;
+uint8_t CurrentI2Cinbuf[20];
 
 /* --------------------------------------------------------------------- 
  * SPI MESSAGING
@@ -170,7 +197,7 @@ uint8 CurrentI2Cinbuf[20];
 /* Remember the last time a message came in so we can timeout moves if the node box stops 
    talking.  Nominally 1 second max of not talking. */
 #define MAX_LAST_MESSAGE_TIME_SECONDS 1
-uint32 LastMessageTimeSeconds;
+uint32_t LastMessageTimeSeconds;
 
 /* Opcodes that can come from the node box software */
 typedef enum {
@@ -185,74 +212,82 @@ typedef enum {
 #define rxMessageOpcodeValid(op) ( ((rxMessage_opcodes_t) op > opUNDEFINED) && ((rxMessage_opcodes_t) op < opMAX) )
 
 typedef struct { 
-    uint8 checksum;        
-    uint8 size;       /* Size of the message bytes, including opcode and size and checksum */
-    uint8 opcode;     /* Operation (generic overlay for previewing opcode value) */
+    uint8_t checksum;        
+    uint8_t size;       /* Size of the message bytes, including opcode and size and checksum */
+    uint8_t opcode;     /* Operation (generic overlay for previewing opcode value) */
 } __attribute__ ((__packed__)) rxMessage_overlay_t;
 
 /* Configuration message, 19 bytes */
 typedef struct {
-    uint8 checksum;        
-    uint8 size;       /* Size of the message bytes, including opcode and size and checksum */
-    uint8 opcode;     /* Operation: 01 == config */        
-    uint8 sequence;   /* Configuration message sequence number */
+    uint8_t checksum;        
+    uint8_t size;       /* Size of the message bytes, including opcode and size and checksum */
+    uint8_t opcode;     /* Operation: 01 == config */        
+    uint8_t sequence;   /* Configuration message sequence number */
+#ifdef FP_CONVERT    
     float Kp;         /* PID constants to be used in calculation */
     float Ki;
     float Kd;
-    uint8 limit_Total;/* Total drive output limit, +/- percentage */
-    uint8 limit_ITerm;/* PID I term output limit, also +/- percentage */
-    uint8 effsetdelta;/* PID effective setpoint increment delta, nominally 25 steps */
+#endif
+
+    uint32_t Kp;
+    uint32_t Ki;
+    uint32_t Kd;
+    
+    uint8_t limit_Total;/* Total drive output limit, +/- percentage */
+    uint8_t limit_ITerm;/* PID I term output limit, also +/- percentage */
+    uint8_t effsetdelta;/* PID effective setpoint increment delta, nominally 25 steps */
 } __attribute__ ((__packed__)) rxMessage_config_t;
 
-/* Status message, contains desired position and such values, 12 bytes */
+/* Status message, contains desired position and such values, 10 bytes */
 typedef struct {
-    uint8  checksum;        
-    uint8  size;       /* Size of the message bytes, including opcode and size and checksum */
-    uint8  opcode;     /* Operation: 02 == status */
-    uint8  enable;     /* Enable/disable PID algorithm */
-    int32  setpoint;   /* Setpoint (desired actuator position) */
-    int8   jog;        /* Jog value, to manually move the motor; valid range -100 to 100 */ 
-    uint8  clearfaults;/* Set to nonzero to clear all the current faults */
+    uint8_t  checksum;        
+    uint8_t  size;       /* Size of the message bytes, including opcode and size and checksum */
+    uint8_t  opcode;     /* Operation: 02 == status */
+    uint8_t  enable;     /* Enable/disable PID algorithm */
+    int32_t  setpoint;   /* Setpoint (desired actuator position) */
+    int8_t   jog;        /* Jog value, to manually move the motor; valid range -100 to 100 */ 
+    uint8_t  clearfaults;/* Set to nonzero to clear all the current faults */
 } __attribute__ ((__packed__)) rxMessage_status_t;
    
 /* Clear message, contains new encoder position, 7 bytes */
 typedef struct {
-    uint8  checksum;        
-    uint8  size;       /* Size of the message bytes, including opcode and size and checksum */
-    uint8  opcode;     /* Operation: 03 == set encoders */
-    int32  setpoint;   /* Setpoint (force an actuator logical position) */
+    uint8_t  checksum;        
+    uint8_t  size;       /* Size of the message bytes, including opcode and size and checksum */
+    uint8_t  opcode;     /* Operation: 03 == set encoders */
+    int32_t  setpoint;   /* Setpoint (force an actuator logical position) */
 } __attribute__ ((__packed__)) rxMessage_setenc_t;
 
 
 /* Wrap the message with an array of bytes */
 union {
-    uint8               buf[MAX_MESSAGE_SIZE];
+    uint8_t             buf[MAX_MESSAGE_SIZE];
     rxMessage_overlay_t overlay;
     rxMessage_config_t  config;
     rxMessage_status_t  status;  
     rxMessage_setenc_t  setenc;
 } rxMessage;
 
-/* Message back to the BBB, watch out for alignment here by packing the structure (should be 18 bytes) */
+/* Message back to the BBB, watch out for alignment here by packing the structure (should be 21 bytes) */
 typedef struct  {  
-    uint8  checksum;   /* Message checksum */    
-    uint8  version0;   /* Version byte 0 */ 
-    uint8  version1;   /* Version byte 1 */
-    uint8  version2;   /* Version byte 2 */
-    uint8  size;       /* Size of the message bytes, including opcode and size and checksum */
-    uint8  opcode;     /* Echo back of the opcode this response is for, operation: 02 == status */
-    uint8  state;      /* Enum value for current device configuration state */ 
-    uint8  fault;      /* Bit encoded fields for current fault status */
-    uint8  sequence;   /* Echo back the config sequence number currently set */
-    uint16 checksum_errors; /* Count of checksum errors */
-    int16 current;     /* Motor current consumption (mA) */
-    int32 position;    /* Actual actuator position, signed value */ 
-    float pwm;         /* PWM value the motor is moving at */     
+    uint8_t  checksum;        /* Message checksum */    
+    uint8_t  version0;        /* Version byte 0 */ 
+    uint8_t  version1;        /* Version byte 1 */
+    uint8_t  version2;        /* Version byte 2 */
+    uint8_t  size;            /* Size of the message bytes, including opcode and size and checksum */
+    uint8_t  opcode;          /* Echo back of the opcode this response is for, operation: 02 == status */
+    uint8_t  state;           /* Enum value for current device configuration state */ 
+    uint8_t  fault;           /* Bit encoded fields for current fault status */
+    uint8_t  sequence;        /* Echo back the config sequence number currently set */
+    uint16_t checksum_errors; /* Count of checksum errors */
+    int16_t  motor_current;   /* Motor current consumption (mA) */
+    int32_t  position;        /* Actual actuator position, signed value */ 
+    //float  pwm;             /* PWM value the motor is moving at */     
+    uint32_t pwm;             /* PWM value the motor is moving at */     
 } __attribute__ ((__packed__)) txMessage_t;
 
 /* Wrap the message with an array of bytes */
 union {    
-    uint8       buf[MAX_MESSAGE_SIZE];
+    uint8_t     buf[MAX_MESSAGE_SIZE];
     txMessage_t msg;
 } txMessage;
 
@@ -267,12 +302,10 @@ txMessageStates_t txMessageState;
 /* --------------------------------------------------------------------- 
  * Function prototypes
  * --------------------------------------------------------------------- */
-int32 GetPosition(void);
+int32_t GetPosition(void);
 void runRateGroup1_PID(void);
 void runRateGroup3_SPI(void);
-void runRateGroup4_MotorCurrentRead(void);
-
-
+void MotorCurrentRead(void);
 
 
 /*******************************************************************************
@@ -330,35 +363,23 @@ void ClearFault(FaultStates_t fault) {
 
 
 /*******************************************************************************
-* Function Name: runRateGroup4_MotorCurrentRead
+* Function Name: MotorCurrentRead
 ********************************************************************************
 * Summary:
-*  Task to read the motor current consumption.
+*  Read the motor current consumption.
 *
 * Parameters: None
 * Return: None
 *******************************************************************************/
-void runRateGroup4_MotorCurrentRead(void) {
+void MotorCurrentRead(void) {
     
-    static bool initialized = false;
-    static float CurrentTemp;
+    //TODO: Convert this to integer math
+    float c;
     
-    if (!initialized) {
-        /* Start I2C for Current Monitor */
-        I2C_Start();
-        Init_INA(INA219_I2C_ADDR);
-        
-    initialized = true;
-    }
+    c = getCurrent_mA(INA219_I2C_ADDR);
     
-    CurrentTemp = getCurrent_mA(INA219_I2C_ADDR);
-            
-    Current = (int16_t) CurrentTemp;
-    //AssertFault(fsCurrentRead);
-    
-    /* Read the current at 2Hz */        
-///        Sleep(500);
-        
+    /* Assign the global MotorCurrent value */
+    MotorCurrent = (int16_t) c;       
 }
 
 
@@ -374,10 +395,10 @@ void runRateGroup4_MotorCurrentRead(void) {
 void runRateGroup3_SPI(void) {
  
     rxMessage_opcodes_t opcode;
-    uint8 size;
-    uint8 i;
-    uint8 checksum;
-    uint8 limit;    
+    uint8_t size;
+    uint8_t i;
+    uint8_t checksum;
+    uint8_t limit;    
     
     /* If the SPI is moving data out right now, do not touch the message buffer, we will
        get to it next cycle! */
@@ -420,7 +441,21 @@ void runRateGroup3_SPI(void) {
                         case opConfig:
                             /* Special message to establish settings on the device such as PID gains */                                    
                         
+                            /* Remember where we were when the init was sent */
+                            LastPosition = GetPosition();
+                           
+                            /* Initialize the setpoints to be equal to where we are right now.*/
+                            PID_Setpoint = LastPosition;
+                            PID_EffectiveSetpoint = LastPosition;                                                
+                            
+                            /* Disable PID if it's on */
+                            PID_Was_Enabled = false;
+                            PID_Enabled = false;
+                                
+                                
                             /* Update the PID values passed down from the server */
+                        
+#ifndef OVERRIDE_PID_CONSTANTS
                             kp = rxMessage.config.Kp;
                             ki = rxMessage.config.Ki;
                             kd = rxMessage.config.Kd;      
@@ -443,6 +478,7 @@ void runRateGroup3_SPI(void) {
                                 limit = 100;
                             
                             outMax_ITerm = limit;
+#endif
                             
                             /* Convert the configured output maximum also into a PWM value, because the duty cycle
                             could be set from manual control of the PWM.  
@@ -489,7 +525,7 @@ void runRateGroup3_SPI(void) {
                         
                         case opSetEnc:
                             /* The message is telling us what to arbitrarily set the encoder values to */
-                            Counter_1_WriteCounter(rxMessage.status.setpoint);   
+                            Counter_1_WriteCounter(rxMessage.status.setpoint);
                             LastPosition = rxMessage.status.setpoint;
                             break;                                        
                             
@@ -504,19 +540,19 @@ void runRateGroup3_SPI(void) {
             Position = GetPosition();
             
             /* Fill out the common reponse the same way every time, as a status response */
-            txMessage.msg.checksum = 0;
-            txMessage.msg.version0 = FIRMWARE_REV_0;
-            txMessage.msg.version1 = FIRMWARE_REV_1;
-            txMessage.msg.version2 = FIRMWARE_REV_2;
-            txMessage.msg.size     = sizeof(txMessage_t);
-            txMessage.msg.opcode   = opStatus;
-            txMessage.msg.state    = (uint8) ConfigState;
-            txMessage.msg.fault    = (uint8) FaultState;
+            txMessage.msg.checksum        = 0;
+            txMessage.msg.version0        = FIRMWARE_REV_0;
+            txMessage.msg.version1        = FIRMWARE_REV_1;
+            txMessage.msg.version2        = FIRMWARE_REV_2;
+            txMessage.msg.size            = sizeof(txMessage_t);
+            txMessage.msg.opcode          = opStatus;
+            txMessage.msg.state           = (uint8_t) ConfigState;
+            txMessage.msg.fault           = (uint8_t) FaultState;
             txMessage.msg.checksum_errors = ChecksumErrors;
-            txMessage.msg.sequence = ConfigSequence;
-            txMessage.msg.position = Position;
-            txMessage.msg.pwm      = PWM;
-            txMessage.msg.current  = Current;                            
+            txMessage.msg.sequence        = ConfigSequence;
+            txMessage.msg.position        = Position;
+            txMessage.msg.pwm             = PWM;
+            txMessage.msg.motor_current   = MotorCurrent;                            
             
             /* Set the checksum in the response */
             for (i = 0, checksum = 0; i < sizeof(txMessage_t); i++)
@@ -557,9 +593,11 @@ void runRateGroup3_SPI(void) {
 *             to 100 is forward drive, and below 50 down to 0 is backward drive.
 * Return: None
 *******************************************************************************/
-void PWM_Set(float dutycycle) {
+//void PWM_Set(uint8_t dutycycle) {
+void PWM_Set(int32_t output) {    
     
-    float drive = dutycycle;
+#ifdef REFACTOR
+    uint8_t drive = dutycycle;
     
     /* Clip to the max PWM drive +/- around 50 */
     if (drive > pwmMax) {
@@ -568,7 +606,12 @@ void PWM_Set(float dutycycle) {
         drive = pwmMin;
     }
     
-    PWM_1_WriteCompare(PWM_PCT_TO_COMPARE(drive));    
+    PWM_1_WriteCompare(drive * 16);    
+#endif
+    
+    /* output varies from -800 to 800, which needs to be expressed as 0 to 1600 
+       for the PWM */
+    PWM_1_WriteCompare((PWM_15KHZ_PERIOD/2) + (DRIVE_POLARITY * output));    
 }
 
 
@@ -579,12 +622,12 @@ void PWM_Set(float dutycycle) {
 *  Get the physical position value and compensate for negative locations.
 *
 * Parameters: None
-* Return: int32 (signed!) position value
+* Return: int32_t (signed!) position value
 *******************************************************************************/
-int32 GetPosition(void) {
+int32_t GetPosition(void) {
     
-    static volatile uint32 RawPosition;
-    static volatile int32 result;
+    static volatile uint32_t RawPosition;
+    static volatile int32_t result;
     
     /* Get up-to-date position from the 24 bit unsigned counter*/
     RawPosition = Counter_1_ReadCounter();   
@@ -593,12 +636,12 @@ int32 GetPosition(void) {
        underflow and make that into a negative value */
     if (RawPosition > ENCODER_NEGATIVE_BOUNDARY) {
         
-        result = (-1) * ((int32) ENCODER_MAX - (int32) RawPosition);
+        result = (-1) * ((int32_t) ENCODER_MAX - (int32_t) RawPosition);
         
     } else {
      
         /* Value is "positive", treat it normally */
-        result = (int32) RawPosition;
+        result = (int32_t) RawPosition;
     }
     
     /* Update the master copy of position information */
@@ -633,57 +676,6 @@ void PID_Initialize(void) {
 
 
 /*******************************************************************************
-* Function Name: PID_Compute
-********************************************************************************
-* Summary:
-*  Execute a pass through the PID process to create a duty cycle output.
-*
-* Parameters: Current time and current destination.
-* Return: PWM output, in percentage.
-*******************************************************************************/
-#ifdef ZERO
-float PID_Compute(uint32 setpoint) {
-    
-    int32 error, dPosition;
-        
-    if(!inAuto) 
-        return 0;
-    
-    /* Get most up-to-date current position */
-    Position = GetPosition();
-
-    /* Compute all the working error variables */
-    error = setpoint - Position;
-    ITerm += (ki * error);
-    
-    /* Clip the I term at a max value for just that term (windup guard) */
-    if (ITerm > outMax_ITerm) {
-        ITerm = outMax_ITerm;
-    } else if (ITerm < -outMax_ITerm) {
-        ITerm = -outMax_ITerm;
-    }
-    
-    /* Calculate the error term */
-    dPosition = (Position - LastPosition);
-
-    /* Compute PID Output */
-    Output = (kp * error) + ITerm - (kd * dPosition);
-    
-    /* Clip the output */
-    if (Output> outMax_Total) {
-        Output = outMax_Total;
-    } else if (Output < -outMax_Total) {
-        Output = -outMax_Total;
-    }
-
-    /* Remember some variables for next time */
-    LastPosition = Position;
-    
-    return Output;    
-}
-#endif
-
-/*******************************************************************************
 * Function Name: PID_SetMode
 ********************************************************************************
 * Summary:
@@ -692,7 +684,7 @@ float PID_Compute(uint32 setpoint) {
 * Parameters: Mode, either PID_AUTOMATIC or PID_MANUAL.
 * Return: None
 *******************************************************************************/
-void PID_SetMode(uint32 Mode) {
+void PID_SetMode(uint32_t Mode) {
     
     bool newAuto = (Mode == PID_AUTOMATIC);
     
@@ -703,7 +695,7 @@ void PID_SetMode(uint32 Mode) {
     
     inAuto = newAuto;
 } 
-    
+
 
 /*******************************************************************************
 * Function Name: PID_SetDrive
@@ -714,15 +706,18 @@ void PID_SetMode(uint32 Mode) {
 * Parameters: Percentage output to drive the PWM.
 * Return: None
 *******************************************************************************/
-void PID_SetDrive(float percent) {
+#ifdef ZERO
+void PID_SetDrive(int32_t percent) {
 
     /* Valid percentage range coming out of the PID algorithm is -100.0 to +100.0 
        which needs to be translated into a duty cycle value of 0.0 to 100.0 */
-    float dutycycle = (percent + 100) / 2;    
+    
+    int32_t dutycycle = ( (DRIVE_POLARITY * percent) + 100) >> 1; // Shift right by 1 bit is the same as divide by two
     
     /* The duty cycle can now be written to the PWM device itself */
     PWM_Set(dutycycle);  
 }
+#endif
 
 
 /*******************************************************************************
@@ -736,46 +731,9 @@ void PID_SetDrive(float percent) {
 *******************************************************************************/
 void runRateGroup1_PID(void) {
     
-    static bool initialized = false;
-    
-    static int32 DeltaPosition;
-    static uint32 CurrentIndexCount;
-    int32 error, dPosition;
-    
-    /* Initial values */
-
-    if (!initialized) {
-        
-        /* Setup the PID subsystem */
-        PID_Initialize();
-        PID_SetMode(PID_MANUAL);
-        
-        /* Initially default to 100% output max until config tells us otherwise */
-        outMax_Total = 100;
-        outMax_ITerm = 100;
-
-        /* Init the PWM limits the same way, full maximums */
-        pwmLimit = 50;   // This is a + or - value
-        pwmMax = PWM_JOG_NEUTRAL + pwmLimit;
-        pwmMin = PWM_JOG_NEUTRAL - pwmLimit;    
-        
-        /* Start off disabled */
-        PID_Setpoint = 0;  
-        PID_EffectiveSetpoint = 0;
-        PID_EffSetDelta = PID_EFFECTIVE_SETPOINT_DELTA_DEFAULT;
-        PID_Was_Enabled = false;
-        PID_Enabled = false;
-        
-        initialized = true;
-    }
-    
-    /* ------------------------------------------------------------------------------------ */
-    /* At the top of the PID loop, refresh the counter of the watchdog to indicate the task 
-       is still alive.  Were the BRMS to stop working or the motion thread to die, the CPU 
-       will be reset after 2 seconds. */
-    WDT_COUNT1_REFRESH();        
-    /* ------------------------------------------------------------------------------------ */
-
+    static int32_t DeltaPosition;
+    static uint32_t CurrentIndexCount;
+    int32_t error, dPosition;
     
     
     
@@ -784,16 +742,14 @@ void runRateGroup1_PID(void) {
     //ConfigState = csReady;
     //PID_Enabled = true;
     /////////////////////////////////////////////////////
-        
 
-    
-    
     /* If the server hasn't talked to us in a while (no messages on the SPI), 
        take preventative action and abandon any moves in progress. */
     if (UptimeSeconds > (LastMessageTimeSeconds + MAX_LAST_MESSAGE_TIME_SECONDS)) {
         
         /* Stop all motion */
-        PWM_Set(PWM_JOG_NEUTRAL);
+        ////PWM_Set(PWM_JOG_NEUTRAL);
+        PWM_Set(PWM_NEUTRAL);
         PID_Enabled = false;
         
         /* Clear the values that would drive motion on the next message arrival.  Assume the next message might be a config, 
@@ -807,54 +763,7 @@ void runRateGroup1_PID(void) {
            can screw up the boot pins on the BeagleBoneBlack */
         HOME_OUT_SetDriveMode(HOME_OUT_DM_STRONG); 
         INDEX_OUT_SetDriveMode(INDEX_OUT_DM_STRONG); 
-    
-        /* If the server is asking us to jog, do that instead of PID */
-        if (!PID_Enabled) {                   
-            
-            /* When we start homing, it looks like a big negative jog.  Setup to watch the index marks as we jog, 
-               so we can assert faults if they aren't changing. */                
-            if ((Jog != LastJog) && (Jog != 0)) {
-                
-                /* Update the 'last' jog value, so we don't fall into this reset code over and over */
-                LastJog = Jog;
-                
-                /* Remember where we started */
-                LastPosition = GetPosition();
-                
-                /* Reset counting of index marks */
-                Index_Counter_1_WriteCounter(0);
-            }                
-            
-            /* Drive in the direction and speed the server told us */
-            PWM_Set(PWM_JOG_NEUTRAL + Jog);
 
-            /* Watch for stuck signals while we are moving */
-            if ( Jog != 0 ) {
-            
-                /* If we have moved a good distance away from the origin point, compare index counts versus position counts 
-                   looking for discrepancy. */
-                Position = GetPosition();
-                DeltaPosition = labs( Position - LastPosition );
-                CurrentIndexCount = Index_Counter_1_ReadCounter();
-                
-                /* Look for index failure: the index counter should have incremented by at least 1 by now but only if 
-                   homing is complete */
-                if (homingDone) {
-                    if (CurrentIndexCount == 0)
-                        if (DeltaPosition > 2*ENCODER_COUNTS_PER_INDEX) 
-                            AssertFault(fsIndex);        
-                }
-                
-                /* Look for encoder failure: the encoders should register some amount of movement if the index has changed,
-                   but only if homing is totally done */
-                if (homingDone) {
-                    if ((CurrentIndexCount > 0) && (DeltaPosition < 2))                     
-                        AssertFault(fsEncoder);
-                }
-            }
-            
-        }
-        
         /* Handle mode switching */
         if (!PID_Was_Enabled && PID_Enabled) {
             PID_SetMode(PID_AUTOMATIC);
@@ -880,6 +789,9 @@ void runRateGroup1_PID(void) {
         6) Repeat steps 4 and 5 until the effective setpoint equals the actual setpoint.             
         */
 
+        
+        
+        
         if (PID_Enabled) {
             
             if (PID_EffSetDelta == 0) {
@@ -892,52 +804,30 @@ void runRateGroup1_PID(void) {
                 PID_EffectiveSetpoint = (PID_EffectiveSetpoint - PID_EffSetDelta);
             }
             
-            /* ---------------------------------------------------- */
-            /* Run the PID algorithm against the effective setpoint */
-            
             /* Get most up-to-date current position */
             Position = GetPosition();
-            
-            /* Compute all the working error variables */
-            error = PID_EffectiveSetpoint - Position;
-            ITerm += (ki * error);
-            
-            /* Clip the I term at a max value for just that term (windup guard) */
-            if (ITerm > outMax_ITerm) {
-                ITerm = outMax_ITerm;
-            } else if (ITerm < -outMax_ITerm) {
-                ITerm = -outMax_ITerm;
-            }
-            
-            /* Calculate the error term */
-            dPosition = (Position - LastPosition);
 
-            /* Compute PID Output */
-            Output = (kp * error) + ITerm - (kd * dPosition);
             
-            /* Clip the output */
-            if (Output> outMax_Total) {
-                Output = outMax_Total;
-            } else if (Output < -outMax_Total) {
-                Output = -outMax_Total;
-            }
-
-            /* Remember some variables for next time */
-            LastPosition = Position;
-        
+            Output = PID_UpdateValues(PID_EffectiveSetpoint, Position);
+            
+            
             /* Use the global PWM value to communicate back the percentage of drive to the server */
             PWM = Output;
             
             /* Put the PID drive percentage out on the wire */
-            PID_SetDrive(Output);
-            
+            //PID_SetDrive(Output);
+            PWM_Set(Output);
+
         } else {
             /* If disabled, just return 0 */
             PWM = 0;
         }
+
+        
         
     }
-  
+
+
 }
 
 
@@ -951,9 +841,9 @@ void runRateGroup1_PID(void) {
 * Return: NEVER!
 *******************************************************************************/
 int main(void) {
-    
+   
     /* DISABLE the drive outputs for the home and index immediately upon booting the 
-       microprocessor   There is a race condition here: unless the actuator is on a home
+       microprocessor.  There is a race condition here: unless the actuator is on a home
        flag or index mark, a 1 will be written to each output.  Depending on which 
        Cypress device this is, it could end up going to one of the boot pins of the Beagle
        Bone Black device.  Undesirable results can result: corrupt serial output on the
@@ -970,7 +860,7 @@ int main(void) {
     Timer_BRMS_Start();
     isr_brms_StartEx(BRMS_Interrupt);
     isr_brms_SetPriority(HIGHER_PRIORITY);
-    
+
     /* Sets up the Index and Reset interrupt and enables them */
     isr_home_StartEx(HomeIsrHandler);
     isr_home_SetPriority(DEFAULT_PRIORITY);
@@ -981,7 +871,7 @@ int main(void) {
     
     /* Setup the SPI slave select interrupt ISR */
     isr_spi_ss_StartEx(SPI_SS_IsrHandler);
-    isr_spi_ss_SetPriority(DEFAULT_PRIORITY);
+    isr_spi_ss_SetPriority(DEFAULT_PRIORITY);   
 
     /* Enable the global interrupt */
     CyGlobalIntEnable;
@@ -1014,6 +904,10 @@ int main(void) {
     * Start the various subsystems.
     ***********************************************************************/
     I2C_Start();
+    
+    /* Start I2C for the Motor Current monitor */
+    //Init_INA(INA219_I2C_ADDR);
+    
     CyDelay(100u);
     SPI_1_Start();
     
@@ -1021,7 +915,7 @@ int main(void) {
        12MHz, so the desired period to get 15KHz is a count of 800. */
     PWM_1_Start();
     PWM_1_WritePeriod(PWM_15KHZ_PERIOD);
-    PWM_Set(PWM_IDLE);   
+    PWM_Set(PWM_NEUTRAL);   
     
     /* Default the jog value to neutral (no movement) */
     Jog = 0;
@@ -1042,19 +936,87 @@ int main(void) {
     ConfigState = csUnconfig;  
     ConfigSequence = 0;
     ChecksumErrors = 0;
+    
+    /***************************/
+    /* Setup the PID subsystem */
+    PID_Initialize();
+    PID_SetMode(PID_MANUAL);
+    
+    /* Initially default to 100% output max until config tells us otherwise */
+    outMax_Total = 100;
+    outMax_ITerm = 100;
 
+    /* Init the PWM limits the same way, full maximums */
+    pwmLimit = 50;   // This is a + or - value
+    pwmMax = PWM_JOG_NEUTRAL + pwmLimit;
+    pwmMin = PWM_JOG_NEUTRAL - pwmLimit;    
+    
+    /* Start off disabled */
+    PID_Setpoint          = 0;  
+    PID_EffectiveSetpoint = 0;
+    PID_EffSetDelta       = 250; //PID_EFFECTIVE_SETPOINT_DELTA_DEFAULT;
+    PID_Was_Enabled       = false;
+    PID_Enabled           = false;
+    //PID_SetDrive(0); // Drive set to 0%
+    PWM_Set(PWM_NEUTRAL);
+    
+    uint32_t LastUptimeSeconds = 0;
+    int8_t drive = -100;
+    bool goingUp = true;
+    /***************************/
+
+    
     /***********************************************************************
     * Run the background tasks.  Assume anything executed in here will be
     * constantly interrupted by the task scheduler.
     ***********************************************************************/
     while (1) {
+
+        //TODO: Enable/disable this mechanism based on some input from the SPI master,
+        //      which might be the ACS test set, or the beagle bone node box.  Disable it for
+        //      now to prevent multi-mastering of the I2C bus, which doesn't work.
+        /*
+        PROBE_Write(1);
+        MotorCurrentRead();
+        PROBE_Write(0);
+        */
         
-        CyDelay(1000u); 
+        /*
+        if (UptimeMicroseconds > (LastUptimeMicroseconds + 500)) {
+            LastUptimeMicroseconds = UptimeMicroseconds;
+            
+            if (toggle) {
+                PROBE_Write(1);
+                toggle = false;
+            } else {
+                PROBE_Write(0);
+                toggle = true;
+            }
+        }
+        */
         
+        
+        /* Use the LED as a heartbeat */
+        if (UptimeSeconds % 2) {
+            LED_Write(1);
+        } else {
+            LED_Write(0);
+        } 
+        
+        // Delay 10ms before next loop iteration
+        CyDelay(10);         
+        
+        
+   
+    /* ------------------------------------------------------------------------------------ */
+    /* Every loop, refresh the counter of the watchdog to indicate the system is still alive
+       and not stalled out in some interrupt somewhre.  Were the BRMS to stop working or the 
+       motion thread to die, the CPU will be reset after 2 seconds. */
+////    WDT_COUNT1_REFRESH();        
+    /* ------------------------------------------------------------------------------------ */
         
     }
-    
-    
+      
     
     /***********************************************************************
     *  We should never reach this, if we do, we'll crash (reset).
@@ -1074,29 +1036,36 @@ int main(void) {
 *******************************************************************************/
 CY_ISR(BRMS_Interrupt) {
     
-    static uint32 brmsTask;                 // The BRMS schedule counter
+    static uint32_t brmsTask;                 // The BRMS schedule counter
 
-    static uint32 brmsRG1Mask = 0b00000001; // Rate group 1 mask
-    static uint32 brmsRG2Mask = 0b00000010; // Rate group 2 mask
-    static uint32 brmsRG3Mask = 0b00000100; // Rate group 3 mask
-    static uint32 brmsRG4Mask = 0b00001000; // Rate group 4 mask
-    static uint32 brmsRG5Mask = 0b00010000; // Rate group 5 mask
+    static uint32_t brmsRG1Mask = 0b00000001; // Rate group 1 mask
+    static uint32_t brmsRG2Mask = 0b00000010; // Rate group 2 mask
+    static uint32_t brmsRG3Mask = 0b00000100; // Rate group 3 mask
+    static uint32_t brmsRG4Mask = 0b00001000; // Rate group 4 mask
+    static uint32_t brmsRG5Mask = 0b00010000; // Rate group 5 mask
     
     /* Clears the timer interrupt */
     Timer_BRMS_ClearInterrupt(Timer_BRMS_INTR_MASK_CC_MATCH);
 
-    /* Use the LED to indicate we are servicing the BRMS interrupt */
-    LED_Write(1);
+    PROBE_Write(1);
     
-    /* 200us has elapsed since last we were called */
+    /* Use this 200us interrupt as a clock mechanism */
+    UptimeMicroseconds += 200;
     UptimeMicrosecondsAccumulator += 200;
-
-    /* When we reach 1M microseconds, a second has passed */
-    if (UptimeMicrosecondsAccumulator == 1000000) {
+    
+    /* Count milliseconds */
+    if (UptimeMicrosecondsAccumulator > 1000) {
         UptimeMicrosecondsAccumulator = 0;
-        UptimeSeconds++;
+        UptimeMilliseconds += 1;
+        UptimeMillisecondsAccumulator += 1;
     }
-
+    
+    /* Count seconds */
+    if (UptimeMillisecondsAccumulator > 1000) {
+        UptimeMillisecondsAccumulator = 0;
+        UptimeSeconds += 1;
+    }
+    
     /* Increment the BRMS task counter infinitely */
     brmsTask++;
 
@@ -1128,7 +1097,7 @@ CY_ISR(BRMS_Interrupt) {
     } else if (brmsTask & brmsRG2Mask) {
         
         /* Rate group 2 is run every 0.8ms, or 1.25KHz*/
-        //runRateGroup2_TBD();        
+        //runRateGroup2_TBD();           
         
     } else if (brmsTask & brmsRG3Mask) {
         
@@ -1138,7 +1107,7 @@ CY_ISR(BRMS_Interrupt) {
     } else if (brmsTask & brmsRG4Mask) {
      
         /* Rate group 4 is run every 3.2ms, or 312Hz*/
-        ///runRateGroup4_MotorCurrentRead();
+        //runRateGroup4_TBD();
 
     } else if (brmsTask & brmsRG5Mask) {
      
@@ -1146,8 +1115,8 @@ CY_ISR(BRMS_Interrupt) {
         //runRateGroup5_TBD();
     }
     
-    /* At the exit from the BRMS handler, turn off the LED */
-    LED_Write(0);
+    PROBE_Write(0);
+   
 }
 
 
@@ -1220,7 +1189,7 @@ CY_ISR(HomeIsrHandler) {
 *******************************************************************************/
 CY_ISR(SPI_SS_IsrHandler) {
     
-    uint32 i;
+    uint32_t i;
     
     /* Clear SPI slave select pin Interrupt */
     spi_ss_ClearInterrupt();
@@ -1250,7 +1219,7 @@ CY_ISR(SPI_SS_IsrHandler) {
 
             /* Message from the master is completely clocked in by now */     
             for (i = 0; i < sizeof(rxMessage.buf); i++) {
-                rxMessage.buf[i] = (uint8) SPI_1_SpiUartReadRxData();            
+                rxMessage.buf[i] = (uint8_t) SPI_1_SpiUartReadRxData();            
             }
             
             /* Clear out all the bytes in the receive side so they can be filled in again */
@@ -1264,5 +1233,6 @@ CY_ISR(SPI_SS_IsrHandler) {
             break;
             
     } 
+        
 }
 

@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 1
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccDkbHRI.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 1
   28:Generated_Source\PSoC4/SPI_1_SPI.c ****     const SPI_1_SPI_INIT_STRUCT SPI_1_configSpi =
   29:Generated_Source\PSoC4/SPI_1_SPI.c ****     {
   30:Generated_Source\PSoC4/SPI_1_SPI.c ****         SPI_1_SPI_MODE,
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 2
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccDkbHRI.s 			page 2
 
 
   31:Generated_Source\PSoC4/SPI_1_SPI.c ****         SPI_1_SPI_SUB_MODE,
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 1
   85:Generated_Source\PSoC4/SPI_1_SPI.c ****             SPI_1_SetPins(SPI_1_SCB_MODE_SPI, config->mode, SPI_1_DUMMY_PARAM);
   86:Generated_Source\PSoC4/SPI_1_SPI.c **** 
   87:Generated_Source\PSoC4/SPI_1_SPI.c ****             /* Store internal configuration */
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 3
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccDkbHRI.s 			page 3
 
 
   88:Generated_Source\PSoC4/SPI_1_SPI.c ****             SPI_1_scbMode       = (uint8) SPI_1_SCB_MODE_SPI;
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 1
  142:Generated_Source\PSoC4/SPI_1_SPI.c ****             SPI_1_INTR_MASTER_MASK_REG = SPI_1_GET_SPI_INTR_MASTER_MASK(config->txInterruptMask);
  143:Generated_Source\PSoC4/SPI_1_SPI.c ****             SPI_1_INTR_RX_MASK_REG     = SPI_1_GET_SPI_INTR_RX_MASK(config->rxInterruptMask);
  144:Generated_Source\PSoC4/SPI_1_SPI.c ****             SPI_1_INTR_TX_MASK_REG     = SPI_1_GET_SPI_INTR_TX_MASK(config->txInterruptMask);
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 4
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccDkbHRI.s 			page 4
 
 
  145:Generated_Source\PSoC4/SPI_1_SPI.c ****             
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 1
   47 0012 1A60     		str	r2, [r3]
  180:Generated_Source\PSoC4/SPI_1_SPI.c ****         SPI_1_RX_FIFO_CTRL_REG = SPI_1_SPI_DEFAULT_RX_FIFO_CTRL;
   48              		.loc 1 180 0
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 5
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccDkbHRI.s 			page 5
 
 
   49 0014 0722     		movs	r2, #7
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 1
   86 004c 1360     		str	r3, [r2]
  198:Generated_Source\PSoC4/SPI_1_SPI.c ****         SPI_1_INTR_RX_MASK_REG     = SPI_1_SPI_DEFAULT_INTR_RX_MASK;
   87              		.loc 1 198 0
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 6
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccDkbHRI.s 			page 6
 
 
   88 004e 174A     		ldr	r2, .L2+56
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 1
  121 0080 07030080 		.word	-2147482873
  122 0084 00030740 		.word	1074201344
  123 0088 04030740 		.word	1074201348
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 7
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccDkbHRI.s 			page 7
 
 
  124 008c 07010080 		.word	-2147483385
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 1
  242:Generated_Source\PSoC4/SPI_1_SPI.c **** 
  243:Generated_Source\PSoC4/SPI_1_SPI.c ****     #if (SPI_1_SS0_PIN)
  244:Generated_Source\PSoC4/SPI_1_SPI.c ****         /* Set SCB SPI to drive output pin */
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 8
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccDkbHRI.s 			page 8
 
 
  245:Generated_Source\PSoC4/SPI_1_SPI.c ****         SPI_1_SET_HSIOM_SEL(SPI_1_SS0_HSIOM_REG, SPI_1_SS0_HSIOM_MASK,
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 1
  299:Generated_Source\PSoC4/SPI_1_SPI.c **** 
  300:Generated_Source\PSoC4/SPI_1_SPI.c **** #endif /* (SPI_1_SCB_MODE_UNCONFIG_CONST_CFG) */
  301:Generated_Source\PSoC4/SPI_1_SPI.c **** 
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 9
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccDkbHRI.s 			page 9
 
 
  302:Generated_Source\PSoC4/SPI_1_SPI.c ****     /* Restore TX interrupt sources. */
@@ -538,7 +538,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 1
  327:Generated_Source\PSoC4/SPI_1_SPI.c ****         SPI_1_SET_HSIOM_SEL(SPI_1_SCLK_HSIOM_REG, SPI_1_SCLK_HSIOM_MASK,
  328:Generated_Source\PSoC4/SPI_1_SPI.c ****                                        SPI_1_SCLK_HSIOM_POS, SPI_1_SCLK_HSIOM_SEL_GPIO);
  329:Generated_Source\PSoC4/SPI_1_SPI.c ****     #endif /* (SPI_1_spi_sclk_PIN) */
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 10
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccDkbHRI.s 			page 10
 
 
  330:Generated_Source\PSoC4/SPI_1_SPI.c **** 
@@ -598,7 +598,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 1
  384:Generated_Source\PSoC4/SPI_1_SPI.c ****                                    SPI_1_SCLK_M_HSIOM_POS, SPI_1_SCLK_M_HSIOM_SEL_GPIO);
  385:Generated_Source\PSoC4/SPI_1_SPI.c **** #endif /* (SPI_1_MISO_SDA_TX_PIN_PIN) */
  386:Generated_Source\PSoC4/SPI_1_SPI.c **** 
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 11
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccDkbHRI.s 			page 11
 
 
  387:Generated_Source\PSoC4/SPI_1_SPI.c **** #if (SPI_1_SPI_MASTER_SS0_PIN)
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 1
  193              		@ sp needed
  194 000c 7047     		bx	lr
  195              	.L9:
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 12
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccDkbHRI.s 			page 12
 
 
  196 000e C046     		.align	2
@@ -681,17 +681,17 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 1
  213 0006 00000000 		.4byte	.Ldebug_abbrev0
  214 000a 04       		.byte	0x4
  215 000b 01       		.uleb128 0x1
- 216 000c 52010000 		.4byte	.LASF29
+ 216 000c 20010000 		.4byte	.LASF29
  217 0010 0C       		.byte	0xc
  218 0011 70000000 		.4byte	.LASF30
- 219 0015 AB000000 		.4byte	.LASF31
+ 219 0015 F2010000 		.4byte	.LASF31
  220 0019 00000000 		.4byte	.Ldebug_ranges0+0
  221 001d 00000000 		.4byte	0
  222 0021 00000000 		.4byte	.Ldebug_line0
  223 0025 02       		.uleb128 0x2
  224 0026 01       		.byte	0x1
  225 0027 06       		.byte	0x6
- 226 0028 5F020000 		.4byte	.LASF0
+ 226 0028 6F020000 		.4byte	.LASF0
  227 002c 02       		.uleb128 0x2
  228 002d 01       		.byte	0x1
  229 002e 08       		.byte	0x8
@@ -699,7 +699,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 1
  231 0033 02       		.uleb128 0x2
  232 0034 02       		.byte	0x2
  233 0035 05       		.byte	0x5
- 234 0036 1A020000 		.4byte	.LASF2
+ 234 0036 E8010000 		.4byte	.LASF2
  235 003a 02       		.uleb128 0x2
  236 003b 02       		.byte	0x2
  237 003c 07       		.byte	0x7
@@ -707,7 +707,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 1
  239 0041 02       		.uleb128 0x2
  240 0042 04       		.byte	0x4
  241 0043 05       		.byte	0x5
- 242 0044 4A020000 		.4byte	.LASF4
+ 242 0044 5A020000 		.4byte	.LASF4
  243 0048 02       		.uleb128 0x2
  244 0049 04       		.byte	0x4
  245 004a 07       		.byte	0x7
@@ -715,14 +715,14 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 1
  247 004f 02       		.uleb128 0x2
  248 0050 08       		.byte	0x8
  249 0051 05       		.byte	0x5
- 250 0052 FA010000 		.4byte	.LASF6
+ 250 0052 C8010000 		.4byte	.LASF6
  251 0056 02       		.uleb128 0x2
  252 0057 08       		.byte	0x8
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 13
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccDkbHRI.s 			page 13
 
 
  253 0058 07       		.byte	0x7
- 254 0059 2A010000 		.4byte	.LASF7
+ 254 0059 F8000000 		.4byte	.LASF7
  255 005d 03       		.uleb128 0x3
  256 005e 04       		.byte	0x4
  257 005f 05       		.byte	0x5
@@ -730,19 +730,19 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 1
  259 0064 02       		.uleb128 0x2
  260 0065 04       		.byte	0x4
  261 0066 07       		.byte	0x7
- 262 0067 06010000 		.4byte	.LASF8
+ 262 0067 D4000000 		.4byte	.LASF8
  263 006b 04       		.uleb128 0x4
  264 006c A5000000 		.4byte	.LASF9
  265 0070 02       		.byte	0x2
  266 0071 FC01     		.2byte	0x1fc
  267 0073 2C000000 		.4byte	0x2c
  268 0077 04       		.uleb128 0x4
- 269 0078 F8000000 		.4byte	.LASF10
+ 269 0078 C6000000 		.4byte	.LASF10
  270 007c 02       		.byte	0x2
  271 007d FD01     		.2byte	0x1fd
  272 007f 3A000000 		.4byte	0x3a
  273 0083 04       		.uleb128 0x4
- 274 0084 FF000000 		.4byte	.LASF11
+ 274 0084 CD000000 		.4byte	.LASF11
  275 0088 02       		.byte	0x2
  276 0089 FE01     		.2byte	0x1fe
  277 008b 48000000 		.4byte	0x48
@@ -753,11 +753,11 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 1
  282 0096 02       		.uleb128 0x2
  283 0097 08       		.byte	0x8
  284 0098 04       		.byte	0x4
- 285 0099 F1000000 		.4byte	.LASF13
+ 285 0099 BF000000 		.4byte	.LASF13
  286 009d 02       		.uleb128 0x2
  287 009e 01       		.byte	0x1
  288 009f 08       		.byte	0x8
- 289 00a0 08020000 		.4byte	.LASF14
+ 289 00a0 D6010000 		.4byte	.LASF14
  290 00a4 05       		.uleb128 0x5
  291 00a5 6B000000 		.4byte	0x6b
  292 00a9 04       		.uleb128 0x4
@@ -770,15 +770,15 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 1
  299 00ba 02       		.uleb128 0x2
  300 00bb 08       		.byte	0x8
  301 00bc 04       		.byte	0x4
- 302 00bd 53020000 		.4byte	.LASF16
+ 302 00bd 63020000 		.4byte	.LASF16
  303 00c1 02       		.uleb128 0x2
  304 00c2 04       		.byte	0x4
  305 00c3 07       		.byte	0x7
- 306 00c4 E0010000 		.4byte	.LASF17
+ 306 00c4 AE010000 		.4byte	.LASF17
  307 00c8 06       		.uleb128 0x6
- 308 00c9 6B020000 		.4byte	.LASF32
+ 308 00c9 7B020000 		.4byte	.LASF32
  309 00cd 01       		.byte	0x1
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 14
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccDkbHRI.s 			page 14
 
 
  310 00ce AC       		.byte	0xac
@@ -823,7 +823,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 1
  349 0116 00       		.byte	0
  350 0117 00       		.byte	0
  351 0118 0A       		.uleb128 0xa
- 352 0119 DD000000 		.4byte	.LASF18
+ 352 0119 AB000000 		.4byte	.LASF18
  353 011d 01       		.byte	0x1
  354 011e E7       		.byte	0xe7
  355 011f 00000000 		.4byte	.LFB1
@@ -838,16 +838,16 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 1
  364 0135 18000000 		.4byte	.LFE2-.LFB2
  365 0139 01       		.uleb128 0x1
  366 013a 9C       		.byte	0x9c
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 15
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccDkbHRI.s 			page 15
 
 
  367 013b 0C       		.uleb128 0xc
- 368 013c E9010000 		.4byte	.LASF20
+ 368 013c B7010000 		.4byte	.LASF20
  369 0140 03       		.byte	0x3
  370 0141 5B       		.byte	0x5b
  371 0142 77000000 		.4byte	0x77
  372 0146 0C       		.uleb128 0xc
- 373 0147 37020000 		.4byte	.LASF21
+ 373 0147 47020000 		.4byte	.LASF21
  374 014b 04       		.byte	0x4
  375 014c 1F       		.byte	0x1f
  376 014d B5000000 		.4byte	0xb5
@@ -857,12 +857,12 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 1
  380 0157 20       		.byte	0x20
  381 0158 B5000000 		.4byte	0xb5
  382 015c 0C       		.uleb128 0xc
- 383 015d 13010000 		.4byte	.LASF23
+ 383 015d E1000000 		.4byte	.LASF23
  384 0161 04       		.byte	0x4
  385 0162 2A       		.byte	0x2a
  386 0163 A4000000 		.4byte	0xa4
  387 0167 0C       		.uleb128 0xc
- 388 0168 24020000 		.4byte	.LASF24
+ 388 0168 34020000 		.4byte	.LASF24
  389 016c 04       		.byte	0x4
  390 016d 2F       		.byte	0x2f
  391 016e B5000000 		.4byte	0xb5
@@ -872,13 +872,13 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 1
  395 0178 30       		.byte	0x30
  396 0179 B5000000 		.4byte	0xb5
  397 017d 0D       		.uleb128 0xd
- 398 017e 0D020000 		.4byte	.LASF26
- 399 0182 0D020000 		.4byte	.LASF26
+ 398 017e DB010000 		.4byte	.LASF26
+ 399 0182 DB010000 		.4byte	.LASF26
  400 0186 05       		.byte	0x5
  401 0187 D8       		.byte	0xd8
  402 0188 0D       		.uleb128 0xd
- 403 0189 41010000 		.4byte	.LASF27
- 404 018d 41010000 		.4byte	.LASF27
+ 403 0189 0F010000 		.4byte	.LASF27
+ 404 018d 0F010000 		.4byte	.LASF27
  405 0191 05       		.byte	0x5
  406 0192 D3       		.byte	0xd3
  407 0193 0D       		.uleb128 0xd
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 1
  421 0006 0B       		.uleb128 0xb
  422 0007 03       		.uleb128 0x3
  423 0008 0E       		.uleb128 0xe
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 16
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccDkbHRI.s 			page 16
 
 
  424 0009 1B       		.uleb128 0x1b
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 1
  478 003f 01       		.byte	0x1
  479 0040 3F       		.uleb128 0x3f
  480 0041 19       		.uleb128 0x19
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 17
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccDkbHRI.s 			page 17
 
 
  481 0042 03       		.uleb128 0x3
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 1
  535 0080 03       		.uleb128 0x3
  536 0081 0E       		.uleb128 0xe
  537 0082 3A       		.uleb128 0x3a
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 18
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccDkbHRI.s 			page 18
 
 
  538 0083 0B       		.uleb128 0xb
@@ -1078,7 +1078,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 1
  592 00bb 00       		.byte	0
  593 00bc 0D       		.uleb128 0xd
  594 00bd 2E       		.uleb128 0x2e
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 19
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccDkbHRI.s 			page 19
 
 
  595 00be 00       		.byte	0
@@ -1138,7 +1138,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 1
  643      74536574 
  643      56656374 
  643      6F7200
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 20
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccDkbHRI.s 			page 20
 
 
  644              	.LASF3:
@@ -1187,126 +1187,130 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 1
  660              	.LASF9:
  661 00a5 75696E74 		.ascii	"uint8\000"
  661      3800
- 662              	.LASF31:
- 663 00ab 433A5C70 		.ascii	"C:\\proj\\acsnb-motor-cypress\\QuadEncoderRTOS.cyds"
- 663      726F6A5C 
- 663      6163736E 
- 663      622D6D6F 
- 663      746F722D 
- 664 00db 6E00     		.ascii	"n\000"
- 665              	.LASF18:
- 666 00dd 5350495F 		.ascii	"SPI_1_SpiPostEnable\000"
- 666      315F5370 
- 666      69506F73 
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 21
+ 662              	.LASF18:
+ 663 00ab 5350495F 		.ascii	"SPI_1_SpiPostEnable\000"
+ 663      315F5370 
+ 663      69506F73 
+ 663      74456E61 
+ 663      626C6500 
+ 664              	.LASF13:
+ 665 00bf 646F7562 		.ascii	"double\000"
+ 665      6C6500
+ 666              	.LASF10:
+ 667 00c6 75696E74 		.ascii	"uint16\000"
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccDkbHRI.s 			page 21
 
 
- 666      74456E61 
- 666      626C6500 
- 667              	.LASF13:
- 668 00f1 646F7562 		.ascii	"double\000"
- 668      6C6500
- 669              	.LASF10:
- 670 00f8 75696E74 		.ascii	"uint16\000"
- 670      313600
- 671              	.LASF11:
- 672 00ff 75696E74 		.ascii	"uint32\000"
- 672      333200
- 673              	.LASF8:
- 674 0106 756E7369 		.ascii	"unsigned int\000"
- 674      676E6564 
- 674      20696E74 
- 674      00
- 675              	.LASF23:
- 676 0113 5350495F 		.ascii	"SPI_1_rxBufferOverflow\000"
- 676      315F7278 
- 676      42756666 
- 676      65724F76 
- 676      6572666C 
- 677              	.LASF7:
- 678 012a 6C6F6E67 		.ascii	"long long unsigned int\000"
- 678      206C6F6E 
- 678      6720756E 
- 678      7369676E 
- 678      65642069 
- 679              	.LASF27:
- 680 0141 4379496E 		.ascii	"CyIntSetPriority\000"
- 680      74536574 
- 680      5072696F 
- 680      72697479 
- 680      00
- 681              	.LASF29:
- 682 0152 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
- 682      43313120 
- 682      352E342E 
- 682      31203230 
- 682      31363036 
- 683 0185 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
- 683      20726576 
- 683      6973696F 
- 683      6E203233 
- 683      37373135 
- 684 01b8 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
- 684      66756E63 
- 684      74696F6E 
- 684      2D736563 
- 684      74696F6E 
- 685              	.LASF17:
- 686 01e0 73697A65 		.ascii	"sizetype\000"
- 686      74797065 
- 686      00
- 687              	.LASF20:
- 688 01e9 5350495F 		.ascii	"SPI_1_IntrTxMask\000"
- 688      315F496E 
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cc16SCoa.s 			page 22
+ 667      313600
+ 668              	.LASF11:
+ 669 00cd 75696E74 		.ascii	"uint32\000"
+ 669      333200
+ 670              	.LASF8:
+ 671 00d4 756E7369 		.ascii	"unsigned int\000"
+ 671      676E6564 
+ 671      20696E74 
+ 671      00
+ 672              	.LASF23:
+ 673 00e1 5350495F 		.ascii	"SPI_1_rxBufferOverflow\000"
+ 673      315F7278 
+ 673      42756666 
+ 673      65724F76 
+ 673      6572666C 
+ 674              	.LASF7:
+ 675 00f8 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 675      206C6F6E 
+ 675      6720756E 
+ 675      7369676E 
+ 675      65642069 
+ 676              	.LASF27:
+ 677 010f 4379496E 		.ascii	"CyIntSetPriority\000"
+ 677      74536574 
+ 677      5072696F 
+ 677      72697479 
+ 677      00
+ 678              	.LASF29:
+ 679 0120 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 679      43313120 
+ 679      352E342E 
+ 679      31203230 
+ 679      31363036 
+ 680 0153 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
+ 680      20726576 
+ 680      6973696F 
+ 680      6E203233 
+ 680      37373135 
+ 681 0186 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 681      66756E63 
+ 681      74696F6E 
+ 681      2D736563 
+ 681      74696F6E 
+ 682              	.LASF17:
+ 683 01ae 73697A65 		.ascii	"sizetype\000"
+ 683      74797065 
+ 683      00
+ 684              	.LASF20:
+ 685 01b7 5350495F 		.ascii	"SPI_1_IntrTxMask\000"
+ 685      315F496E 
+ 685      74725478 
+ 685      4D61736B 
+ 685      00
+ 686              	.LASF6:
+ 687 01c8 6C6F6E67 		.ascii	"long long int\000"
+ 687      206C6F6E 
+ 687      6720696E 
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccDkbHRI.s 			page 22
 
 
- 688      74725478 
- 688      4D61736B 
- 688      00
- 689              	.LASF6:
- 690 01fa 6C6F6E67 		.ascii	"long long int\000"
- 690      206C6F6E 
- 690      6720696E 
- 690      7400
- 691              	.LASF14:
- 692 0208 63686172 		.ascii	"char\000"
- 692      00
- 693              	.LASF26:
- 694 020d 4379496E 		.ascii	"CyIntDisable\000"
- 694      74446973 
- 694      61626C65 
- 694      00
- 695              	.LASF2:
- 696 021a 73686F72 		.ascii	"short int\000"
- 696      7420696E 
- 696      7400
+ 687      7400
+ 688              	.LASF14:
+ 689 01d6 63686172 		.ascii	"char\000"
+ 689      00
+ 690              	.LASF26:
+ 691 01db 4379496E 		.ascii	"CyIntDisable\000"
+ 691      74446973 
+ 691      61626C65 
+ 691      00
+ 692              	.LASF2:
+ 693 01e8 73686F72 		.ascii	"short int\000"
+ 693      7420696E 
+ 693      7400
+ 694              	.LASF31:
+ 695 01f2 433A5C55 		.ascii	"C:\\Users\\prichards\\proj\\acsnb-motor-cypress\\Qu"
+ 695      73657273 
+ 695      5C707269 
+ 695      63686172 
+ 695      64735C70 
+ 696 0220 6164456E 		.ascii	"adEncoderRTOS.cydsn\000"
+ 696      636F6465 
+ 696      7252544F 
+ 696      532E6379 
+ 696      64736E00 
  697              	.LASF24:
- 698 0224 5350495F 		.ascii	"SPI_1_txBufferHead\000"
+ 698 0234 5350495F 		.ascii	"SPI_1_txBufferHead\000"
  698      315F7478 
  698      42756666 
  698      65724865 
  698      616400
  699              	.LASF21:
- 700 0237 5350495F 		.ascii	"SPI_1_rxBufferHead\000"
+ 700 0247 5350495F 		.ascii	"SPI_1_rxBufferHead\000"
  700      315F7278 
  700      42756666 
  700      65724865 
  700      616400
  701              	.LASF4:
- 702 024a 6C6F6E67 		.ascii	"long int\000"
+ 702 025a 6C6F6E67 		.ascii	"long int\000"
  702      20696E74 
  702      00
  703              	.LASF16:
- 704 0253 6C6F6E67 		.ascii	"long double\000"
+ 704 0263 6C6F6E67 		.ascii	"long double\000"
  704      20646F75 
  704      626C6500 
  705              	.LASF0:
- 706 025f 7369676E 		.ascii	"signed char\000"
+ 706 026f 7369676E 		.ascii	"signed char\000"
  706      65642063 
  706      68617200 
  707              	.LASF32:
- 708 026b 5350495F 		.ascii	"SPI_1_SpiInit\000"
+ 708 027b 5350495F 		.ascii	"SPI_1_SpiInit\000"
  708      315F5370 
  708      69496E69 
  708      7400

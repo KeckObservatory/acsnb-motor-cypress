@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchzyXYW.s 			page 1
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccYU7gNP.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchzyXYW.s 			page 1
   28:Generated_Source\PSoC4/Index_Counter_1_PM.c **** *     Save the current user configuration
   29:Generated_Source\PSoC4/Index_Counter_1_PM.c **** *
   30:Generated_Source\PSoC4/Index_Counter_1_PM.c **** * Parameters:  
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchzyXYW.s 			page 2
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccYU7gNP.s 			page 2
 
 
   31:Generated_Source\PSoC4/Index_Counter_1_PM.c **** *  void
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchzyXYW.s 			page 1
   59              		.thumb_func
   60              		.type	Index_Counter_1_RestoreConfig, %function
   61              	Index_Counter_1_RestoreConfig:
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchzyXYW.s 			page 3
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccYU7gNP.s 			page 3
 
 
   62              	.LFB1:
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchzyXYW.s 			page 1
   84 0012 C046     		.align	2
   85              	.L5:
   86 0014 00000000 		.word	.LANCHOR0
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchzyXYW.s 			page 4
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccYU7gNP.s 			page 4
 
 
   87              		.cfi_endproc
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchzyXYW.s 			page 1
  114 000e 064B     		ldr	r3, .L10+4
  115 0010 1A70     		strb	r2, [r3]
  116 0012 02E0     		b	.L9
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchzyXYW.s 			page 5
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccYU7gNP.s 			page 5
 
 
  117              	.L8:
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchzyXYW.s 			page 1
  136:Generated_Source\PSoC4/Index_Counter_1_PM.c **** * Summary:
  137:Generated_Source\PSoC4/Index_Counter_1_PM.c **** *  Restores and enables the user configuration
  138:Generated_Source\PSoC4/Index_Counter_1_PM.c **** *  
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchzyXYW.s 			page 6
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccYU7gNP.s 			page 6
 
 
  139:Generated_Source\PSoC4/Index_Counter_1_PM.c **** * Parameters:  
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchzyXYW.s 			page 1
  179              		.align	2
  180              		.set	.LANCHOR0,. + 0
  181              		.type	Index_Counter_1_backup, %object
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchzyXYW.s 			page 7
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccYU7gNP.s 			page 7
 
 
  182              		.size	Index_Counter_1_backup, 3
@@ -375,17 +375,17 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchzyXYW.s 			page 1
  193 0006 00000000 		.4byte	.Ldebug_abbrev0
  194 000a 04       		.byte	0x4
  195 000b 01       		.uleb128 0x1
- 196 000c C2010000 		.4byte	.LASF30
+ 196 000c 90010000 		.4byte	.LASF30
  197 0010 0C       		.byte	0xc
- 198 0011 0C010000 		.4byte	.LASF31
- 199 0015 BC000000 		.4byte	.LASF32
+ 198 0011 DA000000 		.4byte	.LASF31
+ 199 0015 7C020000 		.4byte	.LASF32
  200 0019 00000000 		.4byte	.Ldebug_ranges0+0
  201 001d 00000000 		.4byte	0
  202 0021 00000000 		.4byte	.Ldebug_line0
  203 0025 02       		.uleb128 0x2
  204 0026 01       		.byte	0x1
  205 0027 06       		.byte	0x6
- 206 0028 DF020000 		.4byte	.LASF0
+ 206 0028 EF020000 		.4byte	.LASF0
  207 002c 02       		.uleb128 0x2
  208 002d 01       		.byte	0x1
  209 002e 08       		.byte	0x8
@@ -393,7 +393,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchzyXYW.s 			page 1
  211 0033 02       		.uleb128 0x2
  212 0034 02       		.byte	0x2
  213 0035 05       		.byte	0x5
- 214 0036 A4020000 		.4byte	.LASF2
+ 214 0036 72020000 		.4byte	.LASF2
  215 003a 02       		.uleb128 0x2
  216 003b 02       		.byte	0x2
  217 003c 07       		.byte	0x7
@@ -401,7 +401,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchzyXYW.s 			page 1
  219 0041 02       		.uleb128 0x2
  220 0042 04       		.byte	0x4
  221 0043 05       		.byte	0x5
- 222 0044 CA020000 		.4byte	.LASF4
+ 222 0044 DA020000 		.4byte	.LASF4
  223 0048 02       		.uleb128 0x2
  224 0049 04       		.byte	0x4
  225 004a 07       		.byte	0x7
@@ -409,22 +409,22 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchzyXYW.s 			page 1
  227 004f 02       		.uleb128 0x2
  228 0050 08       		.byte	0x8
  229 0051 05       		.byte	0x5
- 230 0052 88020000 		.4byte	.LASF6
+ 230 0052 56020000 		.4byte	.LASF6
  231 0056 02       		.uleb128 0x2
  232 0057 08       		.byte	0x8
  233 0058 07       		.byte	0x7
- 234 0059 62010000 		.4byte	.LASF7
+ 234 0059 30010000 		.4byte	.LASF7
  235 005d 03       		.uleb128 0x3
  236 005e 04       		.byte	0x4
  237 005f 05       		.byte	0x5
  238 0060 696E7400 		.ascii	"int\000"
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchzyXYW.s 			page 8
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccYU7gNP.s 			page 8
 
 
  239 0064 02       		.uleb128 0x2
  240 0065 04       		.byte	0x4
  241 0066 07       		.byte	0x7
- 242 0067 55010000 		.4byte	.LASF8
+ 242 0067 23010000 		.4byte	.LASF8
  243 006b 04       		.uleb128 0x4
  244 006c B6000000 		.4byte	.LASF12
  245 0070 02       		.byte	0x2
@@ -437,11 +437,11 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchzyXYW.s 			page 1
  252 007e 02       		.uleb128 0x2
  253 007f 08       		.byte	0x8
  254 0080 04       		.byte	0x4
- 255 0081 05010000 		.4byte	.LASF10
+ 255 0081 D3000000 		.4byte	.LASF10
  256 0085 02       		.uleb128 0x2
  257 0086 01       		.byte	0x1
  258 0087 08       		.byte	0x8
- 259 0088 9F020000 		.4byte	.LASF11
+ 259 0088 6D020000 		.4byte	.LASF11
  260 008c 04       		.uleb128 0x4
  261 008d 9F000000 		.4byte	.LASF13
  262 0091 02       		.byte	0x2
@@ -452,18 +452,18 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchzyXYW.s 			page 1
  267 009d 02       		.uleb128 0x2
  268 009e 08       		.byte	0x8
  269 009f 04       		.byte	0x4
- 270 00a0 D3020000 		.4byte	.LASF14
+ 270 00a0 E3020000 		.4byte	.LASF14
  271 00a4 02       		.uleb128 0x2
  272 00a5 04       		.byte	0x4
  273 00a6 07       		.byte	0x7
- 274 00a7 96020000 		.4byte	.LASF15
+ 274 00a7 64020000 		.4byte	.LASF15
  275 00ab 06       		.uleb128 0x6
  276 00ac 03       		.byte	0x3
  277 00ad 03       		.byte	0x3
  278 00ae 40       		.byte	0x40
  279 00af D8000000 		.4byte	0xd8
  280 00b3 07       		.uleb128 0x7
- 281 00b4 75020000 		.4byte	.LASF16
+ 281 00b4 43020000 		.4byte	.LASF16
  282 00b8 03       		.byte	0x3
  283 00b9 42       		.byte	0x42
  284 00ba 6B000000 		.4byte	0x6b
@@ -478,14 +478,14 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchzyXYW.s 			page 1
  293 00cc 5D000000 		.4byte	.LASF18
  294 00d0 03       		.byte	0x3
  295 00d1 46       		.byte	0x46
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchzyXYW.s 			page 9
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccYU7gNP.s 			page 9
 
 
  296 00d2 6B000000 		.4byte	0x6b
  297 00d6 02       		.byte	0x2
  298 00d7 00       		.byte	0
  299 00d8 08       		.uleb128 0x8
- 300 00d9 EB020000 		.4byte	.LASF19
+ 300 00d9 FB020000 		.4byte	.LASF19
  301 00dd 03       		.byte	0x3
  302 00de 49       		.byte	0x49
  303 00df AB000000 		.4byte	0xab
@@ -506,7 +506,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchzyXYW.s 			page 1
  318 0106 9F010000 		.4byte	0x19f
  319 010a 00       		.byte	0
  320 010b 09       		.uleb128 0x9
- 321 010c A4010000 		.4byte	.LASF21
+ 321 010c 72010000 		.4byte	.LASF21
  322 0110 01       		.byte	0x1
  323 0111 4A       		.byte	0x4a
  324 0112 00000000 		.4byte	.LFB1
@@ -522,7 +522,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchzyXYW.s 			page 1
  334 012e B5010000 		.4byte	0x1b5
  335 0132 00       		.byte	0
  336 0133 09       		.uleb128 0x9
- 337 0134 79010000 		.4byte	.LASF22
+ 337 0134 47010000 		.4byte	.LASF22
  338 0138 01       		.byte	0x1
  339 0139 69       		.byte	0x69
  340 013a 00000000 		.4byte	.LFB2
@@ -538,10 +538,10 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchzyXYW.s 			page 1
  350 0156 E3000000 		.4byte	0xe3
  351 015a 00       		.byte	0
  352 015b 09       		.uleb128 0x9
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchzyXYW.s 			page 10
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccYU7gNP.s 			page 10
 
 
- 353 015c EE000000 		.4byte	.LASF23
+ 353 015c BC000000 		.4byte	.LASF23
  354 0160 01       		.byte	0x1
  355 0161 96       		.byte	0x96
  356 0162 00000000 		.4byte	.LFB3
@@ -565,8 +565,8 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchzyXYW.s 			page 1
  374 018f 03       		.byte	0x3
  375 0190 00000000 		.4byte	Index_Counter_1_backup
  376 0194 0C       		.uleb128 0xc
- 377 0195 AE020000 		.4byte	.LASF24
- 378 0199 AE020000 		.4byte	.LASF24
+ 377 0195 BE020000 		.4byte	.LASF24
+ 378 0199 BE020000 		.4byte	.LASF24
  379 019d 03       		.byte	0x3
  380 019e 5D       		.byte	0x5d
  381 019f 0C       		.uleb128 0xc
@@ -575,30 +575,30 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchzyXYW.s 			page 1
  384 01a8 03       		.byte	0x3
  385 01a9 55       		.byte	0x55
  386 01aa 0C       		.uleb128 0xc
- 387 01ab 38010000 		.4byte	.LASF26
- 388 01af 38010000 		.4byte	.LASF26
+ 387 01ab 06010000 		.4byte	.LASF26
+ 388 01af 06010000 		.4byte	.LASF26
  389 01b3 03       		.byte	0x3
  390 01b4 5A       		.byte	0x5a
  391 01b5 0C       		.uleb128 0xc
- 392 01b6 50020000 		.4byte	.LASF27
- 393 01ba 50020000 		.4byte	.LASF27
+ 392 01b6 1E020000 		.4byte	.LASF27
+ 393 01ba 1E020000 		.4byte	.LASF27
  394 01be 03       		.byte	0x3
  395 01bf 56       		.byte	0x56
  396 01c0 0C       		.uleb128 0xc
- 397 01c1 8F010000 		.4byte	.LASF28
- 398 01c5 8F010000 		.4byte	.LASF28
+ 397 01c1 5D010000 		.4byte	.LASF28
+ 398 01c5 5D010000 		.4byte	.LASF28
  399 01c9 03       		.byte	0x3
  400 01ca 50       		.byte	0x50
  401 01cb 0C       		.uleb128 0xc
- 402 01cc 08030000 		.4byte	.LASF29
- 403 01d0 08030000 		.4byte	.LASF29
+ 402 01cc 18030000 		.4byte	.LASF29
+ 403 01d0 18030000 		.4byte	.LASF29
  404 01d4 03       		.byte	0x3
  405 01d5 71       		.byte	0x71
  406 01d6 00       		.byte	0
  407              		.section	.debug_abbrev,"",%progbits
  408              	.Ldebug_abbrev0:
  409 0000 01       		.uleb128 0x1
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchzyXYW.s 			page 11
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccYU7gNP.s 			page 11
 
 
  410 0001 11       		.uleb128 0x11
@@ -658,7 +658,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchzyXYW.s 			page 1
  464 0037 35       		.uleb128 0x35
  465 0038 00       		.byte	0
  466 0039 49       		.uleb128 0x49
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchzyXYW.s 			page 12
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccYU7gNP.s 			page 12
 
 
  467 003a 13       		.uleb128 0x13
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchzyXYW.s 			page 1
  521 0070 0B       		.uleb128 0xb
  522 0071 27       		.uleb128 0x27
  523 0072 19       		.uleb128 0x19
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchzyXYW.s 			page 13
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccYU7gNP.s 			page 13
 
 
  524 0073 11       		.uleb128 0x11
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchzyXYW.s 			page 1
  578              		.section	.debug_aranges,"",%progbits
  579 0000 34000000 		.4byte	0x34
  580 0004 0200     		.2byte	0x2
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchzyXYW.s 			page 14
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccYU7gNP.s 			page 14
 
 
  581 0006 00000000 		.4byte	.Ldebug_info0
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchzyXYW.s 			page 1
  618      74657255 
  618      646200
  619              	.LASF18:
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchzyXYW.s 			page 15
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccYU7gNP.s 			page 15
 
 
  620 005d 436F756E 		.ascii	"CounterControlRegister\000"
@@ -872,139 +872,143 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchzyXYW.s 			page 1
  631              	.LASF12:
  632 00b6 75696E74 		.ascii	"uint8\000"
  632      3800
- 633              	.LASF32:
- 634 00bc 433A5C70 		.ascii	"C:\\proj\\acsnb-motor-cypress\\QuadEncoderRTOS.cyds"
- 634      726F6A5C 
- 634      6163736E 
- 634      622D6D6F 
- 634      746F722D 
- 635 00ec 6E00     		.ascii	"n\000"
- 636              	.LASF23:
- 637 00ee 496E6465 		.ascii	"Index_Counter_1_Wakeup\000"
- 637      785F436F 
- 637      756E7465 
- 637      725F315F 
- 637      57616B65 
- 638              	.LASF10:
- 639 0105 646F7562 		.ascii	"double\000"
- 639      6C6500
- 640              	.LASF31:
- 641 010c 47656E65 		.ascii	"Generated_Source\\PSoC4\\Index_Counter_1_PM.c\000"
- 641      72617465 
- 641      645F536F 
- 641      75726365 
- 641      5C50536F 
- 642              	.LASF26:
- 643 0138 496E6465 		.ascii	"Index_Counter_1_WriteCounter\000"
- 643      785F436F 
- 643      756E7465 
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchzyXYW.s 			page 16
+ 633              	.LASF23:
+ 634 00bc 496E6465 		.ascii	"Index_Counter_1_Wakeup\000"
+ 634      785F436F 
+ 634      756E7465 
+ 634      725F315F 
+ 634      57616B65 
+ 635              	.LASF10:
+ 636 00d3 646F7562 		.ascii	"double\000"
+ 636      6C6500
+ 637              	.LASF31:
+ 638 00da 47656E65 		.ascii	"Generated_Source\\PSoC4\\Index_Counter_1_PM.c\000"
+ 638      72617465 
+ 638      645F536F 
+ 638      75726365 
+ 638      5C50536F 
+ 639              	.LASF26:
+ 640 0106 496E6465 		.ascii	"Index_Counter_1_WriteCounter\000"
+ 640      785F436F 
+ 640      756E7465 
+ 640      725F315F 
+ 640      57726974 
+ 641              	.LASF8:
+ 642 0123 756E7369 		.ascii	"unsigned int\000"
+ 642      676E6564 
+ 642      20696E74 
+ 642      00
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccYU7gNP.s 			page 16
 
 
- 643      725F315F 
- 643      57726974 
- 644              	.LASF8:
- 645 0155 756E7369 		.ascii	"unsigned int\000"
- 645      676E6564 
- 645      20696E74 
- 645      00
- 646              	.LASF7:
- 647 0162 6C6F6E67 		.ascii	"long long unsigned int\000"
- 647      206C6F6E 
- 647      6720756E 
- 647      7369676E 
- 647      65642069 
- 648              	.LASF22:
- 649 0179 496E6465 		.ascii	"Index_Counter_1_Sleep\000"
- 649      785F436F 
- 649      756E7465 
- 649      725F315F 
- 649      536C6565 
- 650              	.LASF28:
- 651 018f 496E6465 		.ascii	"Index_Counter_1_Stop\000"
- 651      785F436F 
- 651      756E7465 
- 651      725F315F 
- 651      53746F70 
- 652              	.LASF21:
- 653 01a4 496E6465 		.ascii	"Index_Counter_1_RestoreConfig\000"
- 653      785F436F 
- 653      756E7465 
- 653      725F315F 
- 653      52657374 
- 654              	.LASF30:
- 655 01c2 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
- 655      43313120 
- 655      352E342E 
- 655      31203230 
- 655      31363036 
- 656 01f5 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
- 656      20726576 
- 656      6973696F 
- 656      6E203233 
- 656      37373135 
- 657 0228 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
- 657      66756E63 
- 657      74696F6E 
- 657      2D736563 
- 657      74696F6E 
- 658              	.LASF27:
- 659 0250 496E6465 		.ascii	"Index_Counter_1_WriteControlRegister\000"
- 659      785F436F 
- 659      756E7465 
- 659      725F315F 
- 659      57726974 
- 660              	.LASF16:
- 661 0275 436F756E 		.ascii	"CounterEnableState\000"
- 661      74657245 
- 661      6E61626C 
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchzyXYW.s 			page 17
+ 643              	.LASF7:
+ 644 0130 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 644      206C6F6E 
+ 644      6720756E 
+ 644      7369676E 
+ 644      65642069 
+ 645              	.LASF22:
+ 646 0147 496E6465 		.ascii	"Index_Counter_1_Sleep\000"
+ 646      785F436F 
+ 646      756E7465 
+ 646      725F315F 
+ 646      536C6565 
+ 647              	.LASF28:
+ 648 015d 496E6465 		.ascii	"Index_Counter_1_Stop\000"
+ 648      785F436F 
+ 648      756E7465 
+ 648      725F315F 
+ 648      53746F70 
+ 649              	.LASF21:
+ 650 0172 496E6465 		.ascii	"Index_Counter_1_RestoreConfig\000"
+ 650      785F436F 
+ 650      756E7465 
+ 650      725F315F 
+ 650      52657374 
+ 651              	.LASF30:
+ 652 0190 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 652      43313120 
+ 652      352E342E 
+ 652      31203230 
+ 652      31363036 
+ 653 01c3 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
+ 653      20726576 
+ 653      6973696F 
+ 653      6E203233 
+ 653      37373135 
+ 654 01f6 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 654      66756E63 
+ 654      74696F6E 
+ 654      2D736563 
+ 654      74696F6E 
+ 655              	.LASF27:
+ 656 021e 496E6465 		.ascii	"Index_Counter_1_WriteControlRegister\000"
+ 656      785F436F 
+ 656      756E7465 
+ 656      725F315F 
+ 656      57726974 
+ 657              	.LASF16:
+ 658 0243 436F756E 		.ascii	"CounterEnableState\000"
+ 658      74657245 
+ 658      6E61626C 
+ 658      65537461 
+ 658      746500
+ 659              	.LASF6:
+ 660 0256 6C6F6E67 		.ascii	"long long int\000"
+ 660      206C6F6E 
+ 660      6720696E 
+ 660      7400
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccYU7gNP.s 			page 17
 
 
- 661      65537461 
- 661      746500
- 662              	.LASF6:
- 663 0288 6C6F6E67 		.ascii	"long long int\000"
- 663      206C6F6E 
- 663      6720696E 
- 663      7400
- 664              	.LASF15:
- 665 0296 73697A65 		.ascii	"sizetype\000"
- 665      74797065 
- 665      00
- 666              	.LASF11:
- 667 029f 63686172 		.ascii	"char\000"
- 667      00
- 668              	.LASF2:
- 669 02a4 73686F72 		.ascii	"short int\000"
- 669      7420696E 
- 669      7400
+ 661              	.LASF15:
+ 662 0264 73697A65 		.ascii	"sizetype\000"
+ 662      74797065 
+ 662      00
+ 663              	.LASF11:
+ 664 026d 63686172 		.ascii	"char\000"
+ 664      00
+ 665              	.LASF2:
+ 666 0272 73686F72 		.ascii	"short int\000"
+ 666      7420696E 
+ 666      7400
+ 667              	.LASF32:
+ 668 027c 433A5C55 		.ascii	"C:\\Users\\prichards\\proj\\acsnb-motor-cypress\\Qu"
+ 668      73657273 
+ 668      5C707269 
+ 668      63686172 
+ 668      64735C70 
+ 669 02aa 6164456E 		.ascii	"adEncoderRTOS.cydsn\000"
+ 669      636F6465 
+ 669      7252544F 
+ 669      532E6379 
+ 669      64736E00 
  670              	.LASF24:
- 671 02ae 496E6465 		.ascii	"Index_Counter_1_ReadCounter\000"
+ 671 02be 496E6465 		.ascii	"Index_Counter_1_ReadCounter\000"
  671      785F436F 
  671      756E7465 
  671      725F315F 
  671      52656164 
  672              	.LASF4:
- 673 02ca 6C6F6E67 		.ascii	"long int\000"
+ 673 02da 6C6F6E67 		.ascii	"long int\000"
  673      20696E74 
  673      00
  674              	.LASF14:
- 675 02d3 6C6F6E67 		.ascii	"long double\000"
+ 675 02e3 6C6F6E67 		.ascii	"long double\000"
  675      20646F75 
  675      626C6500 
  676              	.LASF0:
- 677 02df 7369676E 		.ascii	"signed char\000"
+ 677 02ef 7369676E 		.ascii	"signed char\000"
  677      65642063 
  677      68617200 
  678              	.LASF19:
- 679 02eb 496E6465 		.ascii	"Index_Counter_1_backupStruct\000"
+ 679 02fb 496E6465 		.ascii	"Index_Counter_1_backupStruct\000"
  679      785F436F 
  679      756E7465 
  679      725F315F 
  679      6261636B 
  680              	.LASF29:
- 681 0308 496E6465 		.ascii	"Index_Counter_1_Enable\000"
+ 681 0318 496E6465 		.ascii	"Index_Counter_1_Enable\000"
  681      785F436F 
  681      756E7465 
  681      725F315F 

@@ -8,7 +8,6 @@
 <files />
 <projects>
 <v>.\QuadEncoderRTOS.cydsn\QuadEncoderRTOS.cyprj</v>
-<v>..\acsnb-motion-capture\Workspace01\ACSNB Motion Capture.cydsn\ACSNB Motion Capture.cyprj</v>
 </projects>
 <workspace_id v="9570f289-e07f-4a9b-9613-3599138ceb30" />
 <WriteAppVersionLastSavedWith v="4.4.0.80" />

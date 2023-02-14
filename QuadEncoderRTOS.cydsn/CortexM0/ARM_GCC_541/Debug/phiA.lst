@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccC34TVX.s 			page 1
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccDVvG0m.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccC34TVX.s 			page 1
   28:Generated_Source\PSoC4/phiA.c **** #else
   29:Generated_Source\PSoC4/phiA.c ****     #if (CY_PSOC4_4200L)
   30:Generated_Source\PSoC4/phiA.c ****         #define phiA_SetP4PinDriveMode(shift, mode)  \
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccC34TVX.s 			page 2
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccDVvG0m.s 			page 2
 
 
   31:Generated_Source\PSoC4/phiA.c ****         do { \
@@ -118,7 +118,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccC34TVX.s 			page 1
   38 0006 8B43     		bics	r3, r1
   39 0008 C000     		lsls	r0, r0, #3
   40              	.LVL1:
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccC34TVX.s 			page 3
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccDVvG0m.s 			page 3
 
 
   41 000a 1843     		orrs	r0, r3
@@ -178,7 +178,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccC34TVX.s 			page 1
  109:Generated_Source\PSoC4/phiA.c **** *  \snippet phiA_SUT.c usage_phiA_Write
  110:Generated_Source\PSoC4/phiA.c **** *******************************************************************************/
  111:Generated_Source\PSoC4/phiA.c **** void phiA_Write(uint8 value)
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccC34TVX.s 			page 4
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccDVvG0m.s 			page 4
 
 
  112:Generated_Source\PSoC4/phiA.c **** {
@@ -238,7 +238,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccC34TVX.s 			page 1
  127:Generated_Source\PSoC4/phiA.c **** * The pin's status register returns the current logic level present on the 
  128:Generated_Source\PSoC4/phiA.c **** * physical pin.
  129:Generated_Source\PSoC4/phiA.c **** *
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccC34TVX.s 			page 5
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccDVvG0m.s 			page 5
 
 
  130:Generated_Source\PSoC4/phiA.c **** * \return 
@@ -298,7 +298,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccC34TVX.s 			page 1
  155:Generated_Source\PSoC4/phiA.c **** * just written to the pin.
  156:Generated_Source\PSoC4/phiA.c **** *
  157:Generated_Source\PSoC4/phiA.c **** * \return 
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccC34TVX.s 			page 6
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccDVvG0m.s 			page 6
 
 
  158:Generated_Source\PSoC4/phiA.c **** *  The current value of the data register masked and shifted into a right 
@@ -358,7 +358,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccC34TVX.s 			page 1
  183:Generated_Source\PSoC4/phiA.c **** *  able to configure the interrupt mode of multiple pins within a Pins 
  184:Generated_Source\PSoC4/phiA.c **** *  component. Or you may use phiA_INTR_ALL to configure the
  185:Generated_Source\PSoC4/phiA.c **** *  interrupt mode of all the pins in the Pins component.       
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccC34TVX.s 			page 7
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccDVvG0m.s 			page 7
 
 
  186:Generated_Source\PSoC4/phiA.c **** *  - phiA_0_INTR       (First pin in the list)
@@ -418,7 +418,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccC34TVX.s 			page 1
  184              		.section	.text.phiA_ClearInterrupt,"ax",%progbits
  185              		.align	2
  186              		.global	phiA_ClearInterrupt
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccC34TVX.s 			page 8
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccDVvG0m.s 			page 8
 
 
  187              		.code	16
@@ -478,7 +478,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccC34TVX.s 			page 1
  213              		.align	2
  214              	.L17:
  215 0010 10000440 		.word	1074003984
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccC34TVX.s 			page 9
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccDVvG0m.s 			page 9
 
 
  216              		.cfi_endproc
@@ -494,17 +494,17 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccC34TVX.s 			page 1
  226 0006 00000000 		.4byte	.Ldebug_abbrev0
  227 000a 04       		.byte	0x4
  228 000b 01       		.uleb128 0x1
- 229 000c 19010000 		.4byte	.LASF28
+ 229 000c E7000000 		.4byte	.LASF28
  230 0010 0C       		.byte	0xc
- 231 0011 EA010000 		.4byte	.LASF29
- 232 0015 73000000 		.4byte	.LASF30
+ 231 0011 FA010000 		.4byte	.LASF29
+ 232 0015 9F010000 		.4byte	.LASF30
  233 0019 00000000 		.4byte	.Ldebug_ranges0+0
  234 001d 00000000 		.4byte	0
  235 0021 00000000 		.4byte	.Ldebug_line0
  236 0025 02       		.uleb128 0x2
  237 0026 01       		.byte	0x1
  238 0027 06       		.byte	0x6
- 239 0028 08020000 		.4byte	.LASF0
+ 239 0028 18020000 		.4byte	.LASF0
  240 002c 02       		.uleb128 0x2
  241 002d 01       		.byte	0x1
  242 002e 08       		.byte	0x8
@@ -512,7 +512,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccC34TVX.s 			page 1
  244 0033 02       		.uleb128 0x2
  245 0034 02       		.byte	0x2
  246 0035 05       		.byte	0x5
- 247 0036 C7010000 		.4byte	.LASF2
+ 247 0036 95010000 		.4byte	.LASF2
  248 003a 02       		.uleb128 0x2
  249 003b 02       		.byte	0x2
  250 003c 07       		.byte	0x7
@@ -520,7 +520,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccC34TVX.s 			page 1
  252 0041 02       		.uleb128 0x2
  253 0042 04       		.byte	0x4
  254 0043 05       		.byte	0x5
- 255 0044 E1010000 		.4byte	.LASF4
+ 255 0044 F1010000 		.4byte	.LASF4
  256 0048 02       		.uleb128 0x2
  257 0049 04       		.byte	0x4
  258 004a 07       		.byte	0x7
@@ -528,34 +528,34 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccC34TVX.s 			page 1
  260 004f 02       		.uleb128 0x2
  261 0050 08       		.byte	0x8
  262 0051 05       		.byte	0x5
- 263 0052 A7010000 		.4byte	.LASF6
+ 263 0052 75010000 		.4byte	.LASF6
  264 0056 02       		.uleb128 0x2
  265 0057 08       		.byte	0x8
  266 0058 07       		.byte	0x7
- 267 0059 FD000000 		.4byte	.LASF7
+ 267 0059 CB000000 		.4byte	.LASF7
  268 005d 03       		.uleb128 0x3
  269 005e 04       		.byte	0x4
  270 005f 05       		.byte	0x5
  271 0060 696E7400 		.ascii	"int\000"
  272 0064 02       		.uleb128 0x2
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccC34TVX.s 			page 10
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccDVvG0m.s 			page 10
 
 
  273 0065 04       		.byte	0x4
  274 0066 07       		.byte	0x7
- 275 0067 F0000000 		.4byte	.LASF8
+ 275 0067 BE000000 		.4byte	.LASF8
  276 006b 04       		.uleb128 0x4
- 277 006c D1010000 		.4byte	.LASF9
+ 277 006c E1010000 		.4byte	.LASF9
  278 0070 02       		.byte	0x2
  279 0071 FC01     		.2byte	0x1fc
  280 0073 2C000000 		.4byte	0x2c
  281 0077 04       		.uleb128 0x4
- 282 0078 C0000000 		.4byte	.LASF10
+ 282 0078 8E000000 		.4byte	.LASF10
  283 007c 02       		.byte	0x2
  284 007d FD01     		.2byte	0x1fd
  285 007f 3A000000 		.4byte	0x3a
  286 0083 04       		.uleb128 0x4
- 287 0084 D0000000 		.4byte	.LASF11
+ 287 0084 9E000000 		.4byte	.LASF11
  288 0088 02       		.byte	0x2
  289 0089 FE01     		.2byte	0x1fe
  290 008b 48000000 		.4byte	0x48
@@ -566,11 +566,11 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccC34TVX.s 			page 1
  295 0096 02       		.uleb128 0x2
  296 0097 08       		.byte	0x8
  297 0098 04       		.byte	0x4
- 298 0099 B9000000 		.4byte	.LASF13
+ 298 0099 87000000 		.4byte	.LASF13
  299 009d 02       		.uleb128 0x2
  300 009e 01       		.byte	0x1
  301 009f 08       		.byte	0x8
- 302 00a0 C2010000 		.4byte	.LASF14
+ 302 00a0 90010000 		.4byte	.LASF14
  303 00a4 04       		.uleb128 0x4
  304 00a5 00000000 		.4byte	.LASF15
  305 00a9 02       		.byte	0x2
@@ -588,17 +588,17 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccC34TVX.s 			page 1
  317 00c5 9C       		.byte	0x9c
  318 00c6 DA000000 		.4byte	0xda
  319 00ca 07       		.uleb128 0x7
- 320 00cb 14010000 		.4byte	.LASF18
+ 320 00cb E2000000 		.4byte	.LASF18
  321 00cf 01       		.byte	0x1
  322 00d0 48       		.byte	0x48
  323 00d1 6B000000 		.4byte	0x6b
  324 00d5 00000000 		.4byte	.LLST0
  325 00d9 00       		.byte	0
  326 00da 06       		.uleb128 0x6
- 327 00db 14020000 		.4byte	.LASF17
+ 327 00db 24020000 		.4byte	.LASF17
  328 00df 01       		.byte	0x1
  329 00e0 6F       		.byte	0x6f
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccC34TVX.s 			page 11
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccDVvG0m.s 			page 11
 
 
  330 00e1 00000000 		.4byte	.LFB1
@@ -620,7 +620,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccC34TVX.s 			page 1
  346 0109 42000000 		.4byte	.LLST2
  347 010d 00       		.byte	0
  348 010e 09       		.uleb128 0x9
- 349 010f D7010000 		.4byte	.LASF20
+ 349 010f E7010000 		.4byte	.LASF20
  350 0113 01       		.byte	0x1
  351 0114 88       		.byte	0x88
  352 0115 6B000000 		.4byte	0x6b
@@ -629,7 +629,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccC34TVX.s 			page 1
  355 0121 01       		.uleb128 0x1
  356 0122 9C       		.byte	0x9c
  357 0123 09       		.uleb128 0x9
- 358 0124 D7000000 		.4byte	.LASF21
+ 358 0124 A5000000 		.4byte	.LASF21
  359 0128 01       		.byte	0x1
  360 0129 A4       		.byte	0xa4
  361 012a 6B000000 		.4byte	0x6b
@@ -647,23 +647,23 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccC34TVX.s 			page 1
  373 0148 9C       		.byte	0x9c
  374 0149 77010000 		.4byte	0x177
  375 014d 07       		.uleb128 0x7
- 376 014e C7000000 		.4byte	.LASF23
+ 376 014e 95000000 		.4byte	.LASF23
  377 0152 01       		.byte	0x1
  378 0153 CF       		.byte	0xcf
  379 0154 77000000 		.4byte	0x77
  380 0158 60000000 		.4byte	.LLST3
  381 015c 0A       		.uleb128 0xa
- 382 015d 14010000 		.4byte	.LASF18
+ 382 015d E2000000 		.4byte	.LASF18
  383 0161 01       		.byte	0x1
  384 0162 CF       		.byte	0xcf
  385 0163 77000000 		.4byte	0x77
  386 0167 01       		.uleb128 0x1
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccC34TVX.s 			page 12
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccDVvG0m.s 			page 12
 
 
  387 0168 51       		.byte	0x51
  388 0169 0B       		.uleb128 0xb
- 389 016a E8000000 		.4byte	.LASF25
+ 389 016a B6000000 		.4byte	.LASF25
  390 016e 01       		.byte	0x1
  391 016f D1       		.byte	0xd1
  392 0170 83000000 		.4byte	0x83
@@ -671,7 +671,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccC34TVX.s 			page 1
  394 0175 53       		.byte	0x53
  395 0176 00       		.byte	0
  396 0177 0C       		.uleb128 0xc
- 397 0178 A5000000 		.4byte	.LASF26
+ 397 0178 73000000 		.4byte	.LASF26
  398 017c 01       		.byte	0x1
  399 017d EC       		.byte	0xec
  400 017e 6B000000 		.4byte	0x6b
@@ -680,7 +680,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccC34TVX.s 			page 1
  403 018a 01       		.uleb128 0x1
  404 018b 9C       		.byte	0x9c
  405 018c 08       		.uleb128 0x8
- 406 018d B5010000 		.4byte	.LASF27
+ 406 018d 83010000 		.4byte	.LASF27
  407 0191 01       		.byte	0x1
  408 0192 EE       		.byte	0xee
  409 0193 6B000000 		.4byte	0x6b
@@ -718,7 +718,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccC34TVX.s 			page 1
  441 001a 03       		.uleb128 0x3
  442 001b 0E       		.uleb128 0xe
  443 001c 00       		.byte	0
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccC34TVX.s 			page 13
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccDVvG0m.s 			page 13
 
 
  444 001d 00       		.byte	0
@@ -778,7 +778,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccC34TVX.s 			page 1
  498 0054 13       		.uleb128 0x13
  499 0055 00       		.byte	0
  500 0056 00       		.byte	0
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccC34TVX.s 			page 14
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccDVvG0m.s 			page 14
 
 
  501 0057 07       		.uleb128 0x7
@@ -838,7 +838,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccC34TVX.s 			page 1
  555 008e 00       		.byte	0
  556 008f 0A       		.uleb128 0xa
  557 0090 05       		.uleb128 0x5
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccC34TVX.s 			page 15
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccDVvG0m.s 			page 15
 
 
  558 0091 00       		.byte	0
@@ -898,7 +898,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccC34TVX.s 			page 1
  612              		.section	.debug_loc,"",%progbits
  613              	.Ldebug_loc0:
  614              	.LLST0:
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccC34TVX.s 			page 16
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccDVvG0m.s 			page 16
 
 
  615 0000 00000000 		.4byte	.LVL0
@@ -958,7 +958,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccC34TVX.s 			page 1
  669 0085 0C000000 		.4byte	.LVL10
  670 0089 0100     		.2byte	0x1
  671 008b 50       		.byte	0x50
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccC34TVX.s 			page 17
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccDVvG0m.s 			page 17
 
 
  672 008c 0C000000 		.4byte	.LVL10
@@ -1018,7 +1018,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccC34TVX.s 			page 1
  722              	.LASF15:
  723 0000 72656733 		.ascii	"reg32\000"
  723      3200
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccC34TVX.s 			page 18
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccDVvG0m.s 			page 18
 
 
  724              	.LASF19:
@@ -1059,117 +1059,121 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccC34TVX.s 			page 1
  739      7369676E 
  739      65642069 
  739      6E7400
- 740              	.LASF30:
- 741 0073 433A5C70 		.ascii	"C:\\proj\\acsnb-motor-cypress\\QuadEncoderRTOS.cyds"
- 741      726F6A5C 
- 741      6163736E 
- 741      622D6D6F 
- 741      746F722D 
- 742 00a3 6E00     		.ascii	"n\000"
- 743              	.LASF26:
- 744 00a5 70686941 		.ascii	"phiA_ClearInterrupt\000"
- 744      5F436C65 
- 744      6172496E 
- 744      74657272 
- 744      75707400 
- 745              	.LASF13:
- 746 00b9 646F7562 		.ascii	"double\000"
- 746      6C6500
- 747              	.LASF10:
- 748 00c0 75696E74 		.ascii	"uint16\000"
- 748      313600
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccC34TVX.s 			page 19
+ 740              	.LASF26:
+ 741 0073 70686941 		.ascii	"phiA_ClearInterrupt\000"
+ 741      5F436C65 
+ 741      6172496E 
+ 741      74657272 
+ 741      75707400 
+ 742              	.LASF13:
+ 743 0087 646F7562 		.ascii	"double\000"
+ 743      6C6500
+ 744              	.LASF10:
+ 745 008e 75696E74 		.ascii	"uint16\000"
+ 745      313600
+ 746              	.LASF23:
+ 747 0095 706F7369 		.ascii	"position\000"
+ 747      74696F6E 
+ 747      00
+ 748              	.LASF11:
+ 749 009e 75696E74 		.ascii	"uint32\000"
+ 749      333200
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccDVvG0m.s 			page 19
 
 
- 749              	.LASF23:
- 750 00c7 706F7369 		.ascii	"position\000"
- 750      74696F6E 
- 750      00
- 751              	.LASF11:
- 752 00d0 75696E74 		.ascii	"uint32\000"
- 752      333200
- 753              	.LASF21:
- 754 00d7 70686941 		.ascii	"phiA_ReadDataReg\000"
- 754      5F526561 
- 754      64446174 
- 754      61526567 
- 754      00
- 755              	.LASF25:
- 756 00e8 696E7472 		.ascii	"intrCfg\000"
- 756      43666700 
- 757              	.LASF8:
- 758 00f0 756E7369 		.ascii	"unsigned int\000"
- 758      676E6564 
- 758      20696E74 
- 758      00
- 759              	.LASF7:
- 760 00fd 6C6F6E67 		.ascii	"long long unsigned int\000"
- 760      206C6F6E 
- 760      6720756E 
- 760      7369676E 
- 760      65642069 
- 761              	.LASF18:
- 762 0114 6D6F6465 		.ascii	"mode\000"
- 762      00
- 763              	.LASF28:
- 764 0119 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
- 764      43313120 
- 764      352E342E 
- 764      31203230 
- 764      31363036 
- 765 014c 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
- 765      20726576 
- 765      6973696F 
- 765      6E203233 
- 765      37373135 
- 766 017f 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
- 766      66756E63 
- 766      74696F6E 
- 766      2D736563 
- 766      74696F6E 
- 767              	.LASF6:
- 768 01a7 6C6F6E67 		.ascii	"long long int\000"
- 768      206C6F6E 
- 768      6720696E 
- 768      7400
- 769              	.LASF27:
- 770 01b5 6D61736B 		.ascii	"maskedStatus\000"
- 770      65645374 
- 770      61747573 
- 770      00
- 771              	.LASF14:
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccC34TVX.s 			page 20
+ 750              	.LASF21:
+ 751 00a5 70686941 		.ascii	"phiA_ReadDataReg\000"
+ 751      5F526561 
+ 751      64446174 
+ 751      61526567 
+ 751      00
+ 752              	.LASF25:
+ 753 00b6 696E7472 		.ascii	"intrCfg\000"
+ 753      43666700 
+ 754              	.LASF8:
+ 755 00be 756E7369 		.ascii	"unsigned int\000"
+ 755      676E6564 
+ 755      20696E74 
+ 755      00
+ 756              	.LASF7:
+ 757 00cb 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 757      206C6F6E 
+ 757      6720756E 
+ 757      7369676E 
+ 757      65642069 
+ 758              	.LASF18:
+ 759 00e2 6D6F6465 		.ascii	"mode\000"
+ 759      00
+ 760              	.LASF28:
+ 761 00e7 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 761      43313120 
+ 761      352E342E 
+ 761      31203230 
+ 761      31363036 
+ 762 011a 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
+ 762      20726576 
+ 762      6973696F 
+ 762      6E203233 
+ 762      37373135 
+ 763 014d 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 763      66756E63 
+ 763      74696F6E 
+ 763      2D736563 
+ 763      74696F6E 
+ 764              	.LASF6:
+ 765 0175 6C6F6E67 		.ascii	"long long int\000"
+ 765      206C6F6E 
+ 765      6720696E 
+ 765      7400
+ 766              	.LASF27:
+ 767 0183 6D61736B 		.ascii	"maskedStatus\000"
+ 767      65645374 
+ 767      61747573 
+ 767      00
+ 768              	.LASF14:
+ 769 0190 63686172 		.ascii	"char\000"
+ 769      00
+ 770              	.LASF2:
+ 771 0195 73686F72 		.ascii	"short int\000"
+ 771      7420696E 
+ 771      7400
+ 772              	.LASF30:
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccDVvG0m.s 			page 20
 
 
- 772 01c2 63686172 		.ascii	"char\000"
- 772      00
- 773              	.LASF2:
- 774 01c7 73686F72 		.ascii	"short int\000"
- 774      7420696E 
- 774      7400
+ 773 019f 433A5C55 		.ascii	"C:\\Users\\prichards\\proj\\acsnb-motor-cypress\\Qu"
+ 773      73657273 
+ 773      5C707269 
+ 773      63686172 
+ 773      64735C70 
+ 774 01cd 6164456E 		.ascii	"adEncoderRTOS.cydsn\000"
+ 774      636F6465 
+ 774      7252544F 
+ 774      532E6379 
+ 774      64736E00 
  775              	.LASF9:
- 776 01d1 75696E74 		.ascii	"uint8\000"
+ 776 01e1 75696E74 		.ascii	"uint8\000"
  776      3800
  777              	.LASF20:
- 778 01d7 70686941 		.ascii	"phiA_Read\000"
+ 778 01e7 70686941 		.ascii	"phiA_Read\000"
  778      5F526561 
  778      6400
  779              	.LASF4:
- 780 01e1 6C6F6E67 		.ascii	"long int\000"
+ 780 01f1 6C6F6E67 		.ascii	"long int\000"
  780      20696E74 
  780      00
  781              	.LASF29:
- 782 01ea 47656E65 		.ascii	"Generated_Source\\PSoC4\\phiA.c\000"
+ 782 01fa 47656E65 		.ascii	"Generated_Source\\PSoC4\\phiA.c\000"
  782      72617465 
  782      645F536F 
  782      75726365 
  782      5C50536F 
  783              	.LASF0:
- 784 0208 7369676E 		.ascii	"signed char\000"
+ 784 0218 7369676E 		.ascii	"signed char\000"
  784      65642063 
  784      68617200 
  785              	.LASF17:
- 786 0214 70686941 		.ascii	"phiA_Write\000"
+ 786 0224 70686941 		.ascii	"phiA_Write\000"
  786      5F577269 
  786      746500
  787              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
