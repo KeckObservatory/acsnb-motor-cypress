@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccOXsGX7.s 			page 1
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccJ7z5ta.s 			page 1
 
 
    1              		.syntax unified
@@ -29,921 +29,869 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccOXsGX7.s 			page 1
   26              	PID_UpdateValues:
   27              	.LFB1:
   28              		.file 1 "pid.c"
-   1:pid.c         **** #include <stdbool.h>
-   2:pid.c         **** #include <stdint.h>
-   3:pid.c         **** #include <stdio.h>
-   4:pid.c         **** #include "pid.h"
-   5:pid.c         **** 
-   6:pid.c         **** /*******************************************************************************
-   7:pid.c         **** * Function Name: PID_Compute
-   8:pid.c         **** ********************************************************************************
-   9:pid.c         **** * Summary:
-  10:pid.c         **** *  Execute a pass through the PID process to create a duty cycle output.
-  11:pid.c         **** *
-  12:pid.c         **** * Parameters: Current destination and encoder value.
-  13:pid.c         **** * Return: PWM output, from -800 to 800.
-  14:pid.c         **** *******************************************************************************/
-  15:pid.c         **** int32_t PID_UpdateValues(int32_t setpoint, int32_t position) {
-  29              		.loc 1 15 0
+   1:pid.c         **** #ifndef __PID_C
+   2:pid.c         **** #define __PID_C
+   3:pid.c         **** 
+   4:pid.c         **** #include <stdbool.h>
+   5:pid.c         **** #include <stdint.h>
+   6:pid.c         **** #include <stdio.h>
+   7:pid.c         **** #include "pid.h"
+   8:pid.c         **** 
+   9:pid.c         **** /*******************************************************************************
+  10:pid.c         **** * Function Name: PID_Compute
+  11:pid.c         **** ********************************************************************************
+  12:pid.c         **** * Summary:
+  13:pid.c         **** *  Execute a pass through the PID process to create a duty cycle output.
+  14:pid.c         **** *
+  15:pid.c         **** * Parameters: Current destination and encoder value.
+  16:pid.c         **** * Return: PWM output, from -800 to 800.
+  17:pid.c         **** *******************************************************************************/
+  18:pid.c         **** int32_t PID_UpdateValues(int32_t setpoint, int32_t position) {
+  29              		.loc 1 18 0
   30              		.cfi_startproc
-  31              		@ args = 0, pretend = 0, frame = 32
+  31              		@ args = 0, pretend = 0, frame = 24
   32              		@ frame_needed = 0, uses_anonymous_args = 0
   33              	.LVL0:
   34 0000 10B5     		push	{r4, lr}
   35              		.cfi_def_cfa_offset 8
   36              		.cfi_offset 4, -8
   37              		.cfi_offset 14, -4
-  38 0002 88B0     		sub	sp, sp, #32
-  39              		.cfi_def_cfa_offset 40
+  38 0002 86B0     		sub	sp, sp, #24
+  39              		.cfi_def_cfa_offset 32
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccJ7z5ta.s 			page 2
+
+
   40 0004 0C00     		movs	r4, r1
   41              	.LVL1:
-  16:pid.c         **** 
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccOXsGX7.s 			page 2
-
-
-  17:pid.c         ****     /* Hardcoded PID values here, for now */
-  18:pid.c         ****     uint16_t Kp = 8000;
-  19:pid.c         ****     uint16_t Ki = 100;
-  20:pid.c         ****     uint16_t Kd = 0;
+  19:pid.c         **** 
+  20:pid.c         ****     //volatile uint32_t trap = 0;
   21:pid.c         ****     
-  22:pid.c         ****     /* Constants for use in this algorithm */
-  23:pid.c         ****     uint16_t max_output = 800;
-  24:pid.c         ****     uint16_t max_iterm = 250;
-  25:pid.c         ****     uint16_t pid_scale = 1000;
+  22:pid.c         ****     /* Hardcoded PID values here, for now */
+  23:pid.c         ****     uint16_t Kp = 8000; //3000; //8000;
+  24:pid.c         ****     uint16_t Ki = 100;
+  25:pid.c         ****     uint16_t Kd = 0;
   26:pid.c         ****     
-  27:pid.c         ****     
-  28:pid.c         ****     /* Temporary values */
-  29:pid.c         ****     volatile int32_t error;
-  30:pid.c         ****     static int32_t iterm = 0;
-  31:pid.c         ****     volatile uint32_t Qp, Qi, Qd;  // Scaled Kp, Ki, Kd values
-  32:pid.c         ****     volatile int32_t Qmax_iterm;
-  33:pid.c         ****     volatile int32_t Qmax_output;
-  34:pid.c         ****     volatile int32_t dposition;
-  35:pid.c         ****     volatile int32_t output;
-  36:pid.c         ****     static int32_t lastposition;
-  37:pid.c         ****     
-  38:pid.c         ****     /* Scale the values */
-  39:pid.c         ****     Qp = Kp;// * pid_scale;
-  42              		.loc 1 39 0
-  43 0006 FA23     		movs	r3, #250
-  44 0008 5B01     		lsls	r3, r3, #5
-  45 000a 0693     		str	r3, [sp, #24]
-  40:pid.c         ****     Qi = Ki;// * pid_scale;
-  46              		.loc 1 40 0
-  47 000c 6423     		movs	r3, #100
-  48 000e 0593     		str	r3, [sp, #20]
-  41:pid.c         ****     Qd = Kd;// * pid_scale;
-  49              		.loc 1 41 0
-  50 0010 0023     		movs	r3, #0
-  51 0012 0493     		str	r3, [sp, #16]
-  42:pid.c         ****     Qmax_iterm = max_iterm * pid_scale;
-  52              		.loc 1 42 0
-  53 0014 224B     		ldr	r3, .L6
-  54 0016 0393     		str	r3, [sp, #12]
-  43:pid.c         ****     Qmax_output = max_output * pid_scale;
-  55              		.loc 1 43 0
-  56 0018 224B     		ldr	r3, .L6+4
-  57 001a 0293     		str	r3, [sp, #8]
-  44:pid.c         ****     
-  45:pid.c         ****     /* Compute all the working error variables */
-  46:pid.c         ****     error = setpoint - position;
-  58              		.loc 1 46 0
-  59 001c 401A     		subs	r0, r0, r1
-  60              	.LVL2:
-  61 001e 0790     		str	r0, [sp, #28]
-  47:pid.c         ****     iterm += (Qi * error);
-  62              		.loc 1 47 0
-  63 0020 059B     		ldr	r3, [sp, #20]
-  64 0022 079A     		ldr	r2, [sp, #28]
-  65 0024 5343     		muls	r3, r2
-  66 0026 204A     		ldr	r2, .L6+8
-  67 0028 1168     		ldr	r1, [r2]
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccOXsGX7.s 			page 3
+  27:pid.c         ****     /* Constants for use in this algorithm */
+  28:pid.c         ****     uint16_t max_output = 400; //600; //800;
+  29:pid.c         ****     uint16_t max_iterm = 250;
+  30:pid.c         ****     uint16_t pid_scale = 1000;
+  31:pid.c         ****     
+  32:pid.c         ****     
+  33:pid.c         ****     /* Temporary values */
+  34:pid.c         ****     volatile int32_t error;
+  35:pid.c         ****     //static int32_t iterm = 0;
+  36:pid.c         ****     volatile int32_t Qmax_iterm;
+  37:pid.c         ****     volatile int32_t Qmax_output;
+  38:pid.c         ****     volatile int32_t dposition;
+  39:pid.c         ****     volatile int32_t output;
+  40:pid.c         ****     static int32_t lastposition;
+  41:pid.c         ****     
+  42:pid.c         ****     /* Scale the values */
+  43:pid.c         ****     Qmax_iterm = max_iterm * pid_scale;
+  42              		.loc 1 43 0
+  43 0006 224B     		ldr	r3, .L6
+  44 0008 0493     		str	r3, [sp, #16]
+  44:pid.c         ****     Qmax_output = max_output * pid_scale;
+  45              		.loc 1 44 0
+  46 000a 224B     		ldr	r3, .L6+4
+  47 000c 0393     		str	r3, [sp, #12]
+  45:pid.c         ****     
+  46:pid.c         ****     /* Compute all the working error variables */
+  47:pid.c         ****     error = setpoint - position;
+  48              		.loc 1 47 0
+  49 000e 401A     		subs	r0, r0, r1
+  50              	.LVL2:
+  51 0010 0590     		str	r0, [sp, #20]
+  48:pid.c         ****     iterm += (Ki * error);
+  52              		.loc 1 48 0
+  53 0012 059A     		ldr	r2, [sp, #20]
+  54 0014 6423     		movs	r3, #100
+  55 0016 5343     		muls	r3, r2
+  56 0018 1F4A     		ldr	r2, .L6+8
+  57 001a 1168     		ldr	r1, [r2]
+  58              	.LVL3:
+  59 001c 8C46     		mov	ip, r1
+  60 001e 6344     		add	r3, r3, ip
+  61 0020 1360     		str	r3, [r2]
+  49:pid.c         ****     
+  50:pid.c         ****     //if ((iterm == 12144) || (iterm == -12144)) {
+  51:pid.c         ****     //    trap++;        
+  52:pid.c         ****     //}
+  53:pid.c         ****     
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccJ7z5ta.s 			page 3
 
 
-  68              	.LVL3:
-  69 002a 8C46     		mov	ip, r1
-  70 002c 6344     		add	r3, r3, ip
-  71 002e 1360     		str	r3, [r2]
-  48:pid.c         ****     
-  49:pid.c         ****     /* Clip the I term at a max value for just that term (windup guard) */
-  50:pid.c         ****     if (iterm > Qmax_iterm) {
-  72              		.loc 1 50 0
-  73 0030 039A     		ldr	r2, [sp, #12]
-  74 0032 9342     		cmp	r3, r2
-  75 0034 03DD     		ble	.L2
-  51:pid.c         ****         iterm = Qmax_iterm;
-  76              		.loc 1 51 0
-  77 0036 039A     		ldr	r2, [sp, #12]
-  78 0038 1B4B     		ldr	r3, .L6+8
-  79 003a 1A60     		str	r2, [r3]
-  80 003c 07E0     		b	.L3
-  81              	.L2:
-  52:pid.c         ****     } else if (iterm < -Qmax_iterm) {
-  82              		.loc 1 52 0
-  83 003e 039A     		ldr	r2, [sp, #12]
-  84 0040 5242     		rsbs	r2, r2, #0
-  85 0042 9342     		cmp	r3, r2
-  86 0044 03DA     		bge	.L3
-  53:pid.c         ****         iterm = -Qmax_iterm;
-  87              		.loc 1 53 0
-  88 0046 039B     		ldr	r3, [sp, #12]
-  89 0048 5B42     		rsbs	r3, r3, #0
-  90 004a 174A     		ldr	r2, .L6+8
-  91 004c 1360     		str	r3, [r2]
-  92              	.L3:
-  54:pid.c         ****     }
-  55:pid.c         ****     
-  56:pid.c         ****     /* Calculate the error term */
-  57:pid.c         ****     dposition = (position - lastposition);
-  93              		.loc 1 57 0
-  94 004e 1649     		ldr	r1, .L6+8
-  95 0050 4B68     		ldr	r3, [r1, #4]
-  96 0052 E31A     		subs	r3, r4, r3
-  97 0054 0193     		str	r3, [sp, #4]
-  58:pid.c         **** 
-  59:pid.c         ****     /* Compute PID Output */
-  60:pid.c         ****     output = (Qp * error) + iterm - (Qd * dposition);
-  98              		.loc 1 60 0
-  99 0056 069B     		ldr	r3, [sp, #24]
- 100 0058 079A     		ldr	r2, [sp, #28]
- 101 005a 5343     		muls	r3, r2
- 102 005c 0968     		ldr	r1, [r1]
- 103 005e 5A18     		adds	r2, r3, r1
- 104 0060 049B     		ldr	r3, [sp, #16]
- 105 0062 0199     		ldr	r1, [sp, #4]
- 106 0064 4B43     		muls	r3, r1
- 107 0066 D31A     		subs	r3, r2, r3
- 108 0068 0093     		str	r3, [sp]
-  61:pid.c         ****     
-  62:pid.c         ****     /* Clip the output */
-  63:pid.c         ****     if (output > Qmax_output) {
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccOXsGX7.s 			page 4
+  54:pid.c         ****     /* Clip the I term at a max value for just that term (windup guard) */
+  55:pid.c         ****     if (iterm > Qmax_iterm) {
+  62              		.loc 1 55 0
+  63 0022 049A     		ldr	r2, [sp, #16]
+  64 0024 9342     		cmp	r3, r2
+  65 0026 03DD     		ble	.L2
+  56:pid.c         ****         iterm = Qmax_iterm;
+  66              		.loc 1 56 0
+  67 0028 049A     		ldr	r2, [sp, #16]
+  68 002a 1B4B     		ldr	r3, .L6+8
+  69 002c 1A60     		str	r2, [r3]
+  70 002e 07E0     		b	.L3
+  71              	.L2:
+  57:pid.c         ****     } else if (iterm < -Qmax_iterm) {
+  72              		.loc 1 57 0
+  73 0030 049A     		ldr	r2, [sp, #16]
+  74 0032 5242     		rsbs	r2, r2, #0
+  75 0034 9342     		cmp	r3, r2
+  76 0036 03DA     		bge	.L3
+  58:pid.c         ****         iterm = -Qmax_iterm;
+  77              		.loc 1 58 0
+  78 0038 049B     		ldr	r3, [sp, #16]
+  79 003a 5B42     		rsbs	r3, r3, #0
+  80 003c 164A     		ldr	r2, .L6+8
+  81 003e 1360     		str	r3, [r2]
+  82              	.L3:
+  59:pid.c         ****     }
+  60:pid.c         ****     
+  61:pid.c         ****     /* Calculate the error term */
+  62:pid.c         ****     dposition = (position - lastposition);
+  83              		.loc 1 62 0
+  84 0040 164B     		ldr	r3, .L6+12
+  85 0042 1B68     		ldr	r3, [r3]
+  86 0044 E31A     		subs	r3, r4, r3
+  87 0046 0293     		str	r3, [sp, #8]
+  63:pid.c         **** 
+  64:pid.c         ****     /* Compute PID Output */
+  65:pid.c         ****     output = (Kp * error) + iterm - (Kd * dposition);
+  88              		.loc 1 65 0
+  89 0048 059A     		ldr	r2, [sp, #20]
+  90 004a FA23     		movs	r3, #250
+  91 004c 5B01     		lsls	r3, r3, #5
+  92 004e 5343     		muls	r3, r2
+  93 0050 114A     		ldr	r2, .L6+8
+  94 0052 1268     		ldr	r2, [r2]
+  95 0054 9B18     		adds	r3, r3, r2
+  96 0056 029A     		ldr	r2, [sp, #8]
+  97 0058 0193     		str	r3, [sp, #4]
+  66:pid.c         ****     
+  67:pid.c         ****     /* Clip the output */
+  68:pid.c         ****     if (output > Qmax_output) {
+  98              		.loc 1 68 0
+  99 005a 019A     		ldr	r2, [sp, #4]
+ 100 005c 039B     		ldr	r3, [sp, #12]
+ 101 005e 9A42     		cmp	r2, r3
+ 102 0060 02DD     		ble	.L4
+  69:pid.c         ****         output = Qmax_output;
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccJ7z5ta.s 			page 4
 
 
- 109              		.loc 1 63 0
- 110 006a 009A     		ldr	r2, [sp]
- 111 006c 029B     		ldr	r3, [sp, #8]
- 112 006e 9A42     		cmp	r2, r3
- 113 0070 02DD     		ble	.L4
-  64:pid.c         ****         output = Qmax_output;
- 114              		.loc 1 64 0
- 115 0072 029B     		ldr	r3, [sp, #8]
- 116 0074 0093     		str	r3, [sp]
- 117 0076 07E0     		b	.L5
- 118              	.L4:
-  65:pid.c         ****     } else if (output < -Qmax_output) {
- 119              		.loc 1 65 0
- 120 0078 029B     		ldr	r3, [sp, #8]
- 121 007a 5B42     		rsbs	r3, r3, #0
- 122 007c 009A     		ldr	r2, [sp]
- 123 007e 9342     		cmp	r3, r2
- 124 0080 02DD     		ble	.L5
-  66:pid.c         ****         output = -Qmax_output;
- 125              		.loc 1 66 0
- 126 0082 029B     		ldr	r3, [sp, #8]
- 127 0084 5B42     		rsbs	r3, r3, #0
- 128 0086 0093     		str	r3, [sp]
- 129              	.L5:
-  67:pid.c         ****     }
-  68:pid.c         **** 
-  69:pid.c         ****     /* Scale the output back down */
-  70:pid.c         ****     output = output / pid_scale;
- 130              		.loc 1 70 0
- 131 0088 0098     		ldr	r0, [sp]
- 132 008a FA21     		movs	r1, #250
- 133 008c 8900     		lsls	r1, r1, #2
- 134 008e FFF7FEFF 		bl	__aeabi_idiv
- 135              	.LVL4:
- 136 0092 0090     		str	r0, [sp]
-  71:pid.c         ****     
-  72:pid.c         ****     /* Remember some variables for next time */
-  73:pid.c         ****     lastposition = position;
- 137              		.loc 1 73 0
- 138 0094 044B     		ldr	r3, .L6+8
- 139 0096 5C60     		str	r4, [r3, #4]
-  74:pid.c         ****     
-  75:pid.c         ****     return output;    
- 140              		.loc 1 75 0
- 141 0098 0098     		ldr	r0, [sp]
-  76:pid.c         **** }
- 142              		.loc 1 76 0
- 143 009a 08B0     		add	sp, sp, #32
- 144              		@ sp needed
- 145              	.LVL5:
- 146 009c 10BD     		pop	{r4, pc}
- 147              	.L7:
- 148 009e C046     		.align	2
- 149              	.L6:
- 150 00a0 90D00300 		.word	250000
- 151 00a4 00350C00 		.word	800000
- 152 00a8 00000000 		.word	.LANCHOR0
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccOXsGX7.s 			page 5
+ 103              		.loc 1 69 0
+ 104 0062 039B     		ldr	r3, [sp, #12]
+ 105 0064 0193     		str	r3, [sp, #4]
+ 106 0066 07E0     		b	.L5
+ 107              	.L4:
+  70:pid.c         ****     } else if (output < -Qmax_output) {
+ 108              		.loc 1 70 0
+ 109 0068 039B     		ldr	r3, [sp, #12]
+ 110 006a 5B42     		rsbs	r3, r3, #0
+ 111 006c 019A     		ldr	r2, [sp, #4]
+ 112 006e 9342     		cmp	r3, r2
+ 113 0070 02DD     		ble	.L5
+  71:pid.c         ****         output = -Qmax_output;
+ 114              		.loc 1 71 0
+ 115 0072 039B     		ldr	r3, [sp, #12]
+ 116 0074 5B42     		rsbs	r3, r3, #0
+ 117 0076 0193     		str	r3, [sp, #4]
+ 118              	.L5:
+  72:pid.c         ****     }
+  73:pid.c         **** 
+  74:pid.c         ****     /* Scale the output back down */
+  75:pid.c         ****     output = output / pid_scale;
+ 119              		.loc 1 75 0
+ 120 0078 0198     		ldr	r0, [sp, #4]
+ 121 007a FA21     		movs	r1, #250
+ 122 007c 8900     		lsls	r1, r1, #2
+ 123 007e FFF7FEFF 		bl	__aeabi_idiv
+ 124              	.LVL4:
+ 125 0082 0190     		str	r0, [sp, #4]
+  76:pid.c         ****     
+  77:pid.c         ****     /* Remember some variables for next time */
+  78:pid.c         ****     lastposition = position;
+ 126              		.loc 1 78 0
+ 127 0084 054B     		ldr	r3, .L6+12
+ 128 0086 1C60     		str	r4, [r3]
+  79:pid.c         ****     
+  80:pid.c         ****     return output;    
+ 129              		.loc 1 80 0
+ 130 0088 0198     		ldr	r0, [sp, #4]
+  81:pid.c         **** }
+ 131              		.loc 1 81 0
+ 132 008a 06B0     		add	sp, sp, #24
+ 133              		@ sp needed
+ 134              	.LVL5:
+ 135 008c 10BD     		pop	{r4, pc}
+ 136              	.L7:
+ 137 008e C046     		.align	2
+ 138              	.L6:
+ 139 0090 90D00300 		.word	250000
+ 140 0094 801A0600 		.word	400000
+ 141 0098 00000000 		.word	iterm
+ 142 009c 00000000 		.word	.LANCHOR0
+ 143              		.cfi_endproc
+ 144              	.LFE1:
+ 145              		.size	PID_UpdateValues, .-PID_UpdateValues
+ 146              		.comm	iterm,4,4
+ 147              		.bss
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccJ7z5ta.s 			page 5
 
 
- 153              		.cfi_endproc
- 154              	.LFE1:
- 155              		.size	PID_UpdateValues, .-PID_UpdateValues
- 156              		.bss
- 157              		.align	2
- 158              		.set	.LANCHOR0,. + 0
- 159              		.type	iterm.5186, %object
- 160              		.size	iterm.5186, 4
- 161              	iterm.5186:
- 162 0000 00000000 		.space	4
- 163              		.type	lastposition.5194, %object
- 164              		.size	lastposition.5194, 4
- 165              	lastposition.5194:
- 166 0004 00000000 		.space	4
- 167              		.text
- 168              	.Letext0:
- 169              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
- 170              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
- 171              		.section	.debug_info,"",%progbits
- 172              	.Ldebug_info0:
- 173 0000 D8010000 		.4byte	0x1d8
- 174 0004 0400     		.2byte	0x4
- 175 0006 00000000 		.4byte	.Ldebug_abbrev0
- 176 000a 04       		.byte	0x4
- 177 000b 01       		.uleb128 0x1
- 178 000c 2A010000 		.4byte	.LASF30
- 179 0010 0C       		.byte	0xc
- 180 0011 6B000000 		.4byte	.LASF31
- 181 0015 00000000 		.4byte	.LASF32
- 182 0019 00000000 		.4byte	.Ldebug_ranges0+0
- 183 001d 00000000 		.4byte	0
- 184 0021 00000000 		.4byte	.Ldebug_line0
- 185 0025 02       		.uleb128 0x2
- 186 0026 01       		.byte	0x1
- 187 0027 06       		.byte	0x6
- 188 0028 1A020000 		.4byte	.LASF0
- 189 002c 02       		.uleb128 0x2
- 190 002d 01       		.byte	0x1
- 191 002e 08       		.byte	0x8
- 192 002f 71000000 		.4byte	.LASF1
- 193 0033 02       		.uleb128 0x2
- 194 0034 02       		.byte	0x2
- 195 0035 05       		.byte	0x5
- 196 0036 E2010000 		.4byte	.LASF2
- 197 003a 03       		.uleb128 0x3
- 198 003b C0000000 		.4byte	.LASF4
- 199 003f 02       		.byte	0x2
- 200 0040 2B       		.byte	0x2b
- 201 0041 45000000 		.4byte	0x45
- 202 0045 02       		.uleb128 0x2
- 203 0046 02       		.byte	0x2
- 204 0047 07       		.byte	0x7
- 205 0048 9C000000 		.4byte	.LASF3
- 206 004c 03       		.uleb128 0x3
- 207 004d 4F000000 		.4byte	.LASF5
- 208 0051 02       		.byte	0x2
- 209 0052 3F       		.byte	0x3f
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccOXsGX7.s 			page 6
+ 148              		.align	2
+ 149              		.set	.LANCHOR0,. + 0
+ 150              		.type	lastposition.5191, %object
+ 151              		.size	lastposition.5191, 4
+ 152              	lastposition.5191:
+ 153 0000 00000000 		.space	4
+ 154              		.text
+ 155              	.Letext0:
+ 156              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 157              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 158              		.file 4 "pid.h"
+ 159              		.section	.debug_info,"",%progbits
+ 160              	.Ldebug_info0:
+ 161 0000 96010000 		.4byte	0x196
+ 162 0004 0400     		.2byte	0x4
+ 163 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 164 000a 04       		.byte	0x4
+ 165 000b 01       		.uleb128 0x1
+ 166 000c 1F010000 		.4byte	.LASF27
+ 167 0010 0C       		.byte	0xc
+ 168 0011 6B000000 		.4byte	.LASF28
+ 169 0015 00000000 		.4byte	.LASF29
+ 170 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 171 001d 00000000 		.4byte	0
+ 172 0021 00000000 		.4byte	.Ldebug_line0
+ 173 0025 02       		.uleb128 0x2
+ 174 0026 01       		.byte	0x1
+ 175 0027 06       		.byte	0x6
+ 176 0028 06020000 		.4byte	.LASF0
+ 177 002c 02       		.uleb128 0x2
+ 178 002d 01       		.byte	0x1
+ 179 002e 08       		.byte	0x8
+ 180 002f 71000000 		.4byte	.LASF1
+ 181 0033 02       		.uleb128 0x2
+ 182 0034 02       		.byte	0x2
+ 183 0035 05       		.byte	0x5
+ 184 0036 D7010000 		.4byte	.LASF2
+ 185 003a 03       		.uleb128 0x3
+ 186 003b C0000000 		.4byte	.LASF4
+ 187 003f 02       		.byte	0x2
+ 188 0040 2B       		.byte	0x2b
+ 189 0041 45000000 		.4byte	0x45
+ 190 0045 02       		.uleb128 0x2
+ 191 0046 02       		.byte	0x2
+ 192 0047 07       		.byte	0x7
+ 193 0048 9C000000 		.4byte	.LASF3
+ 194 004c 03       		.uleb128 0x3
+ 195 004d 4F000000 		.4byte	.LASF5
+ 196 0051 02       		.byte	0x2
+ 197 0052 3F       		.byte	0x3f
+ 198 0053 57000000 		.4byte	0x57
+ 199 0057 02       		.uleb128 0x2
+ 200 0058 04       		.byte	0x4
+ 201 0059 05       		.byte	0x5
+ 202 005a F1010000 		.4byte	.LASF6
+ 203 005e 02       		.uleb128 0x2
+ 204 005f 04       		.byte	0x4
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccJ7z5ta.s 			page 6
 
 
- 210 0053 57000000 		.4byte	0x57
- 211 0057 02       		.uleb128 0x2
- 212 0058 04       		.byte	0x4
- 213 0059 05       		.byte	0x5
- 214 005a 05020000 		.4byte	.LASF6
- 215 005e 03       		.uleb128 0x3
- 216 005f CB000000 		.4byte	.LASF7
- 217 0063 02       		.byte	0x2
- 218 0064 41       		.byte	0x41
- 219 0065 69000000 		.4byte	0x69
- 220 0069 02       		.uleb128 0x2
- 221 006a 04       		.byte	0x4
- 222 006b 07       		.byte	0x7
- 223 006c 8A000000 		.4byte	.LASF8
- 224 0070 02       		.uleb128 0x2
- 225 0071 08       		.byte	0x8
- 226 0072 05       		.byte	0x5
- 227 0073 CF010000 		.4byte	.LASF9
- 228 0077 02       		.uleb128 0x2
- 229 0078 08       		.byte	0x8
- 230 0079 07       		.byte	0x7
- 231 007a 09010000 		.4byte	.LASF10
- 232 007e 04       		.uleb128 0x4
- 233 007f 04       		.byte	0x4
- 234 0080 05       		.byte	0x5
- 235 0081 696E7400 		.ascii	"int\000"
- 236 0085 02       		.uleb128 0x2
- 237 0086 04       		.byte	0x4
- 238 0087 07       		.byte	0x7
- 239 0088 F3000000 		.4byte	.LASF11
- 240 008c 03       		.uleb128 0x3
- 241 008d F3010000 		.4byte	.LASF12
- 242 0091 03       		.byte	0x3
- 243 0092 24       		.byte	0x24
- 244 0093 3A000000 		.4byte	0x3a
- 245 0097 03       		.uleb128 0x3
- 246 0098 B8010000 		.4byte	.LASF13
- 247 009c 03       		.byte	0x3
- 248 009d 2C       		.byte	0x2c
- 249 009e 4C000000 		.4byte	0x4c
- 250 00a2 03       		.uleb128 0x3
- 251 00a3 FC010000 		.4byte	.LASF14
- 252 00a7 03       		.byte	0x3
- 253 00a8 30       		.byte	0x30
- 254 00a9 5E000000 		.4byte	0x5e
- 255 00ad 02       		.uleb128 0x2
- 256 00ae 08       		.byte	0x8
- 257 00af 04       		.byte	0x4
- 258 00b0 0E020000 		.4byte	.LASF15
- 259 00b4 02       		.uleb128 0x2
- 260 00b5 04       		.byte	0x4
- 261 00b6 07       		.byte	0x7
- 262 00b7 C0010000 		.4byte	.LASF16
- 263 00bb 02       		.uleb128 0x2
- 264 00bc 01       		.byte	0x1
- 265 00bd 08       		.byte	0x8
- 266 00be DD010000 		.4byte	.LASF17
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccOXsGX7.s 			page 7
+ 205 0060 07       		.byte	0x7
+ 206 0061 8A000000 		.4byte	.LASF7
+ 207 0065 02       		.uleb128 0x2
+ 208 0066 08       		.byte	0x8
+ 209 0067 05       		.byte	0x5
+ 210 0068 C4010000 		.4byte	.LASF8
+ 211 006c 02       		.uleb128 0x2
+ 212 006d 08       		.byte	0x8
+ 213 006e 07       		.byte	0x7
+ 214 006f FE000000 		.4byte	.LASF9
+ 215 0073 04       		.uleb128 0x4
+ 216 0074 04       		.byte	0x4
+ 217 0075 05       		.byte	0x5
+ 218 0076 696E7400 		.ascii	"int\000"
+ 219 007a 02       		.uleb128 0x2
+ 220 007b 04       		.byte	0x4
+ 221 007c 07       		.byte	0x7
+ 222 007d E8000000 		.4byte	.LASF10
+ 223 0081 03       		.uleb128 0x3
+ 224 0082 E8010000 		.4byte	.LASF11
+ 225 0086 03       		.byte	0x3
+ 226 0087 24       		.byte	0x24
+ 227 0088 3A000000 		.4byte	0x3a
+ 228 008c 03       		.uleb128 0x3
+ 229 008d AD010000 		.4byte	.LASF12
+ 230 0091 03       		.byte	0x3
+ 231 0092 2C       		.byte	0x2c
+ 232 0093 4C000000 		.4byte	0x4c
+ 233 0097 02       		.uleb128 0x2
+ 234 0098 08       		.byte	0x8
+ 235 0099 04       		.byte	0x4
+ 236 009a FA010000 		.4byte	.LASF13
+ 237 009e 02       		.uleb128 0x2
+ 238 009f 04       		.byte	0x4
+ 239 00a0 07       		.byte	0x7
+ 240 00a1 B5010000 		.4byte	.LASF14
+ 241 00a5 02       		.uleb128 0x2
+ 242 00a6 01       		.byte	0x1
+ 243 00a7 08       		.byte	0x8
+ 244 00a8 D2010000 		.4byte	.LASF15
+ 245 00ac 05       		.uleb128 0x5
+ 246 00ad AF000000 		.4byte	.LASF30
+ 247 00b1 01       		.byte	0x1
+ 248 00b2 12       		.byte	0x12
+ 249 00b3 8C000000 		.4byte	0x8c
+ 250 00b7 00000000 		.4byte	.LFB1
+ 251 00bb A0000000 		.4byte	.LFE1-.LFB1
+ 252 00bf 01       		.uleb128 0x1
+ 253 00c0 9C       		.byte	0x9c
+ 254 00c1 83010000 		.4byte	0x183
+ 255 00c5 06       		.uleb128 0x6
+ 256 00c6 F5000000 		.4byte	.LASF16
+ 257 00ca 01       		.byte	0x1
+ 258 00cb 12       		.byte	0x12
+ 259 00cc 8C000000 		.4byte	0x8c
+ 260 00d0 00000000 		.4byte	.LLST0
+ 261 00d4 06       		.uleb128 0x6
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccJ7z5ta.s 			page 7
 
 
- 267 00c2 05       		.uleb128 0x5
- 268 00c3 AF000000 		.4byte	.LASF33
- 269 00c7 01       		.byte	0x1
- 270 00c8 0F       		.byte	0xf
- 271 00c9 97000000 		.4byte	0x97
- 272 00cd 00000000 		.4byte	.LFB1
- 273 00d1 AC000000 		.4byte	.LFE1-.LFB1
- 274 00d5 01       		.uleb128 0x1
- 275 00d6 9C       		.byte	0x9c
- 276 00d7 D1010000 		.4byte	0x1d1
- 277 00db 06       		.uleb128 0x6
- 278 00dc 00010000 		.4byte	.LASF18
- 279 00e0 01       		.byte	0x1
- 280 00e1 0F       		.byte	0xf
- 281 00e2 97000000 		.4byte	0x97
- 282 00e6 00000000 		.4byte	.LLST0
- 283 00ea 06       		.uleb128 0x6
- 284 00eb E0000000 		.4byte	.LASF19
- 285 00ef 01       		.byte	0x1
- 286 00f0 0F       		.byte	0xf
- 287 00f1 97000000 		.4byte	0x97
- 288 00f5 21000000 		.4byte	.LLST1
- 289 00f9 07       		.uleb128 0x7
- 290 00fa 4B7000   		.ascii	"Kp\000"
- 291 00fd 01       		.byte	0x1
- 292 00fe 12       		.byte	0x12
- 293 00ff 8C000000 		.4byte	0x8c
- 294 0103 401F     		.2byte	0x1f40
- 295 0105 08       		.uleb128 0x8
- 296 0106 4B6900   		.ascii	"Ki\000"
- 297 0109 01       		.byte	0x1
- 298 010a 13       		.byte	0x13
- 299 010b 8C000000 		.4byte	0x8c
- 300 010f 64       		.byte	0x64
- 301 0110 08       		.uleb128 0x8
- 302 0111 4B6400   		.ascii	"Kd\000"
- 303 0114 01       		.byte	0x1
- 304 0115 14       		.byte	0x14
- 305 0116 8C000000 		.4byte	0x8c
- 306 011a 00       		.byte	0
- 307 011b 09       		.uleb128 0x9
- 308 011c 7F000000 		.4byte	.LASF20
- 309 0120 01       		.byte	0x1
- 310 0121 17       		.byte	0x17
- 311 0122 8C000000 		.4byte	0x8c
- 312 0126 2003     		.2byte	0x320
- 313 0128 0A       		.uleb128 0xa
- 314 0129 E9000000 		.4byte	.LASF21
- 315 012d 01       		.byte	0x1
- 316 012e 18       		.byte	0x18
- 317 012f 8C000000 		.4byte	0x8c
- 318 0133 FA       		.byte	0xfa
- 319 0134 09       		.uleb128 0x9
- 320 0135 20010000 		.4byte	.LASF22
- 321 0139 01       		.byte	0x1
- 322 013a 19       		.byte	0x19
- 323 013b 8C000000 		.4byte	0x8c
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccOXsGX7.s 			page 8
+ 262 00d5 D5000000 		.4byte	.LASF17
+ 263 00d9 01       		.byte	0x1
+ 264 00da 12       		.byte	0x12
+ 265 00db 8C000000 		.4byte	0x8c
+ 266 00df 21000000 		.4byte	.LLST1
+ 267 00e3 07       		.uleb128 0x7
+ 268 00e4 4B7000   		.ascii	"Kp\000"
+ 269 00e7 01       		.byte	0x1
+ 270 00e8 17       		.byte	0x17
+ 271 00e9 81000000 		.4byte	0x81
+ 272 00ed 401F     		.2byte	0x1f40
+ 273 00ef 08       		.uleb128 0x8
+ 274 00f0 4B6900   		.ascii	"Ki\000"
+ 275 00f3 01       		.byte	0x1
+ 276 00f4 18       		.byte	0x18
+ 277 00f5 81000000 		.4byte	0x81
+ 278 00f9 64       		.byte	0x64
+ 279 00fa 08       		.uleb128 0x8
+ 280 00fb 4B6400   		.ascii	"Kd\000"
+ 281 00fe 01       		.byte	0x1
+ 282 00ff 19       		.byte	0x19
+ 283 0100 81000000 		.4byte	0x81
+ 284 0104 00       		.byte	0
+ 285 0105 09       		.uleb128 0x9
+ 286 0106 7F000000 		.4byte	.LASF18
+ 287 010a 01       		.byte	0x1
+ 288 010b 1C       		.byte	0x1c
+ 289 010c 81000000 		.4byte	0x81
+ 290 0110 9001     		.2byte	0x190
+ 291 0112 0A       		.uleb128 0xa
+ 292 0113 DE000000 		.4byte	.LASF19
+ 293 0117 01       		.byte	0x1
+ 294 0118 1D       		.byte	0x1d
+ 295 0119 81000000 		.4byte	0x81
+ 296 011d FA       		.byte	0xfa
+ 297 011e 09       		.uleb128 0x9
+ 298 011f 15010000 		.4byte	.LASF20
+ 299 0123 01       		.byte	0x1
+ 300 0124 1E       		.byte	0x1e
+ 301 0125 81000000 		.4byte	0x81
+ 302 0129 E803     		.2byte	0x3e8
+ 303 012b 0B       		.uleb128 0xb
+ 304 012c BE010000 		.4byte	.LASF21
+ 305 0130 01       		.byte	0x1
+ 306 0131 22       		.byte	0x22
+ 307 0132 83010000 		.4byte	0x183
+ 308 0136 02       		.uleb128 0x2
+ 309 0137 91       		.byte	0x91
+ 310 0138 74       		.sleb128 -12
+ 311 0139 0B       		.uleb128 0xb
+ 312 013a 12020000 		.4byte	.LASF22
+ 313 013e 01       		.byte	0x1
+ 314 013f 24       		.byte	0x24
+ 315 0140 83010000 		.4byte	0x183
+ 316 0144 02       		.uleb128 0x2
+ 317 0145 91       		.byte	0x91
+ 318 0146 70       		.sleb128 -16
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccJ7z5ta.s 			page 8
 
 
- 324 013f E803     		.2byte	0x3e8
- 325 0141 0B       		.uleb128 0xb
- 326 0142 C9010000 		.4byte	.LASF23
- 327 0146 01       		.byte	0x1
- 328 0147 1D       		.byte	0x1d
- 329 0148 D1010000 		.4byte	0x1d1
- 330 014c 02       		.uleb128 0x2
- 331 014d 91       		.byte	0x91
- 332 014e 74       		.sleb128 -12
- 333 014f 0B       		.uleb128 0xb
- 334 0150 59000000 		.4byte	.LASF24
- 335 0154 01       		.byte	0x1
- 336 0155 1E       		.byte	0x1e
- 337 0156 97000000 		.4byte	0x97
- 338 015a 05       		.uleb128 0x5
- 339 015b 03       		.byte	0x3
- 340 015c 00000000 		.4byte	iterm.5186
- 341 0160 0C       		.uleb128 0xc
- 342 0161 517000   		.ascii	"Qp\000"
- 343 0164 01       		.byte	0x1
- 344 0165 1F       		.byte	0x1f
- 345 0166 D6010000 		.4byte	0x1d6
- 346 016a 02       		.uleb128 0x2
- 347 016b 91       		.byte	0x91
- 348 016c 70       		.sleb128 -16
- 349 016d 0C       		.uleb128 0xc
- 350 016e 516900   		.ascii	"Qi\000"
- 351 0171 01       		.byte	0x1
- 352 0172 1F       		.byte	0x1f
- 353 0173 D6010000 		.4byte	0x1d6
- 354 0177 02       		.uleb128 0x2
- 355 0178 91       		.byte	0x91
- 356 0179 6C       		.sleb128 -20
- 357 017a 0C       		.uleb128 0xc
- 358 017b 516400   		.ascii	"Qd\000"
- 359 017e 01       		.byte	0x1
- 360 017f 1F       		.byte	0x1f
- 361 0180 D6010000 		.4byte	0x1d6
- 362 0184 02       		.uleb128 0x2
- 363 0185 91       		.byte	0x91
- 364 0186 68       		.sleb128 -24
- 365 0187 0B       		.uleb128 0xb
- 366 0188 26020000 		.4byte	.LASF25
- 367 018c 01       		.byte	0x1
- 368 018d 20       		.byte	0x20
- 369 018e D1010000 		.4byte	0x1d1
- 370 0192 02       		.uleb128 0x2
- 371 0193 91       		.byte	0x91
- 372 0194 64       		.sleb128 -28
- 373 0195 0B       		.uleb128 0xb
- 374 0196 5F000000 		.4byte	.LASF26
- 375 019a 01       		.byte	0x1
- 376 019b 21       		.byte	0x21
- 377 019c D1010000 		.4byte	0x1d1
- 378 01a0 02       		.uleb128 0x2
- 379 01a1 91       		.byte	0x91
- 380 01a2 60       		.sleb128 -32
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccOXsGX7.s 			page 9
+ 319 0147 0B       		.uleb128 0xb
+ 320 0148 5F000000 		.4byte	.LASF23
+ 321 014c 01       		.byte	0x1
+ 322 014d 25       		.byte	0x25
+ 323 014e 83010000 		.4byte	0x183
+ 324 0152 02       		.uleb128 0x2
+ 325 0153 91       		.byte	0x91
+ 326 0154 6C       		.sleb128 -20
+ 327 0155 0B       		.uleb128 0xb
+ 328 0156 CB000000 		.4byte	.LASF24
+ 329 015a 01       		.byte	0x1
+ 330 015b 26       		.byte	0x26
+ 331 015c 83010000 		.4byte	0x183
+ 332 0160 02       		.uleb128 0x2
+ 333 0161 91       		.byte	0x91
+ 334 0162 68       		.sleb128 -24
+ 335 0163 0B       		.uleb128 0xb
+ 336 0164 E1010000 		.4byte	.LASF25
+ 337 0168 01       		.byte	0x1
+ 338 0169 27       		.byte	0x27
+ 339 016a 83010000 		.4byte	0x183
+ 340 016e 02       		.uleb128 0x2
+ 341 016f 91       		.byte	0x91
+ 342 0170 64       		.sleb128 -28
+ 343 0171 0B       		.uleb128 0xb
+ 344 0172 42000000 		.4byte	.LASF26
+ 345 0176 01       		.byte	0x1
+ 346 0177 28       		.byte	0x28
+ 347 0178 8C000000 		.4byte	0x8c
+ 348 017c 05       		.uleb128 0x5
+ 349 017d 03       		.byte	0x3
+ 350 017e 00000000 		.4byte	lastposition.5191
+ 351 0182 00       		.byte	0
+ 352 0183 0C       		.uleb128 0xc
+ 353 0184 8C000000 		.4byte	0x8c
+ 354 0188 0D       		.uleb128 0xd
+ 355 0189 59000000 		.4byte	.LASF31
+ 356 018d 04       		.byte	0x4
+ 357 018e 0C       		.byte	0xc
+ 358 018f 8C000000 		.4byte	0x8c
+ 359 0193 05       		.uleb128 0x5
+ 360 0194 03       		.byte	0x3
+ 361 0195 00000000 		.4byte	iterm
+ 362 0199 00       		.byte	0
+ 363              		.section	.debug_abbrev,"",%progbits
+ 364              	.Ldebug_abbrev0:
+ 365 0000 01       		.uleb128 0x1
+ 366 0001 11       		.uleb128 0x11
+ 367 0002 01       		.byte	0x1
+ 368 0003 25       		.uleb128 0x25
+ 369 0004 0E       		.uleb128 0xe
+ 370 0005 13       		.uleb128 0x13
+ 371 0006 0B       		.uleb128 0xb
+ 372 0007 03       		.uleb128 0x3
+ 373 0008 0E       		.uleb128 0xe
+ 374 0009 1B       		.uleb128 0x1b
+ 375 000a 0E       		.uleb128 0xe
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccJ7z5ta.s 			page 9
 
 
- 381 01a3 0B       		.uleb128 0xb
- 382 01a4 D6000000 		.4byte	.LASF27
- 383 01a8 01       		.byte	0x1
- 384 01a9 22       		.byte	0x22
- 385 01aa D1010000 		.4byte	0x1d1
- 386 01ae 02       		.uleb128 0x2
- 387 01af 91       		.byte	0x91
- 388 01b0 5C       		.sleb128 -36
- 389 01b1 0B       		.uleb128 0xb
- 390 01b2 EC010000 		.4byte	.LASF28
- 391 01b6 01       		.byte	0x1
- 392 01b7 23       		.byte	0x23
- 393 01b8 D1010000 		.4byte	0x1d1
- 394 01bc 02       		.uleb128 0x2
- 395 01bd 91       		.byte	0x91
- 396 01be 58       		.sleb128 -40
- 397 01bf 0B       		.uleb128 0xb
- 398 01c0 42000000 		.4byte	.LASF29
- 399 01c4 01       		.byte	0x1
- 400 01c5 24       		.byte	0x24
- 401 01c6 97000000 		.4byte	0x97
- 402 01ca 05       		.uleb128 0x5
- 403 01cb 03       		.byte	0x3
- 404 01cc 04000000 		.4byte	lastposition.5194
- 405 01d0 00       		.byte	0
- 406 01d1 0D       		.uleb128 0xd
- 407 01d2 97000000 		.4byte	0x97
- 408 01d6 0D       		.uleb128 0xd
- 409 01d7 A2000000 		.4byte	0xa2
- 410 01db 00       		.byte	0
- 411              		.section	.debug_abbrev,"",%progbits
- 412              	.Ldebug_abbrev0:
- 413 0000 01       		.uleb128 0x1
- 414 0001 11       		.uleb128 0x11
- 415 0002 01       		.byte	0x1
- 416 0003 25       		.uleb128 0x25
- 417 0004 0E       		.uleb128 0xe
- 418 0005 13       		.uleb128 0x13
- 419 0006 0B       		.uleb128 0xb
- 420 0007 03       		.uleb128 0x3
- 421 0008 0E       		.uleb128 0xe
- 422 0009 1B       		.uleb128 0x1b
- 423 000a 0E       		.uleb128 0xe
- 424 000b 55       		.uleb128 0x55
- 425 000c 17       		.uleb128 0x17
- 426 000d 11       		.uleb128 0x11
- 427 000e 01       		.uleb128 0x1
- 428 000f 10       		.uleb128 0x10
- 429 0010 17       		.uleb128 0x17
- 430 0011 00       		.byte	0
- 431 0012 00       		.byte	0
- 432 0013 02       		.uleb128 0x2
- 433 0014 24       		.uleb128 0x24
- 434 0015 00       		.byte	0
- 435 0016 0B       		.uleb128 0xb
- 436 0017 0B       		.uleb128 0xb
- 437 0018 3E       		.uleb128 0x3e
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccOXsGX7.s 			page 10
+ 376 000b 55       		.uleb128 0x55
+ 377 000c 17       		.uleb128 0x17
+ 378 000d 11       		.uleb128 0x11
+ 379 000e 01       		.uleb128 0x1
+ 380 000f 10       		.uleb128 0x10
+ 381 0010 17       		.uleb128 0x17
+ 382 0011 00       		.byte	0
+ 383 0012 00       		.byte	0
+ 384 0013 02       		.uleb128 0x2
+ 385 0014 24       		.uleb128 0x24
+ 386 0015 00       		.byte	0
+ 387 0016 0B       		.uleb128 0xb
+ 388 0017 0B       		.uleb128 0xb
+ 389 0018 3E       		.uleb128 0x3e
+ 390 0019 0B       		.uleb128 0xb
+ 391 001a 03       		.uleb128 0x3
+ 392 001b 0E       		.uleb128 0xe
+ 393 001c 00       		.byte	0
+ 394 001d 00       		.byte	0
+ 395 001e 03       		.uleb128 0x3
+ 396 001f 16       		.uleb128 0x16
+ 397 0020 00       		.byte	0
+ 398 0021 03       		.uleb128 0x3
+ 399 0022 0E       		.uleb128 0xe
+ 400 0023 3A       		.uleb128 0x3a
+ 401 0024 0B       		.uleb128 0xb
+ 402 0025 3B       		.uleb128 0x3b
+ 403 0026 0B       		.uleb128 0xb
+ 404 0027 49       		.uleb128 0x49
+ 405 0028 13       		.uleb128 0x13
+ 406 0029 00       		.byte	0
+ 407 002a 00       		.byte	0
+ 408 002b 04       		.uleb128 0x4
+ 409 002c 24       		.uleb128 0x24
+ 410 002d 00       		.byte	0
+ 411 002e 0B       		.uleb128 0xb
+ 412 002f 0B       		.uleb128 0xb
+ 413 0030 3E       		.uleb128 0x3e
+ 414 0031 0B       		.uleb128 0xb
+ 415 0032 03       		.uleb128 0x3
+ 416 0033 08       		.uleb128 0x8
+ 417 0034 00       		.byte	0
+ 418 0035 00       		.byte	0
+ 419 0036 05       		.uleb128 0x5
+ 420 0037 2E       		.uleb128 0x2e
+ 421 0038 01       		.byte	0x1
+ 422 0039 3F       		.uleb128 0x3f
+ 423 003a 19       		.uleb128 0x19
+ 424 003b 03       		.uleb128 0x3
+ 425 003c 0E       		.uleb128 0xe
+ 426 003d 3A       		.uleb128 0x3a
+ 427 003e 0B       		.uleb128 0xb
+ 428 003f 3B       		.uleb128 0x3b
+ 429 0040 0B       		.uleb128 0xb
+ 430 0041 27       		.uleb128 0x27
+ 431 0042 19       		.uleb128 0x19
+ 432 0043 49       		.uleb128 0x49
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccJ7z5ta.s 			page 10
 
 
- 438 0019 0B       		.uleb128 0xb
- 439 001a 03       		.uleb128 0x3
- 440 001b 0E       		.uleb128 0xe
- 441 001c 00       		.byte	0
- 442 001d 00       		.byte	0
- 443 001e 03       		.uleb128 0x3
- 444 001f 16       		.uleb128 0x16
- 445 0020 00       		.byte	0
- 446 0021 03       		.uleb128 0x3
- 447 0022 0E       		.uleb128 0xe
- 448 0023 3A       		.uleb128 0x3a
- 449 0024 0B       		.uleb128 0xb
- 450 0025 3B       		.uleb128 0x3b
- 451 0026 0B       		.uleb128 0xb
- 452 0027 49       		.uleb128 0x49
- 453 0028 13       		.uleb128 0x13
- 454 0029 00       		.byte	0
- 455 002a 00       		.byte	0
- 456 002b 04       		.uleb128 0x4
- 457 002c 24       		.uleb128 0x24
- 458 002d 00       		.byte	0
- 459 002e 0B       		.uleb128 0xb
- 460 002f 0B       		.uleb128 0xb
- 461 0030 3E       		.uleb128 0x3e
- 462 0031 0B       		.uleb128 0xb
- 463 0032 03       		.uleb128 0x3
- 464 0033 08       		.uleb128 0x8
- 465 0034 00       		.byte	0
- 466 0035 00       		.byte	0
- 467 0036 05       		.uleb128 0x5
- 468 0037 2E       		.uleb128 0x2e
- 469 0038 01       		.byte	0x1
- 470 0039 3F       		.uleb128 0x3f
- 471 003a 19       		.uleb128 0x19
- 472 003b 03       		.uleb128 0x3
- 473 003c 0E       		.uleb128 0xe
- 474 003d 3A       		.uleb128 0x3a
- 475 003e 0B       		.uleb128 0xb
- 476 003f 3B       		.uleb128 0x3b
- 477 0040 0B       		.uleb128 0xb
- 478 0041 27       		.uleb128 0x27
- 479 0042 19       		.uleb128 0x19
- 480 0043 49       		.uleb128 0x49
- 481 0044 13       		.uleb128 0x13
- 482 0045 11       		.uleb128 0x11
- 483 0046 01       		.uleb128 0x1
- 484 0047 12       		.uleb128 0x12
- 485 0048 06       		.uleb128 0x6
- 486 0049 40       		.uleb128 0x40
- 487 004a 18       		.uleb128 0x18
- 488 004b 9642     		.uleb128 0x2116
- 489 004d 19       		.uleb128 0x19
- 490 004e 01       		.uleb128 0x1
- 491 004f 13       		.uleb128 0x13
- 492 0050 00       		.byte	0
- 493 0051 00       		.byte	0
- 494 0052 06       		.uleb128 0x6
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccOXsGX7.s 			page 11
+ 433 0044 13       		.uleb128 0x13
+ 434 0045 11       		.uleb128 0x11
+ 435 0046 01       		.uleb128 0x1
+ 436 0047 12       		.uleb128 0x12
+ 437 0048 06       		.uleb128 0x6
+ 438 0049 40       		.uleb128 0x40
+ 439 004a 18       		.uleb128 0x18
+ 440 004b 9642     		.uleb128 0x2116
+ 441 004d 19       		.uleb128 0x19
+ 442 004e 01       		.uleb128 0x1
+ 443 004f 13       		.uleb128 0x13
+ 444 0050 00       		.byte	0
+ 445 0051 00       		.byte	0
+ 446 0052 06       		.uleb128 0x6
+ 447 0053 05       		.uleb128 0x5
+ 448 0054 00       		.byte	0
+ 449 0055 03       		.uleb128 0x3
+ 450 0056 0E       		.uleb128 0xe
+ 451 0057 3A       		.uleb128 0x3a
+ 452 0058 0B       		.uleb128 0xb
+ 453 0059 3B       		.uleb128 0x3b
+ 454 005a 0B       		.uleb128 0xb
+ 455 005b 49       		.uleb128 0x49
+ 456 005c 13       		.uleb128 0x13
+ 457 005d 02       		.uleb128 0x2
+ 458 005e 17       		.uleb128 0x17
+ 459 005f 00       		.byte	0
+ 460 0060 00       		.byte	0
+ 461 0061 07       		.uleb128 0x7
+ 462 0062 34       		.uleb128 0x34
+ 463 0063 00       		.byte	0
+ 464 0064 03       		.uleb128 0x3
+ 465 0065 08       		.uleb128 0x8
+ 466 0066 3A       		.uleb128 0x3a
+ 467 0067 0B       		.uleb128 0xb
+ 468 0068 3B       		.uleb128 0x3b
+ 469 0069 0B       		.uleb128 0xb
+ 470 006a 49       		.uleb128 0x49
+ 471 006b 13       		.uleb128 0x13
+ 472 006c 1C       		.uleb128 0x1c
+ 473 006d 05       		.uleb128 0x5
+ 474 006e 00       		.byte	0
+ 475 006f 00       		.byte	0
+ 476 0070 08       		.uleb128 0x8
+ 477 0071 34       		.uleb128 0x34
+ 478 0072 00       		.byte	0
+ 479 0073 03       		.uleb128 0x3
+ 480 0074 08       		.uleb128 0x8
+ 481 0075 3A       		.uleb128 0x3a
+ 482 0076 0B       		.uleb128 0xb
+ 483 0077 3B       		.uleb128 0x3b
+ 484 0078 0B       		.uleb128 0xb
+ 485 0079 49       		.uleb128 0x49
+ 486 007a 13       		.uleb128 0x13
+ 487 007b 1C       		.uleb128 0x1c
+ 488 007c 0B       		.uleb128 0xb
+ 489 007d 00       		.byte	0
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccJ7z5ta.s 			page 11
 
 
- 495 0053 05       		.uleb128 0x5
- 496 0054 00       		.byte	0
- 497 0055 03       		.uleb128 0x3
- 498 0056 0E       		.uleb128 0xe
- 499 0057 3A       		.uleb128 0x3a
- 500 0058 0B       		.uleb128 0xb
- 501 0059 3B       		.uleb128 0x3b
- 502 005a 0B       		.uleb128 0xb
- 503 005b 49       		.uleb128 0x49
- 504 005c 13       		.uleb128 0x13
- 505 005d 02       		.uleb128 0x2
- 506 005e 17       		.uleb128 0x17
- 507 005f 00       		.byte	0
- 508 0060 00       		.byte	0
- 509 0061 07       		.uleb128 0x7
- 510 0062 34       		.uleb128 0x34
- 511 0063 00       		.byte	0
- 512 0064 03       		.uleb128 0x3
- 513 0065 08       		.uleb128 0x8
- 514 0066 3A       		.uleb128 0x3a
- 515 0067 0B       		.uleb128 0xb
- 516 0068 3B       		.uleb128 0x3b
- 517 0069 0B       		.uleb128 0xb
- 518 006a 49       		.uleb128 0x49
- 519 006b 13       		.uleb128 0x13
- 520 006c 1C       		.uleb128 0x1c
- 521 006d 05       		.uleb128 0x5
- 522 006e 00       		.byte	0
- 523 006f 00       		.byte	0
- 524 0070 08       		.uleb128 0x8
- 525 0071 34       		.uleb128 0x34
- 526 0072 00       		.byte	0
- 527 0073 03       		.uleb128 0x3
- 528 0074 08       		.uleb128 0x8
- 529 0075 3A       		.uleb128 0x3a
- 530 0076 0B       		.uleb128 0xb
- 531 0077 3B       		.uleb128 0x3b
- 532 0078 0B       		.uleb128 0xb
- 533 0079 49       		.uleb128 0x49
- 534 007a 13       		.uleb128 0x13
- 535 007b 1C       		.uleb128 0x1c
- 536 007c 0B       		.uleb128 0xb
- 537 007d 00       		.byte	0
- 538 007e 00       		.byte	0
- 539 007f 09       		.uleb128 0x9
- 540 0080 34       		.uleb128 0x34
- 541 0081 00       		.byte	0
- 542 0082 03       		.uleb128 0x3
- 543 0083 0E       		.uleb128 0xe
- 544 0084 3A       		.uleb128 0x3a
- 545 0085 0B       		.uleb128 0xb
- 546 0086 3B       		.uleb128 0x3b
- 547 0087 0B       		.uleb128 0xb
- 548 0088 49       		.uleb128 0x49
- 549 0089 13       		.uleb128 0x13
- 550 008a 1C       		.uleb128 0x1c
- 551 008b 05       		.uleb128 0x5
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccOXsGX7.s 			page 12
+ 490 007e 00       		.byte	0
+ 491 007f 09       		.uleb128 0x9
+ 492 0080 34       		.uleb128 0x34
+ 493 0081 00       		.byte	0
+ 494 0082 03       		.uleb128 0x3
+ 495 0083 0E       		.uleb128 0xe
+ 496 0084 3A       		.uleb128 0x3a
+ 497 0085 0B       		.uleb128 0xb
+ 498 0086 3B       		.uleb128 0x3b
+ 499 0087 0B       		.uleb128 0xb
+ 500 0088 49       		.uleb128 0x49
+ 501 0089 13       		.uleb128 0x13
+ 502 008a 1C       		.uleb128 0x1c
+ 503 008b 05       		.uleb128 0x5
+ 504 008c 00       		.byte	0
+ 505 008d 00       		.byte	0
+ 506 008e 0A       		.uleb128 0xa
+ 507 008f 34       		.uleb128 0x34
+ 508 0090 00       		.byte	0
+ 509 0091 03       		.uleb128 0x3
+ 510 0092 0E       		.uleb128 0xe
+ 511 0093 3A       		.uleb128 0x3a
+ 512 0094 0B       		.uleb128 0xb
+ 513 0095 3B       		.uleb128 0x3b
+ 514 0096 0B       		.uleb128 0xb
+ 515 0097 49       		.uleb128 0x49
+ 516 0098 13       		.uleb128 0x13
+ 517 0099 1C       		.uleb128 0x1c
+ 518 009a 0B       		.uleb128 0xb
+ 519 009b 00       		.byte	0
+ 520 009c 00       		.byte	0
+ 521 009d 0B       		.uleb128 0xb
+ 522 009e 34       		.uleb128 0x34
+ 523 009f 00       		.byte	0
+ 524 00a0 03       		.uleb128 0x3
+ 525 00a1 0E       		.uleb128 0xe
+ 526 00a2 3A       		.uleb128 0x3a
+ 527 00a3 0B       		.uleb128 0xb
+ 528 00a4 3B       		.uleb128 0x3b
+ 529 00a5 0B       		.uleb128 0xb
+ 530 00a6 49       		.uleb128 0x49
+ 531 00a7 13       		.uleb128 0x13
+ 532 00a8 02       		.uleb128 0x2
+ 533 00a9 18       		.uleb128 0x18
+ 534 00aa 00       		.byte	0
+ 535 00ab 00       		.byte	0
+ 536 00ac 0C       		.uleb128 0xc
+ 537 00ad 35       		.uleb128 0x35
+ 538 00ae 00       		.byte	0
+ 539 00af 49       		.uleb128 0x49
+ 540 00b0 13       		.uleb128 0x13
+ 541 00b1 00       		.byte	0
+ 542 00b2 00       		.byte	0
+ 543 00b3 0D       		.uleb128 0xd
+ 544 00b4 34       		.uleb128 0x34
+ 545 00b5 00       		.byte	0
+ 546 00b6 03       		.uleb128 0x3
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccJ7z5ta.s 			page 12
 
 
- 552 008c 00       		.byte	0
- 553 008d 00       		.byte	0
- 554 008e 0A       		.uleb128 0xa
- 555 008f 34       		.uleb128 0x34
- 556 0090 00       		.byte	0
- 557 0091 03       		.uleb128 0x3
- 558 0092 0E       		.uleb128 0xe
- 559 0093 3A       		.uleb128 0x3a
- 560 0094 0B       		.uleb128 0xb
- 561 0095 3B       		.uleb128 0x3b
- 562 0096 0B       		.uleb128 0xb
- 563 0097 49       		.uleb128 0x49
- 564 0098 13       		.uleb128 0x13
- 565 0099 1C       		.uleb128 0x1c
- 566 009a 0B       		.uleb128 0xb
- 567 009b 00       		.byte	0
- 568 009c 00       		.byte	0
- 569 009d 0B       		.uleb128 0xb
- 570 009e 34       		.uleb128 0x34
- 571 009f 00       		.byte	0
- 572 00a0 03       		.uleb128 0x3
- 573 00a1 0E       		.uleb128 0xe
- 574 00a2 3A       		.uleb128 0x3a
- 575 00a3 0B       		.uleb128 0xb
- 576 00a4 3B       		.uleb128 0x3b
- 577 00a5 0B       		.uleb128 0xb
- 578 00a6 49       		.uleb128 0x49
- 579 00a7 13       		.uleb128 0x13
- 580 00a8 02       		.uleb128 0x2
- 581 00a9 18       		.uleb128 0x18
- 582 00aa 00       		.byte	0
- 583 00ab 00       		.byte	0
- 584 00ac 0C       		.uleb128 0xc
- 585 00ad 34       		.uleb128 0x34
- 586 00ae 00       		.byte	0
- 587 00af 03       		.uleb128 0x3
- 588 00b0 08       		.uleb128 0x8
- 589 00b1 3A       		.uleb128 0x3a
- 590 00b2 0B       		.uleb128 0xb
- 591 00b3 3B       		.uleb128 0x3b
- 592 00b4 0B       		.uleb128 0xb
- 593 00b5 49       		.uleb128 0x49
- 594 00b6 13       		.uleb128 0x13
- 595 00b7 02       		.uleb128 0x2
- 596 00b8 18       		.uleb128 0x18
- 597 00b9 00       		.byte	0
- 598 00ba 00       		.byte	0
- 599 00bb 0D       		.uleb128 0xd
- 600 00bc 35       		.uleb128 0x35
- 601 00bd 00       		.byte	0
- 602 00be 49       		.uleb128 0x49
- 603 00bf 13       		.uleb128 0x13
- 604 00c0 00       		.byte	0
- 605 00c1 00       		.byte	0
- 606 00c2 00       		.byte	0
- 607              		.section	.debug_loc,"",%progbits
- 608              	.Ldebug_loc0:
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccOXsGX7.s 			page 13
+ 547 00b7 0E       		.uleb128 0xe
+ 548 00b8 3A       		.uleb128 0x3a
+ 549 00b9 0B       		.uleb128 0xb
+ 550 00ba 3B       		.uleb128 0x3b
+ 551 00bb 0B       		.uleb128 0xb
+ 552 00bc 49       		.uleb128 0x49
+ 553 00bd 13       		.uleb128 0x13
+ 554 00be 3F       		.uleb128 0x3f
+ 555 00bf 19       		.uleb128 0x19
+ 556 00c0 02       		.uleb128 0x2
+ 557 00c1 18       		.uleb128 0x18
+ 558 00c2 00       		.byte	0
+ 559 00c3 00       		.byte	0
+ 560 00c4 00       		.byte	0
+ 561              		.section	.debug_loc,"",%progbits
+ 562              	.Ldebug_loc0:
+ 563              	.LLST0:
+ 564 0000 00000000 		.4byte	.LVL0
+ 565 0004 10000000 		.4byte	.LVL2
+ 566 0008 0100     		.2byte	0x1
+ 567 000a 50       		.byte	0x50
+ 568 000b 10000000 		.4byte	.LVL2
+ 569 000f A0000000 		.4byte	.LFE1
+ 570 0013 0400     		.2byte	0x4
+ 571 0015 F3       		.byte	0xf3
+ 572 0016 01       		.uleb128 0x1
+ 573 0017 50       		.byte	0x50
+ 574 0018 9F       		.byte	0x9f
+ 575 0019 00000000 		.4byte	0
+ 576 001d 00000000 		.4byte	0
+ 577              	.LLST1:
+ 578 0021 00000000 		.4byte	.LVL0
+ 579 0025 1C000000 		.4byte	.LVL3
+ 580 0029 0100     		.2byte	0x1
+ 581 002b 51       		.byte	0x51
+ 582 002c 1C000000 		.4byte	.LVL3
+ 583 0030 8C000000 		.4byte	.LVL5
+ 584 0034 0100     		.2byte	0x1
+ 585 0036 54       		.byte	0x54
+ 586 0037 8C000000 		.4byte	.LVL5
+ 587 003b A0000000 		.4byte	.LFE1
+ 588 003f 0500     		.2byte	0x5
+ 589 0041 03       		.byte	0x3
+ 590 0042 00000000 		.4byte	lastposition.5191
+ 591 0046 00000000 		.4byte	0
+ 592 004a 00000000 		.4byte	0
+ 593              		.section	.debug_aranges,"",%progbits
+ 594 0000 1C000000 		.4byte	0x1c
+ 595 0004 0200     		.2byte	0x2
+ 596 0006 00000000 		.4byte	.Ldebug_info0
+ 597 000a 04       		.byte	0x4
+ 598 000b 00       		.byte	0
+ 599 000c 0000     		.2byte	0
+ 600 000e 0000     		.2byte	0
+ 601 0010 00000000 		.4byte	.LFB1
+ 602 0014 A0000000 		.4byte	.LFE1-.LFB1
+ 603 0018 00000000 		.4byte	0
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccJ7z5ta.s 			page 13
 
 
- 609              	.LLST0:
- 610 0000 00000000 		.4byte	.LVL0
- 611 0004 1E000000 		.4byte	.LVL2
- 612 0008 0100     		.2byte	0x1
- 613 000a 50       		.byte	0x50
- 614 000b 1E000000 		.4byte	.LVL2
- 615 000f AC000000 		.4byte	.LFE1
- 616 0013 0400     		.2byte	0x4
- 617 0015 F3       		.byte	0xf3
- 618 0016 01       		.uleb128 0x1
- 619 0017 50       		.byte	0x50
- 620 0018 9F       		.byte	0x9f
- 621 0019 00000000 		.4byte	0
- 622 001d 00000000 		.4byte	0
- 623              	.LLST1:
- 624 0021 00000000 		.4byte	.LVL0
- 625 0025 2A000000 		.4byte	.LVL3
- 626 0029 0100     		.2byte	0x1
- 627 002b 51       		.byte	0x51
- 628 002c 2A000000 		.4byte	.LVL3
- 629 0030 9C000000 		.4byte	.LVL5
- 630 0034 0100     		.2byte	0x1
- 631 0036 54       		.byte	0x54
- 632 0037 9C000000 		.4byte	.LVL5
- 633 003b AC000000 		.4byte	.LFE1
- 634 003f 0500     		.2byte	0x5
- 635 0041 03       		.byte	0x3
- 636 0042 04000000 		.4byte	lastposition.5194
- 637 0046 00000000 		.4byte	0
- 638 004a 00000000 		.4byte	0
- 639              		.section	.debug_aranges,"",%progbits
- 640 0000 1C000000 		.4byte	0x1c
- 641 0004 0200     		.2byte	0x2
- 642 0006 00000000 		.4byte	.Ldebug_info0
- 643 000a 04       		.byte	0x4
- 644 000b 00       		.byte	0
- 645 000c 0000     		.2byte	0
- 646 000e 0000     		.2byte	0
- 647 0010 00000000 		.4byte	.LFB1
- 648 0014 AC000000 		.4byte	.LFE1-.LFB1
- 649 0018 00000000 		.4byte	0
- 650 001c 00000000 		.4byte	0
- 651              		.section	.debug_ranges,"",%progbits
- 652              	.Ldebug_ranges0:
- 653 0000 00000000 		.4byte	.LFB1
- 654 0004 AC000000 		.4byte	.LFE1
- 655 0008 00000000 		.4byte	0
- 656 000c 00000000 		.4byte	0
- 657              		.section	.debug_line,"",%progbits
- 658              	.Ldebug_line0:
- 659 0000 45010000 		.section	.debug_str,"MS",%progbits,1
- 659      02001901 
- 659      00000201 
- 659      FB0E0D00 
- 659      01010101 
- 660              	.LASF32:
- 661 0000 433A5C55 		.ascii	"C:\\Users\\prichards\\proj\\acsnb-motor-cypress\\Qu"
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccOXsGX7.s 			page 14
+ 604 001c 00000000 		.4byte	0
+ 605              		.section	.debug_ranges,"",%progbits
+ 606              	.Ldebug_ranges0:
+ 607 0000 00000000 		.4byte	.LFB1
+ 608 0004 A0000000 		.4byte	.LFE1
+ 609 0008 00000000 		.4byte	0
+ 610 000c 00000000 		.4byte	0
+ 611              		.section	.debug_line,"",%progbits
+ 612              	.Ldebug_line0:
+ 613 0000 4B010000 		.section	.debug_str,"MS",%progbits,1
+ 613      02002201 
+ 613      00000201 
+ 613      FB0E0D00 
+ 613      01010101 
+ 614              	.LASF29:
+ 615 0000 433A5C55 		.ascii	"C:\\Users\\prichards\\proj\\acsnb-motor-cypress\\Qu"
+ 615      73657273 
+ 615      5C707269 
+ 615      63686172 
+ 615      64735C70 
+ 616 002e 6164456E 		.ascii	"adEncoderRTOS.cydsn\000"
+ 616      636F6465 
+ 616      7252544F 
+ 616      532E6379 
+ 616      64736E00 
+ 617              	.LASF26:
+ 618 0042 6C617374 		.ascii	"lastposition\000"
+ 618      706F7369 
+ 618      74696F6E 
+ 618      00
+ 619              	.LASF5:
+ 620 004f 5F5F696E 		.ascii	"__int32_t\000"
+ 620      7433325F 
+ 620      7400
+ 621              	.LASF31:
+ 622 0059 69746572 		.ascii	"iterm\000"
+ 622      6D00
+ 623              	.LASF23:
+ 624 005f 516D6178 		.ascii	"Qmax_output\000"
+ 624      5F6F7574 
+ 624      70757400 
+ 625              	.LASF28:
+ 626 006b 7069642E 		.ascii	"pid.c\000"
+ 626      6300
+ 627              	.LASF1:
+ 628 0071 756E7369 		.ascii	"unsigned char\000"
+ 628      676E6564 
+ 628      20636861 
+ 628      7200
+ 629              	.LASF18:
+ 630 007f 6D61785F 		.ascii	"max_output\000"
+ 630      6F757470 
+ 630      757400
+ 631              	.LASF7:
+ 632 008a 6C6F6E67 		.ascii	"long unsigned int\000"
+ 632      20756E73 
+ 632      69676E65 
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccJ7z5ta.s 			page 14
 
 
- 661      73657273 
- 661      5C707269 
- 661      63686172 
- 661      64735C70 
- 662 002e 6164456E 		.ascii	"adEncoderRTOS.cydsn\000"
- 662      636F6465 
- 662      7252544F 
- 662      532E6379 
- 662      64736E00 
- 663              	.LASF29:
- 664 0042 6C617374 		.ascii	"lastposition\000"
- 664      706F7369 
- 664      74696F6E 
- 664      00
- 665              	.LASF5:
- 666 004f 5F5F696E 		.ascii	"__int32_t\000"
- 666      7433325F 
- 666      7400
- 667              	.LASF24:
- 668 0059 69746572 		.ascii	"iterm\000"
- 668      6D00
- 669              	.LASF26:
- 670 005f 516D6178 		.ascii	"Qmax_output\000"
- 670      5F6F7574 
- 670      70757400 
- 671              	.LASF31:
- 672 006b 7069642E 		.ascii	"pid.c\000"
- 672      6300
- 673              	.LASF1:
- 674 0071 756E7369 		.ascii	"unsigned char\000"
- 674      676E6564 
- 674      20636861 
- 674      7200
- 675              	.LASF20:
- 676 007f 6D61785F 		.ascii	"max_output\000"
- 676      6F757470 
- 676      757400
- 677              	.LASF8:
- 678 008a 6C6F6E67 		.ascii	"long unsigned int\000"
- 678      20756E73 
- 678      69676E65 
- 678      6420696E 
- 678      7400
- 679              	.LASF3:
- 680 009c 73686F72 		.ascii	"short unsigned int\000"
- 680      7420756E 
- 680      7369676E 
- 680      65642069 
- 680      6E7400
- 681              	.LASF33:
- 682 00af 5049445F 		.ascii	"PID_UpdateValues\000"
- 682      55706461 
- 682      74655661 
- 682      6C756573 
- 682      00
- 683              	.LASF4:
- 684 00c0 5F5F7569 		.ascii	"__uint16_t\000"
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccOXsGX7.s 			page 15
+ 632      6420696E 
+ 632      7400
+ 633              	.LASF3:
+ 634 009c 73686F72 		.ascii	"short unsigned int\000"
+ 634      7420756E 
+ 634      7369676E 
+ 634      65642069 
+ 634      6E7400
+ 635              	.LASF30:
+ 636 00af 5049445F 		.ascii	"PID_UpdateValues\000"
+ 636      55706461 
+ 636      74655661 
+ 636      6C756573 
+ 636      00
+ 637              	.LASF4:
+ 638 00c0 5F5F7569 		.ascii	"__uint16_t\000"
+ 638      6E743136 
+ 638      5F7400
+ 639              	.LASF24:
+ 640 00cb 64706F73 		.ascii	"dposition\000"
+ 640      6974696F 
+ 640      6E00
+ 641              	.LASF17:
+ 642 00d5 706F7369 		.ascii	"position\000"
+ 642      74696F6E 
+ 642      00
+ 643              	.LASF19:
+ 644 00de 6D61785F 		.ascii	"max_iterm\000"
+ 644      69746572 
+ 644      6D00
+ 645              	.LASF10:
+ 646 00e8 756E7369 		.ascii	"unsigned int\000"
+ 646      676E6564 
+ 646      20696E74 
+ 646      00
+ 647              	.LASF16:
+ 648 00f5 73657470 		.ascii	"setpoint\000"
+ 648      6F696E74 
+ 648      00
+ 649              	.LASF9:
+ 650 00fe 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 650      206C6F6E 
+ 650      6720756E 
+ 650      7369676E 
+ 650      65642069 
+ 651              	.LASF20:
+ 652 0115 7069645F 		.ascii	"pid_scale\000"
+ 652      7363616C 
+ 652      6500
+ 653              	.LASF27:
+ 654 011f 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 654      43313120 
+ 654      352E342E 
+ 654      31203230 
+ 654      31363036 
+ 655 0152 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
+ 655      20726576 
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccJ7z5ta.s 			page 15
 
 
- 684      6E743136 
- 684      5F7400
- 685              	.LASF7:
- 686 00cb 5F5F7569 		.ascii	"__uint32_t\000"
- 686      6E743332 
- 686      5F7400
- 687              	.LASF27:
- 688 00d6 64706F73 		.ascii	"dposition\000"
- 688      6974696F 
- 688      6E00
- 689              	.LASF19:
- 690 00e0 706F7369 		.ascii	"position\000"
- 690      74696F6E 
- 690      00
- 691              	.LASF21:
- 692 00e9 6D61785F 		.ascii	"max_iterm\000"
- 692      69746572 
- 692      6D00
- 693              	.LASF11:
- 694 00f3 756E7369 		.ascii	"unsigned int\000"
- 694      676E6564 
- 694      20696E74 
- 694      00
- 695              	.LASF18:
- 696 0100 73657470 		.ascii	"setpoint\000"
- 696      6F696E74 
- 696      00
- 697              	.LASF10:
- 698 0109 6C6F6E67 		.ascii	"long long unsigned int\000"
- 698      206C6F6E 
- 698      6720756E 
- 698      7369676E 
- 698      65642069 
- 699              	.LASF22:
- 700 0120 7069645F 		.ascii	"pid_scale\000"
- 700      7363616C 
- 700      6500
- 701              	.LASF30:
- 702 012a 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
- 702      43313120 
- 702      352E342E 
- 702      31203230 
- 702      31363036 
- 703 015d 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m0 -mthumb -g -O"
- 703      20726576 
- 703      6973696F 
- 703      6E203233 
- 703      37373135 
- 704 0190 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
- 704      66756E63 
- 704      74696F6E 
- 704      2D736563 
- 704      74696F6E 
- 705              	.LASF13:
- 706 01b8 696E7433 		.ascii	"int32_t\000"
- 706      325F7400 
- 707              	.LASF16:
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccOXsGX7.s 			page 16
-
-
- 708 01c0 73697A65 		.ascii	"sizetype\000"
- 708      74797065 
- 708      00
- 709              	.LASF23:
- 710 01c9 6572726F 		.ascii	"error\000"
- 710      7200
- 711              	.LASF9:
- 712 01cf 6C6F6E67 		.ascii	"long long int\000"
- 712      206C6F6E 
- 712      6720696E 
- 712      7400
- 713              	.LASF17:
- 714 01dd 63686172 		.ascii	"char\000"
- 714      00
- 715              	.LASF2:
- 716 01e2 73686F72 		.ascii	"short int\000"
- 716      7420696E 
- 716      7400
- 717              	.LASF28:
- 718 01ec 6F757470 		.ascii	"output\000"
- 718      757400
- 719              	.LASF12:
- 720 01f3 75696E74 		.ascii	"uint16_t\000"
- 720      31365F74 
- 720      00
- 721              	.LASF14:
- 722 01fc 75696E74 		.ascii	"uint32_t\000"
- 722      33325F74 
- 722      00
- 723              	.LASF6:
- 724 0205 6C6F6E67 		.ascii	"long int\000"
- 724      20696E74 
- 724      00
- 725              	.LASF15:
- 726 020e 6C6F6E67 		.ascii	"long double\000"
- 726      20646F75 
- 726      626C6500 
- 727              	.LASF0:
- 728 021a 7369676E 		.ascii	"signed char\000"
- 728      65642063 
- 728      68617200 
- 729              	.LASF25:
- 730 0226 516D6178 		.ascii	"Qmax_iterm\000"
- 730      5F697465 
- 730      726D00
- 731              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran
+ 655      6973696F 
+ 655      6E203233 
+ 655      37373135 
+ 656 0185 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 656      66756E63 
+ 656      74696F6E 
+ 656      2D736563 
+ 656      74696F6E 
+ 657              	.LASF12:
+ 658 01ad 696E7433 		.ascii	"int32_t\000"
+ 658      325F7400 
+ 659              	.LASF14:
+ 660 01b5 73697A65 		.ascii	"sizetype\000"
+ 660      74797065 
+ 660      00
+ 661              	.LASF21:
+ 662 01be 6572726F 		.ascii	"error\000"
+ 662      7200
+ 663              	.LASF8:
+ 664 01c4 6C6F6E67 		.ascii	"long long int\000"
+ 664      206C6F6E 
+ 664      6720696E 
+ 664      7400
+ 665              	.LASF15:
+ 666 01d2 63686172 		.ascii	"char\000"
+ 666      00
+ 667              	.LASF2:
+ 668 01d7 73686F72 		.ascii	"short int\000"
+ 668      7420696E 
+ 668      7400
+ 669              	.LASF25:
+ 670 01e1 6F757470 		.ascii	"output\000"
+ 670      757400
+ 671              	.LASF11:
+ 672 01e8 75696E74 		.ascii	"uint16_t\000"
+ 672      31365F74 
+ 672      00
+ 673              	.LASF6:
+ 674 01f1 6C6F6E67 		.ascii	"long int\000"
+ 674      20696E74 
+ 674      00
+ 675              	.LASF13:
+ 676 01fa 6C6F6E67 		.ascii	"long double\000"
+ 676      20646F75 
+ 676      626C6500 
+ 677              	.LASF0:
+ 678 0206 7369676E 		.ascii	"signed char\000"
+ 678      65642063 
+ 678      68617200 
+ 679              	.LASF22:
+ 680 0212 516D6178 		.ascii	"Qmax_iterm\000"
+ 680      5F697465 
+ 680      726D00
+ 681              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

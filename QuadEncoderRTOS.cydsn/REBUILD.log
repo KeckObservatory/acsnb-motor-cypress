@@ -1,8 +1,7 @@
---------------- Rebuild Started: 02/14/2023 10:29:11 Project: QuadEncoderRTOS, Configuration: ARM GCC 5.4-2016-q2-update Debug ---------------
+--------------- Rebuild Started: 02/27/2023 15:32:57 Project: QuadEncoderRTOS, Configuration: ARM GCC 5.4-2016-q2-update Debug ---------------
 Deleting file ".\CortexM0\ARM_GCC_541\Debug\main.o"
 Deleting file ".\CortexM0\ARM_GCC_541\Debug\INA219.o"
 Deleting file ".\CortexM0\ARM_GCC_541\Debug\pid.o"
-Deleting file ".\CortexM0\ARM_GCC_541\Debug\untitled01.o"
 Deleting file ".\CortexM0\ARM_GCC_541\Debug\cyfitter_cfg.o"
 Deleting file ".\CortexM0\ARM_GCC_541\Debug\cymetadata.o"
 Deleting file ".\CortexM0\ARM_GCC_541\Debug\I2C.o"
@@ -105,36 +104,12 @@ API Generation...
 Dependency Generation...
 Cleanup...
 arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I.\FreeRTOS -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/main.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c main.c -o .\CortexM0\ARM_GCC_541\Debug\main.o
-main.c: In function 'runRateGroup3_SPI':
-main.c:400:13: warning: unused variable 'limit' [-Wunused-variable]
-     uint8_t limit;    
-             ^
-main.c: In function 'runRateGroup1_PID':
-main.c:723:20: warning: unused variable 'dPosition' [-Wunused-variable]
-     int32_t error, dPosition;
-                    ^
-main.c:723:13: warning: unused variable 'error' [-Wunused-variable]
-     int32_t error, dPosition;
-             ^
-main.c:722:21: warning: unused variable 'CurrentIndexCount' [-Wunused-variable]
-     static uint32_t CurrentIndexCount;
-                     ^
-main.c:721:20: warning: unused variable 'DeltaPosition' [-Wunused-variable]
-     static int32_t DeltaPosition;
-                    ^
-main.c: In function 'main':
-main.c:952:10: warning: unused variable 'goingUp' [-Wunused-variable]
-     bool goingUp = true;
-          ^
-main.c:951:12: warning: unused variable 'drive' [-Wunused-variable]
-     int8_t drive = -100;
-            ^
-main.c:950:14: warning: unused variable 'LastUptimeSeconds' [-Wunused-variable]
-     uint32_t LastUptimeSeconds = 0;
-              ^
 arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I.\FreeRTOS -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/INA219.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c INA219.c -o .\CortexM0\ARM_GCC_541\Debug\INA219.o
 arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I.\FreeRTOS -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/pid.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c pid.c -o .\CortexM0\ARM_GCC_541\Debug\pid.o
-arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I.\FreeRTOS -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/untitled01.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c untitled01.c -o .\CortexM0\ARM_GCC_541\Debug\untitled01.o
+pid.c: In function 'PID_UpdateValues':
+pid.c:20:23: warning: unused variable 'trap' [-Wunused-variable]
+     volatile uint32_t trap = 0;
+                       ^
 arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I.\FreeRTOS -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/cyfitter_cfg.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c Generated_Source\PSoC4\cyfitter_cfg.c -o .\CortexM0\ARM_GCC_541\Debug\cyfitter_cfg.o
 arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I.\FreeRTOS -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/cymetadata.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c Generated_Source\PSoC4\cymetadata.c -o .\CortexM0\ARM_GCC_541\Debug\cymetadata.o
 arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I.\FreeRTOS -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/I2C.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c Generated_Source\PSoC4\I2C.c -o .\CortexM0\ARM_GCC_541\Debug\I2C.o
@@ -213,12 +188,12 @@ arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I.\FreeRTOS -I. -IGenerated_Sourc
 arm-none-eabi-as.exe -mcpu=cortex-m0 -mthumb -I. -IGenerated_Source\PSoC4 -alh=.\CortexM0\ARM_GCC_541\Debug/CyBootAsmGnu.lst -g -W -o .\CortexM0\ARM_GCC_541\Debug\CyBootAsmGnu.o Generated_Source\PSoC4\CyBootAsmGnu.s
 arm-none-eabi-ar.exe -rs .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a .\CortexM0\ARM_GCC_541\Debug\I2C.o .\CortexM0\ARM_GCC_541\Debug\I2C_I2C_INT.o .\CortexM0\ARM_GCC_541\Debug\I2C_I2C.o .\CortexM0\ARM_GCC_541\Debug\I2C_I2C_BOOT.o .\CortexM0\ARM_GCC_541\Debug\I2C_PM.o .\CortexM0\ARM_GCC_541\Debug\I2C_BOOT.o .\CortexM0\ARM_GCC_541\Debug\I2C_I2C_MASTER.o .\CortexM0\ARM_GCC_541\Debug\PWM_1.o .\CortexM0\ARM_GCC_541\Debug\PWM_1_PM.o .\CortexM0\ARM_GCC_541\Debug\I2C_SCBCLK.o .\CortexM0\ARM_GCC_541\Debug\I2C_sda.o .\CortexM0\ARM_GCC_541\Debug\I2C_sda_PM.o .\CortexM0\ARM_GCC_541\Debug\I2C_scl.o .\CortexM0\ARM_GCC_541\Debug\I2C_scl_PM.o .\CortexM0\ARM_GCC_541\Debug\I2C_SCB_IRQ.o .\CortexM0\ARM_GCC_541\Debug\CyFlash.o .\CortexM0\ARM_GCC_541\Debug\CyLib.o .\CortexM0\ARM_GCC_541\Debug\cyPm.o .\CortexM0\ARM_GCC_541\Debug\cyutils.o .\CortexM0\ARM_GCC_541\Debug\CyLFClk.o .\CortexM0\ARM_GCC_541\Debug\cy_em_eeprom.o .\CortexM0\ARM_GCC_541\Debug\INDEX_OUT.o .\CortexM0\ARM_GCC_541\Debug\INDEX_OUT_PM.o .\CortexM0\ARM_GCC_541\Debug\INDEX_IN.o .\CortexM0\ARM_GCC_541\Debug\INDEX_IN_PM.o .\CortexM0\ARM_GCC_541\Debug\HOME_OUT.o .\CortexM0\ARM_GCC_541\Debug\HOME_OUT_PM.o .\CortexM0\ARM_GCC_541\Debug\HOME_IN.o .\CortexM0\ARM_GCC_541\Debug\HOME_IN_PM.o .\CortexM0\ARM_GCC_541\Debug\SPI_1.o .\CortexM0\ARM_GCC_541\Debug\SPI_1_SPI_UART.o .\CortexM0\ARM_GCC_541\Debug\SPI_1_PM.o .\CortexM0\ARM_GCC_541\Debug\SPI_1_SPI.o .\CortexM0\ARM_GCC_541\Debug\SPI_1_BOOT.o .\CortexM0\ARM_GCC_541\Debug\SPI_1_SPI_BOOT.o .\CortexM0\ARM_GCC_541\Debug\SPI_1_SPI_UART_INT.o .\CortexM0\ARM_GCC_541\Debug\Clock_1.o .\CortexM0\ARM_GCC_541\Debug\phiB.o .\CortexM0\ARM_GCC_541\Debug\phiB_PM.o .\CortexM0\ARM_GCC_541\Debug\phiA.o .\CortexM0\ARM_GCC_541\Debug\phiA_PM.o .\CortexM0\ARM_GCC_541\Debug\Counter_1.o .\CortexM0\ARM_GCC_541\Debug\Counter_1_PM.o .\CortexM0\ARM_GCC_541\Debug\Reset_Encoder.o .\CortexM0\ARM_GCC_541\Debug\Reset_Encoder_PM.o .\CortexM0\ARM_GCC_541\Debug\Direction.o .\CortexM0\ARM_GCC_541\Debug\Direction_PM.o .\CortexM0\ARM_GCC_541\Debug\isr_rst_encoder.o .\CortexM0\ARM_GCC_541\Debug\isr_home.o .\CortexM0\ARM_GCC_541\Debug\PWM_OUT.o .\CortexM0\ARM_GCC_541\Debug\PWM_OUT_PM.o .\CortexM0\ARM_GCC_541\Debug\SPI_1_SCBCLK.o .\CortexM0\ARM_GCC_541\Debug\LED.o .\CortexM0\ARM_GCC_541\Debug\LED_PM.o .\CortexM0\ARM_GCC_541\Debug\SPI_1_SCB_IRQ.o .\CortexM0\ARM_GCC_541\Debug\isr_spi_ss.o .\CortexM0\ARM_GCC_541\Debug\spi_ss.o .\CortexM0\ARM_GCC_541\Debug\spi_ss_PM.o .\CortexM0\ARM_GCC_541\Debug\spi_mosi.o .\CortexM0\ARM_GCC_541\Debug\spi_mosi_PM.o .\CortexM0\ARM_GCC_541\Debug\spi_clk.o .\CortexM0\ARM_GCC_541\Debug\spi_clk_PM.o .\CortexM0\ARM_GCC_541\Debug\spi_miso.o .\CortexM0\ARM_GCC_541\Debug\spi_miso_PM.o .\CortexM0\ARM_GCC_541\Debug\PROBE.o .\CortexM0\ARM_GCC_541\Debug\PROBE_PM.o .\CortexM0\ARM_GCC_541\Debug\Index_Counter_1.o .\CortexM0\ARM_GCC_541\Debug\Index_Counter_1_PM.o .\CortexM0\ARM_GCC_541\Debug\Timer_BRMS.o .\CortexM0\ARM_GCC_541\Debug\Timer_BRMS_PM.o .\CortexM0\ARM_GCC_541\Debug\isr_brms.o .\CortexM0\ARM_GCC_541\Debug\Clock_5kHz.o .\CortexM0\ARM_GCC_541\Debug\CyBootAsmGnu.o
 arm-none-eabi-ar.exe: creating .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a
-arm-none-eabi-gcc.exe -Wl,--start-group -o C:\Users\prichards\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.elf .\CortexM0\ARM_GCC_541\Debug\main.o .\CortexM0\ARM_GCC_541\Debug\INA219.o .\CortexM0\ARM_GCC_541\Debug\pid.o .\CortexM0\ARM_GCC_541\Debug\untitled01.o .\CortexM0\ARM_GCC_541\Debug\cyfitter_cfg.o .\CortexM0\ARM_GCC_541\Debug\cymetadata.o .\CortexM0\ARM_GCC_541\Debug\Cm0Start.o .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a -mcpu=cortex-m0 -mthumb -L Generated_Source\PSoC4 -Wl,-Map,.\CortexM0\ARM_GCC_541\Debug/QuadEncoderRTOS.map -T Generated_Source\PSoC4\cm0gcc.ld -specs=nano.specs -Wl,--gc-sections -g -ffunction-sections -Og -ffat-lto-objects -Wl,--end-group
+arm-none-eabi-gcc.exe -Wl,--start-group -o C:\Users\prichards\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.elf .\CortexM0\ARM_GCC_541\Debug\main.o .\CortexM0\ARM_GCC_541\Debug\INA219.o .\CortexM0\ARM_GCC_541\Debug\pid.o .\CortexM0\ARM_GCC_541\Debug\cyfitter_cfg.o .\CortexM0\ARM_GCC_541\Debug\cymetadata.o .\CortexM0\ARM_GCC_541\Debug\Cm0Start.o .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a -mcpu=cortex-m0 -mthumb -L Generated_Source\PSoC4 -Wl,-Map,.\CortexM0\ARM_GCC_541\Debug/QuadEncoderRTOS.map -T Generated_Source\PSoC4\cm0gcc.ld -specs=nano.specs -Wl,--gc-sections -g -ffunction-sections -Og -ffat-lto-objects -Wl,--end-group
 cyelftool.exe -C C:\Users\prichards\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.elf --flash_row_size 128 --flash_size 32768 --flash_offset 0x00000000
 No ELF section .cychecksum found, creating one
 Application checksum calculated and stored in ELF section .cychecksum
 Checksum calculated and stored in ELF section .cymeta
 cyelftool.exe -S C:\Users\prichards\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.elf
-Flash used: 8648 of 32768 bytes (26.4%).
-SRAM used: 1424 of 4096 bytes (34.8%). Stack: 512 bytes. Heap: 128 bytes.
---------------- Rebuild Succeeded: 02/14/2023 10:29:54 ---------------
+Flash used: 8752 of 32768 bytes (26.7%).
+SRAM used: 1392 of 4096 bytes (34.0%). Stack: 512 bytes. Heap: 128 bytes.
+--------------- Rebuild Succeeded: 02/27/2023 15:33:31 ---------------

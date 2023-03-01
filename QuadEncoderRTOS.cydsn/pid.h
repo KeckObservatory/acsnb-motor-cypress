@@ -3,6 +3,14 @@
 
 #include <stdint.h>
 
-extern int32_t PID_UpdateValues(int32_t setpoint, int32_t encoder);
+#ifdef __PID_C
+#define EXTERN /* nothing */
+#else
+#define EXTERN extern
+#endif /* __PID_C */
+
+EXTERN int32_t iterm;
+EXTERN int32_t PID_UpdateValues(int32_t setpoint, int32_t encoder);
+
 
 #endif /*__PID_H */

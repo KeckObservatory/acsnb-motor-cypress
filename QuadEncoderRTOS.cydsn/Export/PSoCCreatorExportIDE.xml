@@ -39,7 +39,6 @@
           <File BuildType="BUILD" Toolchain="">main.c</File>
           <File BuildType="BUILD" Toolchain="">INA219.c</File>
           <File BuildType="BUILD" Toolchain="">pid.c</File>
-          <File BuildType="BUILD" Toolchain="">untitled01.c</File>
           <File BuildType="BUILD" Toolchain="">INA219.h</File>
           <File BuildType="BUILD" Toolchain="">pid.h</File>
         </Files>

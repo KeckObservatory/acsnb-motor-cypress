@@ -99,18 +99,7 @@ uint32_t lastTime;
 
 uint32_t refSampleTime = 5; // Default to 5ms
 volatile int32_t Position, LastPosition;
-
-#ifdef FP_CONVERT
-float Output;
-float ITerm;
-float kp, ki, kd; // PID values
-float outMax_Total, outMax_ITerm;
-float pwmLimit, pwmMax, pwmMin;    
-volatile float PWM;
-#endif
-
-int32_t Output;
-int32_t ITerm;
+volatile int32_t Output;
 
 #define OVERRIDE_PID_CONSTANTS 1
 uint32_t kp = 20; // Proportional constant
@@ -119,7 +108,6 @@ uint32_t kd = 0; // Derivative constant
 
 int32_t outMax_Total, outMax_ITerm;
 int32_t pwmLimit, pwmMax, pwmMin;    
-volatile int32_t PWM;
 
 bool homingDone = true;
 
@@ -191,7 +179,7 @@ uint8_t CurrentI2Cinbuf[20];
    3) Transfer the max message size every time, regardless of all bytes used or not.
 */
     
-/* Set this to match the size of the status response message, 18 bytes */    
+/* Set this to be at least the size of the status response message, 23 bytes */    
 #define MAX_MESSAGE_SIZE 30
     
 /* Remember the last time a message came in so we can timeout moves if the node box stops 
@@ -223,12 +211,6 @@ typedef struct {
     uint8_t size;       /* Size of the message bytes, including opcode and size and checksum */
     uint8_t opcode;     /* Operation: 01 == config */        
     uint8_t sequence;   /* Configuration message sequence number */
-#ifdef FP_CONVERT    
-    float Kp;         /* PID constants to be used in calculation */
-    float Ki;
-    float Kd;
-#endif
-
     uint32_t Kp;
     uint32_t Ki;
     uint32_t Kd;
@@ -267,7 +249,7 @@ union {
     rxMessage_setenc_t  setenc;
 } rxMessage;
 
-/* Message back to the BBB, watch out for alignment here by packing the structure (should be 21 bytes) */
+/* Message back to the BBB, watch out for alignment here by packing the structure (25 bytes) */
 typedef struct  {  
     uint8_t  checksum;        /* Message checksum */    
     uint8_t  version0;        /* Version byte 0 */ 
@@ -281,8 +263,8 @@ typedef struct  {
     uint16_t checksum_errors; /* Count of checksum errors */
     int16_t  motor_current;   /* Motor current consumption (mA) */
     int32_t  position;        /* Actual actuator position, signed value */ 
-    //float  pwm;             /* PWM value the motor is moving at */     
-    uint32_t pwm;             /* PWM value the motor is moving at */     
+    int16_t  pwm;             /* PWM value the motor is moving at */     
+    int32_t  iterm;           /* PID iterm value */
 } __attribute__ ((__packed__)) txMessage_t;
 
 /* Wrap the message with an array of bytes */
@@ -398,7 +380,6 @@ void runRateGroup3_SPI(void) {
     uint8_t size;
     uint8_t i;
     uint8_t checksum;
-    uint8_t limit;    
     
     /* If the SPI is moving data out right now, do not touch the message buffer, we will
        get to it next cycle! */
@@ -551,7 +532,8 @@ void runRateGroup3_SPI(void) {
             txMessage.msg.checksum_errors = ChecksumErrors;
             txMessage.msg.sequence        = ConfigSequence;
             txMessage.msg.position        = Position;
-            txMessage.msg.pwm             = PWM;
+            txMessage.msg.pwm             = Output;
+            txMessage.msg.iterm           = iterm;
             txMessage.msg.motor_current   = MotorCurrent;                            
             
             /* Set the checksum in the response */
@@ -593,22 +575,8 @@ void runRateGroup3_SPI(void) {
 *             to 100 is forward drive, and below 50 down to 0 is backward drive.
 * Return: None
 *******************************************************************************/
-//void PWM_Set(uint8_t dutycycle) {
 void PWM_Set(int32_t output) {    
-    
-#ifdef REFACTOR
-    uint8_t drive = dutycycle;
-    
-    /* Clip to the max PWM drive +/- around 50 */
-    if (drive > pwmMax) {
-        drive = pwmMax;
-    } else if (drive < pwmMin) {
-        drive = pwmMin;
-    }
-    
-    PWM_1_WriteCompare(drive * 16);    
-#endif
-    
+        
     /* output varies from -800 to 800, which needs to be expressed as 0 to 1600 
        for the PWM */
     PWM_1_WriteCompare((PWM_15KHZ_PERIOD/2) + (DRIVE_POLARITY * output));    
@@ -671,7 +639,7 @@ void PID_Initialize(void) {
     
     /* 2019-03-13 PMR: Init to zero instead of the output value, since we are not
        switching from manual to auto frequently */
-    ITerm = 0;
+    iterm = 0;
 }    
 
 
@@ -730,13 +698,7 @@ void PID_SetDrive(int32_t percent) {
 * Return: None
 *******************************************************************************/
 void runRateGroup1_PID(void) {
-    
-    static int32_t DeltaPosition;
-    static uint32_t CurrentIndexCount;
-    int32_t error, dPosition;
-    
-    
-    
+   
     /////////////////////////////////////////////////////
     // TESTING ONLY
     //ConfigState = csReady;
@@ -788,9 +750,6 @@ void runRateGroup1_PID(void) {
         5) Calculate the PID and return.
         6) Repeat steps 4 and 5 until the effective setpoint equals the actual setpoint.             
         */
-
-        
-        
         
         if (PID_Enabled) {
             
@@ -806,28 +765,18 @@ void runRateGroup1_PID(void) {
             
             /* Get most up-to-date current position */
             Position = GetPosition();
-
             
+            /* Run the PID algorithm once */
             Output = PID_UpdateValues(PID_EffectiveSetpoint, Position);
             
-            
-            /* Use the global PWM value to communicate back the percentage of drive to the server */
-            PWM = Output;
-            
-            /* Put the PID drive percentage out on the wire */
-            //PID_SetDrive(Output);
+            /* Put the PID output value out on the wire */
             PWM_Set(Output);
 
         } else {
             /* If disabled, just return 0 */
-            PWM = 0;
-        }
-
-        
-        
+            Output = 0;
+        }        
     }
-
-
 }
 
 
@@ -959,13 +908,7 @@ int main(void) {
     PID_Enabled           = false;
     //PID_SetDrive(0); // Drive set to 0%
     PWM_Set(PWM_NEUTRAL);
-    
-    uint32_t LastUptimeSeconds = 0;
-    int8_t drive = -100;
-    bool goingUp = true;
-    /***************************/
-
-    
+  
     /***********************************************************************
     * Run the background tasks.  Assume anything executed in here will be
     * constantly interrupted by the task scheduler.

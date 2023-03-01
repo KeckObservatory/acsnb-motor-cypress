@@ -1,3 +1,6 @@
+#ifndef __PID_C
+#define __PID_C
+
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -14,21 +17,22 @@
 *******************************************************************************/
 int32_t PID_UpdateValues(int32_t setpoint, int32_t position) {
 
+    //volatile uint32_t trap = 0;
+    
     /* Hardcoded PID values here, for now */
-    uint16_t Kp = 8000;
+    uint16_t Kp = 8000; //3000; //8000;
     uint16_t Ki = 100;
     uint16_t Kd = 0;
     
     /* Constants for use in this algorithm */
-    uint16_t max_output = 800;
+    uint16_t max_output = 400; //600; //800;
     uint16_t max_iterm = 250;
     uint16_t pid_scale = 1000;
     
     
     /* Temporary values */
     volatile int32_t error;
-    static int32_t iterm = 0;
-    volatile uint32_t Qp, Qi, Qd;  // Scaled Kp, Ki, Kd values
+    //static int32_t iterm = 0;
     volatile int32_t Qmax_iterm;
     volatile int32_t Qmax_output;
     volatile int32_t dposition;
@@ -36,15 +40,16 @@ int32_t PID_UpdateValues(int32_t setpoint, int32_t position) {
     static int32_t lastposition;
     
     /* Scale the values */
-    Qp = Kp;// * pid_scale;
-    Qi = Ki;// * pid_scale;
-    Qd = Kd;// * pid_scale;
     Qmax_iterm = max_iterm * pid_scale;
     Qmax_output = max_output * pid_scale;
     
     /* Compute all the working error variables */
     error = setpoint - position;
-    iterm += (Qi * error);
+    iterm += (Ki * error);
+    
+    //if ((iterm == 12144) || (iterm == -12144)) {
+    //    trap++;        
+    //}
     
     /* Clip the I term at a max value for just that term (windup guard) */
     if (iterm > Qmax_iterm) {
@@ -57,7 +62,7 @@ int32_t PID_UpdateValues(int32_t setpoint, int32_t position) {
     dposition = (position - lastposition);
 
     /* Compute PID Output */
-    output = (Qp * error) + iterm - (Qd * dposition);
+    output = (Kp * error) + iterm - (Kd * dposition);
     
     /* Clip the output */
     if (output > Qmax_output) {
@@ -75,3 +80,4 @@ int32_t PID_UpdateValues(int32_t setpoint, int32_t position) {
     return output;    
 }
 
+#endif /*__PID_C */
