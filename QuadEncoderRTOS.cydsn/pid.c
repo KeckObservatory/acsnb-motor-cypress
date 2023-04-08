@@ -17,39 +17,43 @@
 *******************************************************************************/
 int32_t PID_UpdateValues(int32_t setpoint, int32_t position) {
 
-    //volatile uint32_t trap = 0;
-    
     /* Hardcoded PID values here, for now */
-    uint16_t Kp = 8000; //3000; //8000;
+    uint16_t Kp = 5000; //3000; //8000;
     uint16_t Ki = 100;
-    uint16_t Kd = 0;
+    uint16_t Kd = 0; //800;
     
     /* Constants for use in this algorithm */
     uint16_t max_output = 400; //600; //800;
     uint16_t max_iterm = 250;
     uint16_t pid_scale = 1000;
     
-    
     /* Temporary values */
     volatile int32_t error;
-    //static int32_t iterm = 0;
+    volatile int32_t last_error;
     volatile int32_t Qmax_iterm;
     volatile int32_t Qmax_output;
     volatile int32_t dposition;
     volatile int32_t output;
-    static int32_t lastposition;
+    static int32_t last_position;
     
     /* Scale the values */
     Qmax_iterm = max_iterm * pid_scale;
     Qmax_output = max_output * pid_scale;
     
     /* Compute all the working error variables */
-    error = setpoint - position;
-    iterm += (Ki * error);
+    error = setpoint - position;    
     
-    //if ((iterm == 12144) || (iterm == -12144)) {
-    //    trap++;        
-    //}
+    /* If the iterm_delay is nonzero, count it down to 0ms before using the iterm in the calculation */
+    if (iterm_delay > 0) {
+        
+        iterm_delay = (iterm_delay - ITERM_DELAY_INTERVAL);        
+        iterm = 0;
+        
+    } else {      
+    
+        /* Outside of the delay period, calculate the iterm normally */
+        iterm += (Ki * error);
+    }
     
     /* Clip the I term at a max value for just that term (windup guard) */
     if (iterm > Qmax_iterm) {
@@ -59,10 +63,11 @@ int32_t PID_UpdateValues(int32_t setpoint, int32_t position) {
     }
     
     /* Calculate the error term */
-    dposition = (position - lastposition);
+    dposition = (position - last_position);
 
     /* Compute PID Output */
-    output = (Kp * error) + iterm - (Kd * dposition);
+    //output = (Kp * error) + iterm - (Kd * dposition);
+    output = (Kp * error) + iterm + (Kd * (error - last_error));
     
     /* Clip the output */
     if (output > Qmax_output) {
@@ -75,7 +80,8 @@ int32_t PID_UpdateValues(int32_t setpoint, int32_t position) {
     output = output / pid_scale;
     
     /* Remember some variables for next time */
-    lastposition = position;
+    last_position = position;
+    last_error = error;
     
     return output;    
 }

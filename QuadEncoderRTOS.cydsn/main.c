@@ -8,6 +8,7 @@
 *  The I2C device provides readback of motor current consumption.
 *
 * History:
+* 04/07/23 PMR  Rev: 0-2-1 add move timer to messaging, fix jog function
 * 02/08/23 PMR  Rev: 0-2-0 rework PID algorithm based on Galil findings
 * 07/27/22 PMR  Rev: 0-1-0 convert FreeRTOS to binary-rate-monotonic-scheduler (BRMS)
 * 07/09/20 PMR  Rev: 0-0-7 implement zeroing the encoder value
@@ -26,16 +27,17 @@
 #include "pid.h"
 #include "INA219.h"
 
-/* Firmware revision as of 2023-02-08 */
+/* Firmware revision as of 2023-04-07 */
 #define FIRMWARE_REV_0 0
 #define FIRMWARE_REV_1 2
-#define FIRMWARE_REV_2 0
+#define FIRMWARE_REV_2 1
 
 /* Debugging - undefine this for a production system that needs to watchdog */
 #define DEBUG_PROBE_ATTACHED 1
 
-/* ACS Test set: the drives are wired backwards! */
-#define DRIVE_POLARITY -1
+/* For the ACS test set, the drives are wired backwards!  Use a polarity of -1 in that case. */
+//#define DRIVE_POLARITY -1
+#define DRIVE_POLARITY 1
 
 /* --------------------------------------------------------------------- 
  * CONSTANTS
@@ -67,18 +69,11 @@ CY_ISR_PROTO(BRMS_Interrupt);
  * PWM Defines
  * --------------------------------------------------------------------- */
 #define PWM_15KHZ_PERIOD                       (1600)
-//#define PWM_PCT_TO_COMPARE(x)                  trunc((float) x * (PWM_15KHZ_PERIOD/100))
-//#define PWM_PCT_TO_COMPARE(x)                  trunc((float) x * 16)
-//#define PWM_IDLE                               (50)
-//#define PWM_NEUTRAL                            (PWM_15KHZ_PERIOD / 2)
 #define PWM_NEUTRAL                            (0)
 
 /* TI INA219 Zero-Drift, Bidirectional Current/Power Monitor With I2C Interface */
 #define INA219_I2C_ADDR                        (0x40)
 #define INA219_CAL_VALUE                       (8192)
-
-/* Neutral PWM jog is a 50% duty cycle */
-#define PWM_JOG_NEUTRAL                        (50)
 
 /* PWM maximum current value clipped to +/- X% duty cycle around the center (50 by default, full power possible) */
 #define PWM_MAX_MAGNITUDE                      (50) 
@@ -88,28 +83,45 @@ CY_ISR_PROTO(BRMS_Interrupt);
  * --------------------------------------------------------------------- */
 #define PID_MANUAL                             (0)
 #define PID_AUTOMATIC                          (1)
-#define PID_EFFECTIVE_SETPOINT_DELTA_DEFAULT   (25)
+#define PID_EFFECTIVE_SETPOINT_DELTA_DEFAULT   (250)
+#define OVERRIDE_PID_CONSTANTS                 1
+#define ITERM_90PCT_FIT_CONSTANT               (13)
+
 bool inAuto = false;
 
-volatile int8_t Jog, LastJog;
+volatile int8_t Jog;
 bool PID_Enabled, PID_Was_Enabled;
 int32_t PID_Setpoint, PID_EffectiveSetpoint;
 uint8_t PID_EffSetDelta;
 uint32_t lastTime;
 
-uint32_t refSampleTime = 5; // Default to 5ms
 volatile int32_t Position, LastPosition;
 volatile int32_t Output;
-
-#define OVERRIDE_PID_CONSTANTS 1
-uint32_t kp = 20; // Proportional constant
-uint32_t ki = 10; // Integral constant
-uint32_t kd = 0; // Derivative constant
-
-int32_t outMax_Total, outMax_ITerm;
-int32_t pwmLimit, pwmMax, pwmMin;    
+volatile uint16_t limitOutput;
+volatile uint16_t limitIterm;
 
 bool homingDone = true;
+
+/* --------------------------------------------------------------------- 
+ * Move timer defines
+ * 
+ * Wait for 30 samples of position to be the same before declaring a move
+ * done.
+ * --------------------------------------------------------------------- */
+#define LAST_MOVE_TIME_SAMPLE_COUNT 30
+
+/* Use UptimeMicroseconds to calculate how long a move elapsed */
+uint32_t LastMoveStartTimeUsec = 0;
+uint32_t LastMoveEndTimeUsec = 0;
+
+/* Counter for how many samples elapsed since the move was complete */
+uint16_t LastMoveStableCount = 0;
+
+/* Time value in microseconds for how long the last move took */
+uint32_t LastMoveTimeUsec = 0;
+
+/* Set this flag when a new move comes down from the ACS */
+bool NewCommandedMove = false;
 
 /* --------------------------------------------------------------------- 
  * Timekeeping defines
@@ -179,8 +191,8 @@ uint8_t CurrentI2Cinbuf[20];
    3) Transfer the max message size every time, regardless of all bytes used or not.
 */
     
-/* Set this to be at least the size of the status response message, 23 bytes */    
-#define MAX_MESSAGE_SIZE 30
+/* Set this to be at least the size of the status response message */
+#define MAX_MESSAGE_SIZE 27
     
 /* Remember the last time a message came in so we can timeout moves if the node box stops 
    talking.  Nominally 1 second max of not talking. */
@@ -205,19 +217,20 @@ typedef struct {
     uint8_t opcode;     /* Operation (generic overlay for previewing opcode value) */
 } __attribute__ ((__packed__)) rxMessage_overlay_t;
 
-/* Configuration message, 19 bytes */
+/* Configuration message, 22 bytes */
 typedef struct {
     uint8_t checksum;        
-    uint8_t size;       /* Size of the message bytes, including opcode and size and checksum */
-    uint8_t opcode;     /* Operation: 01 == config */        
-    uint8_t sequence;   /* Configuration message sequence number */
-    uint32_t Kp;
-    uint32_t Ki;
-    uint32_t Kd;
+    uint8_t size;        /* Size of the message bytes, including opcode and size and checksum */
+    uint8_t opcode;      /* Operation: 01 == config */        
+    uint8_t sequence;    /* Configuration message sequence number */
     
-    uint8_t limit_Total;/* Total drive output limit, +/- percentage */
-    uint8_t limit_ITerm;/* PID I term output limit, also +/- percentage */
-    uint8_t effsetdelta;/* PID effective setpoint increment delta, nominally 25 steps */
+    uint32_t overrideKp; /* If nonzero, override the PID P term */
+    uint32_t overrideKi; /* If nonzero, override the PID I term */
+    uint32_t overrideKd; /* If nonzero, override the PID D term */
+    
+    uint16_t limitOutput;/* Drive output limit, ranges from 0 to 800 */
+    uint16_t limitIterm; /* PID I term output limit, ranges from 0 to 800 */
+    uint16_t effsetdelta;/* PID effective setpoint increment delta, nominally 250 steps */
 } __attribute__ ((__packed__)) rxMessage_config_t;
 
 /* Status message, contains desired position and such values, 10 bytes */
@@ -249,7 +262,7 @@ union {
     rxMessage_setenc_t  setenc;
 } rxMessage;
 
-/* Message back to the BBB, watch out for alignment here by packing the structure (25 bytes) */
+/* Message back to the BBB, watch out for alignment here by packing the structure (27 bytes) */
 typedef struct  {  
     uint8_t  checksum;        /* Message checksum */    
     uint8_t  version0;        /* Version byte 0 */ 
@@ -264,7 +277,8 @@ typedef struct  {
     int16_t  motor_current;   /* Motor current consumption (mA) */
     int32_t  position;        /* Actual actuator position, signed value */ 
     int16_t  pwm;             /* PWM value the motor is moving at */     
-    int32_t  iterm;           /* PID iterm value */
+    int32_t  iterm;           /* Instantaneous PID iterm value */
+    uint32_t last_move_time;  /* Amount of time for the last move, in us */ 
 } __attribute__ ((__packed__)) txMessage_t;
 
 /* Wrap the message with an array of bytes */
@@ -280,6 +294,8 @@ typedef enum {
 } txMessageStates_t;
 
 txMessageStates_t txMessageState;
+
+
 
 /* --------------------------------------------------------------------- 
  * Function prototypes
@@ -380,6 +396,7 @@ void runRateGroup3_SPI(void) {
     uint8_t size;
     uint8_t i;
     uint8_t checksum;
+    int32_t distance;
     
     /* If the SPI is moving data out right now, do not touch the message buffer, we will
        get to it next cycle! */
@@ -432,6 +449,13 @@ void runRateGroup3_SPI(void) {
                             /* Disable PID if it's on */
                             PID_Was_Enabled = false;
                             PID_Enabled = false;
+
+                            /* Stop a jog if one was in progress */
+                            Jog = 0;
+                            
+                            /* Output and Iterm limits */
+                            limitOutput = rxMessage.config.limitOutput;
+                            limitIterm = rxMessage.config.limitIterm;
                                 
                                 
                             /* Update the PID values passed down from the server */
@@ -443,33 +467,7 @@ void runRateGroup3_SPI(void) {
                         
                             /* PID effective setpoint increment delta value */                                      
                             PID_EffSetDelta = rxMessage.config.effsetdelta;
-                               
-                            /* Setup the output limits and stop a jog if one was in progress */
-                            Jog = 0;
-                        
-                            /* Clip the limits to 100% duty cycle */
-                            limit = rxMessage.config.limit_Total;
-                            if (limit > 100)
-                                limit = 100;
-                        
-                            outMax_Total = limit;                                        
-                            
-                            limit = rxMessage.config.limit_ITerm;                                        
-                            if (limit > 100)
-                                limit = 100;
-                            
-                            outMax_ITerm = limit;
 #endif
-                            
-                            /* Convert the configured output maximum also into a PWM value, because the duty cycle
-                            could be set from manual control of the PWM.  
-
-                            outMax_Total ranges from 0 to 100% of power delivery, which means we need to 
-                            convert it into a value symmetrically above and below the "neutral" center 
-                            point value of 50 */    
-                            pwmLimit = (outMax_Total/100 * 50);
-                            pwmMax = 50 + pwmLimit;
-                            pwmMin = 50 - pwmLimit;
                         
                             /* We have received a config message, so signal to the PID thread that processing is allowed */
                             ConfigState = csReady;  
@@ -486,6 +484,9 @@ void runRateGroup3_SPI(void) {
                             /* If we are commanded to move somewhere else, remember where we started */
                             if (PID_Setpoint != rxMessage.status.setpoint) {
                                 
+                                /* This is a new move, start timing! */
+                                NewCommandedMove = true;
+                                
                                 /* Remember where we started */
                                 LastPosition = GetPosition();
                                 
@@ -498,6 +499,26 @@ void runRateGroup3_SPI(void) {
                                 
                                 /* Reset counting of index marks */
                                 Index_Counter_1_WriteCounter(0);
+                                
+                                
+                                /* The demand has changed.  Hold off the integrator for a certain amount of time,
+                                dictated by the size of the move (if it's more than 50 counts) */
+                                distance = PID_Setpoint - LastPosition;                               
+                                if (distance < 0) {
+                                    distance *= -1;
+                                }
+                                
+                                if (distance > 50) {                                
+                                    iterm_delay = ((distance / 16) + ITERM_90PCT_FIT_CONSTANT) * 1000;
+                                    //iterm_delay = distance >> 4;  // Shift by 4 is equal to div by 16
+                                } else {
+                                    iterm_delay = 0;
+                                }
+                                
+                                
+                                /* The demand has changed, reset the iterm delay to the max */
+                                //iterm_delay = ITERM_DELAY_DEFAULT;  
+                                //iterm_delay = 0;
                             }                                        
                         
                             /* PWM jog value ranges from -50 to 50, where -50 is max-reverse current, 50 is max-forward, 0 is neutral/no movement */
@@ -534,7 +555,8 @@ void runRateGroup3_SPI(void) {
             txMessage.msg.position        = Position;
             txMessage.msg.pwm             = Output;
             txMessage.msg.iterm           = iterm;
-            txMessage.msg.motor_current   = MotorCurrent;                            
+            txMessage.msg.motor_current   = MotorCurrent;                  
+            txMessage.msg.last_move_time  = LastMoveTimeUsec;
             
             /* Set the checksum in the response */
             for (i = 0, checksum = 0; i < sizeof(txMessage_t); i++)
@@ -666,29 +688,6 @@ void PID_SetMode(uint32_t Mode) {
 
 
 /*******************************************************************************
-* Function Name: PID_SetDrive
-********************************************************************************
-* Summary:
-*  Convert the output of PID into a duty cycle for use on the PWM.
-*
-* Parameters: Percentage output to drive the PWM.
-* Return: None
-*******************************************************************************/
-#ifdef ZERO
-void PID_SetDrive(int32_t percent) {
-
-    /* Valid percentage range coming out of the PID algorithm is -100.0 to +100.0 
-       which needs to be translated into a duty cycle value of 0.0 to 100.0 */
-    
-    int32_t dutycycle = ( (DRIVE_POLARITY * percent) + 100) >> 1; // Shift right by 1 bit is the same as divide by two
-    
-    /* The duty cycle can now be written to the PWM device itself */
-    PWM_Set(dutycycle);  
-}
-#endif
-
-
-/*******************************************************************************
 * Function Name: runRateGroup1_PID
 ********************************************************************************
 * Summary:
@@ -710,7 +709,6 @@ void runRateGroup1_PID(void) {
     if (UptimeSeconds > (LastMessageTimeSeconds + MAX_LAST_MESSAGE_TIME_SECONDS)) {
         
         /* Stop all motion */
-        ////PWM_Set(PWM_JOG_NEUTRAL);
         PWM_Set(PWM_NEUTRAL);
         PID_Enabled = false;
         
@@ -771,10 +769,63 @@ void runRateGroup1_PID(void) {
             
             /* Put the PID output value out on the wire */
             PWM_Set(Output);
+            
+            /* Calculate how long the last commanded move has taken */
+            if (NewCommandedMove) {
+                
+                if (Position == PID_Setpoint) {
+                    
+                    /* We are at the set point, but it's not known if the motion is stable yet, we might have overshot. 
+                    Therefore, count how many times we have held at this location.  When it exceeds a given threshold, 
+                    use the time we first reached this position as the move's end time. */
+                    if (LastMoveStableCount == LAST_MOVE_TIME_SAMPLE_COUNT) {
+                        
+                        /* We have arrived at the set point and have been here for 6ms (30 counts of 200us), call it 
+                        good and calculate how long this move took */
+                        LastMoveTimeUsec = LastMoveEndTimeUsec - LastMoveStartTimeUsec;
+                        
+                        /* Clear the flag for this particular move */ 
+                        NewCommandedMove = false;
+                        
+                    } else {
+                        
+                        /* We have reached the destination but it is not yet proven stable. Increment the stability counter.  
+                        It will be reset to zero if we deviate from this position. */                        
+                        LastMoveStableCount += 1;
+
+                        /* If the stable count is exactly 1, then this might be the start of a new stable point,
+                        note the time.  This is potentially the END TIME of a move.  The start time was recorded
+                        when the node box sent a new set point. */
+                        if (LastMoveStableCount == 1) {
+                            LastMoveEndTimeUsec = UptimeMicroseconds;
+                        }                    
+                    }                
+                    
+                } else {
+                    
+                    /* Reset the stable counter, because we are not at the commanded location */
+                    LastMoveStableCount = 0;                
+                }
+            }
 
         } else {
+            
+            /* If the server is asking us to jog, do that instead of PID.  Drive in the direction 
+            and speed the server told us */
+            if (Jog != 0) {
+                
+                /* Translate the jog percentage, from -100 to +100, into PWM values from 0 to 1600 
+                (thus 0% equates to 800) */
+                
+                
+                
+                PWM_Set(PWM_JOG_NEUTRAL + Jog);
+            }
+            
             /* If disabled, just return 0 */
             Output = 0;
+            
+            
         }        
     }
 }
@@ -790,7 +841,7 @@ void runRateGroup1_PID(void) {
 * Return: NEVER!
 *******************************************************************************/
 int main(void) {
-   
+    
     /* DISABLE the drive outputs for the home and index immediately upon booting the 
        microprocessor.  There is a race condition here: unless the actuator is on a home
        flag or index mark, a 1 will be written to each output.  Depending on which 
@@ -891,14 +942,9 @@ int main(void) {
     PID_Initialize();
     PID_SetMode(PID_MANUAL);
     
-    /* Initially default to 100% output max until config tells us otherwise */
-    outMax_Total = 100;
-    outMax_ITerm = 100;
-
-    /* Init the PWM limits the same way, full maximums */
-    pwmLimit = 50;   // This is a + or - value
-    pwmMax = PWM_JOG_NEUTRAL + pwmLimit;
-    pwmMin = PWM_JOG_NEUTRAL - pwmLimit;    
+    /* Initially default to full output max until config tells us otherwise */
+    limitOutput = 800;
+    limitIterm = 800;
     
     /* Start off disabled */
     PID_Setpoint          = 0;  
@@ -906,7 +952,6 @@ int main(void) {
     PID_EffSetDelta       = 250; //PID_EFFECTIVE_SETPOINT_DELTA_DEFAULT;
     PID_Was_Enabled       = false;
     PID_Enabled           = false;
-    //PID_SetDrive(0); // Drive set to 0%
     PWM_Set(PWM_NEUTRAL);
   
     /***********************************************************************
