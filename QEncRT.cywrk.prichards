@@ -204,29 +204,6 @@
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_SCB_IRQ.lst</v>
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_SCBCLK.lst</v>
 <v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_scl.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_scl_PM.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_sda.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_sda_PM.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\INA219.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\Index_Counter_1.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\Index_Counter_1_PM.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\INDEX_IN.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\INDEX_IN_PM.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\INDEX_OUT.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\INDEX_OUT_PM.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\isr_brms.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\isr_home.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\isr_rst_encoder.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\isr_spi_ss.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\LED.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\LED_PM.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\main.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\phiA.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\phiA_PM.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\phiB.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\phiB_PM.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\PROBE.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\PROBE_PM.lst</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 </TreeStates>

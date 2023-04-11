@@ -486,6 +486,7 @@ void runRateGroup3_SPI(void) {
                                 
                                 /* This is a new move, start timing! */
                                 NewCommandedMove = true;
+                                LastMoveStartTimeUsec = UptimeMicroseconds;
                                 
                                 /* Remember where we started */
                                 LastPosition = GetPosition();
@@ -521,7 +522,8 @@ void runRateGroup3_SPI(void) {
                                 //iterm_delay = 0;
                             }                                        
                         
-                            /* PWM jog value ranges from -50 to 50, where -50 is max-reverse current, 50 is max-forward, 0 is neutral/no movement */
+                            /* PWM jog value ranges from -100 to 100, where -100 is max-reverse current, 
+                            100 is max-forward, 0 is neutral/no movement */
                             Jog = rxMessage.status.jog;                                                    
                             break;
                         
@@ -712,8 +714,8 @@ void runRateGroup1_PID(void) {
         PWM_Set(PWM_NEUTRAL);
         PID_Enabled = false;
         
-        /* Clear the values that would drive motion on the next message arrival.  Assume the next message might be a config, 
-           in which case we want to be neutral. */
+        /* Clear the values that would drive motion on the next message arrival.  Assume the 
+        next message might be a config, in which case we want to be neutral. */
         Jog = 0;
 
     /* Only run the PID algorithm if we have been configured by the nodebox software */
@@ -812,8 +814,8 @@ void runRateGroup1_PID(void) {
             
             /* If the server is asking us to jog, do that instead of PID.  Drive in the direction 
             and speed the server told us.  Translate the jog percentage, from -100 to +100, into 
-            PWM values from 0 to 1600 (thus 0% equates to 800) */
-            Output = 800 + (Jog * 8);
+            PWM_Set values from -800 to 800 */
+            Output = (Jog * 8);
             
             /* Put the new jog value on the wire, instead of a PID value */
             PWM_Set(Output);            

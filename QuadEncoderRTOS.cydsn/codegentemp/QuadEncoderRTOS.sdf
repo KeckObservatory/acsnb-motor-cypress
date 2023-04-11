@@ -1,6 +1,6 @@
 (DELAYFILE
  (SDFVERSION "IEEE 1497 4.0")
- (DATE "2023-04-04T21:05:19Z")
+ (DATE "2023-04-11T19:26:21Z")
  (DESIGN "QuadEncoderRTOS")
  (VENDOR "Cypress Semiconductor")
  (PROGRAM "PSoC Creator")
