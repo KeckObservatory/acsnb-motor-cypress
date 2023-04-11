@@ -69,7 +69,7 @@ CY_ISR_PROTO(BRMS_Interrupt);
  * PWM Defines
  * --------------------------------------------------------------------- */
 #define PWM_15KHZ_PERIOD                       (1600)
-#define PWM_NEUTRAL                            (0)
+#define PWM_NEUTRAL                            (PWM_15KHZ_PERIOD/2)
 
 /* TI INA219 Zero-Drift, Bidirectional Current/Power Monitor With I2C Interface */
 #define INA219_I2C_ADDR                        (0x40)
@@ -697,7 +697,7 @@ void PID_SetMode(uint32_t Mode) {
 * Return: None
 *******************************************************************************/
 void runRateGroup1_PID(void) {
-   
+     
     /////////////////////////////////////////////////////
     // TESTING ONLY
     //ConfigState = csReady;
@@ -811,22 +811,18 @@ void runRateGroup1_PID(void) {
         } else {
             
             /* If the server is asking us to jog, do that instead of PID.  Drive in the direction 
-            and speed the server told us */
-            if (Jog != 0) {
-                
-                /* Translate the jog percentage, from -100 to +100, into PWM values from 0 to 1600 
-                (thus 0% equates to 800) */
-                
-                
-                
-                PWM_Set(PWM_JOG_NEUTRAL + Jog);
-            }
+            and speed the server told us.  Translate the jog percentage, from -100 to +100, into 
+            PWM values from 0 to 1600 (thus 0% equates to 800) */
+            Output = 800 + (Jog * 8);
             
-            /* If disabled, just return 0 */
-            Output = 0;
-            
-            
+            /* Put the new jog value on the wire, instead of a PID value */
+            PWM_Set(Output);            
         }        
+        
+    } else {
+        
+        /* Config state is not ready (configured), inhibit all motion */
+        PWM_Set(PWM_NEUTRAL);        
     }
 }
 
