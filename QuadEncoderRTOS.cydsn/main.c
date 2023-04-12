@@ -69,7 +69,8 @@ CY_ISR_PROTO(BRMS_Interrupt);
  * PWM Defines
  * --------------------------------------------------------------------- */
 #define PWM_15KHZ_PERIOD                       (1600)
-#define PWM_NEUTRAL                            (PWM_15KHZ_PERIOD/2)
+#define PWM_NEUTRAL_OLD                        (PWM_15KHZ_PERIOD/2)
+#define PWM_SET_NEUTRAL                        (0)
 
 /* TI INA219 Zero-Drift, Bidirectional Current/Power Monitor With I2C Interface */
 #define INA219_I2C_ADDR                        (0x40)
@@ -595,8 +596,8 @@ void runRateGroup3_SPI(void) {
 * Summary:
 *  Sets the duty cycle of the PWM at the output pin.
 *
-* Parameters: Duty cycle, in percent.  A value of 50 is "neutral", values up 
-*             to 100 is forward drive, and below 50 down to 0 is backward drive.
+* Parameters: Duty cycle, from -800 to 800 where 0 is neutral (no movement).
+* 
 * Return: None
 *******************************************************************************/
 void PWM_Set(int32_t output) {    
@@ -711,7 +712,7 @@ void runRateGroup1_PID(void) {
     if (UptimeSeconds > (LastMessageTimeSeconds + MAX_LAST_MESSAGE_TIME_SECONDS)) {
         
         /* Stop all motion */
-        PWM_Set(PWM_NEUTRAL);
+        PWM_Set(PWM_SET_NEUTRAL);
         PID_Enabled = false;
         
         /* Clear the values that would drive motion on the next message arrival.  Assume the 
@@ -824,7 +825,7 @@ void runRateGroup1_PID(void) {
     } else {
         
         /* Config state is not ready (configured), inhibit all motion */
-        PWM_Set(PWM_NEUTRAL);        
+        PWM_Set(PWM_SET_NEUTRAL);        
     }
 }
 
@@ -913,7 +914,7 @@ int main(void) {
        12MHz, so the desired period to get 15KHz is a count of 800. */
     PWM_1_Start();
     PWM_1_WritePeriod(PWM_15KHZ_PERIOD);
-    PWM_Set(PWM_NEUTRAL);   
+    PWM_Set(PWM_SET_NEUTRAL);   
     
     /* Default the jog value to neutral (no movement) */
     Jog = 0;
@@ -950,7 +951,7 @@ int main(void) {
     PID_EffSetDelta       = 250; //PID_EFFECTIVE_SETPOINT_DELTA_DEFAULT;
     PID_Was_Enabled       = false;
     PID_Enabled           = false;
-    PWM_Set(PWM_NEUTRAL);
+    PWM_Set(PWM_SET_NEUTRAL);
   
     /***********************************************************************
     * Run the background tasks.  Assume anything executed in here will be
