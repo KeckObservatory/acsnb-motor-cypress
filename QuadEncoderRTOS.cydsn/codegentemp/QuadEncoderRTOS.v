@@ -1,6 +1,6 @@
 // ======================================================================
 // QuadEncoderRTOS.v generated from TopDesign.cysch
-// 04/11/2023 at 12:55
+// 07/14/2023 at 10:44
 // This file is auto generated. ANY EDITS YOU MAKE MAY BE LOST WHEN THIS FILE IS REGENERATED!!!
 // ======================================================================
 
@@ -1093,19 +1093,40 @@ module TCPWM_P4_v2_10_5 (
 
 endmodule
 
+// Component: CyControlReg_v1_80
+`ifdef CY_BLK_DIR
+`undef CY_BLK_DIR
+`endif
+
+`ifdef WARP
+`define CY_BLK_DIR "C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\CyPrimitives\cyprimitives.cylib\CyControlReg_v1_80"
+`include "C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\CyPrimitives\cyprimitives.cylib\CyControlReg_v1_80\CyControlReg_v1_80.v"
+`else
+`define CY_BLK_DIR "C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\CyPrimitives\cyprimitives.cylib\CyControlReg_v1_80"
+`include "C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\CyPrimitives\cyprimitives.cylib\CyControlReg_v1_80\CyControlReg_v1_80.v"
+`endif
+
 // top
 module top ;
 
-          wire  Net_2673;
-          wire  Net_2672;
-          wire  Net_2671;
-          wire  Net_2670;
-          wire  Net_2669;
-          wire  Net_2668;
-          wire  Net_2667;
-          wire  Net_2665;
-          wire  Net_2663;
-          wire  Net_2662;
+          wire  Net_2797;
+          wire  Net_2795;
+          wire  Net_2794;
+          wire  Net_2793;
+          wire  Net_2792;
+          wire  Net_2790;
+          wire  Net_2789;
+          wire  Net_2788;
+          wire  Net_2686;
+          wire  Net_2685;
+          wire  Net_2684;
+          wire  Net_2683;
+          wire  Net_2682;
+          wire  Net_2681;
+          wire  Net_2680;
+          wire  Net_2679;
+          wire  Net_2678;
+          wire  Net_2677;
           wire  Net_2676;
           wire  Net_2656;
           wire  Net_2658;
@@ -1113,6 +1134,8 @@ module top ;
           wire  Net_2649;
           wire  Net_2653;
           wire  Net_2654;
+    electrical  SDA;
+    electrical  SCL;
           wire  Net_2657;
           wire  Net_2651;
           wire  Net_2655;
@@ -1122,14 +1145,12 @@ module top ;
           wire  Net_2603;
           wire  Net_2608;
           wire  Net_2612;
-    electrical  SDA;
-    electrical  SCL;
           wire  Net_2607;
           wire  Net_2605;
           wire  Net_2610;
           wire  Net_2606;
           wire  Net_2611;
-          wire  Net_2338;
+          wire  Net_2787;
           wire  Net_2321;
           wire  Net_2316;
           wire  Net_2315;
@@ -1138,28 +1159,28 @@ module top ;
           wire  Net_2322;
           wire  Net_2317;
           wire  Net_2320;
-          wire  Net_2285;
-          wire  Net_2272;
-          wire  Net_2287;
-          wire  Net_2286;
-          wire  Net_2275;
-          wire  Net_2274;
-          wire  Net_2273;
-          wire  Net_2283;
-          wire  Net_2288;
-          wire  Net_2284;
-          wire  Net_2271;
-          wire  Net_2268;
-          wire  Net_2282;
-          wire  Net_2281;
-          wire  Net_2280;
-          wire  Net_2279;
-          wire  Net_2278;
-          wire  Net_2277;
-          wire  Net_2276;
-          wire  Net_2269;
-          wire  Net_2267;
-          wire  Net_2270;
+          wire  Net_2726;
+          wire  Net_2725;
+          wire  Net_2724;
+          wire  Net_2723;
+          wire  Net_2722;
+          wire  Net_2721;
+          wire  Net_2720;
+          wire  Net_2719;
+          wire  Net_2718;
+          wire  Net_2717;
+          wire  Net_2716;
+          wire  Net_2715;
+          wire  Net_2714;
+          wire  Net_2713;
+          wire  Net_2712;
+          wire  Net_2711;
+          wire  Net_2710;
+          wire  Net_2709;
+          wire  Net_2708;
+          wire  Net_2707;
+          wire  Net_2706;
+          wire  Net_2705;
           wire  Net_2334;
           wire  Net_2308;
           wire  Net_2295;
@@ -1184,12 +1205,15 @@ module top ;
           wire  Net_2293;
     electrical  Net_2336;
     electrical  Net_2342;
+          wire  Net_2687;
+          wire  Net_622;
+          wire  Net_2344;
+          wire  Net_2688;
+          wire  Net_583;
           wire  Net_2674;
           wire  Net_2664;
           wire  Net_2377;
-          wire  Net_2344;
           wire  Net_528;
-          wire  Net_583;
           wire  Net_647;
           wire  Net_648;
           wire  Net_634;
@@ -1199,7 +1223,6 @@ module top ;
           wire  Net_2637;
           wire  Net_625;
           wire  Net_644;
-          wire  Net_622;
           wire  Net_479;
           wire  Net_553;
           wire  Net_473;
@@ -1651,7 +1674,7 @@ module top ;
 		  .period("41666666.6666667"),
 		  .is_direct(0),
 		  .is_digital(1))
-		Clock_1
+		Encoder_Clock
 		 (.clock_out(Net_2535));
 
 
@@ -1826,26 +1849,26 @@ module top ;
     SCB_P4_v4_0_1 I2C (
         .clock(1'b0),
         .cts_in(1'b0),
-        .interrupt(Net_2269),
+        .interrupt(Net_2707),
         .m_miso(1'b0),
-        .m_mosi(Net_2277),
-        .m_sclk(Net_2278),
-        .m_ss0(Net_2279),
-        .m_ss1(Net_2280),
-        .m_ss2(Net_2281),
-        .m_ss3(Net_2282),
-        .rts_out(Net_2268),
-        .rx_dma_out(Net_2271),
+        .m_mosi(Net_2709),
+        .m_sclk(Net_2710),
+        .m_ss0(Net_2711),
+        .m_ss1(Net_2712),
+        .m_ss2(Net_2713),
+        .m_ss3(Net_2714),
+        .rts_out(Net_2715),
+        .rx_dma_out(Net_2716),
         .rx_in(1'b0),
-        .rx_tx_out(Net_2288),
-        .s_miso(Net_2283),
+        .rx_tx_out(Net_2718),
+        .s_miso(Net_2719),
         .s_mosi(1'b0),
         .s_sclk(1'b0),
         .s_ss(1'b0),
-        .scl_b(Net_2286),
-        .sda_b(Net_2287),
-        .tx_dma_out(Net_2272),
-        .tx_out(Net_2285));
+        .scl_b(Net_2723),
+        .sda_b(Net_2724),
+        .tx_dma_out(Net_2725),
+        .tx_out(Net_2726));
 
     // -- DFF Start --
     reg  cydff_5;
@@ -1903,7 +1926,7 @@ module top ;
     assign Net_528 = Net_473 ^ Net_553 ^ Net_476 ^ Net_477;
 
 
-    assign Net_583 = Net_473 ^ Net_477;
+    assign Net_2688 = Net_473 ^ Net_477;
 
     // -- DFF Start --
     reg  cydff_2;
@@ -1983,7 +2006,7 @@ module top ;
 		Reset_Encoder
 		 (.oe(tmpOE__Reset_Encoder_net),
 		  .y({1'b0}),
-		  .fb({Net_2338}),
+		  .fb({Net_2787}),
 		  .io({tmpIO_0__Reset_Encoder_net[0:0]}),
 		  .siovref(tmpSIOVREF__Reset_Encoder_net),
 		  .interrupt({Net_622}),
@@ -2619,17 +2642,17 @@ module top ;
 
     TCPWM_P4_v2_10_5 Timer_BRMS (
         .capture(1'b0),
-        .cc(Net_2663),
+        .cc(Net_2678),
         .clock(Net_2664),
         .count(1'b1),
         .interrupt(Net_2674),
-        .line(Net_2667),
-        .line_n(Net_2668),
-        .ov(Net_2669),
+        .line(Net_2680),
+        .line_n(Net_2681),
+        .ov(Net_2682),
         .reload(1'b0),
         .start(1'b0),
         .stop(1'b0),
-        .un(Net_2673));
+        .un(Net_2686));
 
 
 	cy_isr_v1_0
@@ -2637,6 +2660,33 @@ module top ;
 		isr_brms
 		 (.int_signal(Net_2674));
 
+
+
+    assign Net_583 = Net_2687 ^ Net_2688;
+
+    CyControlReg_v1_80 EncoderDirection (
+        .clock(Net_2535),
+        .control_0(Net_2687),
+        .control_1(Net_2788),
+        .control_2(Net_2789),
+        .control_3(Net_2790),
+        .control_4(Net_2792),
+        .control_5(Net_2793),
+        .control_6(Net_2794),
+        .control_7(Net_2795),
+        .reset(1'b0));
+    defparam EncoderDirection.Bit0Mode = 1;
+    defparam EncoderDirection.Bit1Mode = 0;
+    defparam EncoderDirection.Bit2Mode = 0;
+    defparam EncoderDirection.Bit3Mode = 0;
+    defparam EncoderDirection.Bit4Mode = 0;
+    defparam EncoderDirection.Bit5Mode = 0;
+    defparam EncoderDirection.Bit6Mode = 0;
+    defparam EncoderDirection.Bit7Mode = 0;
+    defparam EncoderDirection.BitValue = 0;
+    defparam EncoderDirection.BusDisplay = 0;
+    defparam EncoderDirection.ExtrReset = 1;
+    defparam EncoderDirection.NumOutputs = 1;
 
 
 

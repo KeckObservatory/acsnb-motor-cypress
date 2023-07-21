@@ -4,16 +4,17 @@ UDB 0
 ------------------------------------------------------
 	PLD 0:
 		 Instances:
+			Net_477
 			cydff_6
 			cydff_4
 			Net_583
-			Net_477
 
 		 Clock net: Net_2535_digital
 		 Set/Reset net: 
 		 Enable net: 
 
 		 Input nets:
+			Net_2687
 			Net_477
 			Net_634
 			cy_srff_1
@@ -28,8 +29,10 @@ UDB 0
 			cydff_6
 
 		 Product terms:
-			!Net_477 * cydff_3
-			!cydff_3 * Net_477
+			!Net_2687 * !Net_477 * cydff_3
+			!Net_2687 * !cydff_3 * Net_477
+			!Net_477 * !cydff_3 * Net_2687
+			Net_2687 * Net_477 * cydff_3
 			Net_634 * cy_srff_1
 			cydff_4
 			cydff_6
@@ -91,7 +94,7 @@ UDB 0
 
 	Control, status and sync:
 		 Instances:
-			\Index_Counter_1:CounterUDB:sCTRLReg:ctrlreg\ : controlcell
+			\EncoderDirection:Sync:ctrl_reg\ : controlcell
 
 		 Clock net: Net_2535_digital
 		 Set/Reset net: 
@@ -101,7 +104,7 @@ UDB 0
 			ClockBlock_HFClk
 
 		 Output nets:
-			\Index_Counter_1:CounterUDB:control_7\
+			Net_2687
 
 	Local clock and reset nets:
 
@@ -139,9 +142,9 @@ UDB 1
 
 	PLD 1:
 		 Instances:
-			\Index_Counter_1:CounterUDB:count_stored_i\
 			\Index_Counter_1:CounterUDB:status_0\
 			\Index_Counter_1:CounterUDB:prevCompare\
+			\Index_Counter_1:CounterUDB:count_stored_i\
 			\Index_Counter_1:CounterUDB:count_enable\
 
 		 Clock net: Net_2535_digital
@@ -232,10 +235,10 @@ UDB 2
 ------------------------------------------------------
 	PLD 0:
 		 Instances:
+			\Counter_1:CounterUDB:underflow_reg_i\
 			\Counter_1:CounterUDB:status_2\
 			\Counter_1:CounterUDB:status_3\
 			\Counter_1:CounterUDB:overflow_reg_i\
-			\Counter_1:CounterUDB:underflow_reg_i\
 
 		 Clock net: Net_2535_digital
 		 Set/Reset net: 
@@ -329,6 +332,7 @@ UDB 2
 
 	Control, status and sync:
 		 Instances:
+			\Index_Counter_1:CounterUDB:sCTRLReg:ctrlreg\ : controlcell
 			\Counter_1:CounterUDB:sSTSReg:stsreg\ : statusicell
 
 		 Clock net: Net_2535_digital
@@ -336,6 +340,7 @@ UDB 2
 		 Enable net: 
 
 		 Input nets:
+			ClockBlock_HFClk
 			\Counter_1:CounterUDB:status_0\
 			\Counter_1:CounterUDB:status_1\
 			\Counter_1:CounterUDB:status_2\
@@ -344,6 +349,7 @@ UDB 2
 			\Counter_1:CounterUDB:status_6\
 
 		 Output nets:
+			\Index_Counter_1:CounterUDB:control_7\
 
 	Local clock and reset nets:
 
@@ -352,8 +358,8 @@ UDB 3
 ------------------------------------------------------
 	PLD 0:
 		 Instances:
-			cy_srff_1
 			\Counter_1:CounterUDB:prevCompare\
+			cy_srff_1
 			cydff_5
 			__ONE__
 

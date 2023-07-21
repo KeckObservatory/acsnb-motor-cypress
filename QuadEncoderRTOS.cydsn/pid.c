@@ -17,15 +17,30 @@
 *******************************************************************************/
 int32_t PID_UpdateValues(int32_t setpoint, int32_t position) {
 
-    /* Hardcoded PID values here, for now */
-    uint16_t Kp = 5000; //3000; //8000;
-    uint16_t Ki = 100;
-    uint16_t Kd = 0; //800;
+    /* PID values are all scaled down by a factor of 1000 below.  Use values
+       that are pre-scaled up to avoid floating point math. */
     
+    /* (hardcoded PID values here, for now) */
+    uint16_t Kp = 10000; //5000;
+    uint16_t Ki = 100;
+    uint16_t Kd = 0;
+
+    /* 2023-07-07 stable values
+    uint16_t Kp = 5000;
+    uint16_t Ki = 100;
+    uint16_t Kd = 0;
+    */
+        
     /* Constants for use in this algorithm */
-    uint16_t max_output = 400; //600; //800;
+    uint16_t max_output = 400;
+    uint16_t max_iterm = 250; //150; //250;
+    uint16_t pid_scale = 1000;
+
+    /* 2023-07-07 stable values
+    uint16_t max_output = 400;
     uint16_t max_iterm = 250;
     uint16_t pid_scale = 1000;
+    */
     
     /* Temporary values */
     volatile int32_t error;

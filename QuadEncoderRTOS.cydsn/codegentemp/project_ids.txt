@@ -1,6 +1,8 @@
-C:\Users\prichards\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\QuadEncoderRTOS.cyprj|71cc0382-e11a-4ec5-9143-cc9e1f32d03b
-C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|0e7f8b5f-88bb-45be-87b1-d3a0324e0566
-C:\Users\prichards\Documents\PSoC Creator\4.4\Downloads ( 4.4).cylib\Downloads ( 4.4).cyprj|750bf482-e59f-4fc3-92d4-e5bf85e36eb9
-C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|eecf088a-7504-4bdd-a8fa-42f3947d3806
-C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|759afcab-b62c-4a82-a452-717599c2d44b
-C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|f94d6445-4839-4ea5-b6a0-74a9b8170d5b
+C:\Users\prichards\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\QuadEncoderRTOS.cyprj|7f10e3b8-4fcd-4592-98c4-476c405cb807
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|d2510864-d638-4331-b5df-c0d1fc220b2f
+C:\Users\prichards\Documents\PSoC Creator\4.4\Downloads ( 4.4).cylib\Downloads ( 4.4).cyprj|36877866-7c6c-42c1-bf24-d483592127bd
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|a058d462-0846-4b77-ba7f-0d7997a776fa
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|8e1b79f4-3592-4c04-93fd-baaf912def1a
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|3e151627-1c6f-4805-8c6b-3a532e7e9657
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\dev\psoc4\PSoC4AnalogDevice\psoc4arch.cydsn\psoc4arch.cyprj|f943862d-2576-47f9-b82f-86f1e9f6451b
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\default\CyReferenceLibrary\CyReferenceLibrary.cylib\CyReferenceLibrary.cyprj|193b77cf-0d0c-4af3-8044-3ac7f4c7911b

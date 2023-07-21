@@ -193,7 +193,7 @@ uint8_t CurrentI2Cinbuf[20];
 */
     
 /* Set this to be at least the size of the status response message */
-#define MAX_MESSAGE_SIZE 27
+#define MAX_MESSAGE_SIZE 31
     
 /* Remember the last time a message came in so we can timeout moves if the node box stops 
    talking.  Nominally 1 second max of not talking. */
@@ -263,7 +263,7 @@ union {
     rxMessage_setenc_t  setenc;
 } rxMessage;
 
-/* Message back to the BBB, watch out for alignment here by packing the structure (27 bytes) */
+/* Message back to the BBB, watch out for alignment here by packing the structure (31 bytes) */
 typedef struct  {  
     uint8_t  checksum;        /* Message checksum */    
     uint8_t  version0;        /* Version byte 0 */ 
@@ -279,7 +279,8 @@ typedef struct  {
     int32_t  position;        /* Actual actuator position, signed value */ 
     int16_t  pwm;             /* PWM value the motor is moving at */     
     int32_t  iterm;           /* Instantaneous PID iterm value */
-    uint32_t last_move_time;  /* Amount of time for the last move, in us */ 
+    uint32_t last_move_time;  /* Amount of time for the last move, in us */
+    int32_t  iterm_delay;     /* Hold-off time remaining before iterm kicks in */
 } __attribute__ ((__packed__)) txMessage_t;
 
 /* Wrap the message with an array of bytes */
@@ -507,7 +508,7 @@ void runRateGroup3_SPI(void) {
                                 dictated by the size of the move (if it's more than 50 counts) */
                                 distance = PID_Setpoint - LastPosition;                               
                                 if (distance < 0) {
-                                    distance *= -1;
+                                    distance = -distance;
                                 }
                                 
                                 if (distance > 50) {                                
@@ -517,10 +518,8 @@ void runRateGroup3_SPI(void) {
                                     iterm_delay = 0;
                                 }
                                 
-                                
-                                /* The demand has changed, reset the iterm delay to the max */
-                                //iterm_delay = ITERM_DELAY_DEFAULT;  
-                                //iterm_delay = 0;
+                                /* The demand has changed, reset the iterm to discharge any build up */
+                                iterm = 0;
                             }                                        
                         
                             /* PWM jog value ranges from -100 to 100, where -100 is max-reverse current, 
@@ -560,6 +559,7 @@ void runRateGroup3_SPI(void) {
             txMessage.msg.iterm           = iterm;
             txMessage.msg.motor_current   = MotorCurrent;                  
             txMessage.msg.last_move_time  = LastMoveTimeUsec;
+            txMessage.msg.iterm_delay     = iterm_delay;
             
             /* Set the checksum in the response */
             for (i = 0, checksum = 0; i < sizeof(txMessage_t); i++)
@@ -953,6 +953,13 @@ int main(void) {
     PID_Enabled           = false;
     PWM_Set(PWM_SET_NEUTRAL);
   
+    /* Set the encoder direction sense based on the drive polarity */
+    if (DRIVE_POLARITY == 1) {
+        EncoderDirection_Write(1);
+    } else {
+        EncoderDirection_Write(0);
+    }
+    
     /***********************************************************************
     * Run the background tasks.  Assume anything executed in here will be
     * constantly interrupted by the task scheduler.

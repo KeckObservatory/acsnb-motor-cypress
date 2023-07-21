@@ -588,13 +588,6 @@
 .set spi_ss__PS, CYREG_PRT0_PS
 .set spi_ss__SHIFT, 7
 
-/* Clock_1 */
-.set Clock_1__DIVIDER_MASK, 0x0000FFFF
-.set Clock_1__ENABLE, CYREG_CLK_DIVIDER_B00
-.set Clock_1__ENABLE_MASK, 0x80000000
-.set Clock_1__MASK, 0x80000000
-.set Clock_1__REGISTER, CYREG_CLK_DIVIDER_B00
-
 /* HOME_IN */
 .set HOME_IN__0__DM__MASK, 0x1C0
 .set HOME_IN__0__DM__SHIFT, 6
@@ -1073,6 +1066,8 @@
 .set Counter_1_CounterUDB_sC24_counterdp_u1__F0_F1_REG, CYREG_UDB_CAT16_F_01
 .set Counter_1_CounterUDB_sC24_counterdp_u1__F0_REG, CYREG_UDB_W8_F0_01
 .set Counter_1_CounterUDB_sC24_counterdp_u1__F1_REG, CYREG_UDB_W8_F1_01
+.set Counter_1_CounterUDB_sC24_counterdp_u1__MSK_DP_AUX_CTL_REG, CYREG_UDB_CAT16_ACTL_MSK_01
+.set Counter_1_CounterUDB_sC24_counterdp_u1__PER_DP_AUX_CTL_REG, CYREG_UDB_CAT16_ACTL_MSK_01
 .set Counter_1_CounterUDB_sC24_counterdp_u2__16BIT_A0_REG, CYREG_UDB_W16_A0_02
 .set Counter_1_CounterUDB_sC24_counterdp_u2__16BIT_A1_REG, CYREG_UDB_W16_A1_02
 .set Counter_1_CounterUDB_sC24_counterdp_u2__16BIT_D0_REG, CYREG_UDB_W16_D0_02
@@ -1138,7 +1133,11 @@
 .set Counter_1_CounterUDB_sSTSReg_stsreg__6__POS, 6
 .set Counter_1_CounterUDB_sSTSReg_stsreg__MASK, 0x6F
 .set Counter_1_CounterUDB_sSTSReg_stsreg__MASK_REG, CYREG_UDB_W8_MSK_01
+.set Counter_1_CounterUDB_sSTSReg_stsreg__MASK_ST_AUX_CTL_REG, CYREG_UDB_CAT16_ACTL_MSK_01
+.set Counter_1_CounterUDB_sSTSReg_stsreg__PER_ST_AUX_CTL_REG, CYREG_UDB_CAT16_ACTL_MSK_01
 .set Counter_1_CounterUDB_sSTSReg_stsreg__STATUS_AUX_CTL_REG, CYREG_UDB_W8_ACTL_01
+.set Counter_1_CounterUDB_sSTSReg_stsreg__STATUS_CNT_REG, CYREG_UDB_CAT16_CTL_ST_01
+.set Counter_1_CounterUDB_sSTSReg_stsreg__STATUS_CONTROL_REG, CYREG_UDB_CAT16_CTL_ST_01
 .set Counter_1_CounterUDB_sSTSReg_stsreg__STATUS_REG, CYREG_UDB_W8_ST_01
 
 /* Direction */
@@ -1307,6 +1306,13 @@
 .set isr_spi_ss__INTC_SET_EN_REG, CYREG_CM0_ISER
 .set isr_spi_ss__INTC_SET_PD_REG, CYREG_CM0_ISPR
 
+/* Encoder_Clock */
+.set Encoder_Clock__DIVIDER_MASK, 0x0000FFFF
+.set Encoder_Clock__ENABLE, CYREG_CLK_DIVIDER_B00
+.set Encoder_Clock__ENABLE_MASK, 0x80000000
+.set Encoder_Clock__MASK, 0x80000000
+.set Encoder_Clock__REGISTER, CYREG_CLK_DIVIDER_B00
+
 /* Reset_Encoder */
 .set Reset_Encoder__0__DM__MASK, 0x1C0000
 .set Reset_Encoder__0__DM__SHIFT, 18
@@ -1398,25 +1404,16 @@
 .set Index_Counter_1_CounterUDB_sSTSReg_stsreg__0__POS, 0
 .set Index_Counter_1_CounterUDB_sSTSReg_stsreg__1__MASK, 0x02
 .set Index_Counter_1_CounterUDB_sSTSReg_stsreg__1__POS, 1
-.set Index_Counter_1_CounterUDB_sSTSReg_stsreg__16BIT_STATUS_AUX_CTL_REG, CYREG_UDB_W16_ACTL_00
-.set Index_Counter_1_CounterUDB_sSTSReg_stsreg__16BIT_STATUS_REG, CYREG_UDB_W16_ST_00
 .set Index_Counter_1_CounterUDB_sSTSReg_stsreg__2__MASK, 0x04
 .set Index_Counter_1_CounterUDB_sSTSReg_stsreg__2__POS, 2
-.set Index_Counter_1_CounterUDB_sSTSReg_stsreg__32BIT_MASK_REG, CYREG_UDB_W32_MSK_00
-.set Index_Counter_1_CounterUDB_sSTSReg_stsreg__32BIT_STATUS_AUX_CTL_REG, CYREG_UDB_W32_ACTL_00
-.set Index_Counter_1_CounterUDB_sSTSReg_stsreg__32BIT_STATUS_REG, CYREG_UDB_W32_ST_00
 .set Index_Counter_1_CounterUDB_sSTSReg_stsreg__5__MASK, 0x20
 .set Index_Counter_1_CounterUDB_sSTSReg_stsreg__5__POS, 5
 .set Index_Counter_1_CounterUDB_sSTSReg_stsreg__6__MASK, 0x40
 .set Index_Counter_1_CounterUDB_sSTSReg_stsreg__6__POS, 6
 .set Index_Counter_1_CounterUDB_sSTSReg_stsreg__MASK, 0x67
-.set Index_Counter_1_CounterUDB_sSTSReg_stsreg__MASK_REG, CYREG_UDB_W8_MSK_00
-.set Index_Counter_1_CounterUDB_sSTSReg_stsreg__MASK_ST_AUX_CTL_REG, CYREG_UDB_CAT16_ACTL_MSK_00
-.set Index_Counter_1_CounterUDB_sSTSReg_stsreg__PER_ST_AUX_CTL_REG, CYREG_UDB_CAT16_ACTL_MSK_00
-.set Index_Counter_1_CounterUDB_sSTSReg_stsreg__STATUS_AUX_CTL_REG, CYREG_UDB_W8_ACTL_00
-.set Index_Counter_1_CounterUDB_sSTSReg_stsreg__STATUS_CNT_REG, CYREG_UDB_CAT16_CTL_ST_00
-.set Index_Counter_1_CounterUDB_sSTSReg_stsreg__STATUS_CONTROL_REG, CYREG_UDB_CAT16_CTL_ST_00
-.set Index_Counter_1_CounterUDB_sSTSReg_stsreg__STATUS_REG, CYREG_UDB_W8_ST_00
+.set Index_Counter_1_CounterUDB_sSTSReg_stsreg__MASK_REG, CYREG_UDB_W8_MSK_03
+.set Index_Counter_1_CounterUDB_sSTSReg_stsreg__STATUS_AUX_CTL_REG, CYREG_UDB_W8_ACTL_03
+.set Index_Counter_1_CounterUDB_sSTSReg_stsreg__STATUS_REG, CYREG_UDB_W8_ST_03
 
 /* isr_rst_encoder */
 .set isr_rst_encoder__INTC_CLR_EN_REG, CYREG_CM0_ICER
@@ -1428,6 +1425,28 @@
 .set isr_rst_encoder__INTC_PRIOR_REG, CYREG_CM0_IPR0
 .set isr_rst_encoder__INTC_SET_EN_REG, CYREG_CM0_ISER
 .set isr_rst_encoder__INTC_SET_PD_REG, CYREG_CM0_ISPR
+
+/* EncoderDirection */
+.set EncoderDirection_Sync_ctrl_reg__0__MASK, 0x01
+.set EncoderDirection_Sync_ctrl_reg__0__POS, 0
+.set EncoderDirection_Sync_ctrl_reg__16BIT_CONTROL_AUX_CTL_REG, CYREG_UDB_W16_ACTL_01
+.set EncoderDirection_Sync_ctrl_reg__16BIT_CONTROL_CONTROL_REG, CYREG_UDB_W16_CTL_01
+.set EncoderDirection_Sync_ctrl_reg__16BIT_CONTROL_COUNT_REG, CYREG_UDB_W16_CTL_01
+.set EncoderDirection_Sync_ctrl_reg__16BIT_COUNT_CONTROL_REG, CYREG_UDB_W16_CTL_01
+.set EncoderDirection_Sync_ctrl_reg__16BIT_COUNT_COUNT_REG, CYREG_UDB_W16_CTL_01
+.set EncoderDirection_Sync_ctrl_reg__16BIT_MASK_MASK_REG, CYREG_UDB_W16_MSK_01
+.set EncoderDirection_Sync_ctrl_reg__16BIT_MASK_PERIOD_REG, CYREG_UDB_W16_MSK_01
+.set EncoderDirection_Sync_ctrl_reg__16BIT_PERIOD_MASK_REG, CYREG_UDB_W16_MSK_01
+.set EncoderDirection_Sync_ctrl_reg__16BIT_PERIOD_PERIOD_REG, CYREG_UDB_W16_MSK_01
+.set EncoderDirection_Sync_ctrl_reg__CONTROL_AUX_CTL_REG, CYREG_UDB_W8_ACTL_01
+.set EncoderDirection_Sync_ctrl_reg__CONTROL_REG, CYREG_UDB_W8_CTL_01
+.set EncoderDirection_Sync_ctrl_reg__CONTROL_ST_REG, CYREG_UDB_CAT16_CTL_ST_01
+.set EncoderDirection_Sync_ctrl_reg__COUNT_REG, CYREG_UDB_W8_CTL_01
+.set EncoderDirection_Sync_ctrl_reg__COUNT_ST_REG, CYREG_UDB_CAT16_CTL_ST_01
+.set EncoderDirection_Sync_ctrl_reg__MASK, 0x01
+.set EncoderDirection_Sync_ctrl_reg__MASK_CTL_AUX_CTL_REG, CYREG_UDB_CAT16_ACTL_MSK_01
+.set EncoderDirection_Sync_ctrl_reg__PER_CTL_AUX_CTL_REG, CYREG_UDB_CAT16_ACTL_MSK_01
+.set EncoderDirection_Sync_ctrl_reg__PERIOD_REG, CYREG_UDB_W8_MSK_01
 
 /* Miscellaneous */
 .set CYDEV_BCLK__HFCLK__HZ, 48000000

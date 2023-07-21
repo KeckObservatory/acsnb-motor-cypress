@@ -1,4 +1,4 @@
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccTh0ySZ.s 			page 1
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchHAM0o.s 			page 1
 
 
    1              		.syntax unified
@@ -58,78 +58,93 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccTh0ySZ.s 			page 1
   37              		.cfi_offset 14, -4
   38 0002 86B0     		sub	sp, sp, #24
   39              		.cfi_def_cfa_offset 32
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccTh0ySZ.s 			page 2
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchHAM0o.s 			page 2
 
 
   40 0004 0C00     		movs	r4, r1
   41              	.LVL1:
   19:pid.c         **** 
-  20:pid.c         ****     /* Hardcoded PID values here, for now */
-  21:pid.c         ****     uint16_t Kp = 5000; //3000; //8000;
-  22:pid.c         ****     uint16_t Ki = 100;
-  23:pid.c         ****     uint16_t Kd = 0; //800;
-  24:pid.c         ****     
-  25:pid.c         ****     /* Constants for use in this algorithm */
-  26:pid.c         ****     uint16_t max_output = 400; //600; //800;
-  27:pid.c         ****     uint16_t max_iterm = 250;
-  28:pid.c         ****     uint16_t pid_scale = 1000;
-  29:pid.c         ****     
-  30:pid.c         ****     /* Temporary values */
-  31:pid.c         ****     volatile int32_t error;
-  32:pid.c         ****     volatile int32_t last_error;
-  33:pid.c         ****     volatile int32_t Qmax_iterm;
-  34:pid.c         ****     volatile int32_t Qmax_output;
-  35:pid.c         ****     volatile int32_t dposition;
-  36:pid.c         ****     volatile int32_t output;
-  37:pid.c         ****     static int32_t last_position;
-  38:pid.c         ****     
-  39:pid.c         ****     /* Scale the values */
-  40:pid.c         ****     Qmax_iterm = max_iterm * pid_scale;
-  42              		.loc 1 40 0
+  20:pid.c         ****     /* PID values are all scaled down by a factor of 1000 below.  Use values
+  21:pid.c         ****        that are pre-scaled up to avoid floating point math. */
+  22:pid.c         ****     
+  23:pid.c         ****     /* (hardcoded PID values here, for now) */
+  24:pid.c         ****     uint16_t Kp = 10000; //5000;
+  25:pid.c         ****     uint16_t Ki = 100;
+  26:pid.c         ****     uint16_t Kd = 0;
+  27:pid.c         **** 
+  28:pid.c         ****     /* 2023-07-07 stable values
+  29:pid.c         ****     uint16_t Kp = 5000;
+  30:pid.c         ****     uint16_t Ki = 100;
+  31:pid.c         ****     uint16_t Kd = 0;
+  32:pid.c         ****     */
+  33:pid.c         ****         
+  34:pid.c         ****     /* Constants for use in this algorithm */
+  35:pid.c         ****     uint16_t max_output = 400;
+  36:pid.c         ****     uint16_t max_iterm = 250; //150; //250;
+  37:pid.c         ****     uint16_t pid_scale = 1000;
+  38:pid.c         **** 
+  39:pid.c         ****     /* 2023-07-07 stable values
+  40:pid.c         ****     uint16_t max_output = 400;
+  41:pid.c         ****     uint16_t max_iterm = 250;
+  42:pid.c         ****     uint16_t pid_scale = 1000;
+  43:pid.c         ****     */
+  44:pid.c         ****     
+  45:pid.c         ****     /* Temporary values */
+  46:pid.c         ****     volatile int32_t error;
+  47:pid.c         ****     volatile int32_t last_error;
+  48:pid.c         ****     volatile int32_t Qmax_iterm;
+  49:pid.c         ****     volatile int32_t Qmax_output;
+  50:pid.c         ****     volatile int32_t dposition;
+  51:pid.c         ****     volatile int32_t output;
+  52:pid.c         ****     static int32_t last_position;
+  53:pid.c         ****     
+  54:pid.c         ****     /* Scale the values */
+  55:pid.c         ****     Qmax_iterm = max_iterm * pid_scale;
+  42              		.loc 1 55 0
   43 0006 2A4B     		ldr	r3, .L8
   44 0008 0393     		str	r3, [sp, #12]
-  41:pid.c         ****     Qmax_output = max_output * pid_scale;
-  45              		.loc 1 41 0
+  56:pid.c         ****     Qmax_output = max_output * pid_scale;
+  45              		.loc 1 56 0
   46 000a 2A4B     		ldr	r3, .L8+4
   47 000c 0293     		str	r3, [sp, #8]
-  42:pid.c         ****     
-  43:pid.c         ****     /* Compute all the working error variables */
-  44:pid.c         ****     error = setpoint - position;    
-  48              		.loc 1 44 0
+  57:pid.c         ****     
+  58:pid.c         ****     /* Compute all the working error variables */
+  59:pid.c         ****     error = setpoint - position;    
+  48              		.loc 1 59 0
   49 000e 401A     		subs	r0, r0, r1
   50              	.LVL2:
   51 0010 0590     		str	r0, [sp, #20]
-  45:pid.c         ****     
-  46:pid.c         ****     /* If the iterm_delay is nonzero, count it down to 0ms before using the iterm in the calculatio
-  47:pid.c         ****     if (iterm_delay > 0) {
-  52              		.loc 1 47 0
+  60:pid.c         ****     
+  61:pid.c         ****     /* If the iterm_delay is nonzero, count it down to 0ms before using the iterm in the calculatio
+  62:pid.c         ****     if (iterm_delay > 0) {
+  52              		.loc 1 62 0
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchHAM0o.s 			page 3
+
+
   53 0012 294B     		ldr	r3, .L8+8
   54 0014 1B68     		ldr	r3, [r3]
   55 0016 002B     		cmp	r3, #0
   56 0018 07DD     		ble	.L2
-  48:pid.c         ****         
-  49:pid.c         ****         iterm_delay = (iterm_delay - ITERM_DELAY_INTERVAL);        
-  57              		.loc 1 49 0
+  63:pid.c         ****         
+  64:pid.c         ****         iterm_delay = (iterm_delay - ITERM_DELAY_INTERVAL);        
+  57              		.loc 1 64 0
   58 001a 913B     		subs	r3, r3, #145
   59 001c FF3B     		subs	r3, r3, #255
   60 001e 264A     		ldr	r2, .L8+8
   61 0020 1360     		str	r3, [r2]
-  50:pid.c         ****         iterm = 0;
-  62              		.loc 1 50 0
+  65:pid.c         ****         iterm = 0;
+  62              		.loc 1 65 0
   63 0022 0022     		movs	r2, #0
   64 0024 254B     		ldr	r3, .L8+12
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccTh0ySZ.s 			page 3
-
-
   65 0026 1A60     		str	r2, [r3]
   66 0028 07E0     		b	.L3
   67              	.L2:
-  51:pid.c         ****         
-  52:pid.c         ****     } else {      
-  53:pid.c         ****     
-  54:pid.c         ****         /* Outside of the delay period, calculate the iterm normally */
-  55:pid.c         ****         iterm += (Ki * error);
-  68              		.loc 1 55 0
+  66:pid.c         ****         
+  67:pid.c         ****     } else {      
+  68:pid.c         ****     
+  69:pid.c         ****         /* Outside of the delay period, calculate the iterm normally */
+  70:pid.c         ****         iterm += (Ki * error);
+  68              		.loc 1 70 0
   69 002a 059A     		ldr	r2, [sp, #20]
   70 002c 6423     		movs	r3, #100
   71 002e 5343     		muls	r3, r2
@@ -140,53 +155,53 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccTh0ySZ.s 			page 1
   76 0036 6344     		add	r3, r3, ip
   77 0038 1360     		str	r3, [r2]
   78              	.L3:
-  56:pid.c         ****     }
-  57:pid.c         ****     
-  58:pid.c         ****     /* Clip the I term at a max value for just that term (windup guard) */
-  59:pid.c         ****     if (iterm > Qmax_iterm) {
-  79              		.loc 1 59 0
+  71:pid.c         ****     }
+  72:pid.c         ****     
+  73:pid.c         ****     /* Clip the I term at a max value for just that term (windup guard) */
+  74:pid.c         ****     if (iterm > Qmax_iterm) {
+  79              		.loc 1 74 0
   80 003a 204B     		ldr	r3, .L8+12
   81 003c 1B68     		ldr	r3, [r3]
   82 003e 039A     		ldr	r2, [sp, #12]
   83 0040 9342     		cmp	r3, r2
   84 0042 03DD     		ble	.L4
-  60:pid.c         ****         iterm = Qmax_iterm;
-  85              		.loc 1 60 0
+  75:pid.c         ****         iterm = Qmax_iterm;
+  85              		.loc 1 75 0
   86 0044 039A     		ldr	r2, [sp, #12]
   87 0046 1D4B     		ldr	r3, .L8+12
   88 0048 1A60     		str	r2, [r3]
   89 004a 07E0     		b	.L5
   90              	.L4:
-  61:pid.c         ****     } else if (iterm < -Qmax_iterm) {
-  91              		.loc 1 61 0
+  76:pid.c         ****     } else if (iterm < -Qmax_iterm) {
+  91              		.loc 1 76 0
   92 004c 039A     		ldr	r2, [sp, #12]
   93 004e 5242     		rsbs	r2, r2, #0
   94 0050 9342     		cmp	r3, r2
   95 0052 03DA     		bge	.L5
-  62:pid.c         ****         iterm = -Qmax_iterm;
-  96              		.loc 1 62 0
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchHAM0o.s 			page 4
+
+
+  77:pid.c         ****         iterm = -Qmax_iterm;
+  96              		.loc 1 77 0
   97 0054 039B     		ldr	r3, [sp, #12]
   98 0056 5B42     		rsbs	r3, r3, #0
   99 0058 184A     		ldr	r2, .L8+12
  100 005a 1360     		str	r3, [r2]
  101              	.L5:
-  63:pid.c         ****     }
-  64:pid.c         ****     
-  65:pid.c         ****     /* Calculate the error term */
-  66:pid.c         ****     dposition = (position - last_position);
- 102              		.loc 1 66 0
+  78:pid.c         ****     }
+  79:pid.c         ****     
+  80:pid.c         ****     /* Calculate the error term */
+  81:pid.c         ****     dposition = (position - last_position);
+ 102              		.loc 1 81 0
  103 005c 184B     		ldr	r3, .L8+16
  104 005e 1B68     		ldr	r3, [r3]
  105 0060 E31A     		subs	r3, r4, r3
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccTh0ySZ.s 			page 4
-
-
  106 0062 0193     		str	r3, [sp, #4]
-  67:pid.c         **** 
-  68:pid.c         ****     /* Compute PID Output */
-  69:pid.c         ****     //output = (Kp * error) + iterm - (Kd * dposition);
-  70:pid.c         ****     output = (Kp * error) + iterm + (Kd * (error - last_error));
- 107              		.loc 1 70 0
+  82:pid.c         **** 
+  83:pid.c         ****     /* Compute PID Output */
+  84:pid.c         ****     //output = (Kp * error) + iterm - (Kd * dposition);
+  85:pid.c         ****     output = (Kp * error) + iterm + (Kd * (error - last_error));
+ 107              		.loc 1 85 0
  108 0064 059A     		ldr	r2, [sp, #20]
  109 0066 174B     		ldr	r3, .L8+20
  110 0068 5343     		muls	r3, r2
@@ -196,63 +211,63 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccTh0ySZ.s 			page 1
  114 0070 059A     		ldr	r2, [sp, #20]
  115 0072 049A     		ldr	r2, [sp, #16]
  116 0074 0093     		str	r3, [sp]
-  71:pid.c         ****     
-  72:pid.c         ****     /* Clip the output */
-  73:pid.c         ****     if (output > Qmax_output) {
- 117              		.loc 1 73 0
+  86:pid.c         ****     
+  87:pid.c         ****     /* Clip the output */
+  88:pid.c         ****     if (output > Qmax_output) {
+ 117              		.loc 1 88 0
  118 0076 009A     		ldr	r2, [sp]
  119 0078 029B     		ldr	r3, [sp, #8]
  120 007a 9A42     		cmp	r2, r3
  121 007c 02DD     		ble	.L6
-  74:pid.c         ****         output = Qmax_output;
- 122              		.loc 1 74 0
+  89:pid.c         ****         output = Qmax_output;
+ 122              		.loc 1 89 0
  123 007e 029B     		ldr	r3, [sp, #8]
  124 0080 0093     		str	r3, [sp]
  125 0082 07E0     		b	.L7
  126              	.L6:
-  75:pid.c         ****     } else if (output < -Qmax_output) {
- 127              		.loc 1 75 0
+  90:pid.c         ****     } else if (output < -Qmax_output) {
+ 127              		.loc 1 90 0
  128 0084 029B     		ldr	r3, [sp, #8]
  129 0086 5B42     		rsbs	r3, r3, #0
  130 0088 009A     		ldr	r2, [sp]
  131 008a 9342     		cmp	r3, r2
  132 008c 02DD     		ble	.L7
-  76:pid.c         ****         output = -Qmax_output;
- 133              		.loc 1 76 0
+  91:pid.c         ****         output = -Qmax_output;
+ 133              		.loc 1 91 0
  134 008e 029B     		ldr	r3, [sp, #8]
  135 0090 5B42     		rsbs	r3, r3, #0
  136 0092 0093     		str	r3, [sp]
  137              	.L7:
-  77:pid.c         ****     }
-  78:pid.c         **** 
-  79:pid.c         ****     /* Scale the output back down */
-  80:pid.c         ****     output = output / pid_scale;
- 138              		.loc 1 80 0
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchHAM0o.s 			page 5
+
+
+  92:pid.c         ****     }
+  93:pid.c         **** 
+  94:pid.c         ****     /* Scale the output back down */
+  95:pid.c         ****     output = output / pid_scale;
+ 138              		.loc 1 95 0
  139 0094 0098     		ldr	r0, [sp]
  140 0096 FA21     		movs	r1, #250
  141 0098 8900     		lsls	r1, r1, #2
  142 009a FFF7FEFF 		bl	__aeabi_idiv
  143              	.LVL4:
  144 009e 0090     		str	r0, [sp]
-  81:pid.c         ****     
-  82:pid.c         ****     /* Remember some variables for next time */
-  83:pid.c         ****     last_position = position;
- 145              		.loc 1 83 0
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccTh0ySZ.s 			page 5
-
-
+  96:pid.c         ****     
+  97:pid.c         ****     /* Remember some variables for next time */
+  98:pid.c         ****     last_position = position;
+ 145              		.loc 1 98 0
  146 00a0 074B     		ldr	r3, .L8+16
  147 00a2 1C60     		str	r4, [r3]
-  84:pid.c         ****     last_error = error;
- 148              		.loc 1 84 0
+  99:pid.c         ****     last_error = error;
+ 148              		.loc 1 99 0
  149 00a4 059B     		ldr	r3, [sp, #20]
  150 00a6 0493     		str	r3, [sp, #16]
-  85:pid.c         ****     
-  86:pid.c         ****     return output;    
- 151              		.loc 1 86 0
+ 100:pid.c         ****     
+ 101:pid.c         ****     return output;    
+ 151              		.loc 1 101 0
  152 00a8 0098     		ldr	r0, [sp]
-  87:pid.c         **** }
- 153              		.loc 1 87 0
+ 102:pid.c         **** }
+ 153              		.loc 1 102 0
  154 00aa 06B0     		add	sp, sp, #24
  155              		@ sp needed
  156              	.LVL5:
@@ -265,7 +280,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccTh0ySZ.s 			page 1
  163 00b8 00000000 		.word	iterm_delay
  164 00bc 00000000 		.word	iterm
  165 00c0 00000000 		.word	.LANCHOR0
- 166 00c4 88130000 		.word	5000
+ 166 00c4 10270000 		.word	10000
  167              		.cfi_endproc
  168              	.LFE1:
  169              		.size	PID_UpdateValues, .-PID_UpdateValues
@@ -283,6 +298,9 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccTh0ySZ.s 			page 1
  181              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
  182              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
  183              		.file 4 "pid.h"
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchHAM0o.s 			page 6
+
+
  184              		.section	.debug_info,"",%progbits
  185              	.Ldebug_info0:
  186 0000 B5010000 		.4byte	0x1b5
@@ -298,9 +316,6 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccTh0ySZ.s 			page 1
  196 001d 00000000 		.4byte	0
  197 0021 00000000 		.4byte	.Ldebug_line0
  198 0025 02       		.uleb128 0x2
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccTh0ySZ.s 			page 6
-
-
  199 0026 01       		.byte	0x1
  200 0027 06       		.byte	0x6
  201 0028 1E020000 		.4byte	.LASF0
@@ -343,6 +358,9 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccTh0ySZ.s 			page 1
  238 006e 07       		.byte	0x7
  239 006f 16010000 		.4byte	.LASF9
  240 0073 04       		.uleb128 0x4
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchHAM0o.s 			page 7
+
+
  241 0074 04       		.byte	0x4
  242 0075 05       		.byte	0x5
  243 0076 696E7400 		.ascii	"int\000"
@@ -358,9 +376,6 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccTh0ySZ.s 			page 1
  253 008c 03       		.uleb128 0x3
  254 008d C5010000 		.4byte	.LASF12
  255 0091 03       		.byte	0x3
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccTh0ySZ.s 			page 7
-
-
  256 0092 2C       		.byte	0x2c
  257 0093 4C000000 		.4byte	0x4c
  258 0097 02       		.uleb128 0x2
@@ -400,46 +415,46 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccTh0ySZ.s 			page 1
  292 00e3 07       		.uleb128 0x7
  293 00e4 4B7000   		.ascii	"Kp\000"
  294 00e7 01       		.byte	0x1
- 295 00e8 15       		.byte	0x15
+ 295 00e8 18       		.byte	0x18
  296 00e9 81000000 		.4byte	0x81
- 297 00ed 8813     		.2byte	0x1388
+ 297 00ed 1027     		.2byte	0x2710
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchHAM0o.s 			page 8
+
+
  298 00ef 08       		.uleb128 0x8
  299 00f0 4B6900   		.ascii	"Ki\000"
  300 00f3 01       		.byte	0x1
- 301 00f4 16       		.byte	0x16
+ 301 00f4 19       		.byte	0x19
  302 00f5 81000000 		.4byte	0x81
  303 00f9 64       		.byte	0x64
  304 00fa 08       		.uleb128 0x8
  305 00fb 4B6400   		.ascii	"Kd\000"
  306 00fe 01       		.byte	0x1
- 307 00ff 17       		.byte	0x17
+ 307 00ff 1A       		.byte	0x1a
  308 0100 81000000 		.4byte	0x81
  309 0104 00       		.byte	0
  310 0105 09       		.uleb128 0x9
  311 0106 80000000 		.4byte	.LASF18
  312 010a 01       		.byte	0x1
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccTh0ySZ.s 			page 8
-
-
- 313 010b 1A       		.byte	0x1a
+ 313 010b 23       		.byte	0x23
  314 010c 81000000 		.4byte	0x81
  315 0110 9001     		.2byte	0x190
  316 0112 0A       		.uleb128 0xa
  317 0113 F6000000 		.4byte	.LASF19
  318 0117 01       		.byte	0x1
- 319 0118 1B       		.byte	0x1b
+ 319 0118 24       		.byte	0x24
  320 0119 81000000 		.4byte	0x81
  321 011d FA       		.byte	0xfa
  322 011e 09       		.uleb128 0x9
  323 011f 2D010000 		.4byte	.LASF20
  324 0123 01       		.byte	0x1
- 325 0124 1C       		.byte	0x1c
+ 325 0124 25       		.byte	0x25
  326 0125 81000000 		.4byte	0x81
  327 0129 E803     		.2byte	0x3e8
  328 012b 0B       		.uleb128 0xb
  329 012c D6010000 		.4byte	.LASF21
  330 0130 01       		.byte	0x1
- 331 0131 1F       		.byte	0x1f
+ 331 0131 2E       		.byte	0x2e
  332 0132 91010000 		.4byte	0x191
  333 0136 02       		.uleb128 0x2
  334 0137 91       		.byte	0x91
@@ -447,7 +462,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccTh0ySZ.s 			page 1
  336 0139 0B       		.uleb128 0xb
  337 013a 8B000000 		.4byte	.LASF22
  338 013e 01       		.byte	0x1
- 339 013f 20       		.byte	0x20
+ 339 013f 2F       		.byte	0x2f
  340 0140 91010000 		.4byte	0x191
  341 0144 02       		.uleb128 0x2
  342 0145 91       		.byte	0x91
@@ -455,7 +470,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccTh0ySZ.s 			page 1
  344 0147 0B       		.uleb128 0xb
  345 0148 2A020000 		.4byte	.LASF23
  346 014c 01       		.byte	0x1
- 347 014d 21       		.byte	0x21
+ 347 014d 30       		.byte	0x30
  348 014e 91010000 		.4byte	0x191
  349 0152 02       		.uleb128 0x2
  350 0153 91       		.byte	0x91
@@ -463,7 +478,10 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccTh0ySZ.s 			page 1
  352 0155 0B       		.uleb128 0xb
  353 0156 60000000 		.4byte	.LASF24
  354 015a 01       		.byte	0x1
- 355 015b 22       		.byte	0x22
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchHAM0o.s 			page 9
+
+
+ 355 015b 31       		.byte	0x31
  356 015c 91010000 		.4byte	0x191
  357 0160 02       		.uleb128 0x2
  358 0161 91       		.byte	0x91
@@ -471,18 +489,15 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccTh0ySZ.s 			page 1
  360 0163 0B       		.uleb128 0xb
  361 0164 E3000000 		.4byte	.LASF25
  362 0168 01       		.byte	0x1
- 363 0169 23       		.byte	0x23
+ 363 0169 32       		.byte	0x32
  364 016a 91010000 		.4byte	0x191
  365 016e 02       		.uleb128 0x2
  366 016f 91       		.byte	0x91
  367 0170 64       		.sleb128 -28
  368 0171 0B       		.uleb128 0xb
  369 0172 F9010000 		.4byte	.LASF26
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccTh0ySZ.s 			page 9
-
-
  370 0176 01       		.byte	0x1
- 371 0177 24       		.byte	0x24
+ 371 0177 33       		.byte	0x33
  372 0178 91010000 		.4byte	0x191
  373 017c 02       		.uleb128 0x2
  374 017d 91       		.byte	0x91
@@ -490,7 +505,7 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccTh0ySZ.s 			page 1
  376 017f 0B       		.uleb128 0xb
  377 0180 42000000 		.4byte	.LASF27
  378 0184 01       		.byte	0x1
- 379 0185 25       		.byte	0x25
+ 379 0185 34       		.byte	0x34
  380 0186 8C000000 		.4byte	0x8c
  381 018a 05       		.uleb128 0x5
  382 018b 03       		.byte	0x3
@@ -523,6 +538,9 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccTh0ySZ.s 			page 1
  409 0003 25       		.uleb128 0x25
  410 0004 0E       		.uleb128 0xe
  411 0005 13       		.uleb128 0x13
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchHAM0o.s 			page 10
+
+
  412 0006 0B       		.uleb128 0xb
  413 0007 03       		.uleb128 0x3
  414 0008 0E       		.uleb128 0xe
@@ -538,9 +556,6 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccTh0ySZ.s 			page 1
  424 0012 00       		.byte	0
  425 0013 02       		.uleb128 0x2
  426 0014 24       		.uleb128 0x24
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccTh0ySZ.s 			page 10
-
-
  427 0015 00       		.byte	0
  428 0016 0B       		.uleb128 0xb
  429 0017 0B       		.uleb128 0xb
@@ -583,6 +598,9 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccTh0ySZ.s 			page 1
  466 003c 0E       		.uleb128 0xe
  467 003d 3A       		.uleb128 0x3a
  468 003e 0B       		.uleb128 0xb
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchHAM0o.s 			page 11
+
+
  469 003f 3B       		.uleb128 0x3b
  470 0040 0B       		.uleb128 0xb
  471 0041 27       		.uleb128 0x27
@@ -598,9 +616,6 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccTh0ySZ.s 			page 1
  481 004b 9642     		.uleb128 0x2116
  482 004d 19       		.uleb128 0x19
  483 004e 01       		.uleb128 0x1
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccTh0ySZ.s 			page 11
-
-
  484 004f 13       		.uleb128 0x13
  485 0050 00       		.byte	0
  486 0051 00       		.byte	0
@@ -643,6 +658,9 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccTh0ySZ.s 			page 1
  523 0076 0B       		.uleb128 0xb
  524 0077 3B       		.uleb128 0x3b
  525 0078 0B       		.uleb128 0xb
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchHAM0o.s 			page 12
+
+
  526 0079 49       		.uleb128 0x49
  527 007a 13       		.uleb128 0x13
  528 007b 1C       		.uleb128 0x1c
@@ -658,9 +676,6 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccTh0ySZ.s 			page 1
  538 0085 0B       		.uleb128 0xb
  539 0086 3B       		.uleb128 0x3b
  540 0087 0B       		.uleb128 0xb
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccTh0ySZ.s 			page 12
-
-
  541 0088 49       		.uleb128 0x49
  542 0089 13       		.uleb128 0x13
  543 008a 1C       		.uleb128 0x1c
@@ -703,6 +718,9 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccTh0ySZ.s 			page 1
  580 00af 49       		.uleb128 0x49
  581 00b0 13       		.uleb128 0x13
  582 00b1 00       		.byte	0
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchHAM0o.s 			page 13
+
+
  583 00b2 00       		.byte	0
  584 00b3 0D       		.uleb128 0xd
  585 00b4 34       		.uleb128 0x34
@@ -718,9 +736,6 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccTh0ySZ.s 			page 1
  595 00be 3F       		.uleb128 0x3f
  596 00bf 19       		.uleb128 0x19
  597 00c0 02       		.uleb128 0x2
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccTh0ySZ.s 			page 13
-
-
  598 00c1 18       		.uleb128 0x18
  599 00c2 00       		.byte	0
  600 00c3 00       		.byte	0
@@ -763,6 +778,9 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccTh0ySZ.s 			page 1
  637 0006 00000000 		.4byte	.Ldebug_info0
  638 000a 04       		.byte	0x4
  639 000b 00       		.byte	0
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchHAM0o.s 			page 14
+
+
  640 000c 0000     		.2byte	0
  641 000e 0000     		.2byte	0
  642 0010 00000000 		.4byte	.LFB1
@@ -778,9 +796,6 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccTh0ySZ.s 			page 1
  652              		.section	.debug_line,"",%progbits
  653              	.Ldebug_line0:
  654 0000 4F010000 		.section	.debug_str,"MS",%progbits,1
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccTh0ySZ.s 			page 14
-
-
  654      02002201 
  654      00000201 
  654      FB0E0D00 
@@ -823,6 +838,9 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccTh0ySZ.s 			page 1
  670              	.LASF18:
  671 0080 6D61785F 		.ascii	"max_output\000"
  671      6F757470 
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchHAM0o.s 			page 15
+
+
  671      757400
  672              	.LASF22:
  673 008b 6C617374 		.ascii	"last_error\000"
@@ -838,9 +856,6 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccTh0ySZ.s 			page 1
  677 00a8 73686F72 		.ascii	"short unsigned int\000"
  677      7420756E 
  677      7369676E 
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccTh0ySZ.s 			page 15
-
-
  677      65642069 
  677      6E7400
  678              	.LASF33:
@@ -883,6 +898,9 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccTh0ySZ.s 			page 1
  695      206C6F6E 
  695      6720756E 
  695      7369676E 
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchHAM0o.s 			page 16
+
+
  695      65642069 
  696              	.LASF20:
  697 012d 7069645F 		.ascii	"pid_scale\000"
@@ -898,9 +916,6 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccTh0ySZ.s 			page 1
  700      20726576 
  700      6973696F 
  700      6E203233 
-ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccTh0ySZ.s 			page 16
-
-
  700      37373135 
  701 019d 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
  701      66756E63 
@@ -943,6 +958,9 @@ ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\ccTh0ySZ.s 			page 1
  720              	.LASF13:
  721 0212 6C6F6E67 		.ascii	"long double\000"
  721      20646F75 
+ARM GAS  C:\Users\PRICHA~1\AppData\Local\Temp\cchHAM0o.s 			page 17
+
+
  721      626C6500 
  722              	.LASF0:
  723 021e 7369676E 		.ascii	"signed char\000"

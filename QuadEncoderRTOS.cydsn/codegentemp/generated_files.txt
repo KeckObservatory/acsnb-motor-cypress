@@ -46,8 +46,8 @@
   <file name="C:\Users\prichards\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\codegentemp\LED.h" value="HEADER;;;;;LED" />
   <file name="C:\Users\prichards\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\codegentemp\LED_aliases.h" value="HEADER;;;;;LED" />
   <file name="C:\Users\prichards\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\codegentemp\LED_PM.c" value="SOURCE_C;CortexM0;;;;LED" />
-  <file name="C:\Users\prichards\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\codegentemp\Clock_1.c" value="SOURCE_C;CortexM0;;;;Clock_1" />
-  <file name="C:\Users\prichards\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\codegentemp\Clock_1.h" value="HEADER;;;;;Clock_1" />
+  <file name="C:\Users\prichards\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\codegentemp\Encoder_Clock.c" value="SOURCE_C;CortexM0;;;;Encoder_Clock" />
+  <file name="C:\Users\prichards\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\codegentemp\Encoder_Clock.h" value="HEADER;;;;;Encoder_Clock" />
   <file name="C:\Users\prichards\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\codegentemp\phiB.c" value="SOURCE_C;CortexM0;;;;phiB" />
   <file name="C:\Users\prichards\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\codegentemp\phiB.h" value="HEADER;;;;;phiB" />
   <file name="C:\Users\prichards\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\codegentemp\phiB_aliases.h" value="HEADER;;;;;phiB" />
@@ -123,6 +123,9 @@
   <file name="C:\Users\prichards\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\codegentemp\Timer_BRMS_PM.c" value="SOURCE_C;CortexM0;;;;Timer_BRMS" />
   <file name="C:\Users\prichards\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\codegentemp\isr_brms.c" value="SOURCE_C;CortexM0;;;;isr_brms" />
   <file name="C:\Users\prichards\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\codegentemp\isr_brms.h" value="HEADER;;;;;isr_brms" />
+  <file name="C:\Users\prichards\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\codegentemp\EncoderDirection.h" value="HEADER;;;;;EncoderDirection" />
+  <file name="C:\Users\prichards\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\codegentemp\EncoderDirection.c" value="SOURCE_C;CortexM0;;;;EncoderDirection" />
+  <file name="C:\Users\prichards\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\codegentemp\EncoderDirection_PM.c" value="SOURCE_C;CortexM0;;;;EncoderDirection" />
   <file name="C:\Users\prichards\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\codegentemp\SPI_1_SCBCLK.c" value="SOURCE_C;CortexM0;;;;SPI_1_SCBCLK" />
   <file name="C:\Users\prichards\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\codegentemp\SPI_1_SCBCLK.h" value="HEADER;;;;;SPI_1_SCBCLK" />
   <file name="C:\Users\prichards\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\codegentemp\SPI_1_SCB_IRQ.c" value="SOURCE_C;CortexM0;;;;SPI_1_SCB_IRQ" />

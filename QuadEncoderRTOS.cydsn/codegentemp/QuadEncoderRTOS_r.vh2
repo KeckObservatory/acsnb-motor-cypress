@@ -1,5 +1,5 @@
 -- Project:   QuadEncoderRTOS
--- Generated: 04/11/2023 12:55:16
+-- Generated: 07/14/2023 10:44:35
 -- PSoC Creator  4.4
 
 ENTITY QuadEncoderRTOS IS
@@ -40,11 +40,6 @@ ARCHITECTURE __DEFAULT__ OF QuadEncoderRTOS IS
     SIGNAL INDEX_IN(0)__PA : bit;
     SIGNAL INDEX_OUT(0)__PA : bit;
     SIGNAL LED(0)__PA : bit;
-    SIGNAL Net_2269 : bit;
-    SIGNAL Net_2271 : bit;
-    SIGNAL Net_2272 : bit;
-    SIGNAL Net_2286 : bit;
-    SIGNAL Net_2287 : bit;
     SIGNAL Net_2292 : bit;
     SIGNAL Net_2294 : bit;
     SIGNAL Net_2295 : bit;
@@ -66,20 +61,26 @@ ARCHITECTURE __DEFAULT__ OF QuadEncoderRTOS IS
     SIGNAL Net_2611 : bit;
     SIGNAL Net_2612 : bit;
     SIGNAL Net_2637 : bit;
-    SIGNAL Net_2663 : bit;
     SIGNAL Net_2664_ff9 : bit;
     ATTRIBUTE global_signal OF Net_2664_ff9 : SIGNAL IS true;
-    SIGNAL Net_2667 : bit;
-    SIGNAL Net_2668 : bit;
-    SIGNAL Net_2669 : bit;
-    SIGNAL Net_2673 : bit;
     SIGNAL Net_2674 : bit;
+    SIGNAL Net_2678 : bit;
+    SIGNAL Net_2680 : bit;
+    SIGNAL Net_2681 : bit;
+    SIGNAL Net_2682 : bit;
+    SIGNAL Net_2686 : bit;
+    SIGNAL Net_2687 : bit;
+    SIGNAL Net_2707 : bit;
+    SIGNAL Net_2716 : bit;
+    SIGNAL Net_2723 : bit;
+    SIGNAL Net_2724 : bit;
+    SIGNAL Net_2725 : bit;
     SIGNAL Net_477 : bit;
     ATTRIBUTE placement_force OF Net_477 : SIGNAL IS "U(0,1,A)1";
     SIGNAL Net_553 : bit;
-    ATTRIBUTE placement_force OF Net_553 : SIGNAL IS "U(0,1,A)3";
+    ATTRIBUTE placement_force OF Net_553 : SIGNAL IS "U(1,1,A)1";
     SIGNAL Net_583 : bit;
-    ATTRIBUTE placement_force OF Net_583 : SIGNAL IS "U(0,1,A)0";
+    ATTRIBUTE placement_force OF Net_583 : SIGNAL IS "U(1,1,A)0";
     SIGNAL Net_622 : bit;
     SIGNAL Net_630 : bit;
     SIGNAL Net_634 : bit;
@@ -96,7 +97,7 @@ ARCHITECTURE __DEFAULT__ OF QuadEncoderRTOS IS
     SIGNAL \Counter_1:CounterUDB:control_6\ : bit;
     SIGNAL \Counter_1:CounterUDB:control_7\ : bit;
     SIGNAL \Counter_1:CounterUDB:count_enable\ : bit;
-    ATTRIBUTE placement_force OF \Counter_1:CounterUDB:count_enable\ : SIGNAL IS "U(1,1,A)0";
+    ATTRIBUTE placement_force OF \Counter_1:CounterUDB:count_enable\ : SIGNAL IS "U(0,1,B)0";
     SIGNAL \Counter_1:CounterUDB:count_stored_i\ : bit;
     ATTRIBUTE placement_force OF \Counter_1:CounterUDB:count_stored_i\ : SIGNAL IS "U(1,1,B)0";
     SIGNAL \Counter_1:CounterUDB:ctrl_cmod_0\ : bit;
@@ -109,7 +110,7 @@ ARCHITECTURE __DEFAULT__ OF QuadEncoderRTOS IS
     ATTRIBUTE placement_force OF \Counter_1:CounterUDB:prevCompare\ : SIGNAL IS "U(0,0,B)2";
     SIGNAL \Counter_1:CounterUDB:sC24:counterdp:u1.ce0__sig\ : bit;
     SIGNAL \Counter_1:CounterUDB:status_0\ : bit;
-    ATTRIBUTE placement_force OF \Counter_1:CounterUDB:status_0\ : SIGNAL IS "U(0,1,B)0";
+    ATTRIBUTE placement_force OF \Counter_1:CounterUDB:status_0\ : SIGNAL IS "U(0,1,A)0";
     SIGNAL \Counter_1:CounterUDB:status_1\ : bit;
     SIGNAL \Counter_1:CounterUDB:status_2\ : bit;
     ATTRIBUTE placement_force OF \Counter_1:CounterUDB:status_2\ : SIGNAL IS "U(1,0,A)1";
@@ -119,6 +120,13 @@ ARCHITECTURE __DEFAULT__ OF QuadEncoderRTOS IS
     SIGNAL \Counter_1:CounterUDB:status_6\ : bit;
     SIGNAL \Counter_1:CounterUDB:underflow_reg_i\ : bit;
     ATTRIBUTE placement_force OF \Counter_1:CounterUDB:underflow_reg_i\ : SIGNAL IS "U(1,0,A)3";
+    SIGNAL \EncoderDirection:control_1\ : bit;
+    SIGNAL \EncoderDirection:control_2\ : bit;
+    SIGNAL \EncoderDirection:control_3\ : bit;
+    SIGNAL \EncoderDirection:control_4\ : bit;
+    SIGNAL \EncoderDirection:control_5\ : bit;
+    SIGNAL \EncoderDirection:control_6\ : bit;
+    SIGNAL \EncoderDirection:control_7\ : bit;
     SIGNAL \I2C:Net_847_ff3\ : bit;
     ATTRIBUTE global_signal OF \I2C:Net_847_ff3\ : SIGNAL IS true;
     SIGNAL \I2C:miso_s_wire\ : bit;
@@ -144,11 +152,11 @@ ARCHITECTURE __DEFAULT__ OF QuadEncoderRTOS IS
     SIGNAL \Index_Counter_1:CounterUDB:count_enable\ : bit;
     ATTRIBUTE placement_force OF \Index_Counter_1:CounterUDB:count_enable\ : SIGNAL IS "U(1,0,B)2";
     SIGNAL \Index_Counter_1:CounterUDB:count_stored_i\ : bit;
-    ATTRIBUTE placement_force OF \Index_Counter_1:CounterUDB:count_stored_i\ : SIGNAL IS "U(1,0,B)0";
+    ATTRIBUTE placement_force OF \Index_Counter_1:CounterUDB:count_stored_i\ : SIGNAL IS "U(1,0,B)1";
     SIGNAL \Index_Counter_1:CounterUDB:overflow_reg_i\ : bit;
     ATTRIBUTE placement_force OF \Index_Counter_1:CounterUDB:overflow_reg_i\ : SIGNAL IS "U(0,0,B)1";
     SIGNAL \Index_Counter_1:CounterUDB:prevCompare\ : bit;
-    ATTRIBUTE placement_force OF \Index_Counter_1:CounterUDB:prevCompare\ : SIGNAL IS "U(0,0,B)3";
+    ATTRIBUTE placement_force OF \Index_Counter_1:CounterUDB:prevCompare\ : SIGNAL IS "U(0,0,B)0";
     SIGNAL \Index_Counter_1:CounterUDB:reload\ : bit;
     SIGNAL \Index_Counter_1:CounterUDB:status_0\ : bit;
     ATTRIBUTE placement_force OF \Index_Counter_1:CounterUDB:status_0\ : SIGNAL IS "U(0,0,A)2";
@@ -168,20 +176,20 @@ ARCHITECTURE __DEFAULT__ OF QuadEncoderRTOS IS
     SIGNAL \SPI_1:select_m_wire_3\ : bit;
     SIGNAL \SPI_1:tx_wire\ : bit;
     SIGNAL __ONE__ : bit;
-    ATTRIBUTE placement_force OF __ONE__ : SIGNAL IS "U(1,1,B)1";
+    ATTRIBUTE placement_force OF __ONE__ : SIGNAL IS "U(0,1,B)1";
     ATTRIBUTE POWER OF __ONE__ : SIGNAL IS true;
     SIGNAL __ZERO__ : bit;
     ATTRIBUTE GROUND OF __ZERO__ : SIGNAL IS true;
     SIGNAL cy_srff_1 : bit;
-    ATTRIBUTE placement_force OF cy_srff_1 : SIGNAL IS "U(1,0,B)1";
+    ATTRIBUTE placement_force OF cy_srff_1 : SIGNAL IS "U(1,0,B)0";
     SIGNAL cydff_3 : bit;
     ATTRIBUTE placement_force OF cydff_3 : SIGNAL IS "U(0,1,A)2";
     SIGNAL cydff_4 : bit;
-    ATTRIBUTE placement_force OF cydff_4 : SIGNAL IS "U(0,1,B)2";
+    ATTRIBUTE placement_force OF cydff_4 : SIGNAL IS "U(0,1,A)3";
     SIGNAL cydff_5 : bit;
-    ATTRIBUTE placement_force OF cydff_5 : SIGNAL IS "U(0,1,B)3";
+    ATTRIBUTE placement_force OF cydff_5 : SIGNAL IS "U(1,1,A)2";
     SIGNAL cydff_6 : bit;
-    ATTRIBUTE placement_force OF cydff_6 : SIGNAL IS "U(0,1,B)1";
+    ATTRIBUTE placement_force OF cydff_6 : SIGNAL IS "U(1,1,A)3";
     SIGNAL dclk_to_genclk : bit;
     SIGNAL phiA(0)__PA : bit;
     SIGNAL phiB(0)__PA : bit;
@@ -263,21 +271,21 @@ ARCHITECTURE __DEFAULT__ OF QuadEncoderRTOS IS
     ATTRIBUTE lib_model OF \Counter_1:CounterUDB:status_3\ : LABEL IS "macrocell3";
     ATTRIBUTE Location OF \Counter_1:CounterUDB:status_3\ : LABEL IS "U(1,0)";
     ATTRIBUTE lib_model OF \Counter_1:CounterUDB:count_enable\ : LABEL IS "macrocell4";
-    ATTRIBUTE Location OF \Counter_1:CounterUDB:count_enable\ : LABEL IS "U(1,1)";
-    ATTRIBUTE lib_model OF Net_583 : LABEL IS "macrocell5";
-    ATTRIBUTE Location OF Net_583 : LABEL IS "U(0,1)";
-    ATTRIBUTE lib_model OF \Index_Counter_1:CounterUDB:status_0\ : LABEL IS "macrocell6";
+    ATTRIBUTE Location OF \Counter_1:CounterUDB:count_enable\ : LABEL IS "U(0,1)";
+    ATTRIBUTE lib_model OF \Index_Counter_1:CounterUDB:status_0\ : LABEL IS "macrocell5";
     ATTRIBUTE Location OF \Index_Counter_1:CounterUDB:status_0\ : LABEL IS "U(0,0)";
-    ATTRIBUTE lib_model OF \Index_Counter_1:CounterUDB:status_2\ : LABEL IS "macrocell7";
+    ATTRIBUTE lib_model OF \Index_Counter_1:CounterUDB:status_2\ : LABEL IS "macrocell6";
     ATTRIBUTE Location OF \Index_Counter_1:CounterUDB:status_2\ : LABEL IS "U(0,0)";
-    ATTRIBUTE lib_model OF \Index_Counter_1:CounterUDB:count_enable\ : LABEL IS "macrocell8";
+    ATTRIBUTE lib_model OF \Index_Counter_1:CounterUDB:count_enable\ : LABEL IS "macrocell7";
     ATTRIBUTE Location OF \Index_Counter_1:CounterUDB:count_enable\ : LABEL IS "U(1,0)";
+    ATTRIBUTE lib_model OF Net_583 : LABEL IS "macrocell8";
+    ATTRIBUTE Location OF Net_583 : LABEL IS "U(1,1)";
     ATTRIBUTE Location OF \SPI_1:SCB_IRQ\ : LABEL IS "[IntrContainer=(0)][IntrId=(11)]";
     ATTRIBUTE Location OF \SPI_1:SCB\ : LABEL IS "F(SCB,1)";
     ATTRIBUTE Location OF \I2C:SCB_IRQ\ : LABEL IS "[IntrContainer=(0)][IntrId=(10)]";
     ATTRIBUTE Location OF \I2C:SCB\ : LABEL IS "F(SCB,0)";
     ATTRIBUTE lib_model OF __ONE__ : LABEL IS "macrocell9";
-    ATTRIBUTE Location OF __ONE__ : LABEL IS "U(1,1)";
+    ATTRIBUTE Location OF __ONE__ : LABEL IS "U(0,1)";
     ATTRIBUTE lib_model OF \Counter_1:CounterUDB:sCTRLReg:ctrlreg\ : LABEL IS "controlcell1";
     ATTRIBUTE Location OF \Counter_1:CounterUDB:sCTRLReg:ctrlreg\ : LABEL IS "U(0,1)";
     ATTRIBUTE lib_model OF \Counter_1:CounterUDB:sSTSReg:stsreg\ : LABEL IS "statusicell1";
@@ -295,15 +303,17 @@ ARCHITECTURE __DEFAULT__ OF QuadEncoderRTOS IS
     ATTRIBUTE lib_model OF \Index_Counter_1:CounterUDB:sCTRLReg:ctrlreg\ : LABEL IS "controlcell2";
     ATTRIBUTE Location OF \Index_Counter_1:CounterUDB:sCTRLReg:ctrlreg\ : LABEL IS "U(1,0)";
     ATTRIBUTE lib_model OF \Index_Counter_1:CounterUDB:sSTSReg:stsreg\ : LABEL IS "statusicell2";
-    ATTRIBUTE Location OF \Index_Counter_1:CounterUDB:sSTSReg:stsreg\ : LABEL IS "U(0,1)";
+    ATTRIBUTE Location OF \Index_Counter_1:CounterUDB:sSTSReg:stsreg\ : LABEL IS "U(0,0)";
     ATTRIBUTE lib_model OF \Index_Counter_1:CounterUDB:sC8:counterdp:u0\ : LABEL IS "datapathcell4";
     ATTRIBUTE Location OF \Index_Counter_1:CounterUDB:sC8:counterdp:u0\ : LABEL IS "U(0,0)";
     ATTRIBUTE Location OF \Timer_BRMS:cy_m0s8_tcpwm_1\ : LABEL IS "F(TCPWM,0)";
     ATTRIBUTE Location OF isr_brms : LABEL IS "[IntrContainer=(0)][IntrId=(16)]";
+    ATTRIBUTE lib_model OF \EncoderDirection:Sync:ctrl_reg\ : LABEL IS "controlcell3";
+    ATTRIBUTE Location OF \EncoderDirection:Sync:ctrl_reg\ : LABEL IS "U(1,1)";
     ATTRIBUTE lib_model OF cydff_6 : LABEL IS "macrocell10";
-    ATTRIBUTE Location OF cydff_6 : LABEL IS "U(0,1)";
+    ATTRIBUTE Location OF cydff_6 : LABEL IS "U(1,1)";
     ATTRIBUTE lib_model OF cydff_5 : LABEL IS "macrocell11";
-    ATTRIBUTE Location OF cydff_5 : LABEL IS "U(0,1)";
+    ATTRIBUTE Location OF cydff_5 : LABEL IS "U(1,1)";
     ATTRIBUTE lib_model OF \Counter_1:CounterUDB:overflow_reg_i\ : LABEL IS "macrocell12";
     ATTRIBUTE Location OF \Counter_1:CounterUDB:overflow_reg_i\ : LABEL IS "U(1,0)";
     ATTRIBUTE lib_model OF \Counter_1:CounterUDB:underflow_reg_i\ : LABEL IS "macrocell13";
@@ -319,7 +329,7 @@ ARCHITECTURE __DEFAULT__ OF QuadEncoderRTOS IS
     ATTRIBUTE lib_model OF Net_477 : LABEL IS "macrocell18";
     ATTRIBUTE Location OF Net_477 : LABEL IS "U(0,1)";
     ATTRIBUTE lib_model OF Net_553 : LABEL IS "macrocell19";
-    ATTRIBUTE Location OF Net_553 : LABEL IS "U(0,1)";
+    ATTRIBUTE Location OF Net_553 : LABEL IS "U(1,1)";
     ATTRIBUTE lib_model OF Net_2344 : LABEL IS "macrocell20";
     ATTRIBUTE Location OF Net_2344 : LABEL IS "U(0,0)";
     ATTRIBUTE lib_model OF cy_srff_1 : LABEL IS "macrocell21";
@@ -1442,7 +1452,7 @@ BEGIN
         PORT MAP(
             pa_out => \\\I2C:sda(0)\\__PA\,
             oe => open,
-            fb => Net_2287,
+            fb => Net_2724,
             pin_input => open,
             pad_in => \I2C:sda(0)_PAD\,
             in_clock => open,
@@ -1534,7 +1544,7 @@ BEGIN
         PORT MAP(
             pa_out => \\\I2C:scl(0)\\__PA\,
             oe => open,
-            fb => Net_2286,
+            fb => Net_2723,
             pin_input => open,
             pad_in => \I2C:scl(0)_PAD\,
             in_clock => open,
@@ -2322,16 +2332,6 @@ BEGIN
             main_4 => Net_553,
             main_5 => Net_477);
 
-    Net_583:macrocell
-        GENERIC MAP(
-            eqn_main => "(!main_0 * main_1) + (main_0 * !main_1)",
-            regmode => 0,
-            clken_mode => 1)
-        PORT MAP(
-            q => Net_583,
-            main_0 => cydff_3,
-            main_1 => Net_477);
-
     \Index_Counter_1:CounterUDB:status_0\:macrocell
         GENERIC MAP(
             eqn_main => "(main_0 * !main_1)",
@@ -2362,6 +2362,17 @@ BEGIN
             main_0 => Net_2637,
             main_1 => \Index_Counter_1:CounterUDB:control_7\,
             main_2 => \Index_Counter_1:CounterUDB:count_stored_i\);
+
+    Net_583:macrocell
+        GENERIC MAP(
+            eqn_main => "(!main_0 * !main_1 * main_2) + (!main_0 * main_1 * !main_2) + (main_0 * !main_1 * !main_2) + (main_0 * main_1 * main_2)",
+            regmode => 0,
+            clken_mode => 1)
+        PORT MAP(
+            q => Net_583,
+            main_0 => cydff_3,
+            main_1 => Net_477,
+            main_2 => Net_2687);
 
     \SPI_1:SCB_IRQ\:interrupt
         GENERIC MAP(
@@ -2401,7 +2412,7 @@ BEGIN
             int_type => "10",
             is_nmi => 0)
         PORT MAP(
-            interrupt => Net_2269,
+            interrupt => Net_2707,
             clock => ClockBlock_HFClk);
 
     \I2C:SCB\:m0s8scbcell
@@ -2410,7 +2421,7 @@ BEGIN
             scb_mode => 0)
         PORT MAP(
             clock => \I2C:Net_847_ff3\,
-            interrupt => Net_2269,
+            interrupt => Net_2707,
             uart_rx => open,
             uart_tx => \I2C:tx_wire\,
             uart_cts => open,
@@ -2426,10 +2437,10 @@ BEGIN
             miso_s => \I2C:miso_s_wire\,
             select_s => open,
             sclk_s => open,
-            i2c_scl => Net_2286,
-            i2c_sda => Net_2287,
-            tr_tx_req => Net_2272,
-            tr_rx_req => Net_2271);
+            i2c_scl => Net_2723,
+            i2c_sda => Net_2724,
+            tr_tx_req => Net_2725,
+            tr_rx_req => Net_2716);
 
     __ONE__:macrocell
         GENERIC MAP(
@@ -2762,11 +2773,11 @@ BEGIN
             reload => '0',
             stop => '0',
             start => '0',
-            tr_underflow => Net_2673,
-            tr_overflow => Net_2669,
-            tr_compare_match => Net_2663,
-            line => Net_2667,
-            line_compl => Net_2668,
+            tr_underflow => Net_2686,
+            tr_overflow => Net_2682,
+            tr_compare_match => Net_2678,
+            line => Net_2680,
+            line_compl => Net_2681,
             interrupt => Net_2674);
 
     isr_brms:interrupt
@@ -2776,6 +2787,27 @@ BEGIN
         PORT MAP(
             interrupt => Net_2674,
             clock => ClockBlock_HFClk);
+
+    \EncoderDirection:Sync:ctrl_reg\:controlcell
+        GENERIC MAP(
+            cy_ctrl_mode_0 => "00000001",
+            cy_ctrl_mode_1 => "00000000",
+            cy_ext_reset => 1,
+            cy_force_order => 1,
+            cy_init_value => "00000000",
+            clk_inv => '0',
+            clken_mode => 1)
+        PORT MAP(
+            clock => Net_2535_digital,
+            control_7 => \EncoderDirection:control_7\,
+            control_6 => \EncoderDirection:control_6\,
+            control_5 => \EncoderDirection:control_5\,
+            control_4 => \EncoderDirection:control_4\,
+            control_3 => \EncoderDirection:control_3\,
+            control_2 => \EncoderDirection:control_2\,
+            control_1 => \EncoderDirection:control_1\,
+            control_0 => Net_2687,
+            busclk => ClockBlock_HFClk);
 
     cydff_6:macrocell
         GENERIC MAP(

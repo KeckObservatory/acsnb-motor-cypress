@@ -4,7 +4,7 @@ set_location_hint "cydff_4" 0 1 0 2
 set_location_hint "cydff_6" 0 1 0 3
 set_location_hint "\Counter_1:CounterUDB:count_stored_i\" 0 1 1 0
 set_location_hint "\Counter_1:CounterUDB:sC24:counterdp:u0\" 0 1 2 
-set_location_hint "\Index_Counter_1:CounterUDB:sCTRLReg:ctrlreg\" 0 1 6
+set_location_hint "\EncoderDirection:Sync:ctrl_reg\" 0 1 6
 set_location_hint "\Counter_1:CounterUDB:count_enable\" 1 1 0 0
 set_location_hint "\Index_Counter_1:CounterUDB:count_enable\" 1 1 1 0
 set_location_hint "\Index_Counter_1:CounterUDB:count_stored_i\" 1 1 1 1
@@ -21,6 +21,7 @@ set_location_hint "\Index_Counter_1:CounterUDB:status_2\" 1 0 1 1
 set_location_hint "\Index_Counter_1:CounterUDB:overflow_reg_i\" 1 0 1 2
 set_location_hint "\Counter_1:CounterUDB:sC24:counterdp:u2\" 1 0 2 
 set_location_hint "\Counter_1:CounterUDB:sSTSReg:stsreg\" 1 0 4 
+set_location_hint "\Index_Counter_1:CounterUDB:sCTRLReg:ctrlreg\" 1 0 6
 set_location_hint "\Counter_1:CounterUDB:prevCompare\" 0 0 0 0
 set_location_hint "cy_srff_1" 0 0 0 1
 set_location_hint "cydff_5" 0 0 0 2

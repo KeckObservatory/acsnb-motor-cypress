@@ -50,6 +50,8 @@ Archive member included to satisfy reference by file (symbol)
                               .\CortexM0\ARM_GCC_541\Debug\main.o (Timer_BRMS_Start)
 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_brms.o)
                               .\CortexM0\ARM_GCC_541\Debug\main.o (isr_brms_SetPriority)
+.\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(EncoderDirection.o)
+                              .\CortexM0\ARM_GCC_541\Debug\main.o (EncoderDirection_Write)
 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(CyBootAsmGnu.o)
                               .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(CyLib.o) (CyDelayCycles)
 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_I2C_INT.o)
@@ -112,7 +114,7 @@ I2C_mstrWrBufIndex  0x4               .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRT
 Output              0x4               .\CortexM0\ARM_GCC_541\Debug\main.o
 I2C_mstrWrBufSize   0x4               .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_I2C_MASTER.o)
 I2C_mstrStatus      0x2               .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_I2C_MASTER.o)
-txMessage           0x1b              .\CortexM0\ARM_GCC_541\Debug\main.o
+txMessage           0x1f              .\CortexM0\ARM_GCC_541\Debug\main.o
 SPI_1_rxBufferHead  0x4               .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1_SPI_UART.o)
 I2C_mstrRdBufPtr    0x4               .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_I2C_MASTER.o)
 I2C_mstrControl     0x1               .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_I2C_MASTER.o)
@@ -129,7 +131,7 @@ limitIterm          0x2               .\CortexM0\ARM_GCC_541\Debug\main.o
 I2C_mstrWrBufPtr    0x4               .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_I2C_MASTER.o)
 txMessageState      0x1               .\CortexM0\ARM_GCC_541\Debug\main.o
 ConfigSequence      0x1               .\CortexM0\ARM_GCC_541\Debug\main.o
-rxMessage           0x1b              .\CortexM0\ARM_GCC_541\Debug\main.o
+rxMessage           0x1f              .\CortexM0\ARM_GCC_541\Debug\main.o
 MotorCurrent        0x2               .\CortexM0\ARM_GCC_541\Debug\main.o
 SPI_1_rxBufferInternal
                     0x21              .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1_SPI_UART.o)
@@ -702,6 +704,11 @@ Discarded input sections
                 0x00000000       0x10 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_brms.o)
  .text.isr_brms_ClearPending
                 0x00000000       0x10 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_brms.o)
+ .text          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(EncoderDirection.o)
+ .data          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(EncoderDirection.o)
+ .bss           0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(EncoderDirection.o)
+ .text.EncoderDirection_Read
+                0x00000000        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(EncoderDirection.o)
  .data          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(CyBootAsmGnu.o)
  .bss           0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(CyBootAsmGnu.o)
  .text          0x00000000        0x0 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_I2C_INT.o)
@@ -823,7 +830,7 @@ END GROUP
                 0x00000001                cy_project_type_bootloader = (appl_start == 0x0)?0x1:0x0
                 0x00000000                cy_project_type_app_for_stack_and_copier = (CY_APP_FOR_STACK_AND_COPIER == 0x1)?0x1:0x0
 
-.text           0x00000000     0x1ee8
+.text           0x00000000     0x1f18
  CREATE_OBJECT_SYMBOLS
                 0x00000000                PROVIDE (__cy_interrupt_vector, RomVectors)
  *(.romvectors)
@@ -860,431 +867,436 @@ END GROUP
                 0x0000035c       0x44 .\CortexM0\ARM_GCC_541\Debug\main.o
                 0x0000035c                GetPosition
  .text.runRateGroup3_SPI
-                0x000003a0      0x2b0 .\CortexM0\ARM_GCC_541\Debug\main.o
+                0x000003a0      0x2c8 .\CortexM0\ARM_GCC_541\Debug\main.o
                 0x000003a0                runRateGroup3_SPI
  .text.PID_Initialize
-                0x00000650       0x30 .\CortexM0\ARM_GCC_541\Debug\main.o
-                0x00000650                PID_Initialize
+                0x00000668       0x30 .\CortexM0\ARM_GCC_541\Debug\main.o
+                0x00000668                PID_Initialize
  .text.PID_SetMode
-                0x00000680       0x28 .\CortexM0\ARM_GCC_541\Debug\main.o
-                0x00000680                PID_SetMode
+                0x00000698       0x28 .\CortexM0\ARM_GCC_541\Debug\main.o
+                0x00000698                PID_SetMode
  .text.runRateGroup1_PID
-                0x000006a8      0x164 .\CortexM0\ARM_GCC_541\Debug\main.o
-                0x000006a8                runRateGroup1_PID
+                0x000006c0      0x164 .\CortexM0\ARM_GCC_541\Debug\main.o
+                0x000006c0                runRateGroup1_PID
  .text.BRMS_Interrupt
-                0x0000080c       0xbc .\CortexM0\ARM_GCC_541\Debug\main.o
-                0x0000080c                BRMS_Interrupt
- .text.main     0x000008c8      0x138 .\CortexM0\ARM_GCC_541\Debug\main.o
-                0x000008c8                main
+                0x00000824       0xbc .\CortexM0\ARM_GCC_541\Debug\main.o
+                0x00000824                BRMS_Interrupt
+ .text.main     0x000008e0      0x140 .\CortexM0\ARM_GCC_541\Debug\main.o
+                0x000008e0                main
  .text.PID_UpdateValues
-                0x00000a00       0xc8 .\CortexM0\ARM_GCC_541\Debug\pid.o
-                0x00000a00                PID_UpdateValues
+                0x00000a20       0xc8 .\CortexM0\ARM_GCC_541\Debug\pid.o
+                0x00000a20                PID_UpdateValues
  .text.cfg_write_bytes32
-                0x00000ac8       0x34 .\CortexM0\ARM_GCC_541\Debug\cyfitter_cfg.o
+                0x00000ae8       0x34 .\CortexM0\ARM_GCC_541\Debug\cyfitter_cfg.o
  .text.CYMEMZERO
-                0x00000afc        0xc .\CortexM0\ARM_GCC_541\Debug\cyfitter_cfg.o
+                0x00000b1c        0xc .\CortexM0\ARM_GCC_541\Debug\cyfitter_cfg.o
  .text.IntDefaultHandler
-                0x00000b08       0x10 .\CortexM0\ARM_GCC_541\Debug\Cm0Start.o
-                0x00000b08                IntDefaultHandler
- .text.Start_c  0x00000b18       0x48 .\CortexM0\ARM_GCC_541\Debug\Cm0Start.o
-                0x00000b18                Start_c
+                0x00000b28       0x10 .\CortexM0\ARM_GCC_541\Debug\Cm0Start.o
+                0x00000b28                IntDefaultHandler
+ .text.Start_c  0x00000b38       0x48 .\CortexM0\ARM_GCC_541\Debug\Cm0Start.o
+                0x00000b38                Start_c
  .text.initialize_psoc
-                0x00000b60       0x40 .\CortexM0\ARM_GCC_541\Debug\Cm0Start.o
-                0x00000b60                initialize_psoc
+                0x00000b80       0x40 .\CortexM0\ARM_GCC_541\Debug\Cm0Start.o
+                0x00000b80                initialize_psoc
  .text.I2C_ScbEnableIntr
-                0x00000ba0        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C.o)
+                0x00000bc0        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C.o)
  .text.I2C_Init
-                0x00000bac        0x8 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C.o)
-                0x00000bac                I2C_Init
+                0x00000bcc        0x8 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C.o)
+                0x00000bcc                I2C_Init
  .text.I2C_Enable
-                0x00000bb4       0x18 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C.o)
-                0x00000bb4                I2C_Enable
+                0x00000bd4       0x18 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C.o)
+                0x00000bd4                I2C_Enable
  .text.I2C_Start
-                0x00000bcc       0x20 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C.o)
-                0x00000bcc                I2C_Start
+                0x00000bec       0x20 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C.o)
+                0x00000bec                I2C_Start
  .text.I2C_I2CInit
-                0x00000bec       0xc4 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_I2C.o)
-                0x00000bec                I2C_I2CInit
+                0x00000c0c       0xc4 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_I2C.o)
+                0x00000c0c                I2C_I2CInit
  .text.I2C_I2CFwBlockReset
-                0x00000cb0       0x94 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_I2C.o)
-                0x00000cb0                I2C_I2CFwBlockReset
+                0x00000cd0       0x94 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_I2C.o)
+                0x00000cd0                I2C_I2CFwBlockReset
  .text.PWM_1_WriteCounter
-                0x00000d44       0x10 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(PWM_1.o)
-                0x00000d44                PWM_1_WriteCounter
- .text.PWM_1_WritePeriod
-                0x00000d54       0x10 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(PWM_1.o)
-                0x00000d54                PWM_1_WritePeriod
- .text.PWM_1_WriteCompare
                 0x00000d64       0x10 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(PWM_1.o)
-                0x00000d64                PWM_1_WriteCompare
+                0x00000d64                PWM_1_WriteCounter
+ .text.PWM_1_WritePeriod
+                0x00000d74       0x10 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(PWM_1.o)
+                0x00000d74                PWM_1_WritePeriod
+ .text.PWM_1_WriteCompare
+                0x00000d84       0x10 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(PWM_1.o)
+                0x00000d84                PWM_1_WriteCompare
  .text.PWM_1_TriggerCommand
-                0x00000d74       0x1c .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(PWM_1.o)
-                0x00000d74                PWM_1_TriggerCommand
+                0x00000d94       0x1c .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(PWM_1.o)
+                0x00000d94                PWM_1_TriggerCommand
  .text.PWM_1_Enable
-                0x00000d90       0x24 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(PWM_1.o)
-                0x00000d90                PWM_1_Enable
+                0x00000db0       0x24 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(PWM_1.o)
+                0x00000db0                PWM_1_Enable
  .text.PWM_1_SetInterruptMode
-                0x00000db4        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(PWM_1.o)
-                0x00000db4                PWM_1_SetInterruptMode
+                0x00000dd4        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(PWM_1.o)
+                0x00000dd4                PWM_1_SetInterruptMode
  .text.PWM_1_Init
-                0x00000dc0       0x48 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(PWM_1.o)
-                0x00000dc0                PWM_1_Init
+                0x00000de0       0x48 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(PWM_1.o)
+                0x00000de0                PWM_1_Init
  .text.PWM_1_Start
-                0x00000e08       0x20 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(PWM_1.o)
-                0x00000e08                PWM_1_Start
+                0x00000e28       0x20 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(PWM_1.o)
+                0x00000e28                PWM_1_Start
  .text.CyIntEnable
-                0x00000e28       0x14 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(CyLib.o)
-                0x00000e28                CyIntEnable
+                0x00000e48       0x14 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(CyLib.o)
+                0x00000e48                CyIntEnable
  .text.CyIntDisable
-                0x00000e3c       0x14 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(CyLib.o)
-                0x00000e3c                CyIntDisable
- .text.CyHalt   0x00000e50        0x4 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(CyLib.o)
-                0x00000e50                CyHalt
+                0x00000e5c       0x14 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(CyLib.o)
+                0x00000e5c                CyIntDisable
+ .text.CyHalt   0x00000e70        0x4 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(CyLib.o)
+                0x00000e70                CyHalt
  .text.CyIntSetVector
-                0x00000e54       0x24 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(CyLib.o)
-                0x00000e54                CyIntSetVector
+                0x00000e74       0x24 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(CyLib.o)
+                0x00000e74                CyIntSetVector
  .text.CyIntSetPriority
-                0x00000e78       0x4c .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(CyLib.o)
-                0x00000e78                CyIntSetPriority
- .text.CyDelay  0x00000ec4       0x30 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(CyLib.o)
-                0x00000ec4                CyDelay
+                0x00000e98       0x4c .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(CyLib.o)
+                0x00000e98                CyIntSetPriority
+ .text.CyDelay  0x00000ee4       0x30 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(CyLib.o)
+                0x00000ee4                CyDelay
  .text.CyDelayUs
-                0x00000ef4       0x14 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(CyLib.o)
-                0x00000ef4                CyDelayUs
+                0x00000f14       0x14 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(CyLib.o)
+                0x00000f14                CyDelayUs
  .text.CySysClkWriteImoFreq
-                0x00000f08      0x164 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(CyLib.o)
-                0x00000f08                CySysClkWriteImoFreq
+                0x00000f28      0x164 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(CyLib.o)
+                0x00000f28                CySysClkWriteImoFreq
  .text.INDEX_OUT_SetDriveMode
-                0x0000106c       0x18 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(INDEX_OUT.o)
-                0x0000106c                INDEX_OUT_SetDriveMode
+                0x0000108c       0x18 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(INDEX_OUT.o)
+                0x0000108c                INDEX_OUT_SetDriveMode
  .text.HOME_OUT_SetDriveMode
-                0x00001084       0x18 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(HOME_OUT.o)
-                0x00001084                HOME_OUT_SetDriveMode
+                0x000010a4       0x18 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(HOME_OUT.o)
+                0x000010a4                HOME_OUT_SetDriveMode
  .text.HOME_IN_ClearInterrupt
-                0x0000109c       0x14 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(HOME_IN.o)
-                0x0000109c                HOME_IN_ClearInterrupt
+                0x000010bc       0x14 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(HOME_IN.o)
+                0x000010bc                HOME_IN_ClearInterrupt
  .text.SPI_1_ScbEnableIntr
-                0x000010b0        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1.o)
+                0x000010d0        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1.o)
  .text.SPI_1_ScbModePostEnable
-                0x000010bc        0x8 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1.o)
+                0x000010dc        0x8 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1.o)
  .text.SPI_1_Init
-                0x000010c4        0x8 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1.o)
-                0x000010c4                SPI_1_Init
+                0x000010e4        0x8 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1.o)
+                0x000010e4                SPI_1_Init
  .text.SPI_1_Enable
-                0x000010cc       0x1c .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1.o)
-                0x000010cc                SPI_1_Enable
+                0x000010ec       0x1c .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1.o)
+                0x000010ec                SPI_1_Enable
  .text.SPI_1_Start
-                0x000010e8       0x20 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1.o)
-                0x000010e8                SPI_1_Start
+                0x00001108       0x20 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1.o)
+                0x00001108                SPI_1_Start
  .text.SPI_1_SpiUartReadRxData
-                0x00001108       0x34 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1_SPI_UART.o)
-                0x00001108                SPI_1_SpiUartReadRxData
+                0x00001128       0x34 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1_SPI_UART.o)
+                0x00001128                SPI_1_SpiUartReadRxData
  .text.SPI_1_SpiUartClearRxBuffer
-                0x0000113c       0x54 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1_SPI_UART.o)
-                0x0000113c                SPI_1_SpiUartClearRxBuffer
+                0x0000115c       0x54 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1_SPI_UART.o)
+                0x0000115c                SPI_1_SpiUartClearRxBuffer
  .text.SPI_1_SpiUartWriteTxData
-                0x00001190       0x70 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1_SPI_UART.o)
-                0x00001190                SPI_1_SpiUartWriteTxData
+                0x000011b0       0x70 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1_SPI_UART.o)
+                0x000011b0                SPI_1_SpiUartWriteTxData
  .text.SPI_1_SpiUartPutArray
-                0x00001200       0x18 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1_SPI_UART.o)
-                0x00001200                SPI_1_SpiUartPutArray
+                0x00001220       0x18 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1_SPI_UART.o)
+                0x00001220                SPI_1_SpiUartPutArray
  .text.SPI_1_SpiUartClearTxBuffer
-                0x00001218       0x58 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1_SPI_UART.o)
-                0x00001218                SPI_1_SpiUartClearTxBuffer
+                0x00001238       0x58 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1_SPI_UART.o)
+                0x00001238                SPI_1_SpiUartClearTxBuffer
  .text.SPI_1_SpiInit
-                0x00001270       0xcc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1_SPI.o)
-                0x00001270                SPI_1_SpiInit
+                0x00001290       0xcc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1_SPI.o)
+                0x00001290                SPI_1_SpiInit
  .text.SPI_1_SpiPostEnable
-                0x0000133c       0x14 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1_SPI.o)
-                0x0000133c                SPI_1_SpiPostEnable
+                0x0000135c       0x14 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1_SPI.o)
+                0x0000135c                SPI_1_SpiPostEnable
  .text.SPI_1_SPI_UART_ISR
-                0x00001350       0xe4 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1_SPI_UART_INT.o)
-                0x00001350                SPI_1_SPI_UART_ISR
+                0x00001370       0xe4 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1_SPI_UART_INT.o)
+                0x00001370                SPI_1_SPI_UART_ISR
  .text.Counter_1_Enable
-                0x00001434       0x14 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Counter_1.o)
-                0x00001434                Counter_1_Enable
+                0x00001454       0x14 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Counter_1.o)
+                0x00001454                Counter_1_Enable
  .text.Counter_1_SetInterruptMode
-                0x00001448        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Counter_1.o)
-                0x00001448                Counter_1_SetInterruptMode
+                0x00001468        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Counter_1.o)
+                0x00001468                Counter_1_SetInterruptMode
  .text.Counter_1_ReadStatusRegister
-                0x00001454        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Counter_1.o)
-                0x00001454                Counter_1_ReadStatusRegister
+                0x00001474        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Counter_1.o)
+                0x00001474                Counter_1_ReadStatusRegister
  .text.Counter_1_WriteCounter
-                0x00001460       0x10 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Counter_1.o)
-                0x00001460                Counter_1_WriteCounter
+                0x00001480       0x10 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Counter_1.o)
+                0x00001480                Counter_1_WriteCounter
  .text.Counter_1_ReadCounter
-                0x00001470       0x18 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Counter_1.o)
-                0x00001470                Counter_1_ReadCounter
+                0x00001490       0x18 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Counter_1.o)
+                0x00001490                Counter_1_ReadCounter
  .text.Counter_1_ReadCapture
-                0x00001488       0x10 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Counter_1.o)
-                0x00001488                Counter_1_ReadCapture
- .text.Counter_1_WritePeriod
-                0x00001498       0x10 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Counter_1.o)
-                0x00001498                Counter_1_WritePeriod
- .text.Counter_1_WriteCompare
                 0x000014a8       0x10 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Counter_1.o)
-                0x000014a8                Counter_1_WriteCompare
+                0x000014a8                Counter_1_ReadCapture
+ .text.Counter_1_WritePeriod
+                0x000014b8       0x10 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Counter_1.o)
+                0x000014b8                Counter_1_WritePeriod
+ .text.Counter_1_WriteCompare
+                0x000014c8       0x10 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Counter_1.o)
+                0x000014c8                Counter_1_WriteCompare
  .text.Counter_1_ClearFIFO
-                0x000014b8       0x14 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Counter_1.o)
-                0x000014b8                Counter_1_ClearFIFO
+                0x000014d8       0x14 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Counter_1.o)
+                0x000014d8                Counter_1_ClearFIFO
  .text.Counter_1_Init
-                0x000014cc       0x64 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Counter_1.o)
-                0x000014cc                Counter_1_Init
+                0x000014ec       0x64 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Counter_1.o)
+                0x000014ec                Counter_1_Init
  .text.Counter_1_Start
-                0x00001530       0x20 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Counter_1.o)
-                0x00001530                Counter_1_Start
+                0x00001550       0x20 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Counter_1.o)
+                0x00001550                Counter_1_Start
  .text.Reset_Encoder_ClearInterrupt
-                0x00001550       0x14 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Reset_Encoder.o)
-                0x00001550                Reset_Encoder_ClearInterrupt
+                0x00001570       0x14 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Reset_Encoder.o)
+                0x00001570                Reset_Encoder_ClearInterrupt
  .text.isr_rst_encoder_SetVector
-                0x00001564        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_rst_encoder.o)
-                0x00001564                isr_rst_encoder_SetVector
+                0x00001584        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_rst_encoder.o)
+                0x00001584                isr_rst_encoder_SetVector
  .text.isr_rst_encoder_SetPriority
-                0x00001570       0x24 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_rst_encoder.o)
-                0x00001570                isr_rst_encoder_SetPriority
+                0x00001590       0x24 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_rst_encoder.o)
+                0x00001590                isr_rst_encoder_SetPriority
  .text.isr_rst_encoder_Enable
-                0x00001594        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_rst_encoder.o)
-                0x00001594                isr_rst_encoder_Enable
+                0x000015b4        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_rst_encoder.o)
+                0x000015b4                isr_rst_encoder_Enable
  .text.isr_rst_encoder_Disable
-                0x000015a0        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_rst_encoder.o)
-                0x000015a0                isr_rst_encoder_Disable
+                0x000015c0        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_rst_encoder.o)
+                0x000015c0                isr_rst_encoder_Disable
  .text.isr_rst_encoder_StartEx
-                0x000015ac       0x1c .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_rst_encoder.o)
-                0x000015ac                isr_rst_encoder_StartEx
+                0x000015cc       0x1c .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_rst_encoder.o)
+                0x000015cc                isr_rst_encoder_StartEx
  .text.isr_rst_encoder_ClearPending
-                0x000015c8        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_rst_encoder.o)
-                0x000015c8                isr_rst_encoder_ClearPending
+                0x000015e8        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_rst_encoder.o)
+                0x000015e8                isr_rst_encoder_ClearPending
  .text.isr_home_SetVector
-                0x000015d4        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_home.o)
-                0x000015d4                isr_home_SetVector
+                0x000015f4        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_home.o)
+                0x000015f4                isr_home_SetVector
  .text.isr_home_SetPriority
-                0x000015e0       0x20 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_home.o)
-                0x000015e0                isr_home_SetPriority
+                0x00001600       0x20 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_home.o)
+                0x00001600                isr_home_SetPriority
  .text.isr_home_Enable
-                0x00001600        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_home.o)
-                0x00001600                isr_home_Enable
+                0x00001620        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_home.o)
+                0x00001620                isr_home_Enable
  .text.isr_home_Disable
-                0x0000160c        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_home.o)
-                0x0000160c                isr_home_Disable
+                0x0000162c        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_home.o)
+                0x0000162c                isr_home_Disable
  .text.isr_home_StartEx
-                0x00001618       0x1c .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_home.o)
-                0x00001618                isr_home_StartEx
+                0x00001638       0x1c .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_home.o)
+                0x00001638                isr_home_StartEx
  .text.isr_home_ClearPending
-                0x00001634        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_home.o)
-                0x00001634                isr_home_ClearPending
+                0x00001654        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_home.o)
+                0x00001654                isr_home_ClearPending
  .text.LED_Write
-                0x00001640       0x18 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(LED.o)
-                0x00001640                LED_Write
+                0x00001660       0x18 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(LED.o)
+                0x00001660                LED_Write
  .text.isr_spi_ss_SetVector
-                0x00001658        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_spi_ss.o)
-                0x00001658                isr_spi_ss_SetVector
+                0x00001678        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_spi_ss.o)
+                0x00001678                isr_spi_ss_SetVector
  .text.isr_spi_ss_SetPriority
-                0x00001664       0x24 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_spi_ss.o)
-                0x00001664                isr_spi_ss_SetPriority
+                0x00001684       0x24 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_spi_ss.o)
+                0x00001684                isr_spi_ss_SetPriority
  .text.isr_spi_ss_Enable
-                0x00001688        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_spi_ss.o)
-                0x00001688                isr_spi_ss_Enable
+                0x000016a8        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_spi_ss.o)
+                0x000016a8                isr_spi_ss_Enable
  .text.isr_spi_ss_Disable
-                0x00001694        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_spi_ss.o)
-                0x00001694                isr_spi_ss_Disable
+                0x000016b4        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_spi_ss.o)
+                0x000016b4                isr_spi_ss_Disable
  .text.isr_spi_ss_StartEx
-                0x000016a0       0x1c .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_spi_ss.o)
-                0x000016a0                isr_spi_ss_StartEx
+                0x000016c0       0x1c .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_spi_ss.o)
+                0x000016c0                isr_spi_ss_StartEx
  .text.spi_ss_Read
-                0x000016bc       0x10 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(spi_ss.o)
-                0x000016bc                spi_ss_Read
+                0x000016dc       0x10 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(spi_ss.o)
+                0x000016dc                spi_ss_Read
  .text.spi_ss_ClearInterrupt
-                0x000016cc       0x14 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(spi_ss.o)
-                0x000016cc                spi_ss_ClearInterrupt
+                0x000016ec       0x14 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(spi_ss.o)
+                0x000016ec                spi_ss_ClearInterrupt
  .text.PROBE_Write
-                0x000016e0       0x18 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(PROBE.o)
-                0x000016e0                PROBE_Write
+                0x00001700       0x18 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(PROBE.o)
+                0x00001700                PROBE_Write
  .text.Index_Counter_1_Enable
-                0x000016f8       0x14 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Index_Counter_1.o)
-                0x000016f8                Index_Counter_1_Enable
+                0x00001718       0x14 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Index_Counter_1.o)
+                0x00001718                Index_Counter_1_Enable
  .text.Index_Counter_1_SetInterruptMode
-                0x0000170c        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Index_Counter_1.o)
-                0x0000170c                Index_Counter_1_SetInterruptMode
+                0x0000172c        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Index_Counter_1.o)
+                0x0000172c                Index_Counter_1_SetInterruptMode
  .text.Index_Counter_1_ReadStatusRegister
-                0x00001718        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Index_Counter_1.o)
-                0x00001718                Index_Counter_1_ReadStatusRegister
+                0x00001738        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Index_Counter_1.o)
+                0x00001738                Index_Counter_1_ReadStatusRegister
  .text.Index_Counter_1_WriteCounter
-                0x00001724        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Index_Counter_1.o)
-                0x00001724                Index_Counter_1_WriteCounter
+                0x00001744        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Index_Counter_1.o)
+                0x00001744                Index_Counter_1_WriteCounter
  .text.Index_Counter_1_ReadCapture
-                0x00001730        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Index_Counter_1.o)
-                0x00001730                Index_Counter_1_ReadCapture
+                0x00001750        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Index_Counter_1.o)
+                0x00001750                Index_Counter_1_ReadCapture
  .text.Index_Counter_1_WritePeriod
-                0x0000173c        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Index_Counter_1.o)
-                0x0000173c                Index_Counter_1_WritePeriod
+                0x0000175c        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Index_Counter_1.o)
+                0x0000175c                Index_Counter_1_WritePeriod
  .text.Index_Counter_1_WriteCompare
-                0x00001748        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Index_Counter_1.o)
-                0x00001748                Index_Counter_1_WriteCompare
+                0x00001768        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Index_Counter_1.o)
+                0x00001768                Index_Counter_1_WriteCompare
  .text.Index_Counter_1_ClearFIFO
-                0x00001754       0x14 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Index_Counter_1.o)
-                0x00001754                Index_Counter_1_ClearFIFO
+                0x00001774       0x14 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Index_Counter_1.o)
+                0x00001774                Index_Counter_1_ClearFIFO
  .text.Index_Counter_1_Init
-                0x00001768       0x58 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Index_Counter_1.o)
-                0x00001768                Index_Counter_1_Init
+                0x00001788       0x58 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Index_Counter_1.o)
+                0x00001788                Index_Counter_1_Init
  .text.Index_Counter_1_Start
-                0x000017c0       0x20 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Index_Counter_1.o)
-                0x000017c0                Index_Counter_1_Start
+                0x000017e0       0x20 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Index_Counter_1.o)
+                0x000017e0                Index_Counter_1_Start
  .text.Timer_BRMS_WriteCounter
-                0x000017e0       0x10 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Timer_BRMS.o)
-                0x000017e0                Timer_BRMS_WriteCounter
- .text.Timer_BRMS_WritePeriod
-                0x000017f0       0x10 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Timer_BRMS.o)
-                0x000017f0                Timer_BRMS_WritePeriod
- .text.Timer_BRMS_WriteCompare
                 0x00001800       0x10 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Timer_BRMS.o)
-                0x00001800                Timer_BRMS_WriteCompare
+                0x00001800                Timer_BRMS_WriteCounter
+ .text.Timer_BRMS_WritePeriod
+                0x00001810       0x10 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Timer_BRMS.o)
+                0x00001810                Timer_BRMS_WritePeriod
+ .text.Timer_BRMS_WriteCompare
+                0x00001820       0x10 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Timer_BRMS.o)
+                0x00001820                Timer_BRMS_WriteCompare
  .text.Timer_BRMS_TriggerCommand
-                0x00001810       0x1c .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Timer_BRMS.o)
-                0x00001810                Timer_BRMS_TriggerCommand
+                0x00001830       0x1c .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Timer_BRMS.o)
+                0x00001830                Timer_BRMS_TriggerCommand
  .text.Timer_BRMS_Enable
-                0x0000182c       0x24 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Timer_BRMS.o)
-                0x0000182c                Timer_BRMS_Enable
+                0x0000184c       0x24 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Timer_BRMS.o)
+                0x0000184c                Timer_BRMS_Enable
  .text.Timer_BRMS_SetInterruptMode
-                0x00001850        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Timer_BRMS.o)
-                0x00001850                Timer_BRMS_SetInterruptMode
+                0x00001870        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Timer_BRMS.o)
+                0x00001870                Timer_BRMS_SetInterruptMode
  .text.Timer_BRMS_Init
-                0x0000185c       0x30 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Timer_BRMS.o)
-                0x0000185c                Timer_BRMS_Init
+                0x0000187c       0x30 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Timer_BRMS.o)
+                0x0000187c                Timer_BRMS_Init
  .text.Timer_BRMS_Start
-                0x0000188c       0x20 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Timer_BRMS.o)
-                0x0000188c                Timer_BRMS_Start
+                0x000018ac       0x20 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Timer_BRMS.o)
+                0x000018ac                Timer_BRMS_Start
  .text.Timer_BRMS_ClearInterrupt
-                0x000018ac        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Timer_BRMS.o)
-                0x000018ac                Timer_BRMS_ClearInterrupt
+                0x000018cc        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Timer_BRMS.o)
+                0x000018cc                Timer_BRMS_ClearInterrupt
  .text.isr_brms_SetVector
-                0x000018b8        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_brms.o)
-                0x000018b8                isr_brms_SetVector
+                0x000018d8        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_brms.o)
+                0x000018d8                isr_brms_SetVector
  .text.isr_brms_SetPriority
-                0x000018c4       0x20 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_brms.o)
-                0x000018c4                isr_brms_SetPriority
+                0x000018e4       0x20 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_brms.o)
+                0x000018e4                isr_brms_SetPriority
  .text.isr_brms_Enable
-                0x000018e4       0x10 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_brms.o)
-                0x000018e4                isr_brms_Enable
+                0x00001904       0x10 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_brms.o)
+                0x00001904                isr_brms_Enable
  .text.isr_brms_Disable
-                0x000018f4       0x10 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_brms.o)
-                0x000018f4                isr_brms_Disable
+                0x00001914       0x10 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_brms.o)
+                0x00001914                isr_brms_Disable
  .text.isr_brms_StartEx
-                0x00001904       0x1c .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_brms.o)
-                0x00001904                isr_brms_StartEx
- .text          0x00001920       0x24 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(CyBootAsmGnu.o)
-                0x00001920                CyDelayCycles
-                0x00001934                CyEnterCriticalSection
-                0x0000193c                CyExitCriticalSection
+                0x00001924       0x1c .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_brms.o)
+                0x00001924                isr_brms_StartEx
+ .text.EncoderDirection_Write
+                0x00001940        0xc .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(EncoderDirection.o)
+                0x00001940                EncoderDirection_Write
+ *fill*         0x0000194c        0x4 
+ .text          0x00001950       0x24 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(CyBootAsmGnu.o)
+                0x00001950                CyDelayCycles
+                0x00001964                CyEnterCriticalSection
+                0x0000196c                CyExitCriticalSection
  .text.I2C_I2C_ISR
-                0x00001944      0x33c .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_I2C_INT.o)
-                0x00001944                I2C_I2C_ISR
+                0x00001974      0x33c .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_I2C_INT.o)
+                0x00001974                I2C_I2C_ISR
  .text.CySetReg24
-                0x00001c80       0x14 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(cyutils.o)
-                0x00001c80                CySetReg24
+                0x00001cb0       0x14 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(cyutils.o)
+                0x00001cb0                CySetReg24
  .text.CyGetReg24
-                0x00001c94       0x14 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(cyutils.o)
-                0x00001c94                CyGetReg24
- .text          0x00001ca8      0x1d4 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_divsi3.o)
-                0x00001ca8                __divsi3
-                0x00001ca8                __aeabi_idiv
-                0x00001e74                __aeabi_idivmod
- .text          0x00001e7c        0x4 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_dvmd_tls.o)
-                0x00001e7c                __aeabi_idiv0
-                0x00001e7c                __aeabi_ldiv0
- .text.__errno  0x00001e80        0xc c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-errno.o)
-                0x00001e80                __errno
+                0x00001cc4       0x14 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(cyutils.o)
+                0x00001cc4                CyGetReg24
+ .text          0x00001cd8      0x1d4 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_divsi3.o)
+                0x00001cd8                __divsi3
+                0x00001cd8                __aeabi_idiv
+                0x00001ea4                __aeabi_idivmod
+ .text          0x00001eac        0x4 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_dvmd_tls.o)
+                0x00001eac                __aeabi_idiv0
+                0x00001eac                __aeabi_ldiv0
+ .text.__errno  0x00001eb0        0xc c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-errno.o)
+                0x00001eb0                __errno
  .text.__libc_init_array
-                0x00001e8c       0x4c c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-init.o)
-                0x00001e8c                __libc_init_array
- .text.memset   0x00001ed8       0x10 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-memset.o)
-                0x00001ed8                memset
+                0x00001ebc       0x4c c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-init.o)
+                0x00001ebc                __libc_init_array
+ .text.memset   0x00001f08       0x10 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-memset.o)
+                0x00001f08                memset
  *(.plt)
  *(.gnu.warning)
  *(.glue_7t)
- .glue_7t       0x00001ee8        0x0 linker stubs
+ .glue_7t       0x00001f18        0x0 linker stubs
  *(.glue_7)
- .glue_7        0x00001ee8        0x0 linker stubs
+ .glue_7        0x00001f18        0x0 linker stubs
  *(.vfp11_veneer)
- .vfp11_veneer  0x00001ee8        0x0 linker stubs
+ .vfp11_veneer  0x00001f18        0x0 linker stubs
  *(.bootloader)
  *(.ARM.extab* .gnu.linkonce.armextab.*)
  *(.gcc_except_table)
 
-.v4_bx          0x00001ee8        0x0
- .v4_bx         0x00001ee8        0x0 linker stubs
+.v4_bx          0x00001f18        0x0
+ .v4_bx         0x00001f18        0x0 linker stubs
 
-.iplt           0x00001ee8        0x0
- .iplt          0x00001ee8        0x0 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtbegin.o
+.iplt           0x00001f18        0x0
+ .iplt          0x00001f18        0x0 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtbegin.o
 
 .eh_frame_hdr
  *(.eh_frame_hdr)
 
-.eh_frame       0x00001ee8        0x4
+.eh_frame       0x00001f18        0x4
  *(.eh_frame)
- .eh_frame      0x00001ee8        0x0 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtbegin.o
- .eh_frame      0x00001ee8        0x4 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtend.o
+ .eh_frame      0x00001f18        0x0 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtbegin.o
+ .eh_frame      0x00001f18        0x4 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtend.o
                 [!provide]                PROVIDE (__exidx_start, .)
 
 .ARM.exidx
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
-                0x00001eec                __exidx_end = .
+                0x00001f1c                __exidx_end = .
 
-.rodata         0x00001eec      0x36c
+.rodata         0x00001f1c      0x374
  *(.rodata .rodata.* .gnu.linkonce.r.*)
- .rodata        0x00001eec      0x308 .\CortexM0\ARM_GCC_541\Debug\cyfitter_cfg.o
- .rodata        0x000021f4       0x2e .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(CyLib.o)
-                0x000021f4                cyImoFreqMhz2Reg
+ .rodata        0x00001f1c      0x30c .\CortexM0\ARM_GCC_541\Debug\cyfitter_cfg.o
+ .rodata        0x00002228       0x2e .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(CyLib.o)
+                0x00002228                cyImoFreqMhz2Reg
  .rodata.str1.1
-                0x00002222        0x2 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-impure.o)
-                0x00002224                . = ALIGN (0x4)
+                0x00002256        0x2 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-impure.o)
+                0x00002258                . = ALIGN (0x4)
  *(.init)
- .init          0x00002224        0x4 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crti.o
-                0x00002224                _init
- .init          0x00002228        0x8 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtn.o
-                0x00002230                . = ALIGN (0x4)
-                0x00002230                __preinit_array_start = .
+ .init          0x00002258        0x4 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crti.o
+                0x00002258                _init
+ .init          0x0000225c        0x8 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtn.o
+                0x00002264                . = ALIGN (0x4)
+                0x00002264                __preinit_array_start = .
  *(.preinit_array)
-                0x00002230                __preinit_array_end = .
-                0x00002230                . = ALIGN (0x4)
-                0x00002230                __init_array_start = .
+                0x00002264                __preinit_array_end = .
+                0x00002264                . = ALIGN (0x4)
+                0x00002264                __init_array_start = .
  *(SORT(.init_array.*))
  *(.init_array)
- .init_array    0x00002230        0x4 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtbegin.o
- .init_array    0x00002234        0x4 .\CortexM0\ARM_GCC_541\Debug\Cm0Start.o
-                0x00002238                __init_array_end = .
-                0x00002238                . = ALIGN (0x4)
+ .init_array    0x00002264        0x4 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtbegin.o
+ .init_array    0x00002268        0x4 .\CortexM0\ARM_GCC_541\Debug\Cm0Start.o
+                0x0000226c                __init_array_end = .
+                0x0000226c                . = ALIGN (0x4)
  *(.fini)
- .fini          0x00002238        0x4 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crti.o
-                0x00002238                _fini
- .fini          0x0000223c        0x8 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtn.o
-                0x00002244                . = ALIGN (0x4)
-                0x00002244                __fini_array_start = .
+ .fini          0x0000226c        0x4 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crti.o
+                0x0000226c                _fini
+ .fini          0x00002270        0x8 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtn.o
+                0x00002278                . = ALIGN (0x4)
+                0x00002278                __fini_array_start = .
  *(.fini_array)
- .fini_array    0x00002244        0x4 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtbegin.o
+ .fini_array    0x00002278        0x4 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtbegin.o
  *(SORT(.fini_array.*))
-                0x00002248                __fini_array_end = .
-                0x00002248                . = ALIGN (0x4)
+                0x0000227c                __fini_array_end = .
+                0x0000227c                . = ALIGN (0x4)
  *crtbegin.o(.ctors)
  *(EXCLUDE_FILE(*crtend.o) .ctors)
  *(SORT(.ctors.*))
  *crtend.o(.ctors)
-                0x00002248                . = ALIGN (0x4)
+                0x0000227c                . = ALIGN (0x4)
  *crtbegin.o(.dtors)
  *(EXCLUDE_FILE(*crtend.o) .dtors)
  *(SORT(.dtors.*))
  *crtend.o(.dtors)
-                0x00002248                . = ALIGN (0x4)
-                0x00002248                __cy_regions = .
-                0x00002248        0x4 LONG 0x2258 __cy_region_init_ram
-                0x0000224c        0x4 LONG 0x200000c0 __cy_region_start_data
-                0x00002250        0x4 LONG 0x80 __cy_region_init_size_ram
-                0x00002254        0x4 LONG 0x198 __cy_region_zero_size_ram
-                0x00002258                __cy_regions_end = .
-                0x00002258                . = ALIGN (0x8)
-                0x00002258                _etext = .
+                0x0000227c                . = ALIGN (0x4)
+                0x0000227c                __cy_regions = .
+                0x0000227c        0x4 LONG 0x2290 __cy_region_init_ram
+                0x00002280        0x4 LONG 0x200000c0 __cy_region_start_data
+                0x00002284        0x4 LONG 0x80 __cy_region_init_size_ram
+                0x00002288        0x4 LONG 0x1a0 __cy_region_zero_size_ram
+                0x0000228c                __cy_regions_end = .
+                0x00002290                . = ALIGN (0x8)
+ *fill*         0x0000228c        0x4 
+                0x00002290                _etext = .
 
 .cy_checksum_exclude
-                0x00002258        0x0
+                0x00002290        0x0
  *(.cy_checksum_exclude)
 
 .ramvectors     0x20000000       0xc0
@@ -1296,7 +1308,7 @@ END GROUP
 .noinit
  *(.noinit)
 
-.data           0x200000c0       0x80 load address 0x00002258
+.data           0x200000c0       0x80 load address 0x00002290
                 0x200000c0                __cy_region_start_data = .
  *(.jcr)
  .jcr           0x200000c0        0x0 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtbegin.o
@@ -1323,10 +1335,10 @@ END GROUP
  *(.ram)
                 0x20000140                _edata = .
 
-.igot.plt       0x20000140        0x0 load address 0x000022d8
+.igot.plt       0x20000140        0x0 load address 0x00002310
  .igot.plt      0x20000140        0x0 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtbegin.o
 
-.bss            0x20000140      0x198 load address 0x000022d8
+.bss            0x20000140      0x1a0 load address 0x00002310
                 0x20000140                PROVIDE (__bss_start__, .)
  *(.shbss)
  *(.bss .bss.* .gnu.linkonce.b.*)
@@ -1363,7 +1375,7 @@ END GROUP
                 0x200001c8                Timer_BRMS_initVar
  *(COMMON)
  *fill*         0x200001c9        0x3 
- COMMON         0x200001cc       0x84 .\CortexM0\ARM_GCC_541\Debug\main.o
+ COMMON         0x200001cc       0x8c .\CortexM0\ARM_GCC_541\Debug\main.o
                 0x200001cc                PID_Enabled
                 0x200001d0                PID_Setpoint
                 0x200001d4                Position
@@ -1373,58 +1385,58 @@ END GROUP
                 0x200001e1                PID_EffSetDelta
                 0x200001e4                Output
                 0x200001e8                txMessage
-                0x20000204                lastTime
-                0x20000208                CurrentI2Cinbuf
-                0x2000021c                PID_EffectiveSetpoint
-                0x20000220                Jog
-                0x20000222                ChecksumErrors
-                0x20000224                limitIterm
-                0x20000226                txMessageState
-                0x20000227                ConfigSequence
-                0x20000228                rxMessage
-                0x20000244                MotorCurrent
-                0x20000246                limitOutput
-                0x20000248                ConfigState
-                0x2000024c                LastPosition
- COMMON         0x20000250        0x8 .\CortexM0\ARM_GCC_541\Debug\pid.o
-                0x20000250                iterm
-                0x20000254                iterm_delay
- COMMON         0x20000258        0x1 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_I2C.o)
-                0x20000258                I2C_state
- *fill*         0x20000259        0x3 
- COMMON         0x2000025c       0x24 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_I2C_MASTER.o)
-                0x2000025c                I2C_mstrWrBufIndexTmp
-                0x20000260                I2C_mstrWrBufIndex
-                0x20000264                I2C_mstrWrBufSize
-                0x20000268                I2C_mstrStatus
-                0x2000026c                I2C_mstrRdBufPtr
-                0x20000270                I2C_mstrControl
-                0x20000274                I2C_mstrRdBufSize
-                0x20000278                I2C_mstrRdBufIndex
-                0x2000027c                I2C_mstrWrBufPtr
- COMMON         0x20000280       0x58 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1_SPI_UART.o)
-                0x20000280                SPI_1_txBufferTail
-                0x20000284                SPI_1_rxBufferOverflow
-                0x20000288                SPI_1_txBufferHead
-                0x2000028c                SPI_1_rxBufferTail
-                0x20000290                SPI_1_rxBufferHead
-                0x20000294                SPI_1_rxBufferInternal
-                0x200002b8                SPI_1_txBufferInternal
-                0x200002d8                . = ALIGN (0x8)
+                0x20000208                lastTime
+                0x2000020c                CurrentI2Cinbuf
+                0x20000220                PID_EffectiveSetpoint
+                0x20000224                Jog
+                0x20000226                ChecksumErrors
+                0x20000228                limitIterm
+                0x2000022a                txMessageState
+                0x2000022b                ConfigSequence
+                0x2000022c                rxMessage
+                0x2000024c                MotorCurrent
+                0x2000024e                limitOutput
+                0x20000250                ConfigState
+                0x20000254                LastPosition
+ COMMON         0x20000258        0x8 .\CortexM0\ARM_GCC_541\Debug\pid.o
+                0x20000258                iterm
+                0x2000025c                iterm_delay
+ COMMON         0x20000260        0x1 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_I2C.o)
+                0x20000260                I2C_state
+ *fill*         0x20000261        0x3 
+ COMMON         0x20000264       0x24 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_I2C_MASTER.o)
+                0x20000264                I2C_mstrWrBufIndexTmp
+                0x20000268                I2C_mstrWrBufIndex
+                0x2000026c                I2C_mstrWrBufSize
+                0x20000270                I2C_mstrStatus
+                0x20000274                I2C_mstrRdBufPtr
+                0x20000278                I2C_mstrControl
+                0x2000027c                I2C_mstrRdBufSize
+                0x20000280                I2C_mstrRdBufIndex
+                0x20000284                I2C_mstrWrBufPtr
+ COMMON         0x20000288       0x58 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1_SPI_UART.o)
+                0x20000288                SPI_1_txBufferTail
+                0x2000028c                SPI_1_rxBufferOverflow
+                0x20000290                SPI_1_txBufferHead
+                0x20000294                SPI_1_rxBufferTail
+                0x20000298                SPI_1_rxBufferHead
+                0x2000029c                SPI_1_rxBufferInternal
+                0x200002c0                SPI_1_txBufferInternal
+                0x200002e0                . = ALIGN (0x8)
  *(.ram.b)
-                0x200002d8                _end = .
-                0x200002d8                __end = .
-                0x200002d8                PROVIDE (end, .)
-                0x200002d8                PROVIDE (__bss_end__, .)
-                0x00002258                __cy_region_init_ram = LOADADDR (.data)
+                0x200002e0                _end = .
+                0x200002e0                __end = .
+                0x200002e0                PROVIDE (end, .)
+                0x200002e0                PROVIDE (__bss_end__, .)
+                0x00002290                __cy_region_init_ram = LOADADDR (.data)
                 0x00000080                __cy_region_init_size_ram = (_edata - ADDR (.data))
-                0x00000198                __cy_region_zero_size_ram = (_end - _edata)
+                0x000001a0                __cy_region_zero_size_ram = (_end - _edata)
 
-.heap           0x200002d8       0x80 load address 0x000022d8
-                0x200002d8                . = _end
-                0x20000358                . = (. + 0x80)
- *fill*         0x200002d8       0x80 
-                0x20000358                __cy_heap_limit = .
+.heap           0x200002e0       0x80 load address 0x00002310
+                0x200002e0                . = _end
+                0x20000360                . = (. + 0x80)
+ *fill*         0x200002e0       0x80 
+                0x20000360                __cy_heap_limit = .
 
 .stack          0x20000e00      0x200
                 0x20000e00                __cy_stack_limit = .
@@ -1460,8 +1472,8 @@ END GROUP
                 0x90600000        0x1 .\CortexM0\ARM_GCC_541\Debug\cymetadata.o
                 0x90600000                cy_meta_chipprotect
 
-.rel.dyn        0x000022d8        0x0 load address 0x90600004
- .rel.iplt      0x000022d8        0x0 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtbegin.o
+.rel.dyn        0x00002310        0x0 load address 0x90600004
+ .rel.iplt      0x00002310        0x0 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtbegin.o
 
 .stab
  *(.stab)
@@ -1481,7 +1493,7 @@ END GROUP
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000      0xe48
+.debug_aranges  0x00000000      0xe70
  *(.debug_aranges)
  .debug_aranges
                 0x00000000       0x88 .\CortexM0\ARM_GCC_541\Debug\main.o
@@ -1546,53 +1558,56 @@ END GROUP
  .debug_aranges
                 0x00000d60       0x80 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_brms.o)
  .debug_aranges
-                0x00000de0       0x20 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(CyBootAsmGnu.o)
+                0x00000de0       0x28 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(EncoderDirection.o)
  .debug_aranges
-                0x00000e00       0x20 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_I2C_INT.o)
+                0x00000e08       0x20 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(CyBootAsmGnu.o)
  .debug_aranges
-                0x00000e20       0x28 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(cyutils.o)
+                0x00000e28       0x20 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_I2C_INT.o)
+ .debug_aranges
+                0x00000e48       0x28 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(cyutils.o)
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x7773
+.debug_info     0x00000000     0x7874
  *(.debug_info .gnu.linkonce.wi.*)
- .debug_info    0x00000000      0xfb3 .\CortexM0\ARM_GCC_541\Debug\main.o
- .debug_info    0x00000fb3      0x49e .\CortexM0\ARM_GCC_541\Debug\INA219.o
- .debug_info    0x00001451      0x1b9 .\CortexM0\ARM_GCC_541\Debug\pid.o
- .debug_info    0x0000160a      0x366 .\CortexM0\ARM_GCC_541\Debug\cyfitter_cfg.o
- .debug_info    0x00001970       0xf8 .\CortexM0\ARM_GCC_541\Debug\cymetadata.o
- .debug_info    0x00001a68      0x3a2 .\CortexM0\ARM_GCC_541\Debug\Cm0Start.o
- .debug_info    0x00001e0a      0x2aa .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C.o)
- .debug_info    0x000020b4      0x195 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_I2C.o)
- .debug_info    0x00002249      0x91d .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_I2C_MASTER.o)
- .debug_info    0x00002b66      0x90b .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(PWM_1.o)
- .debug_info    0x00003471      0x19d .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_sda.o)
- .debug_info    0x0000360e      0x19b .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_scl.o)
- .debug_info    0x000037a9      0xaed .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(CyLib.o)
- .debug_info    0x00004296      0x19d .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(INDEX_OUT.o)
- .debug_info    0x00004433      0x19d .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(HOME_OUT.o)
- .debug_info    0x000045d0      0x19d .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(HOME_IN.o)
- .debug_info    0x0000476d      0x2fb .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1.o)
- .debug_info    0x00004a68      0x372 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1_SPI_UART.o)
- .debug_info    0x00004dda      0x19f .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1_SPI.o)
- .debug_info    0x00004f79      0x186 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1_SPI_UART_INT.o)
- .debug_info    0x000050ff      0x43b .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Counter_1.o)
- .debug_info    0x0000553a      0x19d .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Reset_Encoder.o)
- .debug_info    0x000056d7      0x305 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_rst_encoder.o)
- .debug_info    0x000059dc      0x305 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_home.o)
- .debug_info    0x00005ce1      0x19d .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(LED.o)
- .debug_info    0x00005e7e      0x305 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_spi_ss.o)
- .debug_info    0x00006183      0x19d .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(spi_ss.o)
- .debug_info    0x00006320      0x19d .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(PROBE.o)
- .debug_info    0x000064bd      0x327 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Index_Counter_1.o)
- .debug_info    0x000067e4      0x907 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Timer_BRMS.o)
- .debug_info    0x000070eb      0x305 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_brms.o)
- .debug_info    0x000073f0       0x90 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(CyBootAsmGnu.o)
- .debug_info    0x00007480      0x1a8 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_I2C_INT.o)
- .debug_info    0x00007628      0x14b .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(cyutils.o)
+ .debug_info    0x00000000      0xfde .\CortexM0\ARM_GCC_541\Debug\main.o
+ .debug_info    0x00000fde      0x49e .\CortexM0\ARM_GCC_541\Debug\INA219.o
+ .debug_info    0x0000147c      0x1b9 .\CortexM0\ARM_GCC_541\Debug\pid.o
+ .debug_info    0x00001635      0x366 .\CortexM0\ARM_GCC_541\Debug\cyfitter_cfg.o
+ .debug_info    0x0000199b       0xf8 .\CortexM0\ARM_GCC_541\Debug\cymetadata.o
+ .debug_info    0x00001a93      0x3a2 .\CortexM0\ARM_GCC_541\Debug\Cm0Start.o
+ .debug_info    0x00001e35      0x2aa .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C.o)
+ .debug_info    0x000020df      0x195 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_I2C.o)
+ .debug_info    0x00002274      0x91d .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_I2C_MASTER.o)
+ .debug_info    0x00002b91      0x90b .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(PWM_1.o)
+ .debug_info    0x0000349c      0x19d .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_sda.o)
+ .debug_info    0x00003639      0x19b .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_scl.o)
+ .debug_info    0x000037d4      0xaed .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(CyLib.o)
+ .debug_info    0x000042c1      0x19d .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(INDEX_OUT.o)
+ .debug_info    0x0000445e      0x19d .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(HOME_OUT.o)
+ .debug_info    0x000045fb      0x19d .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(HOME_IN.o)
+ .debug_info    0x00004798      0x2fb .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1.o)
+ .debug_info    0x00004a93      0x372 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1_SPI_UART.o)
+ .debug_info    0x00004e05      0x19f .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1_SPI.o)
+ .debug_info    0x00004fa4      0x186 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1_SPI_UART_INT.o)
+ .debug_info    0x0000512a      0x43b .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Counter_1.o)
+ .debug_info    0x00005565      0x19d .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Reset_Encoder.o)
+ .debug_info    0x00005702      0x305 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_rst_encoder.o)
+ .debug_info    0x00005a07      0x305 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_home.o)
+ .debug_info    0x00005d0c      0x19d .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(LED.o)
+ .debug_info    0x00005ea9      0x305 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_spi_ss.o)
+ .debug_info    0x000061ae      0x19d .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(spi_ss.o)
+ .debug_info    0x0000634b      0x19d .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(PROBE.o)
+ .debug_info    0x000064e8      0x327 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Index_Counter_1.o)
+ .debug_info    0x0000680f      0x907 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Timer_BRMS.o)
+ .debug_info    0x00007116      0x305 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_brms.o)
+ .debug_info    0x0000741b       0xd6 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(EncoderDirection.o)
+ .debug_info    0x000074f1       0x90 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(CyBootAsmGnu.o)
+ .debug_info    0x00007581      0x1a8 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_I2C_INT.o)
+ .debug_info    0x00007729      0x14b .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(cyutils.o)
 
-.debug_abbrev   0x00000000     0x2562
+.debug_abbrev   0x00000000     0x25e3
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x273 .\CortexM0\ARM_GCC_541\Debug\main.o
  .debug_abbrev  0x00000273      0x155 .\CortexM0\ARM_GCC_541\Debug\INA219.o
@@ -1625,48 +1640,50 @@ END GROUP
  .debug_abbrev  0x00002020      0x117 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Index_Counter_1.o)
  .debug_abbrev  0x00002137      0x119 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Timer_BRMS.o)
  .debug_abbrev  0x00002250      0x19a .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_brms.o)
- .debug_abbrev  0x000023ea       0x14 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(CyBootAsmGnu.o)
- .debug_abbrev  0x000023fe       0xa4 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_I2C_INT.o)
- .debug_abbrev  0x000024a2       0xc0 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(cyutils.o)
+ .debug_abbrev  0x000023ea       0x81 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(EncoderDirection.o)
+ .debug_abbrev  0x0000246b       0x14 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(CyBootAsmGnu.o)
+ .debug_abbrev  0x0000247f       0xa4 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_I2C_INT.o)
+ .debug_abbrev  0x00002523       0xc0 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(cyutils.o)
 
-.debug_line     0x00000000     0x3351
+.debug_line     0x00000000     0x33e1
  *(.debug_line)
- .debug_line    0x00000000      0x48c .\CortexM0\ARM_GCC_541\Debug\main.o
- .debug_line    0x0000048c      0x232 .\CortexM0\ARM_GCC_541\Debug\INA219.o
- .debug_line    0x000006be      0x153 .\CortexM0\ARM_GCC_541\Debug\pid.o
- .debug_line    0x00000811      0x173 .\CortexM0\ARM_GCC_541\Debug\cyfitter_cfg.o
- .debug_line    0x00000984      0x141 .\CortexM0\ARM_GCC_541\Debug\cymetadata.o
- .debug_line    0x00000ac5      0x235 .\CortexM0\ARM_GCC_541\Debug\Cm0Start.o
- .debug_line    0x00000cfa      0x143 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C.o)
- .debug_line    0x00000e3d       0xc3 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_I2C.o)
- .debug_line    0x00000f00      0x339 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_I2C_MASTER.o)
- .debug_line    0x00001239      0x37e .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(PWM_1.o)
- .debug_line    0x000015b7       0xbf .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_sda.o)
- .debug_line    0x00001676       0xbe .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_scl.o)
- .debug_line    0x00001734      0x460 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(CyLib.o)
- .debug_line    0x00001b94       0xc1 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(INDEX_OUT.o)
- .debug_line    0x00001c55       0xc0 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(HOME_OUT.o)
- .debug_line    0x00001d15       0xbf .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(HOME_IN.o)
- .debug_line    0x00001dd4      0x15f .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1.o)
- .debug_line    0x00001f33      0x153 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1_SPI_UART.o)
- .debug_line    0x00002086       0xd2 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1_SPI.o)
- .debug_line    0x00002158       0xb1 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1_SPI_UART_INT.o)
- .debug_line    0x00002209      0x1a5 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Counter_1.o)
- .debug_line    0x000023ae       0xc5 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Reset_Encoder.o)
- .debug_line    0x00002473      0x15b .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_rst_encoder.o)
- .debug_line    0x000025ce      0x150 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_home.o)
- .debug_line    0x0000271e       0xbb .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(LED.o)
- .debug_line    0x000027d9      0x156 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_spi_ss.o)
- .debug_line    0x0000292f       0xbe .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(spi_ss.o)
- .debug_line    0x000029ed       0xbd .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(PROBE.o)
- .debug_line    0x00002aaa      0x198 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Index_Counter_1.o)
- .debug_line    0x00002c42      0x37f .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Timer_BRMS.o)
- .debug_line    0x00002fc1      0x154 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_brms.o)
- .debug_line    0x00003115       0x69 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(CyBootAsmGnu.o)
- .debug_line    0x0000317e      0x15f .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_I2C_INT.o)
- .debug_line    0x000032dd       0x74 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(cyutils.o)
+ .debug_line    0x00000000      0x4a3 .\CortexM0\ARM_GCC_541\Debug\main.o
+ .debug_line    0x000004a3      0x232 .\CortexM0\ARM_GCC_541\Debug\INA219.o
+ .debug_line    0x000006d5      0x153 .\CortexM0\ARM_GCC_541\Debug\pid.o
+ .debug_line    0x00000828      0x173 .\CortexM0\ARM_GCC_541\Debug\cyfitter_cfg.o
+ .debug_line    0x0000099b      0x141 .\CortexM0\ARM_GCC_541\Debug\cymetadata.o
+ .debug_line    0x00000adc      0x235 .\CortexM0\ARM_GCC_541\Debug\Cm0Start.o
+ .debug_line    0x00000d11      0x143 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C.o)
+ .debug_line    0x00000e54       0xc3 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_I2C.o)
+ .debug_line    0x00000f17      0x339 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_I2C_MASTER.o)
+ .debug_line    0x00001250      0x37e .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(PWM_1.o)
+ .debug_line    0x000015ce       0xbf .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_sda.o)
+ .debug_line    0x0000168d       0xbe .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_scl.o)
+ .debug_line    0x0000174b      0x460 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(CyLib.o)
+ .debug_line    0x00001bab       0xc1 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(INDEX_OUT.o)
+ .debug_line    0x00001c6c       0xc0 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(HOME_OUT.o)
+ .debug_line    0x00001d2c       0xbf .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(HOME_IN.o)
+ .debug_line    0x00001deb      0x15f .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1.o)
+ .debug_line    0x00001f4a      0x153 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1_SPI_UART.o)
+ .debug_line    0x0000209d       0xd2 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1_SPI.o)
+ .debug_line    0x0000216f       0xb1 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1_SPI_UART_INT.o)
+ .debug_line    0x00002220      0x1a5 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Counter_1.o)
+ .debug_line    0x000023c5       0xc5 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Reset_Encoder.o)
+ .debug_line    0x0000248a      0x15b .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_rst_encoder.o)
+ .debug_line    0x000025e5      0x150 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_home.o)
+ .debug_line    0x00002735       0xbb .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(LED.o)
+ .debug_line    0x000027f0      0x156 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_spi_ss.o)
+ .debug_line    0x00002946       0xbe .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(spi_ss.o)
+ .debug_line    0x00002a04       0xbd .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(PROBE.o)
+ .debug_line    0x00002ac1      0x198 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Index_Counter_1.o)
+ .debug_line    0x00002c59      0x37f .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Timer_BRMS.o)
+ .debug_line    0x00002fd8      0x154 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_brms.o)
+ .debug_line    0x0000312c       0x79 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(EncoderDirection.o)
+ .debug_line    0x000031a5       0x69 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(CyBootAsmGnu.o)
+ .debug_line    0x0000320e      0x15f .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_I2C_INT.o)
+ .debug_line    0x0000336d       0x74 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(cyutils.o)
 
-.debug_frame    0x00000000     0x21fc
+.debug_frame    0x00000000     0x222c
  *(.debug_frame)
  .debug_frame   0x00000000      0x18c .\CortexM0\ARM_GCC_541\Debug\main.o
  .debug_frame   0x0000018c      0x10c .\CortexM0\ARM_GCC_541\Debug\INA219.o
@@ -1698,88 +1715,91 @@ END GROUP
  .debug_frame   0x000019d0      0x134 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Index_Counter_1.o)
  .debug_frame   0x00001b04      0x3a0 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Timer_BRMS.o)
  .debug_frame   0x00001ea4      0x110 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_brms.o)
- .debug_frame   0x00001fb4       0x2c .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_I2C_INT.o)
- .debug_frame   0x00001fe0       0x30 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(cyutils.o)
- .debug_frame   0x00002010       0x20 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_udivsi3.o)
- .debug_frame   0x00002030       0x20 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_divsi3.o)
- .debug_frame   0x00002050       0x38 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(mulsf3.o)
- .debug_frame   0x00002088       0x20 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(fixsfsi.o)
- .debug_frame   0x000020a8       0x2c c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(floatsisf.o)
- .debug_frame   0x000020d4       0x3c c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(muldf3.o)
- .debug_frame   0x00002110       0x2c c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(floatsidf.o)
- .debug_frame   0x0000213c       0x2c c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(truncdfsf2.o)
- .debug_frame   0x00002168       0x20 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-errno.o)
- .debug_frame   0x00002188       0x28 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-exit.o)
- .debug_frame   0x000021b0       0x2c c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-init.o)
- .debug_frame   0x000021dc       0x20 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-memset.o)
+ .debug_frame   0x00001fb4       0x30 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(EncoderDirection.o)
+ .debug_frame   0x00001fe4       0x2c .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_I2C_INT.o)
+ .debug_frame   0x00002010       0x30 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(cyutils.o)
+ .debug_frame   0x00002040       0x20 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_udivsi3.o)
+ .debug_frame   0x00002060       0x20 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_divsi3.o)
+ .debug_frame   0x00002080       0x38 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(mulsf3.o)
+ .debug_frame   0x000020b8       0x20 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(fixsfsi.o)
+ .debug_frame   0x000020d8       0x2c c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(floatsisf.o)
+ .debug_frame   0x00002104       0x3c c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(muldf3.o)
+ .debug_frame   0x00002140       0x2c c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(floatsidf.o)
+ .debug_frame   0x0000216c       0x2c c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(truncdfsf2.o)
+ .debug_frame   0x00002198       0x20 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-errno.o)
+ .debug_frame   0x000021b8       0x28 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-exit.o)
+ .debug_frame   0x000021e0       0x2c c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-init.o)
+ .debug_frame   0x0000220c       0x20 c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-memset.o)
 
-.debug_str      0x00000000     0x2cb6
+.debug_str      0x00000000     0x2d0d
  *(.debug_str)
- .debug_str     0x00000000      0x980 .\CortexM0\ARM_GCC_541\Debug\main.o
-                                0xa74 (size before relaxing)
- .debug_str     0x00000980      0x165 .\CortexM0\ARM_GCC_541\Debug\INA219.o
+ .debug_str     0x00000000      0x997 .\CortexM0\ARM_GCC_541\Debug\main.o
+                                0xa8b (size before relaxing)
+ .debug_str     0x00000997      0x165 .\CortexM0\ARM_GCC_541\Debug\INA219.o
                                 0x347 (size before relaxing)
- .debug_str     0x00000ae5       0x4a .\CortexM0\ARM_GCC_541\Debug\pid.o
+ .debug_str     0x00000afc       0x4a .\CortexM0\ARM_GCC_541\Debug\pid.o
                                 0x235 (size before relaxing)
- .debug_str     0x00000b2f       0xec .\CortexM0\ARM_GCC_541\Debug\cyfitter_cfg.o
+ .debug_str     0x00000b46       0xec .\CortexM0\ARM_GCC_541\Debug\cyfitter_cfg.o
                                 0x2aa (size before relaxing)
- .debug_str     0x00000c1b       0x59 .\CortexM0\ARM_GCC_541\Debug\cymetadata.o
+ .debug_str     0x00000c32       0x59 .\CortexM0\ARM_GCC_541\Debug\cymetadata.o
                                 0x1c8 (size before relaxing)
- .debug_str     0x00000c74      0x13a .\CortexM0\ARM_GCC_541\Debug\Cm0Start.o
+ .debug_str     0x00000c8b      0x13a .\CortexM0\ARM_GCC_541\Debug\Cm0Start.o
                                 0x301 (size before relaxing)
- .debug_str     0x00000dae      0x141 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C.o)
+ .debug_str     0x00000dc5      0x141 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C.o)
                                 0x2d9 (size before relaxing)
- .debug_str     0x00000eef       0x94 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_I2C.o)
+ .debug_str     0x00000f06       0x94 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_I2C.o)
                                 0x24e (size before relaxing)
- .debug_str     0x00000f83      0x29b .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_I2C_MASTER.o)
+ .debug_str     0x00000f9a      0x29b .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_I2C_MASTER.o)
                                 0x4ec (size before relaxing)
- .debug_str     0x0000121e      0x3e7 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(PWM_1.o)
+ .debug_str     0x00001235      0x3e7 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(PWM_1.o)
                                 0x5b1 (size before relaxing)
- .debug_str     0x00001605       0xa3 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_sda.o)
+ .debug_str     0x0000161c       0xa3 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_sda.o)
                                 0x244 (size before relaxing)
- .debug_str     0x000016a8       0x7a .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_scl.o)
+ .debug_str     0x000016bf       0x7a .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_scl.o)
                                 0x244 (size before relaxing)
- .debug_str     0x00001722      0x440 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(CyLib.o)
+ .debug_str     0x00001739      0x440 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(CyLib.o)
                                 0x6b6 (size before relaxing)
- .debug_str     0x00001b62       0x8c .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(INDEX_OUT.o)
+ .debug_str     0x00001b79       0x8c .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(INDEX_OUT.o)
                                 0x252 (size before relaxing)
- .debug_str     0x00001bee       0x86 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(HOME_OUT.o)
+ .debug_str     0x00001c05       0x86 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(HOME_OUT.o)
                                 0x24b (size before relaxing)
- .debug_str     0x00001c74       0x7e .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(HOME_IN.o)
+ .debug_str     0x00001c8b       0x7e .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(HOME_IN.o)
                                 0x244 (size before relaxing)
- .debug_str     0x00001cf2      0x14e .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1.o)
+ .debug_str     0x00001d09      0x14e .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1.o)
                                 0x33b (size before relaxing)
- .debug_str     0x00001e40      0x17c .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1_SPI_UART.o)
+ .debug_str     0x00001e57      0x17c .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1_SPI_UART.o)
                                 0x392 (size before relaxing)
- .debug_str     0x00001fbc       0x23 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1_SPI.o)
+ .debug_str     0x00001fd3       0x23 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1_SPI.o)
                                 0x289 (size before relaxing)
- .debug_str     0x00001fdf       0x3f .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1_SPI_UART_INT.o)
+ .debug_str     0x00001ff6       0x3f .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(SPI_1_SPI_UART_INT.o)
                                 0x293 (size before relaxing)
- .debug_str     0x0000201e       0x82 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Counter_1.o)
+ .debug_str     0x00002035       0x82 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Counter_1.o)
                                 0x3df (size before relaxing)
- .debug_str     0x000020a0       0xa2 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Reset_Encoder.o)
+ .debug_str     0x000020b7       0xa2 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Reset_Encoder.o)
                                 0x26e (size before relaxing)
- .debug_str     0x00002142      0x130 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_rst_encoder.o)
+ .debug_str     0x00002159      0x130 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_rst_encoder.o)
                                 0x376 (size before relaxing)
- .debug_str     0x00002272       0xd4 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_home.o)
+ .debug_str     0x00002289       0xd4 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_home.o)
                                 0x314 (size before relaxing)
- .debug_str     0x00002346       0x6f .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(LED.o)
+ .debug_str     0x0000235d       0x6f .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(LED.o)
                                 0x228 (size before relaxing)
- .debug_str     0x000023b5      0x102 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_spi_ss.o)
+ .debug_str     0x000023cc      0x102 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_spi_ss.o)
                                 0x330 (size before relaxing)
- .debug_str     0x000024b7       0x6c .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(spi_ss.o)
+ .debug_str     0x000024ce       0x6c .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(spi_ss.o)
                                 0x23d (size before relaxing)
- .debug_str     0x00002523       0x7b .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(PROBE.o)
+ .debug_str     0x0000253a       0x7b .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(PROBE.o)
                                 0x236 (size before relaxing)
- .debug_str     0x0000259e      0x1f0 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Index_Counter_1.o)
+ .debug_str     0x000025b5      0x1f0 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Index_Counter_1.o)
                                 0x409 (size before relaxing)
- .debug_str     0x0000278e      0x3ce .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Timer_BRMS.o)
+ .debug_str     0x000027a5      0x3ce .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Timer_BRMS.o)
                                 0x683 (size before relaxing)
- .debug_str     0x00002b5c       0xea .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_brms.o)
+ .debug_str     0x00002b73       0xea .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_brms.o)
                                 0x314 (size before relaxing)
- .debug_str     0x00002c46       0x47 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_I2C_INT.o)
+ .debug_str     0x00002c5d       0x40 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(EncoderDirection.o)
+                                0x1d0 (size before relaxing)
+ .debug_str     0x00002c9d       0x47 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_I2C_INT.o)
                                 0x2be (size before relaxing)
- .debug_str     0x00002c8d       0x29 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(cyutils.o)
+ .debug_str     0x00002ce4       0x29 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(cyutils.o)
                                 0x1bd (size before relaxing)
 
 .debug_loc      0x00000000     0x2eb6
@@ -1818,7 +1838,7 @@ END GROUP
 .debug_macinfo
  *(.debug_macinfo)
 
-.debug_ranges   0x00000000      0xc10
+.debug_ranges   0x00000000      0xc28
  *(.debug_ranges)
  .debug_ranges  0x00000000       0x78 .\CortexM0\ARM_GCC_541\Debug\main.o
  .debug_ranges  0x00000078       0x50 .\CortexM0\ARM_GCC_541\Debug\INA219.o
@@ -1850,8 +1870,9 @@ END GROUP
  .debug_ranges  0x000009a8       0x88 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Index_Counter_1.o)
  .debug_ranges  0x00000a30      0x148 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Timer_BRMS.o)
  .debug_ranges  0x00000b78       0x70 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_brms.o)
- .debug_ranges  0x00000be8       0x10 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_I2C_INT.o)
- .debug_ranges  0x00000bf8       0x18 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(cyutils.o)
+ .debug_ranges  0x00000be8       0x18 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(EncoderDirection.o)
+ .debug_ranges  0x00000c00       0x10 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_I2C_INT.o)
+ .debug_ranges  0x00000c10       0x18 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(cyutils.o)
 
 .comment        0x00000000       0x6e
  .comment       0x00000000       0x6e .\CortexM0\ARM_GCC_541\Debug\main.o
@@ -1886,6 +1907,7 @@ END GROUP
  .comment       0x0000006e       0x6f .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Index_Counter_1.o)
  .comment       0x0000006e       0x6f .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(Timer_BRMS.o)
  .comment       0x0000006e       0x6f .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_brms.o)
+ .comment       0x0000006e       0x6f .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(EncoderDirection.o)
  .comment       0x0000006e       0x6f .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_I2C_INT.o)
  .comment       0x0000006e       0x6f .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(cyutils.o)
 
@@ -1976,45 +1998,47 @@ END GROUP
  .ARM.attributes
                 0x00000623       0x31 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(isr_brms.o)
  .ARM.attributes
-                0x00000654       0x21 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(CyBootAsmGnu.o)
+                0x00000654       0x31 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(EncoderDirection.o)
  .ARM.attributes
-                0x00000675       0x31 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_I2C_INT.o)
+                0x00000685       0x21 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(CyBootAsmGnu.o)
  .ARM.attributes
-                0x000006a6       0x31 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(cyutils.o)
+                0x000006a6       0x31 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(I2C_I2C_INT.o)
  .ARM.attributes
-                0x000006d7       0x1e c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_udivsi3.o)
+                0x000006d7       0x31 .\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.a(cyutils.o)
  .ARM.attributes
-                0x000006f5       0x1e c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_divsi3.o)
+                0x00000708       0x1e c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_udivsi3.o)
  .ARM.attributes
-                0x00000713       0x1e c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_dvmd_tls.o)
+                0x00000726       0x1e c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_divsi3.o)
  .ARM.attributes
-                0x00000731       0x2c c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(mulsf3.o)
+                0x00000744       0x1e c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_dvmd_tls.o)
  .ARM.attributes
-                0x0000075d       0x2c c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(fixsfsi.o)
+                0x00000762       0x2c c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(mulsf3.o)
  .ARM.attributes
-                0x00000789       0x2c c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(floatsisf.o)
+                0x0000078e       0x2c c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(fixsfsi.o)
  .ARM.attributes
-                0x000007b5       0x2c c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(muldf3.o)
+                0x000007ba       0x2c c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(floatsisf.o)
  .ARM.attributes
-                0x000007e1       0x2c c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(floatsidf.o)
+                0x000007e6       0x2c c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(muldf3.o)
  .ARM.attributes
-                0x0000080d       0x2c c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(truncdfsf2.o)
+                0x00000812       0x2c c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(floatsidf.o)
  .ARM.attributes
-                0x00000839       0x1e c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_clzsi2.o)
+                0x0000083e       0x2c c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(truncdfsf2.o)
  .ARM.attributes
-                0x00000857       0x2c c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-errno.o)
+                0x0000086a       0x1e c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m\libgcc.a(_clzsi2.o)
  .ARM.attributes
-                0x00000883       0x2c c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-exit.o)
+                0x00000888       0x2c c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-errno.o)
  .ARM.attributes
-                0x000008af       0x2c c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-impure.o)
+                0x000008b4       0x2c c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-exit.o)
  .ARM.attributes
-                0x000008db       0x2c c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-init.o)
+                0x000008e0       0x2c c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-impure.o)
  .ARM.attributes
-                0x00000907       0x2c c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-memset.o)
+                0x0000090c       0x2c c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-init.o)
  .ARM.attributes
-                0x00000933       0x2c c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtend.o
+                0x00000938       0x2c c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/../../../../arm-none-eabi/lib/armv6-m\libg_nano.a(lib_a-memset.o)
  .ARM.attributes
-                0x0000095f       0x1e c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtn.o
+                0x00000964       0x2c c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtend.o
+ .ARM.attributes
+                0x00000990       0x1e c:/program files (x86)/cypress/psoc creator/4.4/psoc creator/import/gnu/arm/5.4.1/bin/../lib/gcc/arm-none-eabi/5.4.1/armv6-m/crtn.o
 
 /DISCARD/
  *(.note.GNU-stack)

@@ -145,8 +145,6 @@
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\SPI_1_PVT.h</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\SPI_1_BOOT.h</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\SPI_1_SPI_UART_INT.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\Clock_1.c</File>
-          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\Clock_1.h</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\phiB.c</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\phiB.h</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\phiB_aliases.h</File>
@@ -214,6 +212,11 @@
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\isr_brms.h</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\Clock_5kHz.c</File>
           <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\Clock_5kHz.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\EncoderDirection.h</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\EncoderDirection.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\EncoderDirection_PM.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\Encoder_Clock.c</File>
+          <File BuildType="BUILD" Toolchain="">Generated_Source\PSoC4\Encoder_Clock.h</File>
         </Files>
       </Folder>
       <Folder BuildType="EXCLUDE" Path=".\codegentemp">

@@ -6,7 +6,7 @@
 
 #Build Date:         Sep  9 2019 11:47:43
 
-#File Generated:     Apr 11 2023 12:55:16
+#File Generated:     Jul 14 2023 10:44:34
 
 #Purpose:            
 
@@ -47,7 +47,7 @@ Design Statistics after Packing
     Number of Combinational MCs 	:	9
     Number of Sequential MCs    	:	15
     Number of DPs               	:	4
-    Number of Controls          	:	2
+    Number of Controls          	:	3
     Number of Status            	:	2
     Number of SyncCells         	:	0
     Number of count7cells       	:	0
@@ -77,8 +77,6 @@ analysis after routing.
                      Clock Summary 
 ======================================================================
 Number of clocks: 14
-Clock: Clock_1              | Frequency:  32.2 MHz | Target:  24.0 MHz
-Clock: Clock_1(FFB)         | Frequency: N/A       | Target:  24.0 MHz
 Clock: Clock_5kHz           | Frequency: N/A       | Target:   0.0 MHz
 Clock: Clock_5kHz(FFB)      | Frequency: N/A       | Target:   0.0 MHz
 Clock: CyHFClk              | Frequency: N/A       | Target:  48.0 MHz
@@ -87,6 +85,8 @@ Clock: CyIMO                | Frequency: N/A       | Target:  48.0 MHz
 Clock: CyLFClk              | Frequency: N/A       | Target:   0.0 MHz
 Clock: CyRouted1            | Frequency: N/A       | Target:  48.0 MHz
 Clock: CySysClk             | Frequency: N/A       | Target:  48.0 MHz
+Clock: Encoder_Clock        | Frequency:  32.2 MHz | Target:  24.0 MHz
+Clock: Encoder_Clock(FFB)   | Frequency: N/A       | Target:  24.0 MHz
 Clock: I2C_SCBCLK           | Frequency: N/A       | Target:   1.6 MHz
 Clock: I2C_SCBCLK(FFB)      | Frequency: N/A       | Target:   1.6 MHz
 Clock: SPI_1_SCBCLK         | Frequency: N/A       | Target:  48.0 MHz
@@ -103,8 +103,6 @@ Phase 7
                      Clock Summary 
 ======================================================================
 Number of clocks: 14
-Clock: Clock_1              | Frequency:  32.2 MHz | Target:  24.0 MHz
-Clock: Clock_1(FFB)         | Frequency: N/A       | Target:  24.0 MHz
 Clock: Clock_5kHz           | Frequency: N/A       | Target:   0.0 MHz
 Clock: Clock_5kHz(FFB)      | Frequency: N/A       | Target:   0.0 MHz
 Clock: CyHFClk              | Frequency: N/A       | Target:  48.0 MHz
@@ -113,6 +111,8 @@ Clock: CyIMO                | Frequency: N/A       | Target:  48.0 MHz
 Clock: CyLFClk              | Frequency: N/A       | Target:   0.0 MHz
 Clock: CyRouted1            | Frequency: N/A       | Target:  48.0 MHz
 Clock: CySysClk             | Frequency: N/A       | Target:  48.0 MHz
+Clock: Encoder_Clock        | Frequency:  32.2 MHz | Target:  24.0 MHz
+Clock: Encoder_Clock(FFB)   | Frequency: N/A       | Target:  24.0 MHz
 Clock: I2C_SCBCLK           | Frequency: N/A       | Target:   1.6 MHz
 Clock: I2C_SCBCLK(FFB)      | Frequency: N/A       | Target:   1.6 MHz
 Clock: SPI_1_SCBCLK         | Frequency: N/A       | Target:  48.0 MHz
@@ -127,7 +127,7 @@ Final Design Statistics
     Number of Combinational MCs 	:	9
     Number of Sequential MCs    	:	15
     Number of DPs               	:	4
-    Number of Controls          	:	2
+    Number of Controls          	:	3
     Number of Status            	:	2
     Number of SyncCells         	:	0
     Number of count7cells       	:	0
@@ -152,8 +152,6 @@ analysis after routing.
                      Clock Summary 
 ======================================================================
 Number of clocks: 14
-Clock: Clock_1              | Frequency:  32.8 MHz | Target:  26.3 MHz
-Clock: Clock_1(FFB)         | Frequency: N/A       | Target:  24.0 MHz
 Clock: Clock_5kHz           | Frequency: N/A       | Target:   0.0 MHz
 Clock: Clock_5kHz(FFB)      | Frequency: N/A       | Target:   0.0 MHz
 Clock: CyHFClk              | Frequency: N/A       | Target:  48.0 MHz
@@ -162,6 +160,8 @@ Clock: CyIMO                | Frequency: N/A       | Target:  48.0 MHz
 Clock: CyLFClk              | Frequency: N/A       | Target:   0.0 MHz
 Clock: CyRouted1            | Frequency: N/A       | Target:  48.0 MHz
 Clock: CySysClk             | Frequency: N/A       | Target:  48.0 MHz
+Clock: Encoder_Clock        | Frequency:  32.8 MHz | Target:  26.3 MHz
+Clock: Encoder_Clock(FFB)   | Frequency: N/A       | Target:  24.0 MHz
 Clock: I2C_SCBCLK           | Frequency: N/A       | Target:   1.6 MHz
 Clock: I2C_SCBCLK(FFB)      | Frequency: N/A       | Target:   1.6 MHz
 Clock: SPI_1_SCBCLK         | Frequency: N/A       | Target:  48.0 MHz
@@ -176,5 +176,5 @@ D2088: Phase 8, elapsed time : 0.0 (sec)
 
 D2054: Placement of the design completed successfully
 
-I2076: Total run-time: 0.4 sec.
+I2076: Total run-time: 0.7 sec.
 
