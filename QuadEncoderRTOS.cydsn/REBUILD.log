@@ -1,4 +1,4 @@
---------------- Rebuild Started: 07/14/2023 10:44:24 Project: QuadEncoderRTOS, Configuration: ARM GCC 5.4-2016-q2-update Debug ---------------
+--------------- Rebuild Started: 09/08/2023 12:07:49 Project: QuadEncoderRTOS, Configuration: ARM GCC 5.4-2016-q2-update Debug ---------------
 Deleting file ".\CortexM0\ARM_GCC_541\Debug\main.o"
 Deleting file ".\CortexM0\ARM_GCC_541\Debug\INA219.o"
 Deleting file ".\CortexM0\ARM_GCC_541\Debug\pid.o"
@@ -108,10 +108,6 @@ Cleanup...
 arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I.\FreeRTOS -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/main.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c main.c -o .\CortexM0\ARM_GCC_541\Debug\main.o
 arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I.\FreeRTOS -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/INA219.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c INA219.c -o .\CortexM0\ARM_GCC_541\Debug\INA219.o
 arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I.\FreeRTOS -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/pid.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c pid.c -o .\CortexM0\ARM_GCC_541\Debug\pid.o
-pid.c: In function 'PID_UpdateValues':
-pid.c:50:22: warning: variable 'dposition' set but not used [-Wunused-but-set-variable]
-     volatile int32_t dposition;
-                      ^
 arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I.\FreeRTOS -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/cyfitter_cfg.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c Generated_Source\PSoC4\cyfitter_cfg.c -o .\CortexM0\ARM_GCC_541\Debug\cyfitter_cfg.o
 arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I.\FreeRTOS -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/cymetadata.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c Generated_Source\PSoC4\cymetadata.c -o .\CortexM0\ARM_GCC_541\Debug\cymetadata.o
 arm-none-eabi-gcc.exe -mcpu=cortex-m0 -mthumb -I.\FreeRTOS -I. -IGenerated_Source\PSoC4 -Wa,-alh=.\CortexM0\ARM_GCC_541\Debug/I2C.lst -g -D DEBUG -Wall -ffunction-sections -ffat-lto-objects -Og -c Generated_Source\PSoC4\I2C.c -o .\CortexM0\ARM_GCC_541\Debug\I2C.o
@@ -198,6 +194,6 @@ No ELF section .cychecksum found, creating one
 Application checksum calculated and stored in ELF section .cychecksum
 Checksum calculated and stored in ELF section .cymeta
 cyelftool.exe -S C:\Users\prichards\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\CortexM0\ARM_GCC_541\Debug\QuadEncoderRTOS.elf
-Flash used: 8976 of 32768 bytes (27.4%).
-SRAM used: 1376 of 4096 bytes (33.6%). Stack: 512 bytes. Heap: 128 bytes.
---------------- Rebuild Succeeded: 07/14/2023 10:45:05 ---------------
+Flash used: 10960 of 32768 bytes (33.4%).
+SRAM used: 1408 of 4096 bytes (34.4%). Stack: 512 bytes. Heap: 128 bytes.
+--------------- Rebuild Succeeded: 09/08/2023 12:08:29 ---------------

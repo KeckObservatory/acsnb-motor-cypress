@@ -13,7 +13,7 @@
 <v>Output</v>
 </TreeKeys>
 <TreeStates>
-<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\INDEX_OUT">
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
 <ExpandedNodeIds>
 <v>QEncRT</v>
 <v>QEncRT\QuadEncoderRTOS</v>
@@ -38,6 +38,21 @@
 <v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4</v>
 </ExpandedNodeIds>
 <VisibleNodeIds>
+<v>QEncRT</v>
+<v>QEncRT\QuadEncoderRTOS</v>
+<v>QEncRT\QuadEncoderRTOS\TopDesign</v>
+<v>QEncRT\QuadEncoderRTOS\QuadEncoderRTOS.cydwr</v>
+<v>QEncRT\QuadEncoderRTOS\QuadEncoderRTOS.cydwr\Pins</v>
+<v>QEncRT\QuadEncoderRTOS\QuadEncoderRTOS.cydwr\Analog</v>
+<v>QEncRT\QuadEncoderRTOS\QuadEncoderRTOS.cydwr\Clocks</v>
+<v>QEncRT\QuadEncoderRTOS\QuadEncoderRTOS.cydwr\Interrupts</v>
+<v>QEncRT\QuadEncoderRTOS\QuadEncoderRTOS.cydwr\System</v>
+<v>QEncRT\QuadEncoderRTOS\QuadEncoderRTOS.cydwr\Directives</v>
+<v>QEncRT\QuadEncoderRTOS\QuadEncoderRTOS.cydwr\Flash Security</v>
+<v>QEncRT\QuadEncoderRTOS\Header Files</v>
+<v>QEncRT\QuadEncoderRTOS\Header Files\INA219.h</v>
+<v>QEncRT\QuadEncoderRTOS\Header Files\pid.h</v>
+<v>QEncRT\QuadEncoderRTOS\Source Files</v>
 <v>QEncRT\QuadEncoderRTOS\Source Files\INA219.c</v>
 <v>QEncRT\QuadEncoderRTOS\Source Files\main.c</v>
 <v>QEncRT\QuadEncoderRTOS\Source Files\old_code.txt</v>
@@ -61,25 +76,6 @@
 <v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\I2C_sda</v>
 <v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\Index_Counter_1</v>
 <v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\INDEX_IN</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\INDEX_OUT</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\isr_brms</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\isr_home</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\isr_rst_encoder</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\isr_spi_ss</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\LED</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\phiA</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\phiB</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\PROBE</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\PWM_1</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\PWM_OUT</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\Reset_Encoder</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\SPI_1</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\SPI_1_SCB_IRQ</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\SPI_1_SCBCLK</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\spi_clk</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\spi_miso</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\spi_mosi</v>
-<v>QEncRT\QuadEncoderRTOS\Generated_Source\PSoC4\spi_ss</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 <CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="QEncRT">
@@ -194,46 +190,6 @@
 <VisibleNodeIds>
 <v>QEncRT</v>
 <v>QEncRT\QuadEncoderRTOS</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\Clock_5kHz.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\Cm0Start.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\Counter_1.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\Counter_1_PM.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\cy_em_eeprom.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\CyBootAsmGnu.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\cyfitter_cfg.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\CyFlash.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\CyLFClk.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\CyLib.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\cymetadata.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\cyPm.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\cyutils.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\Direction.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\Direction_PM.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\Encoder_Clock.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\EncoderDirection.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\EncoderDirection_PM.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\HOME_IN.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\HOME_IN_PM.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\HOME_OUT.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\HOME_OUT_PM.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_BOOT.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_I2C.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_I2C_BOOT.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_I2C_INT.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_I2C_MASTER.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_PM.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_SCB_IRQ.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_SCBCLK.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_scl.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_scl_PM.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_sda.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\I2C_sda_PM.lst</v>
-<v>QEncRT\QuadEncoderRTOS\CortexM0\ARM_GCC_541\Debug\Listing Files\INA219.lst</v>
 </VisibleNodeIds>
 </CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
 </TreeStates>
@@ -338,7 +294,7 @@
   Copyright (c) 2001-2016 Actipro Software LLC.  All rights reserved.
   http://www.actiprosoftware.com
 
---><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="1632, 805" SelectedTabbedMdiWindow="95494b09-3785-4440-b21d-aafd790966cc"><DocumentWindow Key="C:\Users\prichards\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\main.c" Guid="79c47b74-6377-4305-8835-de16a17f947e" /><DocumentWindow Key="C:\Users\prichards\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\pid.c" Guid="95494b09-3785-4440-b21d-aafd790966cc" /><DocumentWindow Key="C:\Users\prichards\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\pid.h" Guid="004bfc3a-b9d1-4f5b-9734-162c528f4507" /><DocumentWindow Key="C:\Users\prichards\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\TopDesign\TopDesign.cysch" Guid="1e07881c-bb89-4b3d-b9d5-4666f7774095" /><DocumentWindow Key="C:\Users\prichards\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\QuadEncoderRTOS.cydwr" Guid="003a7efe-a097-4a9e-9cb7-380c5c08dc7b" /><DocumentWindow Key="C:\Users\prichards\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\INA219.c" Guid="17e1a490-991e-42d7-b731-ab84ab607620" /><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="525addd1-d875-45f6-8608-a6eb08ec165e" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
+--><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="1229, 746" SelectedTabbedMdiWindow="79c47b74-6377-4305-8835-de16a17f947e"><DocumentWindow Key="C:\Users\prichards\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\main.c" Guid="79c47b74-6377-4305-8835-de16a17f947e" /><DocumentWindow Key="C:\Users\prichards\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\pid.c" Guid="95494b09-3785-4440-b21d-aafd790966cc" /><DocumentWindow Key="C:\Users\prichards\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\pid.h" Guid="004bfc3a-b9d1-4f5b-9734-162c528f4507" /><DocumentWindow Key="C:\Users\prichards\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\TopDesign\TopDesign.cysch" Guid="1e07881c-bb89-4b3d-b9d5-4666f7774095" /><DocumentWindow Key="C:\Users\prichards\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\QuadEncoderRTOS.cydwr" Guid="003a7efe-a097-4a9e-9cb7-380c5c08dc7b" /><DocumentWindow Key="C:\Users\prichards\proj\acsnb-motor-cypress\QuadEncoderRTOS.cydsn\INA219.c" Guid="17e1a490-991e-42d7-b731-ab84ab607620" /><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="525addd1-d875-45f6-8608-a6eb08ec165e" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
 <config v="" />
 <AutoUpdate v="true" />
 </CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21>

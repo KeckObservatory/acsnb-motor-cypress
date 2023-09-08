@@ -47,9 +47,7 @@ int32_t PID_UpdateValues(int32_t setpoint, int32_t position) {
     volatile int32_t last_error;
     volatile int32_t Qmax_iterm;
     volatile int32_t Qmax_output;
-    volatile int32_t dposition;
     volatile int32_t output;
-    static int32_t last_position;
     
     /* Scale the values */
     Qmax_iterm = max_iterm * pid_scale;
@@ -77,11 +75,7 @@ int32_t PID_UpdateValues(int32_t setpoint, int32_t position) {
         iterm = -Qmax_iterm;
     }
     
-    /* Calculate the error term */
-    dposition = (position - last_position);
-
     /* Compute PID Output */
-    //output = (Kp * error) + iterm - (Kd * dposition);
     output = (Kp * error) + iterm + (Kd * (error - last_error));
     
     /* Clip the output */
@@ -94,8 +88,7 @@ int32_t PID_UpdateValues(int32_t setpoint, int32_t position) {
     /* Scale the output back down */
     output = output / pid_scale;
     
-    /* Remember some variables for next time */
-    last_position = position;
+    /* Remember error for next time */
     last_error = error;
     
     return output;    

@@ -27,10 +27,10 @@
 #include "pid.h"
 #include "INA219.h"
 
-/* Firmware revision as of 2023-04-07 */
+/* Firmware revision as of 2023-09-08 */
 #define FIRMWARE_REV_0 0
 #define FIRMWARE_REV_1 2
-#define FIRMWARE_REV_2 1
+#define FIRMWARE_REV_2 2
 
 /* Debugging - undefine this for a production system that needs to watchdog */
 #define DEBUG_PROBE_ATTACHED 1
@@ -966,29 +966,8 @@ int main(void) {
     ***********************************************************************/
     while (1) {
 
-        //TODO: Enable/disable this mechanism based on some input from the SPI master,
-        //      which might be the ACS test set, or the beagle bone node box.  Disable it for
-        //      now to prevent multi-mastering of the I2C bus, which doesn't work.
-        /*
-        PROBE_Write(1);
+        /* Read the current */
         MotorCurrentRead();
-        PROBE_Write(0);
-        */
-        
-        /*
-        if (UptimeMicroseconds > (LastUptimeMicroseconds + 500)) {
-            LastUptimeMicroseconds = UptimeMicroseconds;
-            
-            if (toggle) {
-                PROBE_Write(1);
-                toggle = false;
-            } else {
-                PROBE_Write(0);
-                toggle = true;
-            }
-        }
-        */
-        
         
         /* Use the LED as a heartbeat */
         if (UptimeSeconds % 2) {
@@ -997,7 +976,8 @@ int main(void) {
             LED_Write(0);
         } 
         
-        // Delay 10ms before next loop iteration
+        /* Delay 10ms before next loop iteration.  Tune this value to regulate
+        how often we read the motor current */ 
         CyDelay(10);         
         
         
@@ -1006,7 +986,9 @@ int main(void) {
     /* Every loop, refresh the counter of the watchdog to indicate the system is still alive
        and not stalled out in some interrupt somewhre.  Were the BRMS to stop working or the 
        motion thread to die, the CPU will be reset after 2 seconds. */
-////    WDT_COUNT1_REFRESH();        
+#ifndef DEBUG_PROBE_ATTACHED    
+        WDT_COUNT1_REFRESH();        
+#endif
     /* ------------------------------------------------------------------------------------ */
         
     }
