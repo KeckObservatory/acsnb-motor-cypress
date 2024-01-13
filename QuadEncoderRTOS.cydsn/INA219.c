@@ -141,7 +141,8 @@ int16_t getCurrent_raw(uint32 INA_addr)  {
     if (errStatus != I2C_I2C_MSTR_NO_ERROR)
         return 0;
 
-    CyDelay(1u);
+    //TODO 20230908 pmr - why was there a delay here?!?!?!
+    //CyDelay(1u);
     
     // Reassemble raw/unscaled current value from the buffer
     value = (int16_t) ((I2C_INA_buff[0] << 8) | I2C_INA_buff[1]);

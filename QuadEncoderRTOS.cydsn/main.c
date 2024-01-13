@@ -376,7 +376,8 @@ void MotorCurrentRead(void) {
     //TODO: Convert this to integer math
     float c;
     
-    c = getCurrent_mA(INA219_I2C_ADDR);
+    //c = getCurrent_mA(INA219_I2C_ADDR);
+    c = getCurrent_raw(INA219_I2C_ADDR);
     
     /* Assign the global MotorCurrent value */
     MotorCurrent = (int16_t) c;       
@@ -955,9 +956,9 @@ int main(void) {
   
     /* Set the encoder direction sense based on the drive polarity */
     if (DRIVE_POLARITY == 1) {
-        EncoderDirection_Write(1);
-    } else {
         EncoderDirection_Write(0);
+    } else {
+        EncoderDirection_Write(1);
     }
     
     /***********************************************************************
